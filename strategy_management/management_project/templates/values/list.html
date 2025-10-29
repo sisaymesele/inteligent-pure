@@ -5,6 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Form Section (Left) -->
+        {% if permissions.values_create or permissions.values_edit %}
         <div class="col-lg-4 col-md-12 mb-4">
             <div class="p-3 border rounded shadow-lg" id="form-container">
                 <h4>Values Form</h4>
@@ -61,9 +62,11 @@
                 </form>
             </div>
         </div>
+        {% endif %}
 
         <!-- Values List Section (Right) -->
-        <div class="col-lg-8 col-md-12 mb-4">
+        {% if permissions.values_view %}
+        <div class="{% if permissions.values_create or permissions.values_edit %}col-lg-8{% else %}col-12{% endif %} col-md-12 mb-4">
             <div class="card mb-4">
                 <div class="table-responsive" style="max-height: 70vh; overflow-y: auto;">
                     <div style="overflow-x: auto; max-width: 100%;">
@@ -72,8 +75,10 @@
                                 <tr>
                                     <th>Category</th>
                                     <th>Value</th>
+                                    {% if permissions.values_edit or permissions.values_delete %}
                                     <th>Update</th>
                                     <th>Delete</th>
+                                    {% endif %}
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,7 +86,9 @@
                                 <tr>
                                     <td>{{ value.get_category }}</td>
                                     <td>{{ value.get_values_display }}</td>
+                                    {% if permissions.values_edit or permissions.values_delete %}
                                     <td>
+                                        {% if permissions.values_edit %}
                                         <a class="btn btn-warning"
                                            hx-get="{% url 'update_values' value.pk %}"
                                            hx-trigger="click"
@@ -89,8 +96,10 @@
                                            hx-swap="outerHTML">
                                             Update
                                         </a>
+                                        {% endif %}
                                     </td>
                                     <td>
+                                        {% if permissions.values_delete %}
                                         <a class="btn btn-danger"
                                            hx-get="{% url 'delete_values' value.pk %}"
                                            hx-trigger="click"
@@ -99,16 +108,18 @@
                                            hx-push-url="true">
                                             Delete
                                         </a>
+                                        {% endif %}
                                     </td>
+                                    {% endif %}
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 

@@ -9,27 +9,30 @@ from django.contrib.auth.decorators import login_required
 from management_project.models import StrategicReport, StrategicActionPlan, StrategicCycle
 from management_project.forms import StrategicReportForm
 
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from io import BytesIO
 
-#chart
-from django.shortcuts import render
-from django.db.models import Avg, Count
+# chart
+from django.db.models import Avg, Count, F
+from django.db.models.functions import TruncMonth
+from django.utils import timezone
+from datetime import datetime
+from collections import defaultdict
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.offline import plot
-from collections import defaultdict
-from datetime import datetime
 from plotly.colors import qualitative
 
+from management_project.services.permission import role_required, get_user_permissions
 
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_report', action='view')
 def strategy_report_by_cycle_list(request):
     """List distinct strategic cycles for the current organization with all info."""
+    permissions = get_user_permissions(request.user)
     cycles_qs = StrategicCycle.objects.filter(
         organization_name=request.user.organization_name
     ).order_by('-start_date')
@@ -51,13 +54,16 @@ def strategy_report_by_cycle_list(request):
         })
 
     return render(request, 'strategic_report/cycle_list.html', {
-        'strategic_cycles': cycles
+        'strategic_cycles': cycles,
+        'permissions': permissions,
     })
 
 
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_report', action='view')
 def strategic_report_list(request, cycle_slug):
     """List all strategic reports by cycle, grouped by action plan."""
+    permissions = get_user_permissions(request.user)
     strategy_by_cycle = get_object_or_404(
         StrategicCycle,
         slug=cycle_slug,
@@ -96,11 +102,15 @@ def strategic_report_list(request, cycle_slug):
         "page_obj": page_obj,
         "form": form,
         "search_query": search_query,
+        "permissions": permissions,
     }
     return render(request, "strategic_report/list_by_cycle.html", context)
 
+
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_report', action='view')
 def strategic_report_detail(request, cycle_slug, pk):
+    permissions = get_user_permissions(request.user)
     # Get the strategic cycle by slug
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
 
@@ -114,12 +124,15 @@ def strategic_report_detail(request, cycle_slug, pk):
 
     return render(request, 'strategic_report/detail.html', {
         'strategy_by_cycle': strategy_by_cycle,
-        'strategic_report': strategic_report
+        'strategic_report': strategic_report,
+        'permissions': permissions,
     })
 
 
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='strategic_report', action='create')
 def create_strategic_report(request, cycle_slug):
+    permissions = get_user_permissions(request.user)
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
 
     if request.method == "POST":
@@ -140,11 +153,14 @@ def create_strategic_report(request, cycle_slug):
         "submit_button_text": "Create Strategic Report",
         "back_url": reverse("strategic_report_list", kwargs={"cycle_slug": strategy_by_cycle.slug}),
         "strategy_by_cycle": strategy_by_cycle,
+        "permissions": permissions,
     })
 
 
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='strategic_report', action='edit')
 def update_strategic_report(request, cycle_slug, pk):
+    permissions = get_user_permissions(request.user)
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
     report = get_object_or_404(
         StrategicReport,
@@ -171,11 +187,14 @@ def update_strategic_report(request, cycle_slug, pk):
         "back_url": reverse("strategic_report_list", kwargs={"cycle_slug": strategy_by_cycle.slug}),
         "strategy_by_cycle": strategy_by_cycle,
         "edit_strategic_report": report,
+        "permissions": permissions,
     })
 
 
 @login_required
+@role_required(['owner', 'admin'], model_name='strategic_report', action='delete')
 def delete_strategic_report(request, cycle_slug, pk):
+    permissions = get_user_permissions(request.user)
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
     report = get_object_or_404(
         StrategicReport,
@@ -192,8 +211,8 @@ def delete_strategic_report(request, cycle_slug, pk):
     return render(request, "strategic_report/delete_confirm.html", {
         "strategic_report": report,
         "strategy_by_cycle": strategy_by_cycle,
+        "permissions": permissions,
     })
-
 
 
 def break_text_every_3_words(text):
@@ -205,8 +224,10 @@ def break_text_every_3_words(text):
 
 
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_report', action='view')
 def export_strategic_report_to_excel(request, cycle_slug):
     """Export Strategic Reports with title, colored headers, and word breaks."""
+    permissions = get_user_permissions(request.user)
 
     # 1️⃣ Get the cycle
     cycle = get_object_or_404(
@@ -325,20 +346,12 @@ def export_strategic_report_to_excel(request, cycle_slug):
     response["Content-Disposition"] = f'attachment; filename="{filename}"'
     return response
 
-#
-from django.db.models import Count, Avg, F
-from django.db.models.functions import TruncMonth
-from django.utils import timezone
-from datetime import datetime
-from collections import defaultdict
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-from plotly.offline import plot
-
 
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_report', action='view')
 def strategic_report_chart(request):
     """Complete strategic dashboard using Django aggregates and Plotly."""
+    permissions = get_user_permissions(request.user)
 
     # Color palette for charts
     COLORS = ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796',
@@ -954,550 +967,9 @@ def strategic_report_chart(request):
         # Filter states
         'cycle_filter_name': strategic_cycles.get(id=cycle_filter).name if cycle_filter != "all" else "All Cycles",
         'body_filter_name': body_filter if body_filter != "all" else "All Bodies",
+
+        # Permissions
+        'permissions': permissions,
     }
 
     return render(request, 'strategic_report/chart.html', context)
-#
-#
-# from django.db.models import Count, Avg, F
-# from django.db.models.functions import TruncMonth
-# from django.utils import timezone
-# from datetime import datetime
-# from collections import defaultdict
-# import plotly.graph_objects as go
-# from plotly.subplots import make_subplots
-# from plotly.offline import plot
-#
-# @login_required
-# def strategic_report_chart(request):
-#     """Complete strategic dashboard using Django aggregates and Plotly."""
-#
-#     # Color palette for charts
-#     COLORS = ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796',
-#               '#5a5c69', '#6f42c1', '#e83e8c', '#fd7e14', '#20c997', '#6610f2']
-#
-#     # Get filters
-#     cycle_filter = request.GET.get("strategic_cycle", "all")
-#     body_filter = request.GET.get("responsible_body", "all")
-#
-#     # Base queryset
-#     reports = StrategicReport.objects.select_related(
-#         "action_plan__strategic_cycle",
-#         "action_plan__strategy_hierarchy"
-#     ).prefetch_related("action_plan__responsible_bodies").filter(
-#         organization_name=request.user.organization_name
-#     )
-#
-#     # Apply filters
-#     if cycle_filter != "all":
-#         reports = reports.filter(action_plan__strategic_cycle_id=cycle_filter)
-#     if body_filter != "all":
-#         reports = reports.filter(action_plan__responsible_bodies__stakeholder_name=body_filter)
-#
-#     # Get filter options
-#     strategic_cycles = StrategicCycle.objects.filter(
-#         organization_name=request.user.organization_name
-#     )
-#     responsible_bodies = list(reports.values_list(
-#         'action_plan__responsible_bodies__stakeholder_name', flat=True
-#     ).distinct().exclude(
-#         action_plan__responsible_bodies__stakeholder_name__isnull=True
-#     ).order_by('action_plan__responsible_bodies__stakeholder_name'))
-#
-#     # 1. CORE METRICS & COUNTS
-#     total_reports = reports.count()
-#
-#     status_counts = list(reports.values('status').annotate(
-#         count=Count('id')
-#     ).order_by('-count'))
-#
-#     # Counts by cycle and body
-#     cycle_counts = list(reports.values(
-#         'action_plan__strategic_cycle__name'
-#     ).annotate(count=Count('id')).order_by('-count')) if cycle_filter == "all" else []
-#
-#     body_counts = list(reports.values(
-#         'action_plan__responsible_bodies__stakeholder_name'
-#     ).annotate(count=Count('id')).filter(
-#         action_plan__responsible_bodies__stakeholder_name__isnull=False
-#     ).order_by('-count')) if body_filter == "all" else []
-#
-#     overall_metrics = reports.aggregate(
-#         achievement=Avg('percent_achieved'),
-#         weighted_score=Avg('weighted_score')
-#     )
-#
-#     # 2. MONTHLY PERFORMANCE
-#     monthly_data = list(reports.filter(
-#         action_plan__strategic_cycle__end_date__isnull=False
-#     ).annotate(
-#         month=TruncMonth('action_plan__strategic_cycle__end_date')
-#     ).values('month').annotate(
-#         achievement=Avg('percent_achieved'),
-#         weighted_score=Avg('weighted_score'),
-#         report_count=Count('id')
-#     ).order_by('month'))
-#
-#     monthly_metrics = []
-#     for metric in monthly_data:
-#         if metric['month']:
-#             monthly_metrics.append({
-#                 'month': metric['month'].strftime("%b %Y"),
-#                 'full_date': metric['month'].strftime("%B %d, %Y"),
-#                 'achievement': metric['achievement'] or 0,
-#                 'weighted_score': metric['weighted_score'] or 0,
-#                 'report_count': metric['report_count']
-#             })
-#
-#     # 3. STAKEHOLDER PERFORMANCE
-#     stakeholder_monthly_data = list(reports.filter(
-#         action_plan__strategic_cycle__end_date__isnull=False,
-#         action_plan__responsible_bodies__isnull=False
-#     ).annotate(
-#         month=TruncMonth('action_plan__strategic_cycle__end_date'),
-#         stakeholder=F('action_plan__responsible_bodies__stakeholder_name')
-#     ).values('month', 'stakeholder').annotate(
-#         achievement=Avg('percent_achieved'),
-#         weighted_score=Avg('weighted_score'),
-#         report_count=Count('id')
-#     ).order_by('month', 'stakeholder'))
-#
-#     # Organize stakeholder data
-#     stakeholder_by_month = defaultdict(dict)
-#     stakeholder_performance = defaultdict(lambda: {'achievement': [], 'count': 0, 'monthly': {}})
-#
-#     for item in stakeholder_monthly_data:
-#         month_key = item['month'].strftime("%b %Y") if item['month'] else "Unknown"
-#         stakeholder = item['stakeholder']
-#
-#         # For heatmap and trends
-#         stakeholder_by_month[month_key][stakeholder] = item['achievement'] or 0
-#
-#         # For performance tracking
-#         stakeholder_performance[stakeholder]['achievement'].append(item['achievement'] or 0)
-#         stakeholder_performance[stakeholder]['count'] += item['report_count']
-#         stakeholder_performance[stakeholder]['monthly'][month_key] = item['achievement'] or 0
-#
-#     # Calculate averages
-#     for stakeholder in stakeholder_performance:
-#         achievements = stakeholder_performance[stakeholder]['achievement']
-#         stakeholder_performance[stakeholder]['avg_achievement'] = sum(achievements) / len(
-#             achievements) if achievements else 0
-#
-#     # REMOVED: Top stakeholders limit - show all stakeholders
-#     all_stakeholders = sorted(
-#         [(s, data) for s, data in stakeholder_performance.items()],
-#         key=lambda x: x[1]['count'], reverse=True
-#     )
-#
-#     # 4. OBJECTIVE & KPI PERFORMANCE
-#     # Monthly objective data
-#     objective_monthly_data = list(reports.filter(
-#         action_plan__strategic_cycle__end_date__isnull=False,
-#         action_plan__strategy_hierarchy__objective__isnull=False
-#     ).annotate(
-#         month=TruncMonth('action_plan__strategic_cycle__end_date'),
-#         objective=F('action_plan__strategy_hierarchy__objective')
-#     ).values('month', 'objective').annotate(
-#         achievement=Avg('percent_achieved'),
-#         weighted_score=Avg('weighted_score'),
-#         report_count=Count('id')
-#     ).order_by('month', 'objective'))
-#
-#     # Organize objective data
-#     objective_by_month = defaultdict(dict)
-#     objective_performance = defaultdict(
-#         lambda: {'achievement': [], 'weighted': [], 'count': 0, 'monthly_achievement': {}, 'monthly_weighted': {}})
-#
-#     for item in objective_monthly_data:
-#         month_key = item['month'].strftime("%b %Y") if item['month'] else "Unknown"
-#         objective = item['objective']
-#
-#         objective_by_month[month_key][objective] = item['achievement'] or 0
-#
-#         objective_performance[objective]['achievement'].append(item['achievement'] or 0)
-#         objective_performance[objective]['weighted'].append(item['weighted_score'] or 0)
-#         objective_performance[objective]['count'] += item['report_count']
-#         objective_performance[objective]['monthly_achievement'][month_key] = item['achievement'] or 0
-#         objective_performance[objective]['monthly_weighted'][month_key] = item['weighted_score'] or 0
-#
-#     # Calculate averages
-#     for objective in objective_performance:
-#         achievements = objective_performance[objective]['achievement']
-#         weighteds = objective_performance[objective]['weighted']
-#         objective_performance[objective]['avg_achievement'] = sum(achievements) / len(
-#             achievements) if achievements else 0
-#         objective_performance[objective]['avg_weighted'] = sum(weighteds) / len(weighteds) if weighteds else 0
-#
-#     # REMOVED: Top objectives limit - show all objectives
-#     all_objectives = sorted(
-#         [(obj, data) for obj, data in objective_performance.items()],
-#         key=lambda x: x[1]['count'], reverse=True
-#     )
-#
-#     # Monthly KPI data
-#     kpi_monthly_data = list(reports.filter(
-#         action_plan__strategic_cycle__end_date__isnull=False,
-#         action_plan__strategy_hierarchy__kpi__isnull=False
-#     ).annotate(
-#         month=TruncMonth('action_plan__strategic_cycle__end_date'),
-#         kpi=F('action_plan__strategy_hierarchy__kpi')
-#     ).values('month', 'kpi').annotate(
-#         achievement=Avg('percent_achieved'),
-#         weighted_score=Avg('weighted_score'),
-#         report_count=Count('id')
-#     ).order_by('month', 'kpi'))
-#
-#     # Organize KPI data
-#     kpi_by_month = defaultdict(dict)
-#     kpi_performance = defaultdict(
-#         lambda: {'achievement': [], 'weighted': [], 'count': 0, 'monthly_achievement': {}, 'monthly_weighted': {}})
-#
-#     for item in kpi_monthly_data:
-#         month_key = item['month'].strftime("%b %Y") if item['month'] else "Unknown"
-#         kpi = item['kpi']
-#
-#         kpi_by_month[month_key][kpi] = item['achievement'] or 0
-#
-#         kpi_performance[kpi]['achievement'].append(item['achievement'] or 0)
-#         kpi_performance[kpi]['weighted'].append(item['weighted_score'] or 0)
-#         kpi_performance[kpi]['count'] += item['report_count']
-#         kpi_performance[kpi]['monthly_achievement'][month_key] = item['achievement'] or 0
-#         kpi_performance[kpi]['monthly_weighted'][month_key] = item['weighted_score'] or 0
-#
-#     # Calculate averages
-#     for kpi in kpi_performance:
-#         achievements = kpi_performance[kpi]['achievement']
-#         weighteds = kpi_performance[kpi]['weighted']
-#         kpi_performance[kpi]['avg_achievement'] = sum(achievements) / len(achievements) if achievements else 0
-#         kpi_performance[kpi]['avg_weighted'] = sum(weighteds) / len(weighteds) if weighteds else 0
-#
-#     # REMOVED: Top KPIs limit - show all KPIs
-#     all_kpis = sorted(
-#         [(kpi, data) for kpi, data in kpi_performance.items()],
-#         key=lambda x: x[1]['count'], reverse=True
-#     )
-#
-#     # 5. FILTER-SPECIFIC DATA
-#     objectives_by_body = []
-#     kpis_by_body = []
-#
-#     if body_filter != "all":
-#         objectives_by_body = list(reports.filter(
-#             action_plan__responsible_bodies__stakeholder_name=body_filter,
-#             action_plan__strategy_hierarchy__objective__isnull=False
-#         ).values(
-#             'action_plan__strategy_hierarchy__objective'
-#         ).annotate(
-#             achievement=Avg('percent_achieved'),
-#             weighted_score=Avg('weighted_score'),
-#             report_count=Count('id')
-#         ).order_by('-report_count'))
-#
-#         kpis_by_body = list(reports.filter(
-#             action_plan__responsible_bodies__stakeholder_name=body_filter,
-#             action_plan__strategy_hierarchy__kpi__isnull=False
-#         ).values(
-#             'action_plan__strategy_hierarchy__kpi'
-#         ).annotate(
-#             achievement=Avg('percent_achieved'),
-#             weighted_score=Avg('weighted_score'),
-#             report_count=Count('id')
-#         ).order_by('-report_count'))
-#
-#     # 6. CREATE ALL CHARTS
-#
-#     # Chart 1: Status Distribution
-#     if status_counts:
-#         status_map = {
-#             "pending": {"name": "Pending", "color": "#FFCE56"},
-#             "in_progress": {"name": "In Progress", "color": "#36A2EB"},
-#             "completed": {"name": "Completed", "color": "#4BC0C0"},
-#             "on_hold": {"name": "On Hold", "color": "#FF6384"},
-#             "cancelled": {"name": "Cancelled", "color": "#9966FF"},
-#         }
-#
-#         labels = [status_map.get(s['status'], {}).get('name', s['status']) for s in status_counts]
-#         values = [s['count'] for s in status_counts]
-#         colors = [status_map.get(s['status'], {}).get('color', COLORS[0]) for s in status_counts]
-#
-#         fig = go.Figure(data=[go.Pie(
-#             labels=labels, values=values, hole=0.5,
-#             marker=dict(colors=colors),
-#             textinfo='percent+label',
-#             hovertemplate='<b>%{label}</b><br>Count: %{value}<br>Percentage: %{percent}<extra></extra>'
-#         )])
-#         fig.update_layout(
-#             title_text='Report Status Distribution',
-#             height=400,
-#             annotations=[dict(text='Status', x=0.5, y=0.5, font_size=16, showarrow=False)]
-#         )
-#         status_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         status_plot = "<div class='no-data'>No status data available</div>"
-#
-#     # Chart 2: Monthly Performance Overview
-#     if monthly_metrics:
-#         months = [m['month'] for m in monthly_metrics]
-#         achievement = [m['achievement'] for m in monthly_metrics]
-#         weighted = [m['weighted_score'] for m in monthly_metrics]
-#
-#         fig = make_subplots(
-#             rows=1, cols=2,
-#             subplot_titles=('Average % Achieved by Month', 'Average Weighted Score by Month')
-#         )
-#
-#         fig.add_trace(go.Bar(
-#             x=months, y=achievement, name='% Achieved',
-#             marker_color=COLORS[0],
-#             hovertemplate='<b>%{x}</b><br>% Achieved: %{y:.2f}%<extra></extra>'
-#         ), 1, 1)
-#
-#         fig.add_trace(go.Bar(
-#             x=months, y=weighted, name='Weighted Score',
-#             marker_color=COLORS[1],
-#             hovertemplate='<b>%{x}</b><br>Weighted Score: %{y:.2f}<extra></extra>'
-#         ), 1, 2)
-#
-#         fig.update_layout(height=400, showlegend=False)
-#         fig.update_xaxes(tickangle=-45)
-#         overview_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         overview_plot = "<div class='no-data'>No monthly data available</div>"
-#
-#     # Chart 3: Stakeholder Heatmap
-#     if stakeholder_by_month and all_stakeholders:
-#         months = sorted(stakeholder_by_month.keys(),
-#                         key=lambda x: datetime.strptime(x, "%b %Y") if x != "Unknown" else datetime.min)
-#         # REMOVED: Top stakeholder limit - use all stakeholders
-#         stakeholder_names = [s[0] for s in all_stakeholders]
-#
-#         z_data = []
-#         for stakeholder in stakeholder_names:
-#             row = []
-#             for month in months:
-#                 row.append(stakeholder_by_month[month].get(stakeholder, 0))
-#             z_data.append(row)
-#
-#         fig = go.Figure(data=go.Heatmap(
-#             z=z_data, x=months, y=stakeholder_names,
-#             colorscale='Viridis', hoverongaps=False,
-#             hovertemplate='<b>%{y}</b><br>Month: %{x}<br>% Achieved: %{z:.2f}%<extra></extra>'
-#         ))
-#         fig.update_layout(
-#             title='Department Performance Heatmap',
-#             xaxis_title='Month', yaxis_title='Departments',
-#             height=max(600, len(stakeholder_names) * 30),  # Dynamic height based on number of stakeholders
-#             xaxis=dict(tickangle=-45)
-#         )
-#         heatmap_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         heatmap_plot = "<div class='no-data'>No stakeholder data available</div>"
-#
-#     # Chart 4: Stakeholder Trends
-#     if stakeholder_by_month and all_stakeholders:
-#         months = sorted(stakeholder_by_month.keys(),
-#                         key=lambda x: datetime.strptime(x, "%b %Y") if x != "Unknown" else datetime.min)
-#         fig = go.Figure()
-#
-#         # REMOVED: Limit of 8 stakeholders - show all stakeholders
-#         for i, (stakeholder, data) in enumerate(all_stakeholders):
-#             values = [data['monthly'].get(month, 0) for month in months]
-#             fig.add_trace(go.Scatter(
-#                 x=months, y=values, mode='lines+markers',
-#                 name=stakeholder[:20] + '...' if len(stakeholder) > 20 else stakeholder,
-#                 line=dict(color=COLORS[i % len(COLORS)], width=2),
-#                 marker=dict(size=4),
-#                 hovertemplate=f'<b>{stakeholder}</b><br>Month: %{{x}}<br>% Achieved: %{{y:.2f}}%<extra></extra>'
-#             ))
-#
-#         fig.update_layout(
-#             title='Department Performance Trends',
-#             xaxis_title='Month', yaxis_title='% Achieved',
-#             height=500, xaxis=dict(tickangle=-45),
-#             showlegend=True
-#         )
-#         trends_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         trends_plot = "<div class='no-data'>No trend data available</div>"
-#
-#     # Chart 5: Performance Distribution Boxplot
-#     if stakeholder_by_month:
-#         months = sorted(stakeholder_by_month.keys(),
-#                         key=lambda x: datetime.strptime(x, "%b %Y") if x != "Unknown" else datetime.min)
-#
-#         monthly_performance_data = []
-#         for month in months:
-#             performances = list(stakeholder_by_month[month].values())
-#             monthly_performance_data.append(performances)
-#
-#         fig = go.Figure()
-#         for i, month in enumerate(months):
-#             fig.add_trace(go.Box(
-#                 y=monthly_performance_data[i], name=month,
-#                 boxpoints='outliers', marker_color=COLORS[i % len(COLORS)]
-#             ))
-#
-#         fig.update_layout(
-#             title='Performance Distribution by Month',
-#             xaxis_title='Month', yaxis_title='% Achieved',
-#             height=500, showlegend=False,
-#             xaxis=dict(tickangle=-45)
-#         )
-#         boxplot_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         boxplot_plot = "<div class='no-data'>No performance data available</div>"
-#
-#     # Chart 6: Objective Achievement
-#     if all_objectives and objective_by_month:
-#         months = sorted(objective_by_month.keys(),
-#                         key=lambda x: datetime.strptime(x, "%b %Y") if x != "Unknown" else datetime.min)
-#         fig = go.Figure()
-#
-#         # REMOVED: Limit of top objectives - show all objectives
-#         for i, (objective, data) in enumerate(all_objectives):
-#             values = [data['monthly_achievement'].get(month, 0) for month in months]
-#             fig.add_trace(go.Bar(
-#                 name=objective[:30] + '...' if len(objective) > 30 else objective,
-#                 x=months, y=values, marker_color=COLORS[i % len(COLORS)]
-#             ))
-#
-#         fig.update_layout(
-#             title='Objectives - % Achieved by Month',
-#             xaxis_title='Month', yaxis_title='% Achieved',
-#             height=500, barmode='group',
-#             xaxis=dict(tickangle=-45)
-#         )
-#         objective_achievement_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         objective_achievement_plot = "<div class='no-data'>No objective data available</div>"
-#
-#     # Chart 7: Objective Weighted Scores
-#     if all_objectives and objective_by_month:
-#         months = sorted(objective_by_month.keys(),
-#                         key=lambda x: datetime.strptime(x, "%b %Y") if x != "Unknown" else datetime.min)
-#         fig = go.Figure()
-#
-#         # REMOVED: Limit of top objectives - show all objectives
-#         for i, (objective, data) in enumerate(all_objectives):
-#             values = [data['monthly_weighted'].get(month, 0) for month in months]
-#             fig.add_trace(go.Bar(
-#                 name=objective[:30] + '...' if len(objective) > 30 else objective,
-#                 x=months, y=values, marker_color=COLORS[i % len(COLORS)]
-#             ))
-#
-#         fig.update_layout(
-#             title='Objectives - Weighted Score by Month',
-#             xaxis_title='Month', yaxis_title='Weighted Score',
-#             height=500, barmode='group',
-#             xaxis=dict(tickangle=-45)
-#         )
-#         objective_weighted_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         objective_weighted_plot = "<div class='no-data'>No objective weighted data available</div>"
-#
-#     # Chart 8: KPI Achievement
-#     if all_kpis and kpi_by_month:
-#         months = sorted(kpi_by_month.keys(),
-#                         key=lambda x: datetime.strptime(x, "%b %Y") if x != "Unknown" else datetime.min)
-#         fig = go.Figure()
-#
-#         # REMOVED: Limit of top KPIs - show all KPIs
-#         for i, (kpi, data) in enumerate(all_kpis):
-#             values = [data['monthly_achievement'].get(month, 0) for month in months]
-#             fig.add_trace(go.Bar(
-#                 name=kpi[:30] + '...' if len(kpi) > 30 else kpi,
-#                 x=months, y=values, marker_color=COLORS[i % len(COLORS)]
-#             ))
-#
-#         fig.update_layout(
-#             title='KPIs - % Achieved by Month',
-#             xaxis_title='Month', yaxis_title='% Achieved',
-#             height=500, barmode='group',
-#             xaxis=dict(tickangle=-45)
-#         )
-#         kpi_achievement_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         kpi_achievement_plot = "<div class='no-data'>No KPI data available</div>"
-#
-#     # Chart 9: KPI Weighted Scores
-#     if all_kpis and kpi_by_month:
-#         months = sorted(kpi_by_month.keys(),
-#                         key=lambda x: datetime.strptime(x, "%b %Y") if x != "Unknown" else datetime.min)
-#         fig = go.Figure()
-#
-#         # REMOVED: Limit of top KPIs - show all KPIs
-#         for i, (kpi, data) in enumerate(all_kpis):
-#             values = [data['monthly_weighted'].get(month, 0) for month in months]
-#             fig.add_trace(go.Bar(
-#                 name=kpi[:30] + '...' if len(kpi) > 30 else kpi,
-#                 x=months, y=values, marker_color=COLORS[i % len(COLORS)]
-#             ))
-#
-#         fig.update_layout(
-#             title='KPIs - Weighted Score by Month',
-#             xaxis_title='Month', yaxis_title='Weighted Score',
-#             height=500, barmode='group',
-#             xaxis=dict(tickangle=-45)
-#         )
-#         kpi_weighted_plot = plot(fig, output_type='div', config={'displayModeBar': False})
-#     else:
-#         kpi_weighted_plot = "<div class='no-data'>No KPI weighted data available</div>"
-#
-#     # Prepare context
-#     context = {
-#         # Core metrics
-#         'total_reports': total_reports,
-#         'status_counts': status_counts,
-#         'cycle_counts': cycle_counts,
-#         'body_counts': body_counts,
-#         'overall_metrics': {
-#             'achievement': overall_metrics['achievement'] or 0,
-#             'weighted_score': overall_metrics['weighted_score'] or 0,
-#             'percent_achieved': overall_metrics['achievement'] or 0,
-#         },
-#         'date_metrics': monthly_metrics,
-#         'body_metrics': list(reports.values(
-#             'action_plan__responsible_bodies__stakeholder_name'
-#         ).annotate(
-#             achievement=Avg('percent_achieved'),
-#             weighted_score=Avg('weighted_score'),
-#             report_count=Count('id')
-#         ).filter(
-#             action_plan__responsible_bodies__stakeholder_name__isnull=False
-#         ).order_by('-report_count')) if body_filter == "all" else [],
-#
-#         # Data for tables - using all elements instead of top elements
-#         'top_objectives': all_objectives,
-#         'top_kpis': all_kpis,
-#         'top_stakeholders': all_stakeholders,
-#
-#         # Filter-specific data
-#         'objectives_by_body': objectives_by_body,
-#         'kpis_by_body': kpis_by_body,
-#
-#         # All Charts
-#         'status_plot': status_plot,
-#         'overview_plot': overview_plot,
-#         'stakeholder_heatmap_plot': heatmap_plot,
-#         'stakeholder_line_plot': trends_plot,
-#         'performance_boxplot_plot': boxplot_plot,
-#         'objective_achievement_plot': objective_achievement_plot,
-#         'objective_weighted_plot': objective_weighted_plot,
-#         'kpi_achievement_plot': kpi_achievement_plot,
-#         'kpi_weighted_plot': kpi_weighted_plot,
-#
-#         # Filters
-#         'strategic_cycles': strategic_cycles,
-#         'responsible_bodies': responsible_bodies,
-#         'selected_cycle': cycle_filter,
-#         'selected_body': body_filter,
-#         'current_date': timezone.now(),
-#
-#         # Filter states
-#         'cycle_filter_name': strategic_cycles.get(id=cycle_filter).name if cycle_filter != "all" else "All Cycles",
-#         'body_filter_name': body_filter if body_filter != "all" else "All Bodies",
-#     }
-#
-#     return render(request, 'strategic_report/chart.html', context)
-

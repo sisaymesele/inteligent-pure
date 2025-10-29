@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from management_project.models import InitiativePlanning
-from management_project.forms import InitiativePlanningForm
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from django.http import HttpResponse
@@ -12,12 +10,15 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 import plotly.graph_objects as go
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from plotly.offline import plot
+
+from management_project.models import InitiativePlanning
+from management_project.forms import InitiativePlanningForm
+from management_project.services.permission import role_required, get_user_permissions
 
 # -------------------- INITIATIVE LIST --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='initiative_planning', action='view')
 def initiative_planning_list(request):
     query = request.GET.get('search', '').strip()
     selected_focus = request.GET.get('initiative_focus_area', '').strip()
@@ -50,18 +51,21 @@ def initiative_planning_list(request):
     paginator = Paginator(initiatives, 10)
     page_obj = paginator.get_page(page_number)
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'initiative_planning/list.html', {
         'initiatives': page_obj,
         'page_obj': page_obj,
         'search_query': query,
         'focus_areas': focus_areas,
         'selected_focus': selected_focus,
+        'permissions': permissions,
     })
 
 
 # -------------------- CREATE INITIATIVE --------------------
-
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='initiative_planning', action='create')
 def create_initiative_planning(request):
     """
     Create a new initiative_planning for the current user's organization.
@@ -78,11 +82,13 @@ def create_initiative_planning(request):
             # This is a field update - just redisplay the form with current data
             if form.is_valid():
                 # Form is valid but we don't save, just redisplay
-                messages.info(request, "Form updated - click Save to create initiative_planning")
+                messages.info(request, "Form updated - click Save to create initiative")
             # Return the form with current data (whether valid or not)
+            permissions = get_user_permissions(request.user)
             return render(request, "initiative_planning/form.html", {
                 "form": form,
                 "next": next_url,
+                "permissions": permissions,
             })
 
         # This is an actual save operation
@@ -98,19 +104,23 @@ def create_initiative_planning(request):
                 separator = '&' if '?' in next_url else '?'
                 return redirect(f"{next_url}{separator}initiative_planning={initiative.pk}")
 
-            return redirect("initiative_planning_list")  # fallback to initiative_planning list
+            return redirect("initiative_planning_list")  # fallback to initiative list
 
     else:
         form = InitiativePlanningForm(request=request)
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, "initiative_planning/form.html", {
         "form": form,
         "next": next_url,
+        "permissions": permissions,
     })
 
 
 # -------------------- UPDATE INITIATIVE --------------------
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='initiative_planning', action='edit')
 def update_initiative_planning(request, pk):
     initiative = get_object_or_404(
         InitiativePlanning, pk=pk, organization_name=request.user.organization_name
@@ -126,6 +136,7 @@ def update_initiative_planning(request, pk):
                 # Form is valid but we don't save, just redisplay
                 messages.info(request, "Form updated - click Update to save changes")
             # Return the form with current data (whether valid or not)
+            permissions = get_user_permissions(request.user)
             context = {
                 "form": form,
                 "form_title": "Update Initiative Planning",
@@ -133,6 +144,7 @@ def update_initiative_planning(request, pk):
                 "edit_mode": True,
                 "editing_initiative": initiative,
                 "next": request.GET.get("next", None),
+                "permissions": permissions,
             }
             return render(request, 'initiative_planning/form.html', context)
 
@@ -144,6 +156,8 @@ def update_initiative_planning(request, pk):
     else:
         form = InitiativePlanningForm(instance=initiative, request=request)
 
+    permissions = get_user_permissions(request.user)
+
     context = {
         "form": form,
         "form_title": "Update Initiative Planning",
@@ -151,14 +165,16 @@ def update_initiative_planning(request, pk):
         "edit_mode": True,
         "editing_initiative": initiative,
         "next": request.GET.get("next", None),
+        "permissions": permissions,
     }
     return render(request, "initiative_planning/form.html", context)
 
 
 # -------------------- DELETE INITIATIVE --------------------
 @login_required
+@role_required(['owner', 'admin'], model_name='initiative_planning', action='delete')
 def delete_initiative_planning(request, pk):
-    # Get the initiative_planning belonging to the logged-in user's organization
+    # Get the initiative belonging to the logged-in user's organization
     initiative = get_object_or_404(
         InitiativePlanning,
         pk=pk,
@@ -170,11 +186,18 @@ def delete_initiative_planning(request, pk):
         messages.success(request, "Initiative Planning deleted successfully!")
         return redirect('initiative_planning_list')
 
+    permissions = get_user_permissions(request.user)
+
     # Render confirmation page for GET requests
-    return render(request, 'initiative_planning/delete_confirm.html', {'entry': initiative})
+    return render(request, 'initiative_planning/delete_confirm.html', {
+        'entry': initiative,
+        'permissions': permissions,
+    })
 
 
+# -------------------- EXPORT INITIATIVE TO EXCEL --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='initiative_planning', action='view')
 def export_initiative_planning_to_excel(request):
     query = request.GET.get('search', '').strip()
     selected_focus = request.GET.get('initiative_focus_area', '').strip()
@@ -275,9 +298,9 @@ def export_initiative_planning_to_excel(request):
     return response
 
 
-
 # -------------------- INITIATIVE CHART --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='initiative_planning', action='view')
 def initiative_planning_chart(request):
     qs = InitiativePlanning.objects.filter(
         organization_name=request.user.organization_name
@@ -291,6 +314,20 @@ def initiative_planning_chart(request):
         'Low': '#98df8a',        # light green
         'Very Low': '#2ca02c',   # green
     }
+
+    # Common axis configuration
+    axis_config = dict(
+        showline=True,
+        linewidth=2,
+        linecolor='black',
+        mirror=True,
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='lightgray',
+        zeroline=True,
+        zerolinewidth=2,
+        zerolinecolor='gray'
+    )
 
     # ------------------ Helper: Bar Chart ------------------
     def create_bar_chart(field_name, title):
@@ -306,22 +343,35 @@ def initiative_planning_chart(request):
             y=list(data_dict.values()),
             text=list(data_dict.values()),
             textposition='auto',
-            marker_color=[LEVEL_COLORS[k] for k in data_dict.keys()]
+            marker_color=[LEVEL_COLORS[k] for k in data_dict.keys()],
+            hovertemplate='<b>%{x}</b><br>Count: %{y}<extra></extra>'
         )])
         fig.update_layout(
-            title=title,
-            xaxis_title=field_name.replace("_", " ").title(),
-            yaxis_title='Count',
-            template='plotly_white',
-            height=400
+            title=dict(text=title, x=0.5, xanchor='center', font=dict(size=16)),
+            xaxis=dict(
+                title=field_name.replace("_", " ").title(),
+                **axis_config,
+                title_font=dict(size=14, color='black'),
+                tickfont=dict(size=12, color='black')
+            ),
+            yaxis=dict(
+                title='Count',
+                **axis_config,
+                title_font=dict(size=14, color='black'),
+                tickfont=dict(size=12, color='black')
+            ),
+            height=400,
+            paper_bgcolor='white',
+            plot_bgcolor='white',
+            margin=dict(l=60, r=40, t=80, b=80)
         )
-        return fig
+        return plot(fig, output_type='div', include_plotlyjs=False)
 
     # ------------------ Charts ------------------
-    fig_priority = create_bar_chart('priority', 'Distribution by Priority')
-    fig_impact = create_bar_chart('impact', 'Distribution by Impact')
-    fig_likelihood = create_bar_chart('likelihood', 'Distribution by Likelihood')
-    fig_risk = create_bar_chart('risk_level', 'Distribution by Risk Level')
+    plot_priority = create_bar_chart('priority', 'Distribution by Priority')
+    plot_impact = create_bar_chart('impact', 'Distribution by Impact')
+    plot_likelihood = create_bar_chart('likelihood', 'Distribution by Likelihood')
+    plot_risk = create_bar_chart('risk_level', 'Distribution by Risk Level')
 
     # Status Pie Chart
     status_counts = qs.values('baseline_status').annotate(count=Count('id'))
@@ -331,13 +381,17 @@ def initiative_planning_chart(request):
         labels=[s['status'] for s in status_summary],
         values=[s['count'] for s in status_summary],
         textinfo='label+percent',
-        hole=0.3
+        hole=0.3,
+        hovertemplate='<b>%{label}</b><br>Count: %{value}<br>Percentage: %{percent}<extra></extra>'
     )])
     fig_status.update_layout(
-        title='Distribution by Status',
-        template='plotly_white',
-        height=400
+        title=dict(text='Distribution by Status', x=0.5, xanchor='center', font=dict(size=16)),
+        height=400,
+        paper_bgcolor='white',
+        plot_bgcolor='white',
+        margin=dict(l=60, r=40, t=80, b=80)
     )
+    plot_status = plot(fig_status, output_type='div', include_plotlyjs=False)
 
     # Dimension Chart
     dimension_counts = qs.values('initiative_dimension').annotate(count=Count('id')).order_by('-count')
@@ -346,29 +400,91 @@ def initiative_planning_chart(request):
         y=[d['count'] for d in dimension_counts],
         text=[d['count'] for d in dimension_counts],
         textposition='auto',
-        marker_color=['#636efa', '#ef553b', '#00cc96', '#ab63fa', '#ffa15a']
+        marker_color=['#636efa', '#ef553b', '#00cc96', '#ab63fa', '#ffa15a'],
+        hovertemplate='<b>%{x}</b><br>Count: %{y}<extra></extra>'
     )])
     fig_dimension.update_layout(
-        title='Count per Dimension',
-        xaxis_title='Dimension',
-        yaxis_title='Count',
-        template='plotly_white',
-        height=400
+        title=dict(text='Count per Dimension', x=0.5, xanchor='center', font=dict(size=16)),
+        xaxis=dict(
+            title='Dimension',
+            **axis_config,
+            title_font=dict(size=14, color='black'),
+            tickfont=dict(size=12, color='black')
+        ),
+        yaxis=dict(
+            title='Count',
+            **axis_config,
+            title_font=dict(size=14, color='black'),
+            tickfont=dict(size=12, color='black')
+        ),
+        height=400,
+        paper_bgcolor='white',
+        plot_bgcolor='white',
+        margin=dict(l=60, r=40, t=80, b=80)
     )
+    plot_dimension = plot(fig_dimension, output_type='div', include_plotlyjs=False)
+
+    # Focus Area Chart
+    focus_counts = qs.values('initiative_focus_area').annotate(count=Count('id')).order_by('-count')
+    fig_focus = go.Figure(data=[go.Bar(
+        y=[d['initiative_focus_area'] for d in focus_counts],
+        x=[d['count'] for d in focus_counts],
+        text=[d['count'] for d in focus_counts],
+        textposition='auto',
+        orientation='h',
+        marker_color='#4F81BD',
+        hovertemplate='<b>%{y}</b><br>Count: %{x}<extra></extra>'
+    )])
+    fig_focus.update_layout(
+        title=dict(text='Count per Focus Area', x=0.5, xanchor='center', font=dict(size=16)),
+        yaxis=dict(
+            title='Focus Area',
+            **axis_config,
+            title_font=dict(size=14, color='black'),
+            tickfont=dict(size=12, color='black')
+        ),
+        xaxis=dict(
+            title='Count',
+            **axis_config,
+            title_font=dict(size=14, color='black'),
+            tickfont=dict(size=12, color='black')
+        ),
+        height=400,
+        paper_bgcolor='white',
+        plot_bgcolor='white',
+        margin=dict(l=80, r=40, t=80, b=80)
+    )
+    plot_focus = plot(fig_focus, output_type='div', include_plotlyjs=False)
 
     # ------------------ Summary Cards ------------------
     total_initiatives = qs.count()
     priority_summary = [{'level': lvl, 'count': qs.filter(priority=lvl).count(), 'color': LEVEL_COLORS[lvl]} for lvl in LEVEL_ORDER]
 
+    # Additional stats
+    total_budget = sum(float(ini.total_budget_planned) for ini in qs)
+    total_hr = sum(float(ini.total_hr_planned) for ini in qs)
+    high_risk_count = qs.filter(risk_level__in=['Very High', 'High']).count()
+
+    stats = {
+        'total_initiatives': total_initiatives,
+        'total_budget': total_budget,
+        'total_hr': total_hr,
+        'high_risk_count': high_risk_count,
+        'high_risk_percent': round((high_risk_count / total_initiatives * 100), 1) if total_initiatives > 0 else 0,
+    }
+
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'initiative_planning/chart.html', {
-        'plot_html_priority': fig_priority.to_html(full_html=False),
-        'plot_html_impact': fig_impact.to_html(full_html=False),
-        'plot_html_likelihood': fig_likelihood.to_html(full_html=False),
-        'plot_html_risk': fig_risk.to_html(full_html=False),
-        'plot_html_status': fig_status.to_html(full_html=False),
-        'plot_html_dimension': fig_dimension.to_html(full_html=False),
+        'plot_priority': plot_priority,
+        'plot_impact': plot_impact,
+        'plot_likelihood': plot_likelihood,
+        'plot_risk': plot_risk,
+        'plot_status': plot_status,
+        'plot_dimension': plot_dimension,
+        'plot_focus': plot_focus,
         'total_initiatives': total_initiatives,
         'priority_summary': priority_summary,
+        'stats': stats,
+        'permissions': permissions,
     })
-
-

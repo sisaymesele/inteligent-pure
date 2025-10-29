@@ -1,58 +1,212 @@
 {% extends "dashboard.html" %}
-
 {% block content %}
-<div class="container mt-3">
-    <h2>SWOT Report Charts{% if selected_cycle %} - {{ selected_cycle }}{% endif %}</h2>
 
-    <!-- Strategic Cycle Filter -->
-    <form method="get" class="mb-3">
-        <div class="row g-2 align-items-center">
-            <div class="col-auto">
-                <label for="cycle" class="col-form-label">Select Strategic Cycle:</label>
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h2 mb-0">
+                    <i class="bi bi-bar-chart-fill text-primary me-2"></i>
+                    SWOT Analysis Dashboard
+                </h1>
+
+                <!-- Cycle Filter Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="cycleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-funnel me-2"></i>
+                        {% if selected_cycle %}
+                            Cycle: {{ selected_cycle }}
+                        {% else %}
+                            All Cycles
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="cycleDropdown">
+                        <li><a class="dropdown-item" href="?">All Cycles</a></li>
+                        {% for cycle in all_cycles %}
+                            {% if cycle %}
+                                <li><a class="dropdown-item" href="?cycle={{ cycle }}">{{ cycle }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-            <div class="col-auto">
-                <select name="cycle" id="cycle" class="form-select" onchange="this.form.submit()">
-                    <option value="">All Cycles</option>
-                    {% for cycle in all_cycles %}
-                        <option value="{{ cycle }}" {% if cycle == selected_cycle %}selected{% endif %}>{{ cycle }}</option>
-                    {% endfor %}
-                </select>
+            <p class="text-muted mb-0">Comprehensive analysis of Strengths, Weaknesses, Opportunities, and Threats</p>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <!-- Total SWOT -->
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-primary bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-clipboard-data text-primary fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Total SWOT</h6>
+                                    <h4 class="text-primary mb-0">{{ summary_data.total_swot }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- High Priority -->
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-warning bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-exclamation-triangle text-warning fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">High Priority</h6>
+                                    <h4 class="text-warning mb-0">{{ summary_data.high_priority_count }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Strengths -->
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-success bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-arrow-up-circle text-success fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Strengths</h6>
+                                    <h4 class="text-success mb-0">{{ summary_data.strengths_count }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weaknesses -->
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-danger bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-arrow-down-circle text-danger fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Weaknesses</h6>
+                                    <h4 class="text-danger mb-0">{{ summary_data.weaknesses_count }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opportunities -->
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-info bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-graph-up-arrow text-info fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Opportunities</h6>
+                                    <h4 class="text-info mb-0">{{ summary_data.opportunities_count }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Threats -->
+                        <div class="col-xl-2 col-md-4 col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-dark bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-lightning-charge text-dark fs-4"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="card-title text-muted mb-1">Threats</h6>
+                                    <h4 class="text-dark mb-0">{{ summary_data.threats_count }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+    </div>
 
-    <!-- Charts -->
-    <div class="row">
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
+    <!-- Charts Grid -->
+    <div class="row g-4">
+        <!-- SWOT Type Distribution -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-pie-chart text-primary me-2"></i>
+                        SWOT Type Distribution
+                    </h5>
+                </div>
                 <div class="card-body">
                     {{ plot_html_swot_type|safe }}
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
+
+        <!-- Priority Distribution -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-exclamation-square text-warning me-2"></i>
+                        Priority Distribution
+                    </h5>
+                </div>
                 <div class="card-body">
                     {{ plot_html_priority|safe }}
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
+
+        <!-- Impact Distribution -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-speedometer2 text-success me-2"></i>
+                        Impact Distribution
+                    </h5>
+                </div>
                 <div class="card-body">
                     {{ plot_html_impact|safe }}
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow">
+
+        <!-- Likelihood Distribution -->
+        <div class="col-xl-6 col-lg-12">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-graph-up text-info me-2"></i>
+                        Likelihood Distribution
+                    </h5>
+                </div>
                 <div class="card-body">
                     {{ plot_html_likelihood|safe }}
                 </div>
             </div>
         </div>
-        <div class="col-lg-12 mb-4">
-            <div class="card shadow">
+
+        <!-- Pillar Analysis (Full Width) -->
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-layers text-purple me-2"></i>
+                        Pillar Analysis
+                    </h5>
+                </div>
                 <div class="card-body">
                     {{ plot_html_pillar|safe }}
                 </div>
@@ -60,24 +214,56 @@
         </div>
     </div>
 
-    <!-- Summary Box -->
-    <div class="row mt-3">
-        <div class="col-lg-12">
-            <div class="card shadow">
-                <div class="card-body">
-                    <h5>Summary</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Total SWOTs: {{ summary_data.total_swot }}</li>
-                        <li class="list-group-item">High Priority SWOTs: {{ summary_data.high_priority_count }}</li>
-                        <li class="list-group-item">Strengths: {{ summary_data.strengths_count }}</li>
-                        <li class="list-group-item">Weaknesses: {{ summary_data.weaknesses_count }}</li>
-                        <li class="list-group-item">Opportunities: {{ summary_data.opportunities_count }}</li>
-                        <li class="list-group-item">Threats: {{ summary_data.threats_count }}</li>
-                        <li class="list-group-item">Strategic Cycle: {{ summary_data.cycle }}</li>
-                    </ul>
+    <!-- Current Filter Info -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-info border-0" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-info-circle me-2 fs-5"></i>
+                    <div>
+                        <strong>Currently Viewing:</strong> Data for <span class="badge bg-primary">{{ summary_data.cycle }}</span>
+                        {% if selected_cycle %}
+                            - <a href="?" class="alert-link ms-1">View All Cycles</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+<style>
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-purple {
+    background-color: #6f42c1 !important;
+}
+
+.text-purple {
+    color: #6f42c1 !important;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.alert {
+    border-radius: 12px;
+}
+
+.bg-opacity-10 {
+    opacity: 0.1;
+}
+</style>
+
 {% endblock %}

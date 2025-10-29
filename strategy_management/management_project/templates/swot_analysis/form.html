@@ -2,6 +2,8 @@
 
 {% block content %}
 <div id="full-page-container">
+    <!-- Permission Check for Create/Edit -->
+    {% if permissions.swot_analysis_create or permissions.swot_analysis_edit %}
     <form method="post" class="row g-3"
           hx-post="{% if form.instance.pk %}{% url 'update_swot_analysis' form.instance.pk %}{% else %}{% url 'create_swot_analysis' %}{% endif %}"
           hx-target="#full-page-container"
@@ -9,18 +11,54 @@
           hx-push-url="true">
         {% csrf_token %}
 
+        <!-- Header -->
+        <div class="col-12">
+            <h4 class="mb-4">
+                {% if form.instance.pk %}
+                    Update SWOT Analysis
+                {% else %}
+                    Create SWOT Analysis
+                {% endif %}
+            </h4>
+        </div>
+
         {% if messages %}
             {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                    {{ message }}
+                <div class="col-12">
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
             {% endfor %}
         {% endif %}
 
+        <!-- Form Errors -->
+        {% if form.errors %}
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <strong>Please correct the errors below:</strong>
+                <ul class="mb-0 mt-2">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- SWOT Type -->
         <div class="col-md-4">
-            <label>SWOT Type</label>
-            <select name="swot_type" class="form-select"
+            <label for="swot_type" class="form-label fw-semibold">
+                SWOT Type
+                {% if form.swot_type.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <select name="swot_type" id="swot_type" class="form-select {% if form.swot_type.errors %}is-invalid{% endif %}"
                     hx-post="{% if form.instance.pk %}{% url 'update_swot_analysis' form.instance.pk %}{% else %}{% url 'create_swot_analysis' %}{% endif %}"
                     hx-target="#full-page-container"
                     hx-swap="innerHTML">
@@ -31,12 +69,20 @@
                     </option>
                 {% endfor %}
             </select>
+            {% if form.swot_type.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.swot_type.errors|striptags }}
+                </div>
+            {% endif %}
         </div>
 
         <!-- Pillar -->
         <div class="col-md-4">
-            <label>Pillar</label>
-            <select name="swot_pillar" class="form-select"
+            <label for="swot_pillar" class="form-label fw-semibold">
+                Pillar
+                {% if form.swot_pillar.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <select name="swot_pillar" id="swot_pillar" class="form-select {% if form.swot_pillar.errors %}is-invalid{% endif %}"
                     hx-post="{% if form.instance.pk %}{% url 'update_swot_analysis' form.instance.pk %}{% else %}{% url 'create_swot_analysis' %}{% endif %}"
                     hx-target="#full-page-container"
                     hx-swap="innerHTML"
@@ -48,12 +94,20 @@
                     </option>
                 {% endfor %}
             </select>
+            {% if form.swot_pillar.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.swot_pillar.errors|striptags }}
+                </div>
+            {% endif %}
         </div>
 
         <!-- Factor -->
         <div class="col-md-4">
-            <label>Factor</label>
-            <select name="swot_factor" class="form-select"
+            <label for="swot_factor" class="form-label fw-semibold">
+                Factor
+                {% if form.swot_factor.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <select name="swot_factor" id="swot_factor" class="form-select {% if form.swot_factor.errors %}is-invalid{% endif %}"
                     hx-post="{% if form.instance.pk %}{% url 'update_swot_analysis' form.instance.pk %}{% else %}{% url 'create_swot_analysis' %}{% endif %}"
                     hx-target="#full-page-container"
                     hx-swap="innerHTML"
@@ -65,41 +119,103 @@
                     </option>
                 {% endfor %}
             </select>
+            {% if form.swot_factor.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.swot_factor.errors|striptags }}
+                </div>
+            {% endif %}
         </div>
 
         <!-- Priority / Impact / Likelihood -->
         <div class="col-md-4">
-            {{ form.priority.label_tag }}
+            <label for="{{ form.priority.id_for_label }}" class="form-label fw-semibold">
+                {{ form.priority.label }}
+                {% if form.priority.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
             {{ form.priority }}
+            {% if form.priority.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.priority.errors|striptags }}
+                </div>
+            {% endif %}
         </div>
+
         <div class="col-md-4">
-            {{ form.impact.label_tag }}
+            <label for="{{ form.impact.id_for_label }}" class="form-label fw-semibold">
+                {{ form.impact.label }}
+                {% if form.impact.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
             {{ form.impact }}
+            {% if form.impact.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.impact.errors|striptags }}
+                </div>
+            {% endif %}
         </div>
+
         <div class="col-md-4">
-            {{ form.likelihood.label_tag }}
+            <label for="{{ form.likelihood.id_for_label }}" class="form-label fw-semibold">
+                {{ form.likelihood.label }}
+                {% if form.likelihood.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
             {{ form.likelihood }}
+            {% if form.likelihood.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.likelihood.errors|striptags }}
+                </div>
+            {% endif %}
         </div>
 
         <!-- Description -->
         <div class="col-12">
-            {{ form.description.label_tag }}
+            <label for="{{ form.description.id_for_label }}" class="form-label fw-semibold">
+                {{ form.description.label }}
+                {% if form.description.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
             {{ form.description }}
+            {% if form.description.help_text %}
+                <div class="form-text">{{ form.description.help_text }}</div>
+            {% endif %}
+            {% if form.description.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.description.errors|striptags }}
+                </div>
+            {% endif %}
         </div>
 
         <!-- Save / Cancel -->
-        <div class="col-12 mt-3">
-            <button type="submit" name="save" class="btn btn-success">
-                Save
-            </button>
-            <a href="{% url 'swot_analysis_list' %}" class="btn btn-secondary"
-               hx-get="{% url 'swot_analysis_list' %}"
-               hx-target="#full-page-container"
-               hx-swap="innerHTML"
-               hx-push-url="true">
-                Cancel
-            </a>
+        <div class="col-12 mt-4">
+            <div class="d-flex gap-2">
+                <button type="submit" name="save" class="btn btn-success">
+                    {% if form.instance.pk %}Update SWOT{% else %}Create SWOT{% endif %}
+                </button>
+                <a href="{% url 'swot_analysis_list' %}" class="btn btn-secondary"
+                   hx-get="{% url 'swot_analysis_list' %}"
+                   hx-target="#full-page-container"
+                   hx-swap="innerHTML"
+                   hx-push-url="true">
+                    Cancel
+                </a>
+            </div>
         </div>
     </form>
+
+    {% else %}
+    <!-- No Permission Message -->
+    <div class="alert alert-danger text-center">
+        You don't have permission to {% if form.instance.pk %}edit{% else %}create{% endif %} SWOT analysis.
+    </div>
+
+    <!-- Back to List Button -->
+    <div class="text-center mt-3">
+        <a href="{% url 'swot_analysis_list' %}" class="btn btn-primary"
+           hx-get="{% url 'swot_analysis_list' %}"
+           hx-target="#full-page-container"
+           hx-swap="innerHTML"
+           hx-push-url="true">
+            Back to SWOT Analysis
+        </a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

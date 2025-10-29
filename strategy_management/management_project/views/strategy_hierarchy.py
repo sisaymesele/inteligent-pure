@@ -1,17 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from management_project.models import StrategyHierarchy
 from management_project.forms import StrategyHierarchyForm
+from management_project.services.permission import role_required
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib import messages
-
+from management_project.services.permission import get_user_permissions
 
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategy_hierarchy', action='view')
 def strategy_hierarchy_list(request):
     """
     List all strategy hierarchy entries belonging to the current user's organization,
     with optional search on perspective, pillar, and objective.
     """
+    permissions = get_user_permissions(request.user)
     # Base queryset filtered by user's organization
     strategies = StrategyHierarchy.objects.filter(
         organization_name=request.user.organization_name
@@ -29,56 +32,18 @@ def strategy_hierarchy_list(request):
     return render(request, 'strategy_hierarchy/list.html', {
         'strategies': strategies,
         'query': query,  # pass back search term to template
+        'permissions': permissions,
     })
 
 
-# @login_required
-# def create_strategy_hierarchy(request):
-#     """
-#     Create a new strategy hierarchy entry for the current user's organization.
-#     """
-#     if request.method == 'POST':
-#         form = StrategyHierarchyForm(request.POST)
-#         if 'save' in request.POST and form.is_valid():
-#             strategy = form.save(commit=False)
-#             strategy.organization_name = request.user.organization_name
-#             strategy.save()
-#             return redirect('strategy_hierarchy_list')
-#     else:
-#         form = StrategyHierarchyForm()
-#
-#     return render(request, 'strategy_hierarchy/form.html', {'form': form})
-
-# @login_required
-# def create_strategy_hierarchy(request):
-#     """
-#     Create a new strategy hierarchy entry for the current user's organization.
-#     Supports optional 'next' redirect back to Strategic Action Plan page.
-#     """
-#     next_url = request.GET.get('next') or request.POST.get('next')  # check GET and POST
-#
-#     if request.method == 'POST':
-#         form = StrategyHierarchyForm(request.POST)
-#         if 'save' in request.POST and form.is_valid():
-#             strategy = form.save(commit=False)
-#             strategy.organization_name = request.user.organization_name
-#             strategy.save()
-#             # Redirect to 'next' if provided, otherwise to hierarchy list
-#             return redirect(next_url or 'strategy_hierarchy_list')
-#     else:
-#         form = StrategyHierarchyForm()
-#
-#     return render(request, 'strategy_hierarchy/form.html', {
-#         'form': form,
-#         'next': next_url,
-#     })
-
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='strategy_hierarchy', action='create')
 def create_strategy_hierarchy(request):
     """
     Create a new strategy hierarchy entry for the current user's organization.
     Supports optional 'next' redirect back to Strategic Action Plan page with preselected value.
     """
+    permissions = get_user_permissions(request.user)
     next_url = request.GET.get('next') or request.POST.get('next')  # URL to return to child
 
     if request.method == 'POST':
@@ -101,14 +66,17 @@ def create_strategy_hierarchy(request):
     return render(request, 'strategy_hierarchy/form.html', {
         'form': form,
         'next': next_url,
+        'permissions': permissions,
     })
 
 
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='strategy_hierarchy', action='edit')
 def update_strategy_hierarchy(request, pk):
     """
     Update an existing strategy hierarchy entry, only if it belongs to the user's organization.
     """
+    permissions = get_user_permissions(request.user)
     entry = get_object_or_404(
         StrategyHierarchy,
         pk=pk,
@@ -118,18 +86,24 @@ def update_strategy_hierarchy(request, pk):
         form = StrategyHierarchyForm(request.POST, instance=entry)
         if 'save' in request.POST and form.is_valid():
             form.save()
+            messages.success(request, "Strategy hierarchy updated successfully!")
             return redirect('strategy_hierarchy_list')
     else:
         form = StrategyHierarchyForm(instance=entry)
 
-    return render(request, 'strategy_hierarchy/form.html', {'form': form})
+    return render(request, 'strategy_hierarchy/form.html', {
+        'form': form,
+        'permissions': permissions,
+    })
 
 
 @login_required
+@role_required(['owner', 'admin'], model_name='strategy_hierarchy', action='delete')
 def delete_strategy_hierarchy(request, pk):
     """
     Delete an existing strategy hierarchy entry, only if it belongs to the user's organization.
     """
+    permissions = get_user_permissions(request.user)
     entry = get_object_or_404(
         StrategyHierarchy,
         pk=pk,
@@ -137,6 +111,10 @@ def delete_strategy_hierarchy(request, pk):
     )
     if request.method == 'POST':
         entry.delete()
+        messages.success(request, "Strategy hierarchy deleted successfully!")
         return redirect('strategy_hierarchy_list')
 
-    return render(request, 'strategy_hierarchy/delete_confirm.html', {'entry': entry})
+    return render(request, 'strategy_hierarchy/delete_confirm.html', {
+        'entry': entry,
+        'permissions': permissions,
+    })

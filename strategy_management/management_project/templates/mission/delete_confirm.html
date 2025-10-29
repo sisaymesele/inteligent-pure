@@ -11,6 +11,7 @@
                     "<strong>{{ mission.organization_name }}</strong>"?
                 </p>
 
+                {% if permissions.mission_delete %}
                 <!-- HTMX Form for Deletion -->
                 <form method="POST">
                     {% csrf_token %}
@@ -26,6 +27,9 @@
                         </button>
                     </div>
                 </form>
+                {% else %}
+                <p class="text-center text-danger">You do not have permission to delete this mission.</p>
+                {% endif %}
 
                 <!-- HTMX Cancel Button -->
                 <div class="d-flex justify-content-center mt-3">

@@ -16,6 +16,7 @@
 
     <!-- Header: Create & Filters -->
     <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
+        {% if permissions.initiative_resource_item_plan_create %}
         <a href="{% url 'create_initiative_resource_item_plan' %}"
            class="btn btn-primary"
            hx-get="{% url 'create_initiative_resource_item_plan' %}"
@@ -24,6 +25,7 @@
            hx-push-url="true">
             Create Resource Item
         </a>
+        {% endif %}
 
         <div class="d-flex gap-2 ms-auto flex-wrap">
             <form method="get"
@@ -88,7 +90,9 @@
                     <th>Required</th>
                     <th>Created</th>
                     <th>Updated</th>
+                    {% if permissions.initiative_resource_item_plan_edit or permissions.initiative_resource_item_plan_delete %}
                     <th>Actions</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -100,30 +104,37 @@
                     <td>{{ r.initiative_name.initiative_name }}</td>
                     <td>{{ r.resource_type }}</td>
                     <td>{{ r.resource_name|default:"-" }}</td>
-                    <td>{{ r.resource_required|floatformat:2 }}</td>
+                    <td>{{ r.resource_required|floatformat:2|intcomma }}</td>
                     <td>{{ r.created_at|naturaltime }}</td>
                     <td>{{ r.updated_at|naturaltime }}</td>
+                    {% if permissions.initiative_resource_item_plan_edit or permissions.initiative_resource_item_plan_delete %}
                     <td>
                         <div class="btn-group btn-group-sm">
+                            {% if permissions.initiative_resource_item_plan_edit %}
                             <a class="btn btn-outline-warning"
                                hx-get="{% url 'update_initiative_resource_item_plan' r.pk %}"
                                hx-target="#full-page-container"
                                hx-swap="innerHTML"
                                hx-push-url="true"
                                title="Edit">✏️</a>
+                            {% endif %}
+                            {% if permissions.initiative_resource_item_plan_delete %}
                             <a class="btn btn-outline-danger"
                                hx-get="{% url 'delete_initiative_resource_item_plan' r.pk %}"
                                hx-target="#full-page-container"
                                hx-swap="innerHTML"
                                hx-push-url="true"
                                title="Delete">🗑️</a>
+                            {% endif %}
                         </div>
                     </td>
+                    {% endif %}
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="10" class="text-center py-4">
+                    <td colspan="{% if permissions.initiative_resource_item_plan_edit or permissions.initiative_resource_item_plan_delete %}10{% else %}9{% endif %}" class="text-center py-4">
                         No resource item plans found.
+                        {% if permissions.initiative_resource_item_plan_create %}
                         <a href="{% url 'create_initiative_resource_item_plan' %}"
                            hx-get="{% url 'create_initiative_resource_item_plan' %}"
                            hx-target="#full-page-container"
@@ -132,6 +143,7 @@
                            class="btn btn-sm btn-primary mt-2">
                             Create Resource Item
                         </a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}

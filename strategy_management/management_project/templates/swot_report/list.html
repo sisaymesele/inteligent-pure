@@ -17,7 +17,8 @@
     <!-- Header: Create, Export, Filters -->
     <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
 
-        <!-- Create -->
+        <!-- Create Button (Only for users with create permission) -->
+        {% if permissions.swot_report_create %}
         <a href="{% url 'create_swot_report' %}"
            class="btn btn-primary"
            hx-get="{% url 'create_swot_report' %}"
@@ -26,14 +27,19 @@
            hx-push-url="true">
             Create SWOT Report
         </a>
+        {% endif %}
 
-        <!-- Export -->
-        <a href="?{% if selected_cycle %}cycle={{ selected_cycle }}&{% endif %}{% if search_query %}search={{ search_query }}&{% endif %}export=excel"
+        <!-- Export Button (Only for users with view permission) -->
+        {% if permissions.swot_report_view %}
+        <a href="{% url 'swot_report_export_to_excel' %}?export=excel&search={{ search_query }}&cycle={{ selected_cycle }}"
            class="btn btn-success">
-            Export to Excel
+            <i class="bi bi-file-earmark-excel"></i> Export to Excel
         </a>
+        {% endif %}
 
-        <!-- Cycle Filter -->
+
+        <!-- Cycle Filter (Only for users with view permission) -->
+        {% if permissions.swot_report_view %}
         <form method="get"
               class="d-inline-block"
               hx-get="{% url 'swot_report_list' %}"
@@ -49,8 +55,10 @@
                 {% endfor %}
             </select>
         </form>
+        {% endif %}
 
-        <!-- Search Box -->
+        <!-- Search Box (Only for users with view permission) -->
+        {% if permissions.swot_report_view %}
         <form method="get"
               class="d-inline-block ms-auto"
               hx-get="{% url 'swot_report_list' %}"
@@ -64,9 +72,10 @@
                    value="{{ search_query|default_if_none:'' }}"
                    style="max-width: 220px;">
         </form>
+        {% endif %}
 
-        <!-- Clear Button -->
-        {% if selected_cycle or search_query %}
+        <!-- Clear Button (Only for users with view permission) -->
+        {% if permissions.swot_report_view and selected_cycle or search_query %}
             <a href="{% url 'swot_report_list' %}"
                class="btn btn-outline-secondary"
                hx-get="{% url 'swot_report_list' %}"
@@ -78,8 +87,8 @@
 
     </div>
 
-    <!-- Filter Summary -->
-    {% if selected_cycle or search_query %}
+    <!-- Filter Summary (Only for users with view permission) -->
+    {% if permissions.swot_report_view and selected_cycle or search_query %}
         <div class="alert alert-info mb-3">
             <strong>Filtered by:</strong>
             {% if selected_cycle %}
@@ -95,7 +104,8 @@
         </div>
     {% endif %}
 
-    <!-- SWOT Table -->
+    <!-- SWOT Table (Only for users with view permission) -->
+    {% if permissions.swot_report_view %}
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-sm align-middle">
             <thead class="table-light sticky-top">
@@ -111,7 +121,9 @@
                     <th>Likelihood</th>
                     <th>Created</th>
                     <th>Updated</th>
+                    {% if permissions.swot_report_edit or permissions.swot_report_delete %}
                     <th>Actions</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -183,26 +195,32 @@
                         </td>
                         <td class="text-nowrap"><small>{{ s.created_at|date:"M d, Y" }}</small></td>
                         <td class="text-nowrap"><small>{{ s.updated_at|date:"M d, Y" }}</small></td>
+                        {% if permissions.swot_report_edit or permissions.swot_report_delete %}
                         <td>
                             <div class="btn-group btn-group-sm">
+                                {% if permissions.swot_report_edit %}
                                 <a class="btn btn-outline-warning"
                                    hx-get="{% url 'update_swot_report' s.pk %}"
                                    hx-target="#full-page-container"
                                    hx-swap="innerHTML"
                                    hx-push-url="true"
                                    title="Edit">✏️</a>
+                                {% endif %}
+                                {% if permissions.swot_report_delete %}
                                 <a class="btn btn-outline-danger"
                                    hx-get="{% url 'delete_swot_report' s.pk %}"
                                    hx-target="#full-page-container"
                                    hx-swap="innerHTML"
                                    hx-push-url="true"
                                    title="Delete">🗑️</a>
+                                {% endif %}
                             </div>
                         </td>
+                        {% endif %}
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="12" class="text-center py-4">
+                        <td colspan="{% if permissions.swot_report_edit or permissions.swot_report_delete %}12{% else %}11{% endif %}" class="text-center py-4">
                             {% if selected_cycle or search_query %}
                                 No SWOT entries found matching your filters.
                                 <a href="{% url 'swot_report_list' %}"
@@ -212,12 +230,14 @@
                                    class="btn btn-sm btn-outline-primary mt-2">Clear filters</a>
                             {% else %}
                                 No SWOT entries found.
+                                {% if permissions.swot_report_create %}
                                 <a href="{% url 'create_swot_report' %}"
                                    hx-get="{% url 'create_swot_report' %}"
                                    hx-target="#full-page-container"
                                    hx-swap="innerHTML"
                                    hx-push-url="true"
                                    class="btn btn-sm btn-primary mt-2">Create your first SWOT report</a>
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
@@ -235,6 +255,14 @@
     <div class="mt-2 text-muted">
         Showing {{ swots|length }} SWOT report{{ swots|length|pluralize }}
     </div>
+
+    {% else %}
+    <!-- No Permission Message -->
+    <div class="alert alert-danger text-center">
+        <i class="bi bi-shield-exclamation me-2"></i>
+        You don't have permission to view SWOT reports.
+    </div>
+    {% endif %}
 
 </div>
 

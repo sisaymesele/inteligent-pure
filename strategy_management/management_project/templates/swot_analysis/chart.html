@@ -4,6 +4,8 @@
 {% block content %}
 <div class="container-fluid mt-3">
 
+    <!-- Permission Check -->
+    {% if permissions.swot_analysis_view %}
     <!-- ===== SUMMARY CARDS ===== -->
     <div class="row mb-4">
         <div class="col-md-2">
@@ -103,6 +105,13 @@
             </div>
         </div>
     </div>
+
+    {% else %}
+    <!-- No Permission Message -->
+    <div class="alert alert-danger text-center">
+        You don't have permission to view SWOT analysis charts.
+    </div>
+    {% endif %}
 
 </div>
 {% endblock %}

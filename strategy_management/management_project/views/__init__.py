@@ -32,7 +32,7 @@ from .strategic_report import strategy_report_by_cycle_list, strategic_report_de
 
 
 from .swot_report import swot_report_list, \
-    create_swot_report, update_swot_report, delete_swot_report, swot_report_chart
+    create_swot_report, update_swot_report, delete_swot_report, swot_report_chart, swot_report_export_to_excel
 
 from .initiative_planning import  initiative_planning_list, create_initiative_planning, \
     update_initiative_planning, delete_initiative_planning, \

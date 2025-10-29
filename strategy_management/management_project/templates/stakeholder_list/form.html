@@ -2,6 +2,39 @@
 {% load humanize %}
 
 {% block content %}
+{% if not permissions.stakeholder_create and not permissions.stakeholder_edit %}
+<!-- No Permission Message -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <div class="text-warning mb-3">
+                        <i class="fas fa-lock fa-4x"></i>
+                    </div>
+                    <h2 class="text-muted mb-3">Access Denied</h2>
+                    <p class="text-muted lead mb-4">
+                        {% if edit_mode %}
+                        You don't have permission to edit stakeholders.
+                        {% else %}
+                        You don't have permission to create stakeholders.
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'stakeholder_list' %}"
+                       class="btn btn-primary mt-2"
+                       hx-get="{% url 'stakeholder_list' %}"
+                       hx-target="#full-page-container"
+                       hx-swap="innerHTML"
+                       hx-push-url="true">
+                        <i class="fas fa-list me-2"></i>Back to Stakeholder List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<!-- Original Form Content -->
 <div class="mb-3">
     <a href="{% url 'stakeholder_list' %}"
        class="btn btn-secondary"
@@ -132,6 +165,7 @@
             <div class="col-12">
                 <div class="d-flex align-items-center mb-1">
                     <label class="form-label mb-0">{{ field.label }}</label>
+                    {% if permissions.strategy_hierarchy.create %}
                     <a href="{% url 'create_strategy_hierarchy' %}?next={{ request.get_full_path|urlencode }}"
                        class="btn btn-sm btn-outline-success ms-2"
                        hx-get="{% url 'create_strategy_hierarchy' %}?next={{ request.get_full_path|urlencode }}"
@@ -139,6 +173,7 @@
                        hx-swap="innerHTML"
                        hx-push-url="true"
                        title="Add New Objective">+</a>
+                    {% endif %}
                 </div>
 
                 <div style="height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 5px;">
@@ -171,7 +206,6 @@
             {% endif %}
             {% endfor %}
 
-
         </div>
 
         <!-- Form Actions -->
@@ -191,4 +225,5 @@
         </div>
     </form>
 </div>
+{% endif %}
 {% endblock content %}

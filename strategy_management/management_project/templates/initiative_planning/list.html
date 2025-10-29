@@ -18,6 +18,7 @@
     <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
 
         <!-- Create Button -->
+        {% if permissions.initiative_planning_create %}
         <a href="{% url 'create_initiative_planning' %}"
            class="btn btn-primary"
            hx-get="{% url 'create_initiative_planning' %}"
@@ -26,6 +27,7 @@
            hx-push-url="true">
             Create Initiative Planning
         </a>
+        {% endif %}
 
         <!-- Export -->
         <a href="{% url 'export_initiative_planning_to_excel' %}?search={{ search_query }}&initiative_focus_area={{ selected_focus }}"
@@ -108,7 +110,9 @@
                     <th>End Date</th>
                     <th>Created</th>
                     <th>Updated</th>
+                    {% if permissions.initiative_planning_edit or permissions.initiative_planning_delete %}
                     <th>Actions</th>
+                    {% endif %}
                 </tr>
                 </thead>
 
@@ -143,8 +147,8 @@
                         {% endif %}
                     </td>
 
-                    <td class="text-center">{{ i.total_budget_planned|floatformat:2 }}</td>
-                    <td class="text-center">{{ i.total_hr_planned|floatformat:2 }}</td>
+                    <td class="text-center">{{ i.total_budget_planned|floatformat:2|intcomma }}</td>
+                    <td class="text-center">{{ i.total_hr_planned|floatformat:2|intcomma }}</td>
 
                     <!-- Priority, Impact, Likelihood, Risk Level -->
                     <td class="text-center">
@@ -200,26 +204,32 @@
                     <td class="text-center">{{ i.updated_at|date:"M d, Y" }}</td>
 
                     <!-- Actions -->
+                    {% if permissions.initiative_planning_edit or permissions.initiative_planning_delete %}
                     <td class="text-center">
                         <div class="btn-group btn-group-sm">
+                            {% if permissions.initiative_planning_edit %}
                             <a class="btn btn-outline-warning"
                                hx-get="{% url 'update_initiative_planning' i.pk %}"
                                hx-target="#full-page-container"
                                hx-swap="innerHTML"
                                hx-push-url="true"
                                title="Edit"><i class="bi bi-pencil"></i></a>
+                            {% endif %}
+                            {% if permissions.initiative_planning_delete %}
                             <a class="btn btn-outline-danger"
                                hx-get="{% url 'delete_initiative_planning' i.pk %}"
                                hx-target="#full-page-container"
                                hx-swap="innerHTML"
                                hx-push-url="true"
                                title="Delete"><i class="bi bi-trash"></i></a>
+                            {% endif %}
                         </div>
                     </td>
+                    {% endif %}
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="20" class="text-center py-4 text-muted">
+                    <td colspan="{% if permissions.initiative_planning_edit or permissions.initiative_planning_delete %}20{% else %}19{% endif %}" class="text-center py-4 text-muted">
                         {% if selected_focus or search_query %}
                         No initiatives found.
                         <a href="{% url 'initiative_planning_list' %}"
@@ -231,6 +241,7 @@
                         </a>
                         {% else %}
                         No initiatives found.
+                        {% if permissions.initiative_planning_create %}
                         <a href="{% url 'create_initiative_planning' %}"
                            hx-get="{% url 'create_initiative_planning' %}"
                            hx-target="#full-page-container"
@@ -239,6 +250,7 @@
                            class="btn btn-sm btn-primary mt-2">
                             Create Initiative Planning
                         </a>
+                        {% endif %}
                         {% endif %}
                     </td>
                 </tr>

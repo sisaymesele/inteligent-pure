@@ -22,6 +22,8 @@
             <h6 class="text-muted mb-0">{{ strategy_by_cycle.name }}</h6>
         </div>
         <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mt-md-0">
+            <!-- Permission Check for Edit -->
+            {% if permissions.strategic_report_edit %}
             <a href="{% url 'update_strategic_report' strategy_by_cycle.slug strategic_report.pk %}"
                class="btn btn-outline-primary"
                hx-get="{% url 'update_strategic_report' strategy_by_cycle.slug strategic_report.pk %}"
@@ -30,6 +32,10 @@
                hx-push-url="true">
                 <i class="bi bi-pencil me-1"></i> Edit Report
             </a>
+            {% endif %}
+
+            <!-- Permission Check for Delete -->
+            {% if permissions.strategic_report_delete %}
             <a href="{% url 'delete_strategic_report' strategy_by_cycle.slug strategic_report.pk %}"
                class="btn btn-outline-danger"
                hx-get="{% url 'delete_strategic_report' strategy_by_cycle.slug strategic_report.pk %}"
@@ -38,6 +44,7 @@
                hx-push-url="true">
                 <i class="bi bi-trash me-1"></i> Delete Report
             </a>
+            {% endif %}
         </div>
     </div>
 

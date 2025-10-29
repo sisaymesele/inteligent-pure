@@ -1,6 +1,8 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+<!-- Permission Check for Create/Edit -->
+{% if permissions.strategic_cycle_create or permissions.strategic_cycle_edit %}
 <!-- Back Button -->
 <div class="mb-3">
     <a href="{% url 'strategic_cycle_list' %}"
@@ -71,4 +73,21 @@
         </form>
     </div>
 </div>
+
+{% else %}
+<!-- No Permission Message -->
+<div class="container mt-4">
+    <div class="alert alert-danger text-center">
+        <p>You don't have permission to {% if edit_mode %}edit{% else %}create{% endif %} strategic cycles.</p>
+        <a href="{% url 'strategic_cycle_list' %}"
+           class="btn btn-primary"
+           hx-get="{% url 'strategic_cycle_list' %}"
+           hx-target="#full-page-container"
+           hx-swap="innerHTML"
+           hx-push-url="true">
+            Back to Strategic Cycles
+        </a>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

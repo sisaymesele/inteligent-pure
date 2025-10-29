@@ -5,12 +5,16 @@
 <div class="container-fluid" id="strategy-container">
     <!-- Display Messages -->
     {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     {% endfor %}
 
     <div class="row mb-3">
         <div class="col-md-6">
-            <!-- HTMX-enabled Add button -->
+            <!-- HTMX-enabled Add button (Only for users with create permission) -->
+            {% if permissions.strategy_hierarchy_create %}
             <a href="{% url 'create_strategy_hierarchy' %}"
                class="btn btn-primary"
                hx-get="{% url 'create_strategy_hierarchy' %}"
@@ -20,9 +24,11 @@
                hx-push-url="true">
                 Add Strategy Hierarchy
             </a>
+            {% endif %}
         </div>
         <div class="col-md-6">
-            <!-- HTMX-enabled Search Form -->
+            <!-- HTMX-enabled Search Form (Only for users with view permission) -->
+            {% if permissions.strategy_hierarchy_view %}
             <form method="get"
                   action="{% url 'strategy_hierarchy_list' %}"
                   class="d-flex justify-content-end"
@@ -36,9 +42,12 @@
                        value="{{ query|default_if_none:'' }}">
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
+            {% endif %}
         </div>
     </div>
 
+    <!-- Strategy Table (Only for users with view permission) -->
+    {% if permissions.strategy_hierarchy_view %}
     <div class="table-responsive" style="max-height: 70vh; overflow-y: auto;">
         <table class="table table-bordered table-striped table-sm">
             <thead>
@@ -49,8 +58,9 @@
                 <th>Objective</th>
                 <th>KPI</th>
                 <th>Formula</th>
-                <th>Update</th>
-                <th>Delete</th>
+                {% if permissions.strategy_hierarchy_edit or permissions.strategy_hierarchy_delete %}
+                <th>Actions</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -62,36 +72,84 @@
                     <td>{{ s.objective }}</td>
                     <td>{{ s.kpi }}</td>
                     <td>{{ s.formula|default:"-" }}</td>
+                    {% if permissions.strategy_hierarchy_edit or permissions.strategy_hierarchy_delete %}
                     <td>
-                        <a class="btn btn-warning"
-                           hx-get="{% url 'update_strategy_hierarchy' s.pk %}"
-                           hx-trigger="click"
-                           hx-target="#full-page-container"
-                           hx-swap="innerHTML"
-                           hx-push-url="true">
-                            Update
-                        </a>
+                        <div class="btn-group btn-group-sm">
+                            {% if permissions.strategy_hierarchy_edit %}
+                            <a class="btn btn-outline-warning"
+                               hx-get="{% url 'update_strategy_hierarchy' s.pk %}"
+                               hx-trigger="click"
+                               hx-target="#full-page-container"
+                               hx-swap="innerHTML"
+                               hx-push-url="true"
+                               title="Edit">
+                                ✏️
+                            </a>
+                            {% endif %}
+                            {% if permissions.strategy_hierarchy_delete %}
+                            <a class="btn btn-outline-danger"
+                               hx-get="{% url 'delete_strategy_hierarchy' s.pk %}"
+                               hx-trigger="click"
+                               hx-target="#full-page-container"
+                               hx-swap="innerHTML"
+                               hx-push-url="true"
+                               title="Delete">
+                                🗑️
+                            </a>
+                            {% endif %}
+                        </div>
                     </td>
-                    <td>
-                        <a class="btn btn-danger"
-                           hx-get="{% url 'delete_strategy_hierarchy' s.pk %}"
-                           hx-trigger="click"
-                           hx-target="#full-page-container"
-                           hx-swap="innerHTML"
-                           hx-push-url="true">
-                            Delete
-                        </a>
-                    </td>
+                    {% endif %}
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="8" class="text-center">No Strategy entries found.</td>
+                    <td colspan="{% if permissions.strategy_hierarchy_edit or permissions.strategy_hierarchy_delete %}7{% else %}6{% endif %}" class="text-center py-4">
+                        {% if query %}
+                            No strategy entries found matching "{{ query }}".
+                            <a href="{% url 'strategy_hierarchy_list' %}"
+                               hx-get="{% url 'strategy_hierarchy_list' %}"
+                               hx-target="#full-page-container"
+                               hx-swap="innerHTML"
+                               class="btn btn-sm btn-outline-primary mt-2">
+                                Clear search
+                            </a>
+                        {% else %}
+                            No strategy entries found.
+                            {% if permissions.strategy_hierarchy_create %}
+                            <a href="{% url 'create_strategy_hierarchy' %}"
+                               hx-get="{% url 'create_strategy_hierarchy' %}"
+                               hx-target="#full-page-container"
+                               hx-swap="innerHTML"
+                               hx-push-url="true"
+                               class="btn btn-sm btn-primary mt-2">
+                                Create your first strategy
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
+    <!-- Results Count -->
+    <div class="mt-2 text-muted">
+        Showing {{ strategies|length }} strategy entr{{ strategies|length|pluralize:"y,ies" }}
+    </div>
+
+    {% else %}
+    <!-- No Permission Message -->
+    <div class="alert alert-danger text-center">
+        <i class="bi bi-shield-exclamation me-2"></i>
+        You don't have permission to view strategy hierarchy.
+    </div>
+    {% endif %}
 
 </div>
+
+<style>
+.btn-group { white-space: nowrap; }
+.table td { vertical-align: middle; }
+</style>
 {% endblock content %}

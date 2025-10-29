@@ -3,26 +3,23 @@
 {% block content %}
 
 <div class="container-fluid">
+    <!-- Messages -->
     <div class="message">
         {% for message in messages %}
-        <p style="color: red;">{{ message }}</p>
+            <div class="alert alert-{{ message.tags|default:'info' }}">
+                {{ message }}
+            </div>
         {% endfor %}
     </div>
-    <div>
-        <div class="row" id="profile-container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <a class="btn btn-primary" href="{% url 'create_organizational_profile' %}">
-                    Create Organizational Profile
-                </a>
-                <h1 class="mx-auto">Organizational Profiles</h1>
-            </div>
 
+    <div class="row" id="profile-container">
 
-            <div class="col-md-12 mb-4">
-                <div class="table-responsive" id="profile-list"
-                     style="max-height: 70vh; overflow-y: auto; overflow-x: auto;">
-                    <table class="table table-success table-striped-columns w-100">
-                        <thead>
+        <!-- Profile List Section -->
+        {% if permissions.organizational_profile_view %}
+        <div class="col-12 mb-4">
+            <div class="table-responsive" id="profile-list" style="max-height: 70vh; overflow: auto;">
+                <table class="table table-striped table-success w-100">
+                    <thead>
                         <tr>
                             <th>Organization Name</th>
                             <th>Address</th>
@@ -30,60 +27,73 @@
                             <th>Type</th>
                             <th>Sector Name</th>
                             <th>Contact Personnel</th>
-                            <th>Owner</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                            {% if permissions.organizational_profile_edit %}<th>Update</th>{% endif %}
+                            {% if permissions.organizational_profile_delete %}<th>Delete</th>{% endif %}
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
                         {% for profile in organizational_profiles %}
                         <tr>
                             <td>
-                                <a href="{% url 'update_organizational_profile' profile.pk %}">
+                                {% if permissions.organizational_profile_edit %}
+                                    <a hx-get="{% url 'update_organizational_profile' profile.pk %}"
+                                       hx-target="#full-page-container"
+                                       hx-swap="innerHTML"
+                                       hx-push-url="true"
+                                       class="text-decoration-none">
+                                        {{ profile.organization_name }}
+                                    </a>
+                                {% else %}
                                     {{ profile.organization_name }}
-                                </a>
+                                {% endif %}
                             </td>
                             <td>{{ profile.organization_address }}</td>
                             <td>{{ profile.employer_tin }}</td>
                             <td>{{ profile.get_organization_type_display }}</td>
                             <td>{{ profile.get_sector_name_display }}</td>
                             <td>{{ profile.contact_personnel }}</td>
-                            <td>{{ profile.owner }}</td>
-                            <td>
-                                <a
-                                        class="btn btn-warning"
-                                        href="{% url 'update_organizational_profile' profile.pk %}"
 
-                                >
+                            {% if permissions.organizational_profile_edit %}
+                            <td>
+                                <a class="btn btn-sm btn-warning"
+                                   hx-get="{% url 'update_organizational_profile' profile.pk %}"
+                                   hx-target="#full-page-container"
+                                   hx-swap="innerHTML"
+                                   hx-push-url="true">
                                     Update
                                 </a>
                             </td>
+                            {% endif %}
+
+                            {% if permissions.organizational_profile_delete %}
                             <td>
-                                <a class="btn btn-danger"
-                                   href="{% url 'delete_organizational_profile' profile.pk %}"
+                                <a class="btn btn-sm btn-danger"
                                    hx-get="{% url 'delete_organizational_profile' profile.pk %}"
-                                   hx-trigger="click"
                                    hx-target="#full-page-container"
                                    hx-swap="innerHTML"
                                    hx-push-url="true">
                                     Delete
                                 </a>
-
-
                             </td>
+                            {% endif %}
                         </tr>
                         {% empty %}
-                        <li>No organizational profiles found.</li>
+                        <tr>
+                            <td colspan="8" class="text-center text-muted">
+                                No organizational profiles found.
+                            </td>
+                        </tr>
                         {% endfor %}
-                        </tbody>
-                    </table>
-
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
+        {% else %}
+        <div class="col-12 text-center text-muted">
+            <p>You do not have permission to view organizational profiles.</p>
+        </div>
+        {% endif %}
     </div>
 </div>
+
 {% endblock content %}
-
-
-

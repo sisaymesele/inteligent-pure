@@ -5,6 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Form Section (Left) -->
+        {% if permissions.vision_create or permissions.vision_edit %}
         <div class="col-lg-4 col-md-12 mb-4">
             <div class="p-3 border rounded shadow-lg" id="form-container">
                 <h4>Vision Form</h4>
@@ -60,9 +61,11 @@
                 </form>
             </div>
         </div>
+        {% endif %}
 
         <!-- Vision List Section (Right) -->
-        <div class="col-lg-8 col-md-12 mb-4">
+        {% if permissions.vision_view %}
+        <div class="{% if permissions.vision_create or permissions.vision_edit %}col-lg-8{% else %}col-12{% endif %} col-md-12 mb-4">
             <div class="card mb-4">
                 <div class="table-responsive" style="max-height: 70vh; overflow-y: auto;">
                     <div style="overflow-x: auto; max-width: 100%;">
@@ -71,8 +74,10 @@
                                 <tr>
                                     <th>Organization</th>
                                     <th>Vision Statement</th>
+                                    {% if permissions.vision_edit or permissions.vision_delete %}
                                     <th>Update</th>
                                     <th>Delete</th>
+                                    {% endif %}
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +85,9 @@
                                 <tr>
                                     <td>{{ vision.organization_name }}</td>
                                     <td>{{ vision.vision_statement }}</td>
+                                    {% if permissions.vision_edit or permissions.vision_delete %}
                                     <td>
+                                        {% if permissions.vision_edit %}
                                         <a class="btn btn-warning"
                                            hx-get="{% url 'update_vision' vision.pk %}"
                                            hx-trigger="click"
@@ -88,8 +95,10 @@
                                            hx-swap="outerHTML">
                                             Update
                                         </a>
+                                        {% endif %}
                                     </td>
                                     <td>
+                                        {% if permissions.vision_delete %}
                                         <a class="btn btn-danger"
                                            hx-get="{% url 'delete_vision' vision.pk %}"
                                            hx-trigger="click"
@@ -98,16 +107,18 @@
                                            hx-push-url="true">
                                             Delete
                                         </a>
+                                        {% endif %}
                                     </td>
+                                    {% endif %}
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 

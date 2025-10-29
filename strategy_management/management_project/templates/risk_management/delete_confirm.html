@@ -1,14 +1,42 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+{% if not permissions.risk_management_delete %}
+<!-- No Permission Message -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <div class="text-warning mb-3">
+                        <i class="bi bi-lock-fill fa-4x"></i>
+                    </div>
+                    <h2 class="text-muted mb-3">Access Denied</h2>
+                    <p class="text-muted lead mb-4">
+                        You don't have permission to delete risk management entries.
+                    </p>
+                    <a href="{% url 'risk_management_list' %}"
+                       class="btn btn-primary mt-2"
+                       hx-get="{% url 'risk_management_list' %}"
+                       hx-target="#full-page-container"
+                       hx-swap="innerHTML"
+                       hx-push-url="true">
+                        <i class="bi bi-list me-2"></i>Back to Risk Management List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
 <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 40vh;">
     <div class="row justify-content-center w-100">
         <div class="col-md-6 col-lg-4">
             <div class="card shadow-lg p-4">
                 <h2 class="text-center mb-4 text-danger">Confirm Deletion</h2>
                 <p class="text-center mb-4">
-                    Are you sure you want to delete the risk 
-                    "<strong>{{ risk.key }}</strong>"?
+                    Are you sure you want to delete the risk
+                    "<strong>{{ entry.risk_name }}</strong>"?
                 </p>
 
                 <!-- HTMX Form for Deletion -->
@@ -37,4 +65,5 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}

@@ -11,6 +11,8 @@
                     "<strong>{{ vision.organization_name }}</strong>"?
                 </p>
 
+                <!-- Permission Check -->
+                {% if permissions.vision_delete %}
                 <!-- HTMX Form for Deletion -->
                 <form method="POST">
                     {% csrf_token %}
@@ -26,6 +28,13 @@
                         </button>
                     </div>
                 </form>
+                {% else %}
+                <!-- Access Denied Message -->
+                <div class="alert alert-danger text-center">
+                    <i class="bi bi-shield-exclamation"></i>
+                    You don't have permission to delete vision statements.
+                </div>
+                {% endif %}
 
                 <!-- HTMX Cancel Button -->
                 <div class="d-flex justify-content-center mt-3">

@@ -6,18 +6,18 @@ from django.db.models import Q
 
 from management_project.models import RiskManagement, StrategicCycle
 from management_project.forms import RiskManagementForm
+from management_project.services.permission import role_required, get_user_permissions
 
 from io import BytesIO
 from django.http import HttpResponse
-from django.db.models import Q
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 
-
 # -------------------- LIST (Category-based) --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='risk_management', action='view')
 def risk_management_list(request):
     search_query = request.GET.get('search', '').strip()
     selected_cycle = request.GET.get('strategic_cycle', '').strip()
@@ -52,18 +52,21 @@ def risk_management_list(request):
     paginator = Paginator(risks, 10)
     page_obj = paginator.get_page(page_number)
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'risk_management/list.html', {
         'risks': page_obj,
         'page_obj': page_obj,
         'search_query': search_query,
         'cycle_choices': cycle_choices,
         'selected_cycle': selected_cycle,
+        'permissions': permissions,
     })
 
 
 # -------------------- CREATE --------------------
-
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='risk_management', action='create')
 def create_risk_management(request):
     """
     Create a new RiskManagement entry.
@@ -87,12 +90,17 @@ def create_risk_management(request):
     else:
         form = RiskManagementForm(request=request)
 
-    return render(request, 'risk_management/form.html', {'form': form})
+    permissions = get_user_permissions(request.user)
+
+    return render(request, 'risk_management/form.html', {
+        'form': form,
+        'permissions': permissions,
+    })
 
 
-# -------------------- UPDATE --------------------
 # -------------------- UPDATE --------------------
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='risk_management', action='edit')
 def update_risk_management(request, pk):
     """
     Update an existing RiskManagement entry.
@@ -115,13 +123,17 @@ def update_risk_management(request, pk):
     else:
         form = RiskManagementForm(instance=entry, request=request)
 
-    return render(request, 'risk_management/form.html', {'form': form})
+    permissions = get_user_permissions(request.user)
 
-
+    return render(request, 'risk_management/form.html', {
+        'form': form,
+        'permissions': permissions,
+    })
 
 
 # -------------------- DELETE --------------------
 @login_required
+@role_required(['owner', 'admin'], model_name='risk_management', action='delete')
 def delete_risk_management(request, pk):
     entry = get_object_or_404(RiskManagement, pk=pk, organization_name=request.user.organization_name)
 
@@ -130,10 +142,12 @@ def delete_risk_management(request, pk):
         messages.success(request, "Risk entry deleted successfully!")
         return redirect('risk_management_list')
 
-    return render(request, 'risk_management/delete_confirm.html', {'entry': entry})
+    permissions = get_user_permissions(request.user)
 
-
-
+    return render(request, 'risk_management/delete_confirm.html', {
+        'entry': entry,
+        'permissions': permissions,
+    })
 
 
 def split_two_lines(text):
@@ -144,7 +158,9 @@ def split_two_lines(text):
     mid = len(words) // 2
     return " ".join(words[:mid]) + "\n" + " ".join(words[mid:])
 
+
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='risk_management', action='view')
 def export_risk_management_excel(request):
     """Export risk management entries to Excel with strategic cycle filtering and search."""
     search_query = request.GET.get('search', '').strip()
@@ -259,4 +275,3 @@ def export_risk_management_excel(request):
     )
     response['Content-Disposition'] = 'attachment; filename="Risk_Management_Report.xlsx"'
     return response
-

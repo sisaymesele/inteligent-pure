@@ -1,6 +1,50 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+{% if not permissions.stakeholder_view %}
+<!-- No Permission Message -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <div class="text-warning mb-3">
+                        <i class="fas fa-lock fa-4x"></i>
+                    </div>
+                    <h2 class="text-muted mb-3">Access Denied</h2>
+                    <p class="text-muted lead mb-4">You don't have permission to view the Stakeholder Analytics Dashboard.</p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h5 class="card-title text-warning">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                        Required Permissions
+                                    </h5>
+                                    <p class="card-text small text-muted">
+                                        You need at least <strong>'viewer'</strong> role access to stakeholder data
+                                        to view this analytics dashboard.
+                                    </p>
+                                    {% if user.is_authenticated %}
+                                    <a href="{% url 'dashboard' %}" class="btn btn-primary mt-2">
+                                        <i class="fas fa-home me-2"></i>Return to Dashboard
+                                    </a>
+                                    {% else %}
+                                    <a href="{% url 'login' %}" class="btn btn-primary mt-2">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<!-- Full Dashboard Content (only shown if user has view permission) -->
 <div class="dashboard-header bg-primary text-white py-4">
     <div class="container">
         <div class="row align-items-center">
@@ -13,10 +57,16 @@
             </div>
             <div class="col-md-4 text-md-end mt-3 mt-md-0">
                 <div class="btn-group" role="group">
-                    <button class="btn btn-light">
+                    {% if permissions.stakeholder.export %}
+                    <a href="{% url 'export_stakeholders_to_excel' %}" class="btn btn-light">
+                        <i class="fas fa-download me-2"></i>Export
+                    </a>
+                    {% else %}
+                    <button class="btn btn-light" disabled title="Export permission required">
                         <i class="fas fa-download me-2"></i>Export
                     </button>
-                    <button class="btn btn-outline-light">
+                    {% endif %}
+                    <button class="btn btn-outline-light" onclick="window.location.reload()">
                         <i class="fas fa-sync-alt me-2"></i>Refresh
                     </button>
                 </div>
@@ -216,6 +266,15 @@
             Last updated: {% now "F j, Y, g:i a" %}
             | <i class="fas fa-database me-1"></i>
             Total Records: {{ summary_data.total_stakeholders }}
+            | <i class="fas fa-user-shield me-1"></i>
+            Access:
+            {% if permissions.stakeholder.create and permissions.stakeholder.delete %}
+            Full Access
+            {% elif permissions.stakeholder.create %}
+            Editor
+            {% else %}
+            Viewer
+            {% endif %}
         </small>
     </div>
 </div>
@@ -280,4 +339,5 @@
     }
 }
 </style>
+{% endif %}
 {% endblock %}

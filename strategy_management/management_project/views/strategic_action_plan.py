@@ -21,9 +21,11 @@ from collections import defaultdict
 
 from management_project.models import StrategicCycle, StrategicActionPlan, Stakeholder
 from management_project.forms import StrategicActionPlanForm
+from management_project.services.permission import role_required, get_user_permissions
 
 
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_action_plan', action='view')
 def strategic_action_plan_by_cycle(request):
     """List distinct strategic cycles for the current organization with all info."""
     cycles_qs = StrategicCycle.objects.filter(
@@ -46,12 +48,16 @@ def strategic_action_plan_by_cycle(request):
             'start_year': cycle.start_date.year if cycle.start_date else None,
         })
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'strategic_action_plan/cycle_list.html', {
-        'strategic_cycles': cycles
+        'strategic_cycles': cycles,
+        'permissions': permissions,
     })
 
 
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_action_plan', action='view')
 def strategic_action_plan_list(request, cycle_slug):
     strategy_by_cycle = get_object_or_404(
         StrategicCycle,
@@ -87,19 +93,21 @@ def strategic_action_plan_list(request, cycle_slug):
     # Form for creating new action plan
     form = StrategicActionPlanForm(initial={'strategic_cycle': strategy_by_cycle}, request=request)
 
+    permissions = get_user_permissions(request.user)
+
     context = {
         'strategy_by_cycle': strategy_by_cycle,
         'page_obj': page_obj,
         'form': form,
         'search_query': search_query,
+        'permissions': permissions,
     }
 
     return render(request, 'strategic_action_plan/list_by_cycle.html', context)
 
 
-
-
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_action_plan', action='view')
 def strategic_action_plan_detail(request, cycle_slug, pk):
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
     strategic_action_plan = get_object_or_404(
@@ -109,13 +117,17 @@ def strategic_action_plan_detail(request, cycle_slug, pk):
         organization_name=request.user.organization_name
     )
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'strategic_action_plan/detail.html', {
         'strategy_by_cycle': strategy_by_cycle,
-        'strategic_action_plan': strategic_action_plan
+        'strategic_action_plan': strategic_action_plan,
+        'permissions': permissions,
     })
-#
+
 
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='strategic_action_plan', action='create')
 def create_strategic_action_plan(request, cycle_slug):
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
     next_url = request.GET.get('next') or request.POST.get('next')
@@ -148,6 +160,8 @@ def create_strategic_action_plan(request, cycle_slug):
 
         form = StrategicActionPlanForm(initial=initial_data, request=request, cycle=strategy_by_cycle)
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, "strategic_action_plan/form.html", {
         "form": form,
         "form_title": f"{'Update' if form.instance.pk else 'Create'} Strategic Action Plan",
@@ -155,12 +169,12 @@ def create_strategic_action_plan(request, cycle_slug):
         "back_url": reverse("strategic_action_plan_list", kwargs={"cycle_slug": strategy_by_cycle.slug}),
         "strategy_by_cycle": strategy_by_cycle,
         "next": next_url,
+        "permissions": permissions,
     })
 
 
-
-
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='strategic_action_plan', action='edit')
 def update_strategic_action_plan(request, cycle_slug, pk):
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
     sap = get_object_or_404(
@@ -181,17 +195,21 @@ def update_strategic_action_plan(request, cycle_slug, pk):
     else:
         form = StrategicActionPlanForm(instance=sap, request=request)
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'strategic_action_plan/form.html', {
         'form': form,
         'form_title': f'Update Strategic Action Plan for {strategy_by_cycle.name}',
         'submit_button_text': 'Update Strategic Action Plan',
         'back_url': reverse('strategic_action_plan_list', kwargs={'cycle_slug': strategy_by_cycle.slug}),
         'strategy_by_cycle': strategy_by_cycle,
-        'edit_strategic_action_plan': sap
+        'edit_strategic_action_plan': sap,
+        'permissions': permissions,
     })
 
 
 @login_required
+@role_required(['owner', 'admin'], model_name='strategic_action_plan', action='delete')
 def delete_strategic_action_plan(request, cycle_slug, pk):
     strategy_by_cycle = get_object_or_404(StrategicCycle, slug=cycle_slug)
     sap = get_object_or_404(
@@ -206,12 +224,13 @@ def delete_strategic_action_plan(request, cycle_slug, pk):
         messages.success(request, "Strategic action plan deleted successfully!")
         return redirect('strategic_action_plan_list', cycle_slug=strategy_by_cycle.slug)
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'strategic_action_plan/delete_confirm.html', {
         'strategic_action_plan': sap,
-        'strategy_by_cycle': strategy_by_cycle
+        'strategy_by_cycle': strategy_by_cycle,
+        'permissions': permissions,
     })
-
-
 
 
 def split_two_lines(text):
@@ -222,7 +241,9 @@ def split_two_lines(text):
     mid = len(words) // 2
     return " ".join(words[:mid]) + "\n" + " ".join(words[mid:])
 
+
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_action_plan', action='view')
 def export_strategic_action_plan_to_excel(request, cycle_slug):
     cycle = get_object_or_404(StrategicCycle, slug=cycle_slug, organization_name=request.user.organization_name)
     plans = StrategicActionPlan.objects.filter(strategic_cycle=cycle, organization_name=request.user.organization_name)
@@ -324,9 +345,9 @@ def export_strategic_action_plan_to_excel(request, cycle_slug):
     return response
 
 
-#
+@login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategic_action_plan', action='view')
 def strategic_action_plan_chart(request):
-
     # ---------------- Base queryset ----------------
     base_qs = (
         StrategicActionPlan.objects.select_related("strategy_hierarchy", "strategic_cycle")
@@ -435,6 +456,8 @@ def strategic_action_plan_chart(request):
     total_all, completed_all, rate_all = kpi_summary(obj_all, status_all)
     total_filtered, completed_filtered, rate_filtered = kpi_summary(obj_filtered, status_filtered)
 
+    permissions = get_user_permissions(request.user)
+
     # ---------------- Context ----------------
     context = {
         # Charts
@@ -456,5 +479,6 @@ def strategic_action_plan_chart(request):
         "responsible_bodies": responsible_bodies,
         "selected_cycle": int(selected_cycle) if selected_cycle else None,
         "selected_body": int(selected_body) if selected_body else None,
+        "permissions": permissions,
     }
     return render(request, "strategic_action_plan/chart.html", context)

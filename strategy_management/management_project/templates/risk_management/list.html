@@ -22,10 +22,6 @@
     </div>
 </div>
 
-
-
-
-
 <!-- Header Line 2: Search + Filter + Buttons -->
 <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-2">
     <!-- Search -->
@@ -55,8 +51,8 @@
                 </option>
             {% endfor %}
         </select>
-
     </div>
+
     <a class="btn btn-secondary"
        hx-get="{% url 'risk_management_list' %}"
        hx-target="#full-page-container"
@@ -65,12 +61,16 @@
         Reset
     </a>
 
-    <!-- Buttons -->
+    <!-- Buttons - Only check create permission for Add button -->
     <div class="d-flex gap-2 flex-wrap">
+        <!-- Export always visible if user can view the list -->
         <a class="btn btn-success"
            href="{% url 'export_risk_management_excel' %}?search={{ search_query }}&strategic_cycle={{ selected_cycle }}">
             <i class="bi bi-file-earmark-excel"></i> Export
         </a>
+
+        <!-- Add Risk Button - Only check create permission -->
+        {% if permissions.risk_management_create %}
         <a class="btn btn-primary"
            hx-get="{% url 'create_risk_management' %}"
            hx-target="#full-page-container"
@@ -78,7 +78,7 @@
            hx-push-url="true">
             <i class="bi bi-plus-circle"></i> Add Risk
         </a>
-
+        {% endif %}
     </div>
 </div>
 
@@ -102,9 +102,13 @@
                         <th>Impact</th>
                         <th>Severity</th>
                         <th>Status</th>
+                        <th>Strategic Cycle</th>
                         <th>Created</th>
                         <th>Updated</th>
+                        <!-- Actions column - only show if user has edit permission -->
+                        {% if permissions.risk_management_edit or permissions.risk_management_delete %}
                         <th class="text-center">Actions</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -128,11 +132,16 @@
                                 <span class="badge bg-secondary">Unknown</span>
                             {% endif %}
                         </td>
+                        <td>{{ risk.strategic_cycle.name|default:"—" }}</td>
                         <td>{{ risk.created_at|date:"F d, Y" }}</td>
                         <td>{{ risk.updated_at|date:"F d, Y" }}</td>
 
+                        <!-- Actions column -->
+                        {% if permissions.risk_management_edit or permissions.risk_management_delete %}
                         <td class="text-center">
                             <div class="btn-group btn-group-sm">
+                                <!-- Edit Button - Only check edit permission -->
+                                {% if permissions.risk_management_edit %}
                                 <a class="btn btn-warning"
                                    hx-get="{% url 'update_risk_management' risk.pk %}"
                                    hx-target="#full-page-container"
@@ -141,6 +150,10 @@
                                    title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
+                                {% endif %}
+
+                                <!-- Delete Button - Only check delete permission -->
+                                {% if permissions.risk_management_delete %}
                                 <a class="btn btn-danger"
                                    hx-get="{% url 'delete_risk_management' risk.pk %}"
                                    hx-target="#full-page-container"
@@ -149,14 +162,20 @@
                                    title="Delete">
                                     <i class="bi bi-trash"></i>
                                 </a>
+                                {% endif %}
                             </div>
                         </td>
+                        {% endif %}
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="11" class="text-center py-4 text-muted">
+                        <td colspan="{% if permissions.risk_management_edit or permissions.risk_management_delete %}12{% else %}11{% endif %}"
+                            class="text-center py-4 text-muted">
                             <i class="bi bi-inbox" style="font-size: 2rem;"></i>
                             <p class="mt-2">No Risk Management entries found.</p>
+
+                            <!-- Only show "Add first risk" button if user has create permission -->
+                            {% if permissions.risk_management_create %}
                             <a class="btn btn-primary mt-2"
                                hx-get="{% url 'create_risk_management' %}"
                                hx-target="#full-page-container"
@@ -164,6 +183,7 @@
                                hx-push-url="true">
                                 Add your first risk
                             </a>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

@@ -42,6 +42,9 @@
            href="{% url 'export_strategic_action_plan_to_excel' cycle_slug=strategy_by_cycle.slug %}">
             <i class="bi bi-file-earmark-excel"></i> Export
         </a>
+
+        <!-- Create Button with Permission Check -->
+        {% if permissions.strategic_action_plan_create %}
         <a class="btn btn-primary"
            href="{% url 'create_strategic_action_plan' cycle_slug=strategy_by_cycle.slug %}"
            hx-get="{% url 'create_strategic_action_plan' cycle_slug=strategy_by_cycle.slug %}"
@@ -50,6 +53,7 @@
            hx-push-url="true">
             <i class="bi bi-plus-circle"></i> Create Plan
         </a>
+        {% endif %}
     </div>
 </div>
 
@@ -116,6 +120,7 @@
 
                 <td nowrap class="text-center">
                     <div class="btn-group btn-group-sm">
+                        <!-- View Button - Always visible for viewers -->
                         <a class="btn btn-info"
                            href="{% url 'strategic_action_plan_detail' cycle_slug=strategy_by_cycle.slug pk=plan.pk %}"
                            hx-get="{% url 'strategic_action_plan_detail' cycle_slug=strategy_by_cycle.slug pk=plan.pk %}"
@@ -124,6 +129,9 @@
                            title="View">
                             <i class="bi bi-eye"></i>
                         </a>
+
+                        <!-- Edit Button with Permission Check -->
+                        {% if permissions.strategic_action_plan_edit %}
                         <a class="btn btn-warning"
                            href="{% url 'update_strategic_action_plan' cycle_slug=strategy_by_cycle.slug pk=plan.pk %}"
                            hx-get="{% url 'update_strategic_action_plan' cycle_slug=strategy_by_cycle.slug pk=plan.pk %}"
@@ -133,6 +141,10 @@
                            title="Edit">
                             <i class="bi bi-pencil"></i>
                         </a>
+                        {% endif %}
+
+                        <!-- Delete Button with Permission Check -->
+                        {% if permissions.strategic_action_plan_delete %}
                         <a class="btn btn-danger"
                            href="{% url 'delete_strategic_action_plan' cycle_slug=strategy_by_cycle.slug pk=plan.pk %}"
                            hx-get="{% url 'delete_strategic_action_plan' cycle_slug=strategy_by_cycle.slug pk=plan.pk %}"
@@ -142,6 +154,7 @@
                            title="Delete">
                             <i class="bi bi-trash"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -150,6 +163,9 @@
                 <td colspan="17" class="text-center py-4 text-muted">
                     <i class="bi bi-inbox" style="font-size: 2rem;"></i>
                     <p class="mt-2">No Strategic Action Plans found.</p>
+
+                    <!-- Create Button in Empty State with Permission Check -->
+                    {% if permissions.strategic_action_plan_create %}
                     <a class="btn btn-primary mt-2"
                        hx-get="{% url 'create_strategic_action_plan' cycle_slug=strategy_by_cycle.slug %}"
                        hx-target="#full-page-container"
@@ -157,6 +173,7 @@
                        hx-push-url="true">
                         Create your first plan
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

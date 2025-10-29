@@ -62,23 +62,18 @@ class OrganizationInvitationForm(forms.ModelForm):
         ]
 
         widgets = {
-            'email': forms.EmailInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Invitee Email',
+            'email': forms.EmailInput(
+                attrs={ 'class': 'form-control', 'placeholder': 'Invitee Email',
             }),
             'role': forms.Select(attrs={
                 'class': 'form-control',
             }),
             'message': forms.Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Optional message to the invitee',
-                'rows': 3,
+                'class': 'form-control', 'placeholder': 'Optional message to the invitee', 'rows': 3,
             }),
         }
         labels = {
-            'email': 'Invitee Email',
-            'role': 'Role',
-            'message': 'Message',
+            'email': 'Invitee Email', 'role': 'Role', 'message': 'Message',
         }
         help_texts = {
             'role': 'Choose the role for the invitee: Editor (content) or Viewer (read-only).',
@@ -138,6 +133,8 @@ class VisionForm(forms.ModelForm):
             except ValueError as e:
                 self.add_error('vision_statement', str(e))
         return cleaned_data
+
+
 
 
 class MissionForm(forms.ModelForm):

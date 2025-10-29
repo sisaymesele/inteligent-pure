@@ -1,6 +1,45 @@
 {% extends 'dashboard.html' %}
 
 {% block content %}
+{% if not permissions.initiative_planning_create and not form.instance.pk %}
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg p-4 text-center">
+                <h2 class="text-danger mb-4">Access Denied</h2>
+                <p class="mb-4">You don't have permission to create initiative plans.</p>
+                <a class="btn btn-primary"
+                   href="{% url 'initiative_planning_list' %}"
+                   hx-get="{% url 'initiative_planning_list' %}"
+                   hx-target="#full-page-container"
+                   hx-swap="innerHTML"
+                   hx-push-url="true">
+                    Back to Initiatives
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% elif not permissions.initiative_planning_edit and form.instance.pk %}
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg p-4 text-center">
+                <h2 class="text-danger mb-4">Access Denied</h2>
+                <p class="mb-4">You don't have permission to edit initiative plans.</p>
+                <a class="btn btn-primary"
+                   href="{% url 'initiative_planning_list' %}"
+                   hx-get="{% url 'initiative_planning_list' %}"
+                   hx-target="#full-page-container"
+                   hx-swap="innerHTML"
+                   hx-push-url="true">
+                    Back to Initiatives
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col-12">
@@ -218,6 +257,7 @@
                             <label class="form-label fw-semibold d-flex justify-content-between align-items-center">
                                 Aligned Objectives
                                 <!-- Plus Button -->
+                                {% if permissions.strategy_hierarchy_create %}
                                 <a href="{% url 'create_strategy_hierarchy' %}?next={% url 'create_initiative_planning' %}"
                                    class="btn btn-sm btn-outline-primary ms-2"
                                    hx-get="{% url 'create_strategy_hierarchy' %}?next={% url 'create_initiative_planning' %}"
@@ -226,6 +266,7 @@
                                    title="Add New Objective">
                                     <i class="bi bi-plus"></i>
                                 </a>
+                                {% endif %}
                             </label>
 
                             <div class="border rounded p-3 bg-light">
@@ -262,4 +303,5 @@
         </div>
     </form>
 </div>
+{% endif %}
 {% endblock %}

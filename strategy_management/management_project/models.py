@@ -89,6 +89,8 @@ class OrganizationInvitation(models.Model):
     ]
 
     ROLE_CHOICES = [
+        ('owner', 'Owner'),
+        ('viewer', 'Viewer'),
         ('editor', 'Editor'),
         ('viewer', 'Viewer'),
     ]

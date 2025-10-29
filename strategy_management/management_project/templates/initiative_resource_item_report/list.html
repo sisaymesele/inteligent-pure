@@ -16,7 +16,8 @@
     <!-- Header: Create & Filters -->
     <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
 
-        <!-- Create Button -->
+        <!-- Create Button - Only show if user has create permission -->
+        {% if permissions.initiative_resource_item_report_create %}
         <a href="{% url 'create_initiative_resource_item_report' %}"
            class="btn btn-primary"
            hx-get="{% url 'create_initiative_resource_item_report' %}"
@@ -25,6 +26,7 @@
            hx-push-url="true">
             Create Report
         </a>
+        {% endif %}
 
         <!-- Filters -->
         <div class="d-flex gap-2 ms-auto flex-wrap">
@@ -95,7 +97,10 @@
                     <th>Notes</th>
                     <th>Created</th>
                     <th>Updated</th>
+                    <!-- Actions column - only show if user has edit or delete permission -->
+                    {% if permissions.initiative_resource_item_report_edit or permissions.initiative_resource_item_report_delete %}
                     <th>Actions</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -107,35 +112,45 @@
                     <td>{{ r.initiative_resource_plan.initiative_name.initiative_name }}</td>
                     <td>{{ r.initiative_resource_plan.resource_type }}</td>
                     <td>{{ r.initiative_resource_plan.resource_name }}</td>
-                    <td>{{ r.planned_amount|floatformat:2 }}</td>
-                    <td>{{ r.total_used|floatformat:2 }}</td>
-                    <td>{{ r.remaining|floatformat:2 }}</td>
+                    <td>{{ r.planned_amount|floatformat:2|intcomma }}</td>
+                    <td>{{ r.total_used|floatformat:2|intcomma }}</td>
+                    <td>{{ r.remaining|floatformat:2|intcomma }}</td>
                     <td>{{ r.utilization_percent }}%</td>
                     <td>{{ r.report_date|date:"Y-m-d" }}</td>
                     <td>{{ r.notes|default:"-" }}</td>
                     <td>{{ r.created_at|naturaltime }}</td>
                     <td>{{ r.updated_at|naturaltime }}</td>
+                    <!-- Actions column - only show if user has edit or delete permission -->
+                    {% if permissions.initiative_resource_item_report_edit or permissions.initiative_resource_item_report_delete %}
                     <td>
                         <div class="btn-group btn-group-sm">
+                            <!-- Edit button - only show if user has edit permission -->
+                            {% if permissions.initiative_resource_item_report_edit %}
                             <a class="btn btn-outline-warning"
                                hx-get="{% url 'update_initiative_resource_item_report' r.pk %}"
                                hx-target="#full-page-container"
                                hx-swap="innerHTML"
                                hx-push-url="true"
                                title="Edit">✏️</a>
+                            {% endif %}
+                            <!-- Delete button - only show if user has delete permission -->
+                            {% if permissions.initiative_resource_item_report_delete %}
                             <a class="btn btn-outline-danger"
                                hx-get="{% url 'delete_initiative_resource_item_report' r.pk %}"
                                hx-target="#full-page-container"
                                hx-swap="innerHTML"
                                hx-push-url="true"
                                title="Delete">🗑️</a>
+                            {% endif %}
                         </div>
                     </td>
+                    {% endif %}
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="15" class="text-center py-4">
+                    <td colspan="{% if permissions.initiative_resource_item_report_edit or permissions.initiative_resource_item_report_delete %}15{% else %}14{% endif %}" class="text-center py-4">
                         No reports found.
+                        {% if permissions.initiative_resource_item_report_create %}
                         <a href="{% url 'create_initiative_resource_item_report' %}"
                            hx-get="{% url 'create_initiative_resource_item_report' %}"
                            hx-target="#full-page-container"
@@ -144,6 +159,7 @@
                            class="btn btn-sm btn-primary mt-2">
                             Create Report
                         </a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}

@@ -57,6 +57,9 @@
            data-bs-toggle="tooltip" title="Export to Excel">
             <i class="bi bi-file-earmark-excel"></i> Export
         </a>
+
+        <!-- Permission Check for Create -->
+        {% if permissions.strategic_report_create %}
         <a class="btn btn-primary"
            href="{% url 'create_strategic_report' cycle_slug=strategy_by_cycle.slug %}"
            hx-get="{% url 'create_strategic_report' cycle_slug=strategy_by_cycle.slug %}"
@@ -66,6 +69,7 @@
            data-bs-toggle="tooltip" title="Create New Report">
             <i class="bi bi-plus-circle"></i> New Report
         </a>
+        {% endif %}
     </div>
 </div>
 
@@ -171,6 +175,7 @@
                 <td>{{ report.lessons_learned|default:"-" }}</td>
                 <td nowrap class="text-center">
                     <div class="btn-group btn-group-sm" role="group">
+                        <!-- View Button - Always visible for viewers -->
                         <a class="btn btn-info"
                            href="{% url 'strategic_report_detail' cycle_slug=strategy_by_cycle.slug pk=report.pk %}"
                            hx-get="{% url 'strategic_report_detail' cycle_slug=strategy_by_cycle.slug pk=report.pk %}"
@@ -179,6 +184,9 @@
                            data-bs-toggle="tooltip" title="View Details">
                             <i class="bi bi-eye"></i>
                         </a>
+
+                        <!-- Edit Button - Permission Check -->
+                        {% if permissions.strategic_report_edit %}
                         <a class="btn btn-warning"
                            href="{% url 'update_strategic_report' cycle_slug=strategy_by_cycle.slug pk=report.pk %}"
                            hx-get="{% url 'update_strategic_report' cycle_slug=strategy_by_cycle.slug pk=report.pk %}"
@@ -188,6 +196,10 @@
                            data-bs-toggle="tooltip" title="Edit Report">
                             <i class="bi bi-pencil"></i>
                         </a>
+                        {% endif %}
+
+                        <!-- Delete Button - Permission Check -->
+                        {% if permissions.strategic_report_delete %}
                         <a class="btn btn-danger"
                            href="{% url 'delete_strategic_report' cycle_slug=strategy_by_cycle.slug pk=report.pk %}"
                            hx-get="{% url 'delete_strategic_report' cycle_slug=strategy_by_cycle.slug pk=report.pk %}"
@@ -197,6 +209,7 @@
                            data-bs-toggle="tooltip" title="Delete Report">
                             <i class="bi bi-trash"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -209,6 +222,9 @@
                         {% if search_query %}
                         <p class="small">Try adjusting your search criteria</p>
                         {% endif %}
+
+                        <!-- Permission Check for Create in Empty State -->
+                        {% if permissions.strategic_report_create %}
                         <a class="btn btn-primary mt-2"
                            href="{% url 'create_strategic_report' cycle_slug=strategy_by_cycle.slug %}"
                            hx-get="{% url 'create_strategic_report' cycle_slug=strategy_by_cycle.slug %}"
@@ -217,6 +233,7 @@
                            hx-push-url="true">
                             Create your first report
                         </a>
+                        {% endif %}
                     </div>
                 </td>
             </tr>

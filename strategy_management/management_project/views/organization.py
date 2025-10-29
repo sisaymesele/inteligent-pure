@@ -1,87 +1,128 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from management_project.models import OrganizationalProfile
-from management_project.forms import OrganizationalProfileForm
 from django.contrib import messages
+from django.utils import timezone
+from management_project.models import OrganizationalProfile, OrganizationInvitation
+from management_project.forms import OrganizationalProfileForm
+from management_project.services.permission import role_required, get_user_permissions
 
 
-
+# --------------------
+# List Organizational Profiles
+# --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='organizational_profile', action='view')
 def organizational_profile(request):
-    organizational_profiles = OrganizationalProfile.objects.filter(organization_name=request.user.organization_name)
+    """List all organizational profiles of the user's organization."""
+    organizational_profiles = OrganizationalProfile.objects.filter(
+        organization_name=request.user.organization_name
+    )
+    permissions = get_user_permissions(request.user)
 
-    context = {'organizational_profiles': organizational_profiles, }
-
+    context = {
+        'organizational_profiles': organizational_profiles,
+        'permissions': permissions,
+    }
     return render(request, 'organizational_profile/list.html', context)
 
 
-
-
+# --------------------
+# Create Organization
+# --------------------
 @login_required
 def create_organizational_profile(request):
-    # Redirect if the user already has an organization
-    if request.user.organization_name:
-        messages.info(request, "You already have an organization.")
+    """Create a new organization; first user becomes owner automatically."""
+    # Prevent creating if user already belongs to an accepted invitation
+    if OrganizationInvitation.objects.filter(email=request.user.email, status=OrganizationInvitation.ACCEPTED).exists():
+        messages.info(request, "You already belong to an organization.")
         return redirect('dashboard')
 
     if request.method == 'POST':
         form = OrganizationalProfileForm(request.POST)
         if form.is_valid():
-            org = form.save()  # Save directly, no commit=False
+            org = form.save()
+
+            # Assign user to this organization
             request.user.organization_name = org
             request.user.save()
-            messages.success(request, "Organization created successfully.")
+
+            # Automatically create invitation for creator as owner
+            OrganizationInvitation.objects.create(
+                organization_name=org,
+                email=request.user.email,
+                role='owner',
+                invited_by=request.user,
+                status=OrganizationInvitation.ACCEPTED,
+                responded_at=timezone.now()
+            )
+
+            messages.success(request, "Organization created successfully. You are assigned as Owner.")
             return redirect('dashboard')
         else:
             messages.error(request, "Please correct the errors below.")
     else:
         form = OrganizationalProfileForm()
 
-    return render(request, 'organizational_profile/form.html', {'form': form})
+    permissions = get_user_permissions(request.user)
+    context = {
+        'form': form,
+        'permissions': permissions,
+        'edit_mode': False,
+    }
+    return render(request, 'organizational_profile/form.html', context)
 
 
+# --------------------
+# Update Organization
+# --------------------
+@login_required
+@role_required(['editor', 'owner', 'admin'], model_name='organizational_profile', action='view')
 def update_organizational_profile(request, pk):
-    # Fetch the object to update or return 404 if not found
-    organizational_profile = get_object_or_404(OrganizationalProfile, pk=pk,
-                                               organization_name=request.user.organization_name)
+    """Update the organizational profile; user can only update their organization."""
+    organizational_profile = get_object_or_404(
+        OrganizationalProfile, pk=pk, organization_name=request.user.organization_name
+    )
 
     if request.method == 'POST':
-        # Bind form with POST data and the instance to update
         form = OrganizationalProfileForm(request.POST, instance=organizational_profile)
         if form.is_valid():
             form.save()
             messages.success(request, "Organizational Profile updated successfully!")
             return redirect('organizational_profile')
-
-            # return redirect('organizational_profile')  # Redirect to avoid form resubmission
         else:
             messages.error(request, "Please correct the errors below.")
     else:
-        # Populate the form with the current instance for GET requests
         form = OrganizationalProfileForm(instance=organizational_profile)
 
-    # Pass the list and the form to the template
+    permissions = get_user_permissions(request.user)
     context = {
         'form': form,
-        'edit_mode': True,  # Optional: to indicate edit mode in the template
-        'editing_profile': organizational_profile,  # Optional: to pass the profile being edited
+        'permissions': permissions,
+        'edit_mode': True,
+        'editing_profile': organizational_profile,
     }
     return render(request, 'organizational_profile/form.html', context)
 
 
-# # Ensure the user is logged in before allowing access to this view
-#
+# --------------------
+# Delete Organization
+# --------------------
 @login_required
+@role_required(['owner', 'admin'], model_name='organizational_profile', action='view')
 def delete_organizational_profile(request, pk):
-    """ Show a confirmation page before deleting """
-    profile = get_object_or_404(OrganizationalProfile, pk=pk, organization_name=request.user.organization_name)
+    """Delete an organizational profile; user can only delete their own organization."""
+    profile = get_object_or_404(
+        OrganizationalProfile, pk=pk, organization_name=request.user.organization_name
+    )
 
     if request.method == "POST":
         profile.delete()
         messages.success(request, "Organizational Profile deleted successfully!")
-        return redirect("organizational_profile")  # Redirect after deletion
+        return redirect("organizational_profile")
 
-    return render(request, "organizational_profile/delete_confirm.html", {"profile": profile})
-
-
-#
+    permissions = get_user_permissions(request.user)
+    context = {
+        'profile': profile,
+        'permissions': permissions,
+    }
+    return render(request, "organizational_profile/delete_confirm.html", context)

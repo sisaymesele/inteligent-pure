@@ -5,9 +5,11 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from management_project.models import InitiativeResourceItemReport, InitiativeResourceItemPlan, InitiativePlanning
 from management_project.forms import InitiativeResourceItemReportForm
+from management_project.services.permission import role_required, get_user_permissions
 
 # -------------------- LIST INITIATIVE RESOURCE ITEM REPORTS --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='initiative_resource_item_report', action='view')
 def initiative_resource_item_report_list(request):
     query = request.GET.get('search', '').strip()
     selected_initiative = request.GET.get('initiative_name', '').strip()
@@ -48,6 +50,8 @@ def initiative_resource_item_report_list(request):
         organization_name=request.user.organization_name
     ).order_by('initiative_name')
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'initiative_resource_item_report/list.html', {
         'reports': page_obj,
         'page_obj': page_obj,
@@ -55,12 +59,13 @@ def initiative_resource_item_report_list(request):
         'initiatives': initiatives,
         'selected_initiative': selected_initiative,
         'selected_initiative_name': selected_initiative_name,
+        'permissions': permissions,
     })
 
 
 # -------------------- CREATE INITIATIVE RESOURCE ITEM REPORT --------------------
-
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='initiative_resource_item_report', action='create')
 def create_initiative_resource_item_report(request):
     next_url = request.GET.get('next') or request.POST.get('next')
     initial_data = {}
@@ -80,11 +85,18 @@ def create_initiative_resource_item_report(request):
     else:
         form = InitiativeResourceItemReportForm(initial=initial_data, request=request)
 
-    return render(request, 'initiative_resource_item_report/form.html', {'form': form, 'next': next_url})
+    permissions = get_user_permissions(request.user)
+
+    return render(request, 'initiative_resource_item_report/form.html', {
+        'form': form, 
+        'next': next_url,
+        'permissions': permissions,
+    })
 
 
 # -------------------- UPDATE INITIATIVE RESOURCE ITEM REPORT --------------------
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='initiative_resource_item_report', action='edit')
 def update_initiative_resource_item_report(request, pk):
     report = get_object_or_404(
         InitiativeResourceItemReport,
@@ -103,11 +115,17 @@ def update_initiative_resource_item_report(request, pk):
     else:
         form = InitiativeResourceItemReportForm(instance=report, request=request)
 
-    return render(request, 'initiative_resource_item_report/form.html', {'form': form})
+    permissions = get_user_permissions(request.user)
+
+    return render(request, 'initiative_resource_item_report/form.html', {
+        'form': form,
+        'permissions': permissions,
+    })
 
 
 # -------------------- DELETE INITIATIVE RESOURCE ITEM REPORT --------------------
 @login_required
+@role_required(['owner', 'admin'], model_name='initiative_resource_item_report', action='delete')
 def delete_initiative_resource_item_report(request, pk):
     report = get_object_or_404(
         InitiativeResourceItemReport,
@@ -120,4 +138,9 @@ def delete_initiative_resource_item_report(request, pk):
         messages.success(request, "Initiative resource item report deleted successfully!")
         return redirect('initiative_resource_item_report_list')
 
-    return render(request, 'initiative_resource_item_report/delete_confirm.html', {'report': report})
+    permissions = get_user_permissions(request.user)
+
+    return render(request, 'initiative_resource_item_report/delete_confirm.html', {
+        'report': report,
+        'permissions': permissions,
+    })

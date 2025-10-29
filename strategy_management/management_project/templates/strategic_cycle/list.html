@@ -5,10 +5,12 @@
 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
     <h2 class="mb-0">Strategic Cycles</h2>
 
-    <!-- Create New Cycle Button -->
+    <!-- Create New Cycle Button with Permission Check -->
+    {% if permissions.strategic_cycle_create %}
     <a class="btn btn-primary" href="{% url 'create_strategic_cycle' %}">
         + Create Strategic Cycle
     </a>
+    {% endif %}
 </div>
 
 <div class="card">
@@ -43,21 +45,29 @@
                 <td>{{ cycle.start_quarter|default:"N/A" }}</td>
                 <td>{{ cycle.start_year|default:"N/A" }}</td>
 
-                <!-- Update -->
+                <!-- Update Button with Permission Check -->
                 <td>
+                    {% if permissions.strategic_cycle_edit %}
                     <a class="btn btn-warning btn-sm" href="{% url 'update_strategic_cycle' cycle.pk %}">
                         Update
                     </a>
+                    {% else %}
+                    <span class="text-muted">No Edit Access</span>
+                    {% endif %}
                 </td>
 
-                <!-- Delete -->
+                <!-- Delete Button with Permission Check -->
                 <td>
+                    {% if permissions.strategic_cycle_delete %}
                     <a class="btn btn-danger btn-sm" href="{% url 'delete_strategic_cycle' cycle.pk %}">
                         Delete
                     </a>
+                    {% else %}
+                    <span class="text-muted">No Delete Access</span>
+                    {% endif %}
                 </td>
 
-                <!-- View / Detail -->
+                <!-- View / Detail Button -->
                 <td>
                     {% if cycle.slug %}
                     <a href="{% url 'strategic_action_plan_list' cycle.slug %}" class="btn btn-info btn-sm">

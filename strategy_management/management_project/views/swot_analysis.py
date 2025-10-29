@@ -3,29 +3,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from management_project.models import SwotAnalysis
 from management_project.forms import SwotAnalysisForm
+from management_project.services.permission import role_required, get_user_permissions
 from django.db.models import Q
-
 from django.core.paginator import Paginator
-
 from django.http import HttpResponse
-from django.core.paginator import Paginator
-
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
-
-
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.db.models import Count, Avg, Case, When, IntegerField
+from django.db.models import Count
 import plotly.graph_objects as go
-
-from management_project.models import SwotAnalysis
 
 
 # -------------------- SWOT LIST --------------------
-
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_analysis', action='view')
 def swot_analysis_list(request):
     query = request.GET.get('search', '').strip()
     selected_type = request.GET.get('swot_type', '').strip()
@@ -59,20 +50,21 @@ def swot_analysis_list(request):
     paginator = Paginator(swots, 10)
     page_obj = paginator.get_page(page_number)
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'swot_analysis/list.html', {
         'swots': page_obj,
         'page_obj': page_obj,
         'search_query': query,
         'swot_types': swot_types,
         'selected_type': selected_type,
+        'permissions': permissions,
     })
 
+
 # -------------------- CREATE SWOT --------------------
-
-
-
-
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='swot_analysis', action='create')
 def create_swot_analysis(request):
     if request.method == 'POST':
         form = SwotAnalysisForm(request.POST)
@@ -86,12 +78,17 @@ def create_swot_analysis(request):
     else:
         form = SwotAnalysisForm()
 
-    return render(request, 'swot_analysis/form.html', {'form': form})
+    permissions = get_user_permissions(request.user)
 
+    return render(request, 'swot_analysis/form.html', {
+        'form': form,
+        'permissions': permissions,
+    })
 
 
 # -------------------- UPDATE SWOT --------------------
 @login_required
+@role_required(['editor', 'owner', 'admin'], model_name='swot_analysis', action='edit')
 def update_swot_analysis(request, pk):
     # Fetch the entry only if it belongs to the user's organization
     entry = get_object_or_404(SwotAnalysis, pk=pk, organization_name=request.user.organization_name)
@@ -107,12 +104,17 @@ def update_swot_analysis(request, pk):
     else:
         form = SwotAnalysisForm(instance=entry)
 
-    return render(request, 'swot_analysis/form.html', {'form': form})
+    permissions = get_user_permissions(request.user)
+
+    return render(request, 'swot_analysis/form.html', {
+        'form': form,
+        'permissions': permissions,
+    })
 
 
 # -------------------- DELETE SWOT --------------------
-
 @login_required
+@role_required(['owner', 'admin'], model_name='swot_analysis', action='delete')
 def delete_swot_analysis(request, pk):
     entry = get_object_or_404(
         SwotAnalysis,
@@ -125,11 +127,17 @@ def delete_swot_analysis(request, pk):
         messages.success(request, "SWOT entry deleted successfully!")
         return redirect('swot_analysis_list')
 
-    return render(request, 'swot_analysis/delete_confirm.html', {'entry': entry})
+    permissions = get_user_permissions(request.user)
+
+    return render(request, 'swot_analysis/delete_confirm.html', {
+        'entry': entry,
+        'permissions': permissions,
+    })
 
 
-
+# -------------------- EXPORT SWOT TO EXCEL --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_analysis', action='view')
 def export_swot_analysis_to_excel(request):
     # Get filters from request
     query = request.GET.get('search', '').strip()
@@ -229,8 +237,9 @@ def export_swot_analysis_to_excel(request):
     return response
 
 
-
+# -------------------- SWOT CHARTS --------------------
 @login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_analysis', action='view')
 def swot_analysis_chart(request):
     qs = SwotAnalysis.objects.filter(
         organization_name=request.user.organization_name
@@ -353,6 +362,8 @@ def swot_analysis_chart(request):
         'threats_count': threats_count,
     }
 
+    permissions = get_user_permissions(request.user)
+
     return render(request, 'swot_analysis/chart.html', {
         'plot_html_swot_type': fig_swot_type.to_html(full_html=False),
         'plot_html_priority': fig_priority.to_html(full_html=False),
@@ -360,5 +371,5 @@ def swot_analysis_chart(request):
         'plot_html_likelihood': fig_likelihood.to_html(full_html=False),
         'plot_html_pillar': fig_pillar.to_html(full_html=False),
         'summary_data': summary_data,
+        'permissions': permissions,
     })
-

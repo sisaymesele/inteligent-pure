@@ -1,9 +1,30 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
+from management_project.services.permission import role_required
+from django.utils.decorators import method_decorator
 
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
+
+# Change Password
+    path(
+        'change-password/',
+        auth_views.PasswordChangeView.as_view(
+            template_name='change_password.html',
+            success_url=reverse_lazy('change_password_done')
+        ),
+        name='change_password'
+    ),
+    path(
+        'change-password/done/',
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name='change_password_done.html'
+        ),
+        name='change_password_done'
+    ),
 
     # organizational_profile
     path('organizational-profile/', views.organizational_profile, name='organizational_profile'),
@@ -110,6 +131,7 @@ urlpatterns = [
     path('swot-report/update/<int:pk>/', views.update_swot_report, name='update_swot_report'),
     path('swot-report/delete/<int:pk>/', views.delete_swot_report, name='delete_swot_report'),
     path('swot-report-chart/', views.swot_report_chart, name='swot_report_chart'),
+    path('swot-report/export/', views.swot_report_export_to_excel, name='swot_report_export_to_excel'),
 
     #
     # InitiativePlanning

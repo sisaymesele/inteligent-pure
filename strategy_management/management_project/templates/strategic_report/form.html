@@ -1,6 +1,8 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+<!-- Permission Check for Create/Edit -->
+{% if permissions.strategic_report_create or permissions.strategic_report_edit %}
 <!-- Back Button -->
 <div class="container mt-3">
     <div class="d-flex justify-content-start">
@@ -105,5 +107,21 @@
         </div>
     </div>
 </div>
-{% endblock %}
 
+{% else %}
+<!-- No Permission Message -->
+<div class="container mt-4">
+    <div class="alert alert-danger text-center">
+        <p>You don't have permission to {% if form.instance.pk %}edit{% else %}create{% endif %} strategic reports.</p>
+        <a href="{% url 'strategic_report_list' strategy_by_cycle.slug %}"
+           class="btn btn-primary"
+           hx-get="{% url 'strategic_report_list' strategy_by_cycle.slug %}"
+           hx-target="#full-page-container"
+           hx-swap="innerHTML"
+           hx-push-url="true">
+            Back to Strategic Reports
+        </a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

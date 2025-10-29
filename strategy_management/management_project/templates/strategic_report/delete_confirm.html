@@ -1,6 +1,8 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+<!-- Permission Check for Delete -->
+{% if permissions.strategic_report_delete %}
 <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 40vh;">
     <div class="row justify-content-center w-100">
         <div class="col-md-6 col-lg-5">
@@ -41,4 +43,29 @@
         </div>
     </div>
 </div>
+
+{% else %}
+<!-- No Permission Message -->
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 40vh;">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 p-4">
+                <div class="alert alert-danger text-center">
+                    <i class="bi bi-shield-exclamation display-4 text-danger mb-3"></i>
+                    <h4 class="alert-heading">Access Denied</h4>
+                    <p class="mb-3">You don't have permission to delete strategic reports.</p>
+                    <a href="{% url 'strategic_report_list' strategy_by_cycle.slug %}"
+                       class="btn btn-primary"
+                       hx-get="{% url 'strategic_report_list' strategy_by_cycle.slug %}"
+                       hx-target="#full-page-container"
+                       hx-swap="innerHTML"
+                       hx-push-url="true">
+                        Back to Strategic Reports
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

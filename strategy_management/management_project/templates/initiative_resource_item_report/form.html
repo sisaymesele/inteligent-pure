@@ -1,6 +1,45 @@
 {% extends 'dashboard.html' %}
 
 {% block content %}
+{% if not permissions.initiative_resource_item_report_create and not form.instance.pk %}
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 40vh;">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg p-4 text-center">
+                <h2 class="text-danger mb-4">Access Denied</h2>
+                <p class="mb-4">You don't have permission to create initiative resource item reports.</p>
+                <a class="btn btn-primary"
+                   href="{% url 'initiative_resource_item_report_list' %}"
+                   hx-get="{% url 'initiative_resource_item_report_list' %}"
+                   hx-target="#full-page-container"
+                   hx-swap="innerHTML"
+                   hx-push-url="true">
+                    Back to Reports
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% elif not permissions.initiative_resource_item_report_edit and form.instance.pk %}
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 40vh;">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg p-4 text-center">
+                <h2 class="text-danger mb-4">Access Denied</h2>
+                <p class="mb-4">You don't have permission to edit initiative resource item reports.</p>
+                <a class="btn btn-primary"
+                   href="{% url 'initiative_resource_item_report_list' %}"
+                   hx-get="{% url 'initiative_resource_item_report_list' %}"
+                   hx-target="#full-page-container"
+                   hx-swap="innerHTML"
+                   hx-push-url="true">
+                    Back to Reports
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
 <div id="full-page-container" class="d-flex justify-content-center mt-5">
     <div class="card shadow-sm border-0 rounded" style="width: 480px;">
         <div class="card-header bg-primary text-white text-center">
@@ -22,12 +61,14 @@
                     <label>Initiative Resource Item Plan</label>
                     <div class="input-group">
                         {{ form.initiative_resource_plan }}
+                        {% if permissions.initiative_resource_item_plan_create %}
                         <a class="btn btn-outline-primary"
                            hx-get="{% url 'create_initiative_resource_item_plan' %}?next={% if form.instance.pk %}{% url 'update_initiative_resource_item_report' form.instance.pk %}{% else %}{% url 'create_initiative_resource_item_report' %}{% endif %}"
                            hx-target="#full-page-container"
                            hx-swap="innerHTML">
                             +
                         </a>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -62,4 +103,5 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}

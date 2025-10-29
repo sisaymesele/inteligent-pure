@@ -1,6 +1,28 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
+{% if not permissions.initiative_resource_item_plan_delete %}
+<!-- No Permission Message -->
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-sm border-0 rounded" style="max-width: 500px;">
+        <div class="card-body text-center py-5">
+            <div class="text-warning mb-3">
+                <i class="bi bi-lock-fill fa-3x"></i>
+            </div>
+            <h4 class="text-muted mb-3">Access Denied</h4>
+            <p class="text-muted mb-4">You don't have permission to delete initiative resource item plans.</p>
+            <a href="{% url 'initiative_resource_item_plan_list' %}"
+               class="btn btn-primary"
+               hx-get="{% url 'initiative_resource_item_plan_list' %}"
+               hx-target="#full-page-container"
+               hx-swap="innerHTML"
+               hx-push-url="true">
+                Back to Resource Items
+            </a>
+        </div>
+    </div>
+</div>
+{% else %}
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card shadow-sm border-0 rounded" style="max-width: 500px;">
         <div class="card-header bg-danger text-white text-center">
@@ -36,4 +58,5 @@
 <style>
     .card-body p { font-size: 1rem; }
 </style>
+{% endif %}
 {% endblock %}

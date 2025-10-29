@@ -1,103 +1,218 @@
 {% extends 'dashboard.html' %}
 
 {% block content %}
-<form method="post"
-      hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
-      hx-target="#full-page-container"
-      hx-swap="innerHTML"
-      hx-push-url="true"
-      class="row g-3">
-    {% csrf_token %}
+<div id="full-page-container">
+    <!-- Permission Check for Create/Edit -->
+    {% if permissions.strategy_hierarchy_create or permissions.strategy_hierarchy_edit %}
+    <form method="post"
+          hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
+          hx-target="#full-page-container"
+          hx-swap="innerHTML"
+          hx-push-url="true"
+          class="row g-3">
+        {% csrf_token %}
 
-     {% if next %}
-    <input type="hidden" name="next" value="{{ next }}">
-    {% endif %}
+        {% if next %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
 
-    <!-- Strategic Perspective -->
-    <div class="col-md-3">
-        <label>Perspective</label>
-        <select name="strategic_perspective"
-                class="form-select"
-                hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
-                hx-target="#full-page-container"
-                hx-swap="innerHTML"
-                hx-trigger="change">
-            {% for value, label in form.fields.strategic_perspective.choices %}
-                <option value="{{ value }}" {% if value == form.data.strategic_perspective|default:form.instance.strategic_perspective %}selected{% endif %}>
-                    {{ label }}
-                </option>
+        <!-- Header -->
+        <div class="col-12">
+            <h4 class="mb-4">
+                {% if form.instance.pk %}
+                    Update Strategy Hierarchy
+                {% else %}
+                    Create Strategy Hierarchy
+                {% endif %}
+            </h4>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="col-12">
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
             {% endfor %}
-        </select>
+        {% endif %}
+
+        <!-- Form Errors -->
+        {% if form.errors %}
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <strong>Please correct the errors below:</strong>
+                <ul class="mb-0 mt-2">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Strategic Perspective -->
+        <div class="col-md-3">
+            <label for="strategic_perspective" class="form-label fw-semibold">
+                Perspective
+                {% if form.strategic_perspective.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <select name="strategic_perspective"
+                    id="strategic_perspective"
+                    class="form-select {% if form.strategic_perspective.errors %}is-invalid{% endif %}"
+                    hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
+                    hx-target="#full-page-container"
+                    hx-swap="innerHTML"
+                    hx-trigger="change">
+                {% for value, label in form.fields.strategic_perspective.choices %}
+                    <option value="{{ value }}" {% if value == form.data.strategic_perspective|default:form.instance.strategic_perspective %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% if form.strategic_perspective.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.strategic_perspective.errors|striptags }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Focus Area -->
+        <div class="col-md-3">
+            <label for="focus_area" class="form-label fw-semibold">
+                Pillar
+                {% if form.focus_area.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <select name="focus_area"
+                    id="focus_area"
+                    class="form-select {% if form.focus_area.errors %}is-invalid{% endif %}"
+                    hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
+                    hx-target="#full-page-container"
+                    hx-swap="innerHTML"
+                    hx-trigger="change">
+                {% for value, label in form.fields.focus_area.choices %}
+                    <option value="{{ value }}" {% if value == form.data.focus_area|default:form.instance.focus_area %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% if form.focus_area.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.focus_area.errors|striptags }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Objective -->
+        <div class="col-md-3">
+            <label for="objective" class="form-label fw-semibold">
+                Objective
+                {% if form.objective.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <select name="objective"
+                    id="objective"
+                    class="form-select {% if form.objective.errors %}is-invalid{% endif %}"
+                    hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
+                    hx-target="#full-page-container"
+                    hx-swap="innerHTML"
+                    hx-trigger="change">
+                {% for value, label in form.fields.objective.choices %}
+                    <option value="{{ value }}" {% if value == form.data.objective|default:form.instance.objective %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% if form.objective.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.objective.errors|striptags }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- KPI -->
+        <div class="col-md-3">
+            <label for="kpi" class="form-label fw-semibold">
+                KPI
+                {% if form.kpi.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <select name="kpi"
+                    id="kpi"
+                    class="form-select {% if form.kpi.errors %}is-invalid{% endif %}"
+                    hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
+                    hx-target="#full-page-container"
+                    hx-swap="innerHTML"
+                    hx-trigger="change">
+                {% for value, label in form.fields.kpi.choices %}
+                    <option value="{{ value }}" {% if value == form.data.kpi|default:form.instance.kpi %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% if form.kpi.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.kpi.errors|striptags }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Formula (Auto-filled) -->
+        <div class="col-12 mt-3">
+            <label for="formula" class="form-label fw-semibold">
+                Formula
+                {% if form.formula.field.required %}<span class="text-danger">*</span>{% endif %}
+            </label>
+            <textarea name="formula"
+                      id="formula"
+                      class="form-control {% if form.formula.errors %}is-invalid{% endif %}"
+                      rows="3"
+                      readonly>{{ form.fields.formula.initial }}</textarea>
+            {% if form.formula.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.formula.errors|striptags }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Actions -->
+        <div class="col-12 mt-3">
+            <div class="d-flex gap-2">
+                <button type="submit" name="save" class="btn btn-success">
+                    {% if form.instance.pk %}Update{% else %}Create{% endif %} Strategy
+                </button>
+                <a class="btn btn-secondary"
+                   hx-get="{% url 'strategy_hierarchy_list' %}"
+                   hx-target="#full-page-container"
+                   hx-swap="innerHTML"
+                   hx-push-url="true"
+                   href="{% url 'strategy_hierarchy_list' %}">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </form>
+
+    {% else %}
+    <!-- No Permission Message -->
+    <div class="alert alert-danger text-center">
+        You don't have permission to {% if form.instance.pk %}edit{% else %}create{% endif %} strategy hierarchy.
     </div>
 
-    <!-- Focus Area -->
-    <div class="col-md-3">
-        <label>Pillar</label>
-        <select name="focus_area"
-                class="form-select"
-                hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
-                hx-target="#full-page-container"
-                hx-swap="innerHTML"
-                hx-trigger="change">
-            {% for value, label in form.fields.focus_area.choices %}
-                <option value="{{ value }}" {% if value == form.data.focus_area|default:form.instance.focus_area %}selected{% endif %}>
-                    {{ label }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <!-- Objective -->
-    <div class="col-md-3">
-        <label>Objective</label>
-        <select name="objective"
-                class="form-select"
-                hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
-                hx-target="#full-page-container"
-                hx-swap="innerHTML"
-                hx-trigger="change">
-            {% for value, label in form.fields.objective.choices %}
-                <option value="{{ value }}" {% if value == form.data.objective|default:form.instance.objective %}selected{% endif %}>
-                    {{ label }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <!-- KPI -->
-    <div class="col-md-3">
-        <label>KPI</label>
-        <select name="kpi"
-                class="form-select"
-                hx-post="{% if form.instance.pk %}{% url 'update_strategy_hierarchy' form.instance.pk %}{% else %}{% url 'create_strategy_hierarchy' %}{% endif %}"
-                hx-target="#full-page-container"
-                hx-swap="innerHTML"
-                hx-trigger="change">
-            {% for value, label in form.fields.kpi.choices %}
-                <option value="{{ value }}" {% if value == form.data.kpi|default:form.instance.kpi %}selected{% endif %}>
-                    {{ label }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <!-- Formula (Auto-filled) -->
-    <div class="col-12 mt-3">
-        <label>Formula</label>
-        <textarea name="formula" class="form-control" rows="3" readonly>{{ form.fields.formula.initial }}</textarea>
-    </div>
-
-    <!-- Actions -->
-    <div class="col-12 mt-3">
-        <button type="submit" name="save" class="btn btn-success">Save</button>
-        <a class="btn btn-secondary"
+    <!-- Back to List Button -->
+    <div class="text-center mt-3">
+        <a href="{% url 'strategy_hierarchy_list' %}" class="btn btn-primary"
            hx-get="{% url 'strategy_hierarchy_list' %}"
            hx-target="#full-page-container"
            hx-swap="innerHTML"
-           hx-push-url="true"
-           href="{% url 'strategy_hierarchy_list' %}">
-            Cancel
+           hx-push-url="true">
+            Back to Strategy Hierarchy
         </a>
     </div>
-</form>
+    {% endif %}
+</div>
 {% endblock %}
