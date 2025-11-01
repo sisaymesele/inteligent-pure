@@ -12,7 +12,5 @@ urlpatterns = [
     path("password-reset-confirm/<uidb64>/<token>/", views.password_reset_confirm, name="password_reset_confirm"),
     path("password-reset/complete/", views.password_reset_complete, name="password_reset_complete"),
 
-    #announcement
-    path('announcement/', views.announcement_list, name='announcement_list'),
 
 ]

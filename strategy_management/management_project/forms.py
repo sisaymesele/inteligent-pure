@@ -2,7 +2,8 @@ from django import forms
 from management_project.models import (
     OrganizationalProfile, OrganizationInvitation, SwotAnalysis, Vision, Mission, Values, StrategyHierarchy,
     Stakeholder, StrategicCycle, StrategicActionPlan, StrategicReport, SwotReport, InitiativePlanning,
-    InitiativeReport, InitiativeResourceItemReport, InitiativeResourceItemPlan, InitiativePlanning, RiskManagement
+    InitiativeReport, InitiativeResourceItemReport, InitiativeResourceItemPlan, InitiativePlanning, RiskManagement,
+    Announcement
 )
 from management_project.services.vision import VisionService
 from management_project.services.mission import MissionService
@@ -22,7 +23,8 @@ class OrganizationalProfileForm(forms.ModelForm):
         model = OrganizationalProfile
 
         fields = [
-            'organization_name', 'organization_address', 'employer_tin', 'organization_type',
+            'organization_name', 'organization_address', 'employer_tin',
+            'organization_type', 'organizational_classification',
             'sector_name', 'contact_personnel'
         ]
 
@@ -41,6 +43,9 @@ class OrganizationalProfileForm(forms.ModelForm):
             }),
 
             'organization_type': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'organizational_classification': forms.Select(attrs={
                 'class': 'form-control',
             }),
             'sector_name': forms.Select(attrs={
@@ -834,3 +839,19 @@ class RiskManagementForm(forms.ModelForm):
             instance.save()
         return instance
 
+
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcement
+        fields = ['title', 'message', 'created_at']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Message'}),
+            'created_at': forms.DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'date',  # Date picker
+                }
+            ),
+        }

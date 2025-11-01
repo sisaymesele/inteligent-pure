@@ -215,12 +215,6 @@ def password_reset_complete(request):
     return render(request, 'password-reset-complete.html')
 
 
-@login_required
-def announcement_list(request):
-    announcements = Announcement.objects.all().order_by('-created_at')
-    return render(request, 'announcement/detail.html', {'announcements': announcements})
-
-#
 
 
 

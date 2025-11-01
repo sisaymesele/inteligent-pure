@@ -52,12 +52,23 @@ class OrganizationalProfile(models.Model):
         ('hospitality_food', 'Hospitality & Food Services'),
         ('mining_resources', 'Mining, Oil & Natural Resources'),
     ]
+    CLASSIFICATION_CHOICES = [
+        ('profitable', 'Profitable'),
+        ('non_profitable', 'Non-Profitable'),
+    ]
     organization_name = models.CharField(max_length=80)
     organization_address = models.CharField(max_length=80)
     employer_tin = models.CharField(max_length=90, verbose_name='Employer TIN')
     organization_type = models.CharField(choices=organization_choices, max_length=70)
+    organizational_classification = models.CharField(
+        max_length=20,
+        choices=CLASSIFICATION_CHOICES,
+        default='profitable',
+        verbose_name='Organization Classification'
+    )
     sector_name = models.CharField( max_length=50, choices=SECTOR_CHOICES)
     contact_personnel = models.CharField(max_length=90)
+
 
 
     def __str__(self):
@@ -1145,3 +1156,12 @@ class RiskManagement(models.Model):
         self.severity_score = self.calculate_severity()
         super().save(*args, **kwargs)
 
+
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    created_at = models.DateField(default=datetime.date.today)
+
+    def __str__(self):
+        return self.title

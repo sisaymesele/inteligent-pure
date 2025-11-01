@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from management_project.models import StrategyHierarchy
 from management_project.forms import StrategyHierarchyForm
-from management_project.services.permission import role_required
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib import messages
-from management_project.services.permission import get_user_permissions
+from django.shortcuts import render
+from management_project.services.permission import role_required, get_user_permissions
+
 
 @login_required
 @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategy_hierarchy', action='view')
@@ -118,3 +119,164 @@ def delete_strategy_hierarchy(request, pk):
         'entry': entry,
         'permissions': permissions,
     })
+
+
+#
+#
+# @login_required
+# @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategy_hierarchy', action='view')
+# def strategy_map(request):
+#     """
+#     Generate a strategy map for the logged-in user's organization,
+#     grouped by perspective, focus area, and objective.
+#     KPIs are excluded from this version.
+#     """
+#     permissions = get_user_permissions(request.user)
+#
+#     # Filter strategies by user's organization
+#     strategies = StrategyHierarchy.objects.filter(
+#         organization_name=request.user.organization_name
+#     ).select_related('organization_name')
+#
+#     # If no strategies exist, show empty state
+#     if not strategies.exists():
+#         context = {
+#             'strategy_list': [],
+#             'total_strategies': 0,
+#             'total_objectives': 0,
+#             'classification': 'profitable',
+#             'has_data': False,
+#             'permissions': permissions,
+#         }
+#         return render(request, 'strategy_hierarchy/map.html', context)
+#
+#     # Get organization classification
+#     classification = strategies.first().organization_name.organizational_classification
+#
+#     # Set perspective order based on classification
+#     if classification == 'profitable':
+#         perspectives_order = [
+#             'Financial Perspective',
+#             'Customer Perspective',
+#             'Internal Process Perspective',
+#             'Learning & Growth Perspective',
+#         ]
+#     else:
+#         perspectives_order = [
+#             'Customer Perspective',
+#             'Financial Perspective',
+#             'Internal Process Perspective',
+#             'Learning & Growth Perspective',
+#         ]
+#
+#     # Build strategy data (no KPI)
+#     strategy_list = []
+#     for perspective_name in perspectives_order:
+#         perspective_strategies = strategies.filter(strategic_perspective=perspective_name)
+#
+#         if perspective_strategies.exists():
+#             perspective_data = {
+#                 'name': perspective_name,
+#                 'objectives': []
+#             }
+#
+#             # Group by focus area and objective
+#             objectives_data = {}
+#
+#             for strategy in perspective_strategies:
+#                 key = f"{strategy.focus_area}||{strategy.objective}"
+#                 if key not in objectives_data:
+#                     objectives_data[key] = {
+#                         'focus_area': strategy.focus_area,
+#                         'name': strategy.objective,
+#                     }
+#
+#             perspective_data['objectives'] = list(objectives_data.values())
+#             strategy_list.append(perspective_data)
+#
+#     # Calculate summary stats
+#     total_strategies = strategies.count()
+#     total_objectives = sum(len(p['objectives']) for p in strategy_list)
+#
+#     context = {
+#         'strategy_list': strategy_list,
+#         'classification': classification,
+#         'total_strategies': total_strategies,
+#         'total_objectives': total_objectives,
+#         'has_data': True,
+#         'permissions': permissions,
+#     }
+#
+#     return render(request, 'strategy_hierarchy/map.html', context)
+
+@login_required
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='strategy_hierarchy', action='view')
+def strategy_map(request):
+    """
+    Generate a strategy map for the logged-in user's organization,
+    grouped by perspective and objective.
+    """
+    permissions = get_user_permissions(request.user)
+
+    # Filter strategies by user's organization
+    strategies = StrategyHierarchy.objects.filter(
+        organization_name=request.user.organization_name
+    ).select_related('organization_name')
+
+    # If no strategies exist, show empty state
+    if not strategies.exists():
+        context = {
+            'strategy_list': [],
+            'has_data': False,
+            'permissions': permissions,
+        }
+        return render(request, 'strategy_hierarchy/map.html', context)
+
+    # Get organization classification
+    classification = strategies.first().organization_name.organizational_classification
+
+    # Set perspective order based on classification
+    if classification == 'profitable':
+        perspectives_order = [
+            'Financial Perspective',
+            'Customer Perspective',
+            'Internal Process Perspective',
+            'Learning & Growth Perspective',
+        ]
+    else:
+        perspectives_order = [
+            'Customer Perspective',
+            'Financial Perspective',
+            'Internal Process Perspective',
+            'Learning & Growth Perspective',
+        ]
+
+    # Build strategy data
+    strategy_list = []
+    for perspective_name in perspectives_order:
+        perspective_strategies = strategies.filter(strategic_perspective=perspective_name)
+
+        if perspective_strategies.exists():
+            perspective_data = {
+                'name': perspective_name,
+                'objectives': []
+            }
+
+            # Get unique objectives for this perspective
+            objectives_data = {}
+            for strategy in perspective_strategies:
+                if strategy.objective not in objectives_data:
+                    objectives_data[strategy.objective] = {
+                        'name': strategy.objective,
+                    }
+
+            perspective_data['objectives'] = list(objectives_data.values())
+            strategy_list.append(perspective_data)
+
+    context = {
+        'strategy_list': strategy_list,
+        'has_data': True,
+        'permissions': permissions,
+    }
+
+    return render(request, 'strategy_hierarchy/map.html', context)

@@ -112,7 +112,8 @@ def get_user_permissions(user):
         'strategic_cycle', 'strategic_action_plan', 'initiative_planning',
         'initiative_report', 'initiative_resource_item_plan',
         'initiative_resource_item_report', 'strategic_report',
-        'swot_report', 'risk_management'
+        'swot_report', 'risk_management', 'announcement'
+
     ]
     actions = ['view', 'create', 'edit', 'delete']
 
@@ -143,8 +144,5 @@ def get_user_permissions(user):
         for model in models:
             for action in actions:
                 permissions[f"{model}_{action}"] = True
-        # Admin-only permissions
-        permissions['system_settings_edit'] = True
-        permissions['user_management'] = True
 
     return permissions

@@ -1318,23 +1318,3 @@ class StrategyHierarchyChoicesService:
             .get(kpi, "")
         )
 
-    # @classmethod
-    # def get_perspective_choices(cls):
-    #     return [(p, p) for p in cls.STRATEGY_MAP_HIERARCHY.keys()]
-    #
-    # @classmethod
-    # def get_pillar_choices(cls, perspective):
-    #     return [(p, p) for p in cls.STRATEGY_MAP_HIERARCHY.get(perspective, {}).keys()]
-    #
-    # @classmethod
-    # def get_objective_choices(cls, perspective, pillar):
-    #     return [(o, o) for o in cls.STRATEGY_MAP_HIERARCHY.get(perspective, {}).get(pillar, {}).keys()]
-    #
-    # @classmethod
-    # def get_kpi_choices(cls, perspective, pillar, objective):
-    #     return [(kpi, kpi) for kpi in
-    #             cls.STRATEGY_MAP_HIERARCHY.get(perspective, {}).get(pillar, {}).get(objective, {}).keys()]
-    #
-    # @classmethod
-    # def get_formula(cls, perspective, pillar, objective, kpi):
-    #     return cls.STRATEGY_MAP_HIERARCHY.get(perspective, {}).get(pillar, {}).get(objective, {}).get(kpi, "")

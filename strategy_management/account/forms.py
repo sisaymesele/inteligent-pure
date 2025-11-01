@@ -128,18 +128,3 @@ class EmailNotificationForm(forms.ModelForm):
             if not message:
                 raise forms.ValidationError("Message is required.")
             return message
-
-class AnnouncementForm(forms.ModelForm):
-    class Meta:
-        model = Announcement
-        fields = ['title', 'message', 'created_at']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
-            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Message'}),
-            'created_at': forms.DateInput(
-                attrs={
-                    'class': 'form-control',
-                    'type': 'date',  # Date picker
-                }
-            ),
-        }

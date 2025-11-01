@@ -1,6 +1,7 @@
 # views/__init__.py
 from .dashboard import dashboard
 
+
 from .swot_analysis import swot_analysis_list, create_swot_analysis, update_swot_analysis, delete_swot_analysis, \
     export_swot_analysis_to_excel, swot_analysis_chart
 
@@ -11,7 +12,8 @@ from .vision import vision_list, create_vision, update_vision, delete_vision
 from .mission import mission_list, create_mission, update_mission, delete_mission
 from .values import values_list, create_values, update_values, delete_values
 
-from .strategy_hierarchy import strategy_hierarchy_list, create_strategy_hierarchy, update_strategy_hierarchy, delete_strategy_hierarchy
+from .strategy_hierarchy import strategy_hierarchy_list, create_strategy_hierarchy, \
+    update_strategy_hierarchy, delete_strategy_hierarchy, strategy_map
 
 from .stakeholder import  stakeholder_list, create_stakeholder, update_stakeholder, delete_stakeholder, \
     export_stakeholders_to_excel, stakeholder_graph_view
@@ -56,3 +58,5 @@ from .initiative_resource_item_report import initiative_resource_item_report_lis
 
 from .risk_management import risk_management_list, create_risk_management, \
     update_risk_management, delete_risk_management, export_risk_management_excel
+
+from .announcement import announcement_list

@@ -19,8 +19,8 @@ from management_project.forms import (
 class OrganizationalProfileAdmin(admin.ModelAdmin):
     form = OrganizationalProfileForm
     list_display = (
-        'organization_name', 'organization_type', 'organization_address', 'employer_tin',
-        'sector_name', 'contact_personnel',
+        'organization_name', 'organization_type', 'organizational_classification',
+        'organization_address', 'employer_tin', 'sector_name', 'contact_personnel',
     )
 
     def get_queryset(self, request):
@@ -699,4 +699,9 @@ class InitiativeResourceItemReportAdmin(admin.ModelAdmin):
     utilization_percent_display.short_description = 'Utilization %'
 
 
-#
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ('title', 'message', 'created_at')
+    search_fields = ('title', 'message')
+    ordering = ('-created_at',)
+
+admin.site.register(Announcement, AnnouncementAdmin)

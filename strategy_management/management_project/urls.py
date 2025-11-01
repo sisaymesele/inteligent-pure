@@ -9,7 +9,8 @@ from django.utils.decorators import method_decorator
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
 
-# Change Password
+    # Change Password
+
     path(
         'change-password/',
         auth_views.PasswordChangeView.as_view(
@@ -71,6 +72,7 @@ urlpatterns = [
     path('strategy-hierarchy/create/', views.create_strategy_hierarchy, name='create_strategy_hierarchy'),
     path('strategy-hierarchy/<int:pk>/update/', views.update_strategy_hierarchy, name='update_strategy_hierarchy'),
     path('strategy-hierarchy/<int:pk>/delete/', views.delete_strategy_hierarchy, name='delete_strategy_hierarchy'),
+    path('strategy-map', views.strategy_map, name='strategy_map'),
 
     # View the stakeholder_list list
     # Stakeholder List & Search
@@ -193,5 +195,7 @@ urlpatterns = [
     path("risk-management/<int:pk>/delete/", views.delete_risk_management, name="delete_risk_management"),
     path('risk-management/export/', views.export_risk_management_excel, name='export_risk_management_excel'),
 
+    #announcement
+    path('announcement/', views.announcement_list, name='announcement_list'),
 
 ]

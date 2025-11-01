@@ -91,10 +91,3 @@ class EmailNotificationAdmin(admin.ModelAdmin):
 
 admin.site.register(EmailNotification, EmailNotificationAdmin)
 #
-
-class AnnouncementAdmin(admin.ModelAdmin):
-    list_display = ('title', 'message', 'created_at')
-    search_fields = ('title', 'message')
-    ordering = ('-created_at',)
-
-admin.site.register(Announcement, AnnouncementAdmin)

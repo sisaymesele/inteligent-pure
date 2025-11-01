@@ -118,8 +118,8 @@
                         <td>{{ risk.risk_category }}</td>
                         <td>{{ risk.risk_name }}</td>
                         <td>{{ risk.mitigation_action|default:"—" }}</td>
-                        <td class="text-capitalize">{{ risk.likelihood }}</td>
-                        <td class="text-capitalize">{{ risk.impact }}</td>
+                        <td class="text-capitalize">{{ risk.get_likelihood_display }}</td>
+                        <td class="text-capitalize">{{ risk.get_impact_display }}</td>
                         <td class="fw-bold text-center">{{ risk.severity_score }}</td>
                         <td class="text-center">
                             {% if risk.status == 'identified' %}

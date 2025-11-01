@@ -91,11 +91,3 @@ class EmailNotification(models.Model):
 
     def __str__(self):
         return self.subject
-
-class Announcement(models.Model):
-    title = models.CharField(max_length=255)
-    message = models.TextField()
-    created_at = models.DateField(default=datetime.date.today)
-
-    def __str__(self):
-        return self.title

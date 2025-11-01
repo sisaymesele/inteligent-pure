@@ -22,7 +22,7 @@ from django.conf import settings
 
 # ---------------- INVITATION LIST ----------------
 @login_required
-@role_required_invitation(['editor', 'owner', 'admin'], model_name='organization_invitation', action='view')
+@role_required_invitation(['viewer', 'editor', 'owner', 'admin'], model_name='organization_invitation', action='view')
 def invitation_list(request):
     """List all invitations for the current organization."""
     org = get_object_or_404(OrganizationalProfile, organization_name=request.user.organization_name)
@@ -35,10 +35,6 @@ def invitation_list(request):
         'permissions': permissions,
     }
     return render(request, 'invitation/list.html', context)
-
-
-# ---------------- SEND INVITATION ----------------
-
 
 
 # ---------------- SEND INVITATION ----------------

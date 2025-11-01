@@ -25,6 +25,7 @@
                             <th>Address</th>
                             <th>Employer TIN</th>
                             <th>Type</th>
+                            <th>Classification</th>
                             <th>Sector Name</th>
                             <th>Contact Personnel</th>
                             {% if permissions.organizational_profile_edit %}<th>Update</th>{% endif %}
@@ -50,6 +51,7 @@
                             <td>{{ profile.organization_address }}</td>
                             <td>{{ profile.employer_tin }}</td>
                             <td>{{ profile.get_organization_type_display }}</td>
+                            <td>{{ profile.get_organization_classification_display }}</td>
                             <td>{{ profile.get_sector_name_display }}</td>
                             <td>{{ profile.contact_personnel }}</td>
 
