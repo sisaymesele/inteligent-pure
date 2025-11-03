@@ -253,7 +253,7 @@ def export_strategic_report_to_excel(request, cycle_slug):
     ws.title = f"{cycle.name[:28]} Reports"
 
     # 4️⃣ Define styles
-    total_columns = 26
+    total_columns = 24
     title_font = Font(size=14, bold=True, color="FFFFFF")
     title_fill = PatternFill(start_color="4F81BD", end_color="4F81BD", fill_type="solid")
     header_font = Font(bold=True, color="FFFFFF")
@@ -275,7 +275,7 @@ def export_strategic_report_to_excel(request, cycle_slug):
 
     # 6️⃣ Column headers
     headers = [
-        "Report ID", "Organization", "Responsible Party", "Perspective",
+        "Responsible Party", "Perspective",
         "Focus Area / Pillar", "Objective", "KPI", "Indicator Type",
         "Direction of Change", "Baseline", "Target", "Improvement Needed",
         "Achievement", "Percent Achieved", "Variance", "Weighted Score",
@@ -298,8 +298,6 @@ def export_strategic_report_to_excel(request, cycle_slug):
         hierarchy = getattr(ap, "strategy_hierarchy", None)
 
         ws.append([
-            report.id,
-            getattr(report.organization_name, "organization_name", report.organization_name),
             ", ".join([body.stakeholder_name for body in ap.responsible_bodies.all()]) if ap else "-",
             getattr(hierarchy, "strategic_perspective", "-"),
             getattr(hierarchy, "focus_area", "-"),

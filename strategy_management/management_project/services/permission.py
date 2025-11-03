@@ -130,10 +130,12 @@ def get_user_permissions(user):
             for action in actions:
                 permissions[f"{model}_{action}"] = True
 
+
     elif role == 'owner':
         for model in models:
             for action in actions:
                 permissions[f"{model}_{action}"] = True
+
         # Additional owner permissions
         permissions['organizational_profile_view'] = True
         permissions['organizational_profile_edit'] = True
@@ -144,5 +146,23 @@ def get_user_permissions(user):
         for model in models:
             for action in actions:
                 permissions[f"{model}_{action}"] = True
+
+                # Additional owner permissions
+        # permissions['organizational_profile_view'] = True
+        # permissions['organizational_profile_edit'] = True
+        # permissions['organization_invitation_create'] = True
+        # permissions['organization_invitation_send'] = True
+
+    if role in ('owner', 'admin'):
+        extra_org_perms = [
+            'organizational_profile_view',
+            'organizational_profile_edit',
+            'organization_invitation_create',
+            'organization_invitation_send'
+        ]
+        for perm in extra_org_perms:
+            permissions[perm] = True
+
+
 
     return permissions

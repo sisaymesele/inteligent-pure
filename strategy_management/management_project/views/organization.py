@@ -76,7 +76,7 @@ def create_organizational_profile(request):
 # Update Organization
 # --------------------
 @login_required
-@role_required(['editor', 'owner', 'admin'], model_name='organizational_profile', action='view')
+@role_required(['owner', 'admin'], model_name='organizational_profile', action='view')
 def update_organizational_profile(request, pk):
     """Update the organizational profile; user can only update their organization."""
     organizational_profile = get_object_or_404(

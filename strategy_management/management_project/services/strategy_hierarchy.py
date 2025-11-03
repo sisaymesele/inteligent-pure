@@ -1,3 +1,6 @@
+from django.db.models import Sum
+from management_project.models import StrategyHierarchy
+
 class StrategyHierarchyChoicesService:
     # Define the complete hierarchy in a single structure
     STRATEGY_MAP_HIERARCHY = {
@@ -1290,7 +1293,6 @@ class StrategyHierarchyChoicesService:
     }
 
     # Getters for forms
-    # Getters for forms
     def get_perspective_choices(self):
         return [(p, p) for p in self.STRATEGY_MAP_HIERARCHY.keys()]
 
@@ -1317,4 +1319,7 @@ class StrategyHierarchyChoicesService:
             .get(objective, {})
             .get(kpi, "")
         )
+
+
+
 

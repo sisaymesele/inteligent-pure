@@ -11,31 +11,60 @@
                     SWOT Analysis Dashboard
                 </h1>
 
-                <!-- Cycle Filter Dropdown -->
-                <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="cycleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-funnel me-2"></i>
-                        {% if selected_cycle %}
-                            Cycle: {{ selected_cycle }}
-                        {% else %}
-                            All Cycles
-                        {% endif %}
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="cycleDropdown">
-                        <li><a class="dropdown-item" href="?">All Cycles</a></li>
-                        {% for cycle in all_cycles %}
-                            {% if cycle %}
-                                <li><a class="dropdown-item" href="?cycle={{ cycle }}">{{ cycle }}</a></li>
+                <!-- Export Button (if user has view permission) -->
+                {% if permissions.swot_report.view %}
+                <div class="d-flex gap-2">
+                    <!-- Cycle Filter Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="cycleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-funnel me-2"></i>
+                            {% if selected_cycle %}
+                                Cycle: {{ selected_cycle }}
+                            {% else %}
+                                All Cycles
                             {% endif %}
-                        {% endfor %}
-                    </ul>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="cycleDropdown">
+                            <li><a class="dropdown-item" href="?">All Cycles</a></li>
+                            {% for cycle in all_cycles %}
+                                {% if cycle %}
+                                    <li><a class="dropdown-item" href="?cycle={{ cycle }}">{{ cycle }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Export to Excel Button -->
+                    <a href="{% url 'swot_report_export_to_excel' %}?{% if selected_cycle %}cycle={{ selected_cycle }}{% endif %}&export=excel"
+                       class="btn btn-success"
+                       title="Export to Excel">
+                        <i class="bi bi-file-earmark-excel me-2"></i>Export Excel
+                    </a>
                 </div>
+                {% endif %}
             </div>
             <p class="text-muted mb-0">Comprehensive analysis of Strengths, Weaknesses, Opportunities, and Threats</p>
         </div>
     </div>
 
-    <!-- Summary Cards -->
+    <!-- Permission Alert for users without view access -->
+    {% if not permissions.swot_report.view %}
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning border-0" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle me-2 fs-5"></i>
+                    <div>
+                        <strong>Access Restricted:</strong> You don't have permission to view SWOT analysis data.
+                        Please contact your administrator if you believe this is an error.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+
+    <!-- Summary Cards (only show if user has view permission) -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card border-0 shadow-sm">
@@ -230,10 +259,10 @@
             </div>
         </div>
     </div>
+    {% endif %} <!-- End of permission check -->
 </div>
 
 <!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 <style>
 .card {

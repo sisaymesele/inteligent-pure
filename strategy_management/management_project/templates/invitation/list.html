@@ -39,9 +39,10 @@
                     <td>{{ invite.get_status_display }}</td>
                     <td>{{ invite.invited_by.get_full_name|default:invite.invited_by.username }}</td>
                     <td>{{ invite.created_at|date:"Y-m-d H:i" }}</td>
+
                     {% if permissions.organization_invitation_delete %}
                     <td>
-                        {% if invite.status == 'pending' %}
+                        {% if invite.status == 'pending' and permissions.organization_invitation_delete %}
                             <a
                                 hx-get="{% url 'cancel_invitation' invite.pk %}"
                                 hx-target="#full-page-container"
@@ -52,15 +53,18 @@
                                 Cancel
                             </a>
                         {% endif %}
-                        <a
-                            hx-get="{% url 'delete_invitation' invite.pk %}"
-                            hx-target="#full-page-container"
-                            hx-swap="innerHTML"
-                            hx-push-url="{% url 'delete_invitation' invite.pk %}"
-                            class="btn btn-danger btn-sm"
-                        >
-                            Delete
-                        </a>
+
+                        {% if permissions.organization_invitation_delete %}
+                            <a
+                                hx-get="{% url 'delete_invitation' invite.pk %}"
+                                hx-target="#full-page-container"
+                                hx-swap="innerHTML"
+                                hx-push-url="{% url 'delete_invitation' invite.pk %}"
+                                class="btn btn-danger btn-sm"
+                            >
+                                Delete
+                            </a>
+                        {% endif %}
                     </td>
                     {% endif %}
                 </tr>

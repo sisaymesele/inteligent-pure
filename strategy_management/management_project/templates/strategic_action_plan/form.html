@@ -10,12 +10,16 @@
            hx-target="#full-page-container"
            hx-swap="innerHTML"
            hx-push-url="true">
-            ← Back to Strategic Action Plan List
+            &larr; Back to Strategic Action Plan List
         </a>
     </div>
 </div>
 
-<!-- Main Form Container -->
+{% comment %}
+Single top-level permission check
+{% endcomment %}
+{% if permissions.strategic_action_plan_create or permissions.strategic_action_plan_edit %}
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -27,9 +31,9 @@
                     <div class="alert alert-danger">
                         <ul class="mb-0">
                             {% for field in form %}
-                            {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
                             {% endfor %}
                             {% for error in form.non_field_errors %}
                             <li>{{ error }}</li>
@@ -38,7 +42,6 @@
                     </div>
                     {% endif %}
 
-                    <!-- Form -->
                     <form method="POST"
                           hx-post="{% if edit_strategic_action_plan %}{% url 'update_strategic_action_plan' strategy_by_cycle.slug edit_strategic_action_plan.pk %}{% else %}{% url 'create_strategic_action_plan' strategy_by_cycle.slug %}{% endif %}"
                           hx-target="#full-page-container"
@@ -70,12 +73,10 @@
                             {% endfor %}
                         </div>
 
-                        <!-- Responsible Bodies -->
-                        <!-- Responsible Bodies (Stakeholders) with + button -->
+                        <!-- Responsible Bodies / Stakeholders -->
                         <div class="col-12 mb-3">
                             <label>{{ form.responsible_bodies.label }}</label>
                             <div class="d-flex align-items-start gap-2">
-                                <!-- Scrollable checkbox container -->
                                 <div style="height: 150px; overflow-y: auto; border: 1px solid #ddd; padding: 5px; flex:1;">
                                     {% for stakeholder in form.fields.responsible_bodies.queryset %}
                                     {% with field_id="responsible_bodies_"|add:stakeholder.pk|stringformat:"s" %}
@@ -85,8 +86,7 @@
                                                name="responsible_bodies"
                                                id="{{ field_id }}"
                                                value="{{ stakeholder.pk }}"
-                                               {% if form.instance.pk and stakeholder in form.instance.responsible_bodies.all %}checked{% endif %}
-                                        >
+                                               {% if form.instance.pk and stakeholder in form.instance.responsible_bodies.all %}checked{% endif %}>
                                         <label class="form-check-label" for="{{ field_id }}">
                                             {{ stakeholder }}
                                         </label>
@@ -95,7 +95,6 @@
                                     {% endfor %}
                                 </div>
 
-                                <!-- Plus button on the right -->
                                 <a class="btn btn-outline-primary"
                                    hx-get="{% url 'create_stakeholder' %}?next={% url 'create_strategic_action_plan' strategy_by_cycle.slug %}"
                                    hx-target="#full-page-container"
@@ -107,7 +106,6 @@
                             <div class="text-danger small">{{ error }}</div>
                             {% endfor %}
                         </div>
-
 
                         <!-- Other Fields -->
                         {% for field in form %}
@@ -125,21 +123,55 @@
                         {% endif %}
                         {% endfor %}
 
-                        <!-- Save Button -->
+                        <!-- Form Actions -->
                         <div class="col-12 d-flex justify-content-end gap-2 mt-3">
                             <button type="submit" name="save" class="btn btn-dark">Save</button>
-                            <a href="{{ back_url }}" class="btn btn-secondary"
-                               hx-get="{{ back_url }}"
+                            <a href="{{ back_url|default:request.META.HTTP_REFERER|default:'#' }}" class="btn btn-secondary"
+                               hx-get="{{ back_url|default:request.META.HTTP_REFERER|default:'#' }}"
                                hx-target="#full-page-container"
                                hx-swap="innerHTML"
                                hx-push-url="true">
                                 Cancel
                             </a>
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{% else %}
+<!-- Access Denied -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center py-5">
+                    <div class="text-warning mb-3">
+                        <i class="fas fa-lock fa-4x"></i>
+                    </div>
+                    <h2 class="text-muted mb-3">Access Denied</h2>
+                    <p class="text-muted lead mb-4">
+                        {% if edit_strategic_action_plan %}
+                        You don't have permission to edit Strategic Action Plans.
+                        {% else %}
+                        You don't have permission to create Strategic Action Plans.
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'strategic_action_plan_list' strategy_by_cycle.slug %}"
+                       class="btn btn-primary mt-2"
+                       hx-get="{% url 'strategic_action_plan_list' strategy_by_cycle.slug %}"
+                       hx-target="#full-page-container"
+                       hx-swap="innerHTML"
+                       hx-push-url="true">
+                        <i class="fas fa-list me-2"></i>Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

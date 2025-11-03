@@ -39,7 +39,7 @@ def invitation_list(request):
 
 # ---------------- SEND INVITATION ----------------
 @login_required
-@role_required_invitation(['editor', 'owner', 'admin'], model_name='organization_invitation', action='create')
+@role_required_invitation(['owner', 'admin'], model_name='organization_invitation', action='create')
 def send_invitation(request):
     """Send invitation if user has permission (fast version)."""
     org = get_object_or_404(OrganizationalProfile, organization_name=request.user.organization_name)
@@ -82,50 +82,9 @@ def send_invitation(request):
     return render(request, 'invitation/form.html', context)
 
 
-
-# @login_required
-# @role_required_invitation(['editor', 'owner', 'admin'], model_name='organization_invitation', action='create')
-# def send_invitation(request):
-#     """Send invitation if user has permission."""
-#     org = get_object_or_404(OrganizationalProfile, organization_name=request.user.organization_name)
-#
-#     if request.method == 'POST':
-#         form = OrganizationInvitationForm(request.POST)
-#         if form.is_valid():
-#             invitation = form.save(commit=False)
-#             invitation.organization_name = org
-#             invitation.invited_by = request.user
-#             invitation.save()
-#
-#             accept_url = request.build_absolute_uri(
-#                 reverse('accept_invitation_token', args=[invitation.token])
-#             )
-#
-#             send_mail(
-#                 subject=f"Invitation to join {org.organization_name}",
-#                 message=f"You have been invited to join {org.organization_name} as {invitation.role}.\n"
-#                         f"Click here to accept: {accept_url}",
-#                 from_email=settings.DEFAULT_FROM_EMAIL,
-#                 recipient_list=[invitation.email],
-#             )
-#
-#             messages.success(request, f"Invitation sent to {invitation.email}")
-#             return redirect('invitation_list')
-#     else:
-#         form = OrganizationInvitationForm()
-#
-#     permissions = get_user_permissions(request.user)
-#     context = {
-#         'form': form,
-#         'permissions': permissions,
-#         'edit_mode': False,
-#     }
-#     return render(request, 'invitation/form.html', context)
-
-
 # ---------------- CANCEL INVITATION ----------------
 @login_required
-@role_required_invitation(['editor', 'owner', 'admin'], model_name='organization_invitation', action='delete')
+@role_required_invitation(['owner', 'admin'], model_name='organization_invitation', action='delete')
 def cancel_invitation(request, pk):
     """Cancel pending invitation."""
     invitation = get_object_or_404(
@@ -151,7 +110,7 @@ def cancel_invitation(request, pk):
 
 # ---------------- DELETE INVITATION ----------------
 @login_required
-@role_required_invitation(['editor', 'owner', 'admin'], model_name='organization_invitation', action='delete')
+@role_required_invitation(['owner', 'admin'], model_name='organization_invitation', action='delete')
 def delete_invitation(request, pk):
     """Permanently delete an invitation."""
     invitation = get_object_or_404(
@@ -174,54 +133,6 @@ def delete_invitation(request, pk):
 
 
 # ---------------- ACCEPT INVITATION ----------------
-#
-#
-#
-# def accept_invitation_token(request, token):
-#     """Handle accepting an invitation via token link."""
-#     invitation = get_object_or_404(OrganizationInvitation, token=token)
-#
-#     if invitation.status != OrganizationInvitation.PENDING:
-#         messages.info(request, "This invitation is no longer valid.")
-#         return redirect('/login')
-#
-#     try:
-#         user = CustomUser.objects.get(email=invitation.email)
-#         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-#
-#         if not getattr(user, 'organization_name', None):
-#             user.organization_name = invitation.organization_name
-#             user.save()
-#
-#         invitation.status = OrganizationInvitation.ACCEPTED
-#         invitation.responded_at = timezone.now()
-#         invitation.save()
-#
-#         messages.success(request, f"You have joined {invitation.organization_name.organization_name} as {invitation.role}")
-#         return redirect('dashboard')
-#
-#     except CustomUser.DoesNotExist:
-#         if request.method == 'POST':
-#             form = CustomUserRegistrationForm(request.POST)
-#             if form.is_valid():
-#                 user = form.save(commit=False)
-#                 user.email = invitation.email
-#                 user.organization_name = invitation.organization_name
-#                 user.save()
-#                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-#
-#                 invitation.status = OrganizationInvitation.ACCEPTED
-#                 invitation.responded_at = timezone.now()
-#                 invitation.save()
-#
-#                 messages.success(request, f"Account created and joined {invitation.organization_name.organization_name} as {invitation.role}")
-#                 return redirect('dashboard')
-#         else:
-#             form = CustomUserRegistrationForm(initial={'email': invitation.email})
-#
-#         return render(request, 'invitation/register_from_invite.html', {'form': form})
-
-
 
 def accept_invitation_token(request, token):
     """Handle accepting an invitation via token link."""

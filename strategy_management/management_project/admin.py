@@ -19,7 +19,7 @@ from management_project.forms import (
 class OrganizationalProfileAdmin(admin.ModelAdmin):
     form = OrganizationalProfileForm
     list_display = (
-        'organization_name', 'organization_type', 'organizational_classification',
+        'organization_name', 'organization_type', 'organization_classification',
         'organization_address', 'employer_tin', 'sector_name', 'contact_personnel',
     )
 

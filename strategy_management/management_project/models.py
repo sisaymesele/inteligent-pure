@@ -60,7 +60,7 @@ class OrganizationalProfile(models.Model):
     organization_address = models.CharField(max_length=80)
     employer_tin = models.CharField(max_length=90, verbose_name='Employer TIN')
     organization_type = models.CharField(choices=organization_choices, max_length=70)
-    organizational_classification = models.CharField(
+    organization_classification = models.CharField(
         max_length=20,
         choices=CLASSIFICATION_CHOICES,
         default='profitable',
@@ -101,7 +101,7 @@ class OrganizationInvitation(models.Model):
 
     ROLE_CHOICES = [
         ('owner', 'Owner'),
-        ('viewer', 'Viewer'),
+        ('admin', 'Admin'),
         ('editor', 'Editor'),
         ('viewer', 'Viewer'),
     ]
@@ -230,11 +230,11 @@ class StrategyHierarchy(models.Model):
     organization_name = models.ForeignKey(
         OrganizationalProfile, on_delete=models.PROTECT
     )
-    strategic_perspective = models.CharField(max_length=100)
-    focus_area = models.CharField(max_length=100)
-    objective = models.CharField(max_length=100)
-    kpi = models.CharField(max_length=100, verbose_name='Key Performance Indicator')
-    formula = models.CharField(max_length=100, blank=True)
+    strategic_perspective = models.CharField(max_length=200)
+    focus_area = models.CharField(max_length=200)
+    objective = models.CharField(max_length=200)
+    kpi = models.CharField(max_length=200, verbose_name='Key Performance Indicator')
+    formula = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return f"{self.strategic_perspective} → {self.focus_area} → {self.objective} → {self.kpi}"
@@ -1043,7 +1043,7 @@ class SwotReport(models.Model):
         OrganizationalProfile, on_delete=models.PROTECT
     )
     strategic_report_period = models.ForeignKey(
-        StrategicReport, on_delete=models.CASCADE
+        StrategicCycle, on_delete=models.CASCADE
     )
     swot_type = models.CharField(max_length=20, choices=SWOT_TYPES)
     swot_pillar = models.CharField(max_length=100)
@@ -1165,3 +1165,4 @@ class Announcement(models.Model):
 
     def __str__(self):
         return self.title
+

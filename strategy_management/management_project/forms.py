@@ -24,7 +24,7 @@ class OrganizationalProfileForm(forms.ModelForm):
 
         fields = [
             'organization_name', 'organization_address', 'employer_tin',
-            'organization_type', 'organizational_classification',
+            'organization_type', 'organization_classification',
             'sector_name', 'contact_personnel'
         ]
 
@@ -45,7 +45,7 @@ class OrganizationalProfileForm(forms.ModelForm):
             'organization_type': forms.Select(attrs={
                 'class': 'form-control',
             }),
-            'organizational_classification': forms.Select(attrs={
+            'organization_classification': forms.Select(attrs={
                 'class': 'form-control',
             }),
             'sector_name': forms.Select(attrs={
@@ -724,7 +724,7 @@ class StrategicReportForm(forms.ModelForm):
 
 class SwotReportForm(forms.ModelForm):
     strategic_report_period = forms.ModelChoiceField(
-        queryset=StrategicReport.objects.none(),
+        queryset=StrategicCycle.objects.none(),
         label="Strategic Report Period",
         widget=forms.Select(attrs={'class': 'form-control'}),
         empty_label="Select Strategic Report"
@@ -753,18 +753,18 @@ class SwotReportForm(forms.ModelForm):
         # ---------------- Filter unique by action_plan ----------------
         if self.request and self.request.user.is_authenticated and hasattr(self.request.user, 'organization_name'):
             org = self.request.user.organization_name
-            reports = StrategicReport.objects.filter(organization_name=org).order_by('action_plan', '-id')
+            reports = StrategicCycle.objects.filter(organization_name=org).order_by('end_date', '-id')
 
             unique_ids = []
             seen = set()
             for report in reports:
-                if report.action_plan_id not in seen:
-                    seen.add(report.action_plan_id)
+                if report.end_date not in seen:
+                    seen.add(report.end_date)
                     unique_ids.append(report.id)
 
-            self.fields['strategic_report_period'].queryset = StrategicReport.objects.filter(id__in=unique_ids)
+            self.fields['strategic_report_period'].queryset = StrategicCycle.objects.filter(id__in=unique_ids)
         else:
-            self.fields['strategic_report_period'].queryset = StrategicReport.objects.none()
+            self.fields['strategic_report_period'].queryset = StrategicCycle.objects.none()
 
         # ---------------- Cascade dropdown logic ----------------
         swot_type = self.data.get('swot_type') or getattr(self.instance, 'swot_type', None)
