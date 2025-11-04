@@ -20,64 +20,6 @@ import plotly.graph_objects as go
 
 
 # -------------------- SWOT LIST --------------------
-# @login_required
-# @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_report', action='view')
-# def swot_report_list(request):
-#     query = request.GET.get("search", "").strip()
-#     cycle_slug = request.GET.get("cycle", "").strip()
-#     page_number = request.GET.get("page", 1)
-#
-#     org = request.user.organization_name
-#
-#     # Get all SWOT reports for this organization
-#     swots = SwotReport.objects.filter(organization_name=org)
-#
-#     # Filter by strategic cycle if provided
-#     strategic_cycle = None
-#     if cycle_slug:
-#         strategic_cycle = StrategicCycle.objects.filter(
-#             slug=cycle_slug, organization_name=org
-#         ).first()
-#         if strategic_cycle:
-#             swots = swots.filter(strategic_cycle=strategic_cycle)
-#
-#     # Apply search filter
-#     if query:
-#         swots = swots.filter(
-#             Q(swot_type__icontains=query) |
-#             Q(swot_pillar__icontains=query) |
-#             Q(swot_factor__icontains=query) |
-#             Q(description__icontains=query) |
-#             Q(strategic_report_period__name__icontains=query) |
-#             Q(strategic_report_period__time_horizon__icontains=query) |
-#             Q(strategic_report_period__time_horizon_type__icontains=query)
-#         )
-#
-#     # Ordering
-#     swots = swots.order_by("strategic_report_period__end_date", "swot_type", "priority", "-created_at")
-#
-#     # Pagination
-#     paginator = Paginator(swots, 10)  # 10 items per page
-#     page_obj = paginator.get_page(page_number)
-#
-#     # Available strategic cycles for filter dropdown
-#     strategic_cycles = StrategicCycle.objects.filter(
-#         organization_name=org
-#     ).order_by('-start_date')
-#
-#     permissions = get_user_permissions(request.user)
-#
-#     return render(request, "swot_report/list.html", {
-#         "swots": page_obj,
-#         "page_obj": page_obj,
-#         "search_query": query,
-#         "strategic_cycles": strategic_cycles,
-#         "selected_cycle": cycle_slug,
-#         "permissions": permissions,
-#     })
-
-
-# -------------------- SWOT LIST --------------------
 @login_required
 @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_report', action='view')
 def swot_report_list(request):
@@ -357,122 +299,395 @@ def swot_report_export_to_excel(request):
 
 
 # -------------------- SWOT CHARTS --------------------
+# @login_required
+# @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_report', action='view')
+# def swot_report_chart(request):
+#     qs = SwotReport.objects.filter(
+#         organization_name=request.user.organization_name
+#     )
+#
+#     # Optional: filter by strategic cycle from GET parameter
+#     cycle_filter = request.GET.get("cycle")
+#     if cycle_filter:
+#         qs = qs.filter(strategic_report_period__name=cycle_filter)
+#
+#     # ------------------ COMMON LAYOUT SETTINGS ------------------
+#     layout_style = dict(
+#         template='plotly_white',
+#         height=420,
+#         margin=dict(l=60, r=40, t=80, b=60),
+#         title_font=dict(size=18, color="#333333", family="Arial Black"),
+#         xaxis=dict(
+#             title_font=dict(size=14, color="#333333"),
+#             showgrid=True,
+#             gridcolor='rgba(200,200,200,0.3)',
+#             zeroline=True,
+#             zerolinecolor='rgba(0,0,0,0.4)',
+#             tickangle=0,
+#             showline=True,
+#             linecolor='rgba(0,0,0,0.6)',
+#         ),
+#         yaxis=dict(
+#             title_font=dict(size=14, color="#333333"),
+#             showgrid=True,
+#             gridcolor='rgba(200,200,200,0.3)',
+#             zeroline=True,
+#             zerolinecolor='rgba(0,0,0,0.4)',
+#             showline=True,
+#             linecolor='rgba(0,0,0,0.6)',
+#         ),
+#     )
+#
+#     # ------------------ SWOT TYPE DISTRIBUTION ------------------
+#     type_counts = qs.values('swot_type').annotate(count=Count('id'))
+#     type_labels = [t['swot_type'] for t in type_counts]
+#     type_values = [t['count'] for t in type_counts]
+#
+#     fig_swot_type = go.Figure(data=[go.Bar(
+#         x=type_labels,
+#         y=type_values,
+#         text=type_values,
+#         textposition='outside',
+#         marker_color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'],
+#         hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+#     )])
+#     fig_swot_type.update_layout(
+#         title=f"SWOT Distribution by Type ({cycle_filter or 'All Cycles'})",
+#         xaxis_title="SWOT Type",
+#         yaxis_title="Count",
+#         **layout_style
+#     )
+#
+#     # ------------------ PRIORITY DISTRIBUTION ------------------
+#     priority_counts = qs.values('priority').annotate(count=Count('id'))
+#     priority_labels = [p['priority'] for p in priority_counts]
+#     priority_values = [p['count'] for p in priority_counts]
+#
+#     fig_priority = go.Figure(data=[go.Bar(
+#         x=priority_labels,
+#         y=priority_values,
+#         text=priority_values,
+#         textposition='outside',
+#         marker_color=['#d62728', '#ff7f0e', '#ffbb78', '#98df8a', '#2ca02c'],
+#         hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+#     )])
+#     fig_priority.update_layout(
+#         title=f"SWOT Distribution by Priority ({cycle_filter or 'All Cycles'})",
+#         xaxis_title="Priority",
+#         yaxis_title="Count",
+#         **layout_style
+#     )
+#
+#     # ------------------ IMPACT DISTRIBUTION ------------------
+#     impact_counts = qs.values('impact').annotate(count=Count('id'))
+#     impact_labels = [i['impact'] for i in impact_counts]
+#     impact_values = [i['count'] for i in impact_counts]
+#
+#     fig_impact = go.Figure(data=[go.Bar(
+#         x=impact_labels,
+#         y=impact_values,
+#         text=impact_values,
+#         textposition='outside',
+#         marker_color=['#98df8a', '#2ca02c', '#ffbb78', '#ff7f0e', '#d62728'],
+#         hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+#     )])
+#     fig_impact.update_layout(
+#         title=f"SWOT Distribution by Impact ({cycle_filter or 'All Cycles'})",
+#         xaxis_title="Impact",
+#         yaxis_title="Count",
+#         **layout_style
+#     )
+#
+#     # ------------------ LIKELIHOOD DISTRIBUTION ------------------
+#     likelihood_counts = qs.values('likelihood').annotate(count=Count('id'))
+#     likelihood_labels = [l['likelihood'] if l['likelihood'] else 'Unknown' for l in likelihood_counts]
+#     likelihood_values = [l['count'] for l in likelihood_counts]
+#
+#     fig_likelihood = go.Figure(data=[go.Bar(
+#         x=likelihood_labels,
+#         y=likelihood_values,
+#         text=likelihood_values,
+#         textposition='outside',
+#         marker_color=['#17becf', '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#7f7f7f'],
+#         hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+#     )])
+#     fig_likelihood.update_layout(
+#         title=f"SWOT Distribution by Likelihood ({cycle_filter or 'All Cycles'})",
+#         xaxis_title="Likelihood",
+#         yaxis_title="Count",
+#         **layout_style
+#     )
+#
+#     # ------------------ PILLAR ANALYSIS ------------------
+#     pillar_counts = qs.values('swot_pillar').annotate(count=Count('id')).order_by('-count')
+#     pillar_labels = [p['swot_pillar'] for p in pillar_counts]
+#     pillar_values = [p['count'] for p in pillar_counts]
+#
+#     fig_pillar = go.Figure(data=[go.Bar(
+#         x=pillar_labels,
+#         y=pillar_values,
+#         text=pillar_values,
+#         textposition='outside',
+#         marker_color=['#636efa', '#ef553b', '#00cc96', '#ab63fa', '#ffa15a'],
+#         hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+#     )])
+#     fig_pillar.update_layout(
+#         title=f"SWOT Count per Pillar ({cycle_filter or 'All Cycles'})",
+#         xaxis_title="Pillar",
+#         yaxis_title="Count",
+#         **layout_style
+#     )
+#
+#     # ------------------ SUMMARY DATA ------------------
+#     total_swot = qs.count()
+#     summary_data = {
+#         'total_swot': total_swot,
+#         'high_priority_count': qs.filter(priority__in=['High', 'Very High']).count(),
+#         'strengths_count': qs.filter(swot_type='Strength').count(),
+#         'weaknesses_count': qs.filter(swot_type='Weakness').count(),
+#         'opportunities_count': qs.filter(swot_type='Opportunity').count(),
+#         'threats_count': qs.filter(swot_type='Threat').count(),
+#         'cycle': cycle_filter or 'All Cycles'
+#     }
+#
+#     # Dropdown Cycles
+#     all_cycles = qs.values_list('strategic_report_period__name', flat=True).distinct()
+#
+#     permissions = get_user_permissions(request.user)
+#
+#     return render(request, 'swot_report/chart.html', {
+#         'plot_html_swot_type': fig_swot_type.to_html(full_html=False),
+#         'plot_html_priority': fig_priority.to_html(full_html=False),
+#         'plot_html_impact': fig_impact.to_html(full_html=False),
+#         'plot_html_likelihood': fig_likelihood.to_html(full_html=False),
+#         'plot_html_pillar': fig_pillar.to_html(full_html=False),
+#         'summary_data': summary_data,
+#         'all_cycles': all_cycles,
+#         'selected_cycle': cycle_filter,
+#         'permissions': permissions,
+#     })
+
+
+# -------------------- SWOT CHARTS --------------------
 @login_required
 @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_report', action='view')
 def swot_report_chart(request):
-    qs = SwotReport.objects.filter(
-        organization_name=request.user.organization_name
-    )
+    org = request.user.organization_name
+    qs = SwotReport.objects.filter(organization_name=org)
 
-    # Optional: filter by strategic cycle from GET parameter
+    # Get all available strategic cycles for dropdown
+    all_cycles = StrategicCycle.objects.filter(
+        organization_name=org
+    ).order_by('-start_date')
+
+    # Filter by strategic cycle from GET parameter
     cycle_filter = request.GET.get("cycle")
+    selected_cycle_name = "All Cycles"
+    selected_cycle_obj = None
+
     if cycle_filter:
-        qs = qs.filter(strategic_cycle__name=cycle_filter)
+        try:
+            selected_cycle_obj = StrategicCycle.objects.get(
+                slug=cycle_filter,
+                organization_name=org
+            )
+            qs = qs.filter(strategic_report_period=selected_cycle_obj)
+            selected_cycle_name = selected_cycle_obj.name
+        except StrategicCycle.DoesNotExist:
+            pass
+
+    # Handle empty data case
+    if qs.count() == 0:
+        empty_chart_html = """
+        <div class="text-center py-5">
+            <i class="bi bi-bar-chart text-muted" style="font-size: 3rem;"></i>
+            <h5 class="text-muted mt-3">No SWOT Data Available</h5>
+            <p class="text-muted">No SWOT reports found for the selected criteria.</p>
+        </div>
+        """
+        return render(request, 'swot_report/chart.html', {
+            'plot_html_swot_type': empty_chart_html,
+            'plot_html_priority': empty_chart_html,
+            'plot_html_impact': empty_chart_html,
+            'plot_html_likelihood': empty_chart_html,
+            'plot_html_pillar': empty_chart_html,
+            'summary_data': {
+                'total_swot': 0,
+                'high_priority_count': 0,
+                'strengths_count': 0,
+                'weaknesses_count': 0,
+                'opportunities_count': 0,
+                'threats_count': 0,
+                'cycle': selected_cycle_name
+            },
+            'all_cycles': all_cycles,
+            'selected_cycle': cycle_filter,
+            'selected_cycle_obj': selected_cycle_obj,
+            'permissions': get_user_permissions(request.user),
+        })
 
     # ------------------ COMMON LAYOUT SETTINGS ------------------
     layout_style = dict(
         template='plotly_white',
-        height=420,
-        margin=dict(l=60, r=40, t=80, b=60),
-        title_font=dict(size=18, color="#333333", family="Arial Black"),
+        height=450,
+        margin=dict(l=60, r=40, t=100, b=80),
+        title_font=dict(size=20, color="#2c3e50", family="Arial Black"),
+        font=dict(family="Arial", size=12),
+        plot_bgcolor='rgba(248,249,250,1)',
+        paper_bgcolor='rgba(255,255,255,1)',
         xaxis=dict(
-            title_font=dict(size=14, color="#333333"),
+            title_font=dict(size=14, color="#2c3e50", family="Arial"),
             showgrid=True,
             gridcolor='rgba(200,200,200,0.3)',
             zeroline=True,
-            zerolinecolor='rgba(0,0,0,0.4)',
+            zerolinecolor='rgba(0,0,0,0.2)',
             tickangle=0,
             showline=True,
-            linecolor='rgba(0,0,0,0.6)',
+            linecolor='rgba(0,0,0,0.3)',
         ),
         yaxis=dict(
-            title_font=dict(size=14, color="#333333"),
+            title_font=dict(size=14, color="#2c3e50", family="Arial"),
             showgrid=True,
             gridcolor='rgba(200,200,200,0.3)',
             zeroline=True,
-            zerolinecolor='rgba(0,0,0,0.4)',
+            zerolinecolor='rgba(0,0,0,0.2)',
             showline=True,
-            linecolor='rgba(0,0,0,0.6)',
+            linecolor='rgba(0,0,0,0.3)',
         ),
+        hoverlabel=dict(
+            bgcolor="white",
+            font_size=12,
+            font_family="Arial"
+        )
     )
 
     # ------------------ SWOT TYPE DISTRIBUTION ------------------
-    type_counts = qs.values('swot_type').annotate(count=Count('id'))
+    type_counts = qs.values('swot_type').annotate(count=Count('id')).order_by('swot_type')
     type_labels = [t['swot_type'] for t in type_counts]
     type_values = [t['count'] for t in type_counts]
+
+    # Color mapping for SWOT types
+    swot_colors = {
+        'Strength': '#2ecc71',  # Green
+        'Weakness': '#e74c3c',  # Red
+        'Opportunity': '#3498db',  # Blue
+        'Threat': '#f39c12'  # Orange
+    }
+
+    type_colors = [swot_colors.get(t, '#95a5a6') for t in type_labels]
 
     fig_swot_type = go.Figure(data=[go.Bar(
         x=type_labels,
         y=type_values,
         text=type_values,
-        textposition='outside',
-        marker_color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'],
-        hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+        textposition='auto',
+        textfont=dict(size=14, color='white', weight='bold'),
+        marker_color=type_colors,
+        hovertemplate='<b>%{x}</b><br>Count: %{y}<extra></extra>',
+        marker_line=dict(width=1, color='rgba(0,0,0,0.2)'),
     )])
     fig_swot_type.update_layout(
-        title=f"SWOT Distribution by Type ({cycle_filter or 'All Cycles'})",
+        title=dict(
+            text=f"SWOT Type Distribution<br><sub>{selected_cycle_name}</sub>",
+            x=0.5,
+            xanchor='center'
+        ),
         xaxis_title="SWOT Type",
-        yaxis_title="Count",
+        yaxis_title="Number of Items",
         **layout_style
     )
 
     # ------------------ PRIORITY DISTRIBUTION ------------------
+    priority_order = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
     priority_counts = qs.values('priority').annotate(count=Count('id'))
-    priority_labels = [p['priority'] for p in priority_counts]
-    priority_values = [p['count'] for p in priority_counts]
+    priority_dict = {p['priority']: p['count'] for p in priority_counts}
+    priority_labels = [p for p in priority_order if p in priority_dict]
+    priority_values = [priority_dict[p] for p in priority_labels]
+
+    priority_colors = ['#27ae60', '#2ecc71', '#f39c12', '#e67e22', '#e74c3c']  # Green to Red
 
     fig_priority = go.Figure(data=[go.Bar(
         x=priority_labels,
         y=priority_values,
         text=priority_values,
-        textposition='outside',
-        marker_color=['#d62728', '#ff7f0e', '#ffbb78', '#98df8a', '#2ca02c'],
-        hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+        textposition='auto',
+        textfont=dict(size=14, color='white', weight='bold'),
+        marker_color=priority_colors,
+        hovertemplate='<b>%{x} Priority</b><br>Count: %{y}<extra></extra>',
+        marker_line=dict(width=1, color='rgba(0,0,0,0.2)'),
     )])
     fig_priority.update_layout(
-        title=f"SWOT Distribution by Priority ({cycle_filter or 'All Cycles'})",
-        xaxis_title="Priority",
-        yaxis_title="Count",
+        title=dict(
+            text=f"Priority Distribution<br><sub>{selected_cycle_name}</sub>",
+            x=0.5,
+            xanchor='center'
+        ),
+        xaxis_title="Priority Level",
+        yaxis_title="Number of Items",
         **layout_style
     )
 
     # ------------------ IMPACT DISTRIBUTION ------------------
+    impact_order = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
     impact_counts = qs.values('impact').annotate(count=Count('id'))
-    impact_labels = [i['impact'] for i in impact_counts]
-    impact_values = [i['count'] for i in impact_counts]
+    impact_dict = {i['impact']: i['count'] for i in impact_counts}
+    impact_labels = [i for i in impact_order if i in impact_dict]
+    impact_values = [impact_dict[i] for i in impact_labels]
+
+    impact_colors = ['#27ae60', '#2ecc71', '#f39c12', '#e67e22', '#e74c3c']
 
     fig_impact = go.Figure(data=[go.Bar(
         x=impact_labels,
         y=impact_values,
         text=impact_values,
-        textposition='outside',
-        marker_color=['#98df8a', '#2ca02c', '#ffbb78', '#ff7f0e', '#d62728'],
-        hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+        textposition='auto',
+        textfont=dict(size=14, color='white', weight='bold'),
+        marker_color=impact_colors,
+        hovertemplate='<b>%{x} Impact</b><br>Count: %{y}<extra></extra>',
+        marker_line=dict(width=1, color='rgba(0,0,0,0.2)'),
     )])
     fig_impact.update_layout(
-        title=f"SWOT Distribution by Impact ({cycle_filter or 'All Cycles'})",
-        xaxis_title="Impact",
-        yaxis_title="Count",
+        title=dict(
+            text=f"Impact Distribution<br><sub>{selected_cycle_name}</sub>",
+            x=0.5,
+            xanchor='center'
+        ),
+        xaxis_title="Impact Level",
+        yaxis_title="Number of Items",
         **layout_style
     )
 
     # ------------------ LIKELIHOOD DISTRIBUTION ------------------
+    likelihood_order = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
     likelihood_counts = qs.values('likelihood').annotate(count=Count('id'))
-    likelihood_labels = [l['likelihood'] if l['likelihood'] else 'Unknown' for l in likelihood_counts]
-    likelihood_values = [l['count'] for l in likelihood_counts]
+    likelihood_dict = {l['likelihood']: l['count'] for l in likelihood_counts if l['likelihood']}
+    likelihood_labels = [l for l in likelihood_order if l in likelihood_dict]
+    likelihood_values = [likelihood_dict[l] for l in likelihood_labels]
+
+    if not likelihood_labels:  # Handle case where all likelihoods are null
+        likelihood_labels = ['Unknown']
+        likelihood_values = [qs.filter(likelihood__isnull=True).count()]
+
+    likelihood_colors = ['#27ae60', '#2ecc71', '#f39c12', '#e67e22', '#e74c3c'][:len(likelihood_labels)]
 
     fig_likelihood = go.Figure(data=[go.Bar(
         x=likelihood_labels,
         y=likelihood_values,
         text=likelihood_values,
-        textposition='outside',
-        marker_color=['#17becf', '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#7f7f7f'],
-        hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+        textposition='auto',
+        textfont=dict(size=14, color='white', weight='bold'),
+        marker_color=likelihood_colors,
+        hovertemplate='<b>%{x} Likelihood</b><br>Count: %{y}<extra></extra>',
+        marker_line=dict(width=1, color='rgba(0,0,0,0.2)'),
     )])
     fig_likelihood.update_layout(
-        title=f"SWOT Distribution by Likelihood ({cycle_filter or 'All Cycles'})",
-        xaxis_title="Likelihood",
-        yaxis_title="Count",
+        title=dict(
+            text=f"Likelihood Distribution<br><sub>{selected_cycle_name}</sub>",
+            x=0.5,
+            xanchor='center'
+        ),
+        xaxis_title="Likelihood Level",
+        yaxis_title="Number of Items",
         **layout_style
     )
 
@@ -485,14 +700,20 @@ def swot_report_chart(request):
         x=pillar_labels,
         y=pillar_values,
         text=pillar_values,
-        textposition='outside',
-        marker_color=['#636efa', '#ef553b', '#00cc96', '#ab63fa', '#ffa15a'],
-        hovertemplate='%{x}<br>Count: %{y}<extra></extra>'
+        textposition='auto',
+        textfont=dict(size=14, color='white', weight='bold'),
+        marker_color=['#3498db', '#9b59b6', '#1abc9c', '#34495e', '#e67e22', '#7f8c8d'],
+        hovertemplate='<b>%{x}</b><br>Count: %{y}<extra></extra>',
+        marker_line=dict(width=1, color='rgba(0,0,0,0.2)'),
     )])
     fig_pillar.update_layout(
-        title=f"SWOT Count per Pillar ({cycle_filter or 'All Cycles'})",
-        xaxis_title="Pillar",
-        yaxis_title="Count",
+        title=dict(
+            text=f"Pillar Analysis<br><sub>{selected_cycle_name}</sub>",
+            x=0.5,
+            xanchor='center'
+        ),
+        xaxis_title="Strategic Pillar",
+        yaxis_title="Number of Items",
         **layout_style
     )
 
@@ -505,22 +726,21 @@ def swot_report_chart(request):
         'weaknesses_count': qs.filter(swot_type='Weakness').count(),
         'opportunities_count': qs.filter(swot_type='Opportunity').count(),
         'threats_count': qs.filter(swot_type='Threat').count(),
-        'cycle': cycle_filter or 'All Cycles'
+        'cycle': selected_cycle_name,
+        'cycle_obj': selected_cycle_obj
     }
-
-    # Dropdown Cycles
-    all_cycles = qs.values_list('strategic_cycle__name', flat=True).distinct()
 
     permissions = get_user_permissions(request.user)
 
     return render(request, 'swot_report/chart.html', {
-        'plot_html_swot_type': fig_swot_type.to_html(full_html=False),
-        'plot_html_priority': fig_priority.to_html(full_html=False),
-        'plot_html_impact': fig_impact.to_html(full_html=False),
-        'plot_html_likelihood': fig_likelihood.to_html(full_html=False),
-        'plot_html_pillar': fig_pillar.to_html(full_html=False),
+        'plot_html_swot_type': fig_swot_type.to_html(full_html=False, include_plotlyjs=False),
+        'plot_html_priority': fig_priority.to_html(full_html=False, include_plotlyjs=False),
+        'plot_html_impact': fig_impact.to_html(full_html=False, include_plotlyjs=False),
+        'plot_html_likelihood': fig_likelihood.to_html(full_html=False, include_plotlyjs=False),
+        'plot_html_pillar': fig_pillar.to_html(full_html=False, include_plotlyjs=False),
         'summary_data': summary_data,
         'all_cycles': all_cycles,
         'selected_cycle': cycle_filter,
+        'selected_cycle_obj': selected_cycle_obj,
         'permissions': permissions,
     })

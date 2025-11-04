@@ -8,7 +8,8 @@ from management_project.models import (
 from management_project.services.vision import VisionService
 from management_project.services.mission import MissionService
 from .services.swot import SwotChoicesService
-from .services.strategy_hierarchy import StrategyHierarchyChoicesService
+# from .services.strategy_hierarchy import StrategyHierarchyChoicesService
+from .services.strategy_hierarchy.generic import StrategyHierarchyChoicesService
 from .services.values import ValuesService
 from .services.initiative import InitiativePlanningChoicesService
 from multiselectfield import MultiSelectFormField
@@ -84,13 +85,14 @@ class OrganizationInvitationForm(forms.ModelForm):
             'role': 'Choose the role for the invitee: Editor (content) or Viewer (read-only).',
             'message': 'Optional message to include with the invitation.',
         }
+#
 
 class VisionForm(forms.ModelForm):
     class Meta:
         model = Vision
-        fields = ['organization_name', 'vision_statement',]
+        fields = ['organization_name', 'vision_statement']
         widgets = {
-            'organization_name': forms.HiddenInput(),  # Hide the field
+            'organization_name': forms.HiddenInput(),  # Hide organization field
             'vision_statement': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -101,30 +103,33 @@ class VisionForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
 
-        # Safe default organization
+        # --- Determine default organization ---
         default_org = getattr(self.instance, 'organization_name', None) or OrganizationalProfile.objects.first()
 
-        # Override with GET/POST data if available
+        # Override with GET/POST data if provided
         org_id = None
         if self.request:
             org_id = self.request.GET.get('organization_id') or self.data.get('organization_name')
         if org_id:
             default_org = OrganizationalProfile.objects.filter(id=org_id).first() or default_org
 
+        # Set organization field initial value
         self.fields['organization_name'].initial = default_org
 
-        # Use VisionService instance
+        # --- Use VisionService to populate choices ---
         self.service = VisionService(default_org)
-
-        # Set vision statement choices
         vision_choices = self.service.get_choices()
+
         if vision_choices:
             self.fields['vision_statement'].widget.choices = vision_choices
-            self.fields['vision_statement'].initial = getattr(self.instance, 'vision_statement', None) or vision_choices[0][0]
+            self.fields['vision_statement'].initial = (
+                getattr(self.instance, 'vision_statement', None) or vision_choices[0][0]
+            )
         else:
             self.fields['vision_statement'].widget.attrs['disabled'] = True
+            self.fields['vision_statement'].widget.choices = [('', 'No vision statements available')]
 
-        # Add error class for invalid fields
+        # --- Add visual error feedback for invalid fields ---
         for field_name, field in self.fields.items():
             if field_name in self.errors:
                 field.widget.attrs['class'] = f"{field.widget.attrs.get('class', '')} is-invalid"
@@ -132,13 +137,14 @@ class VisionForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         vision_statement = cleaned_data.get('vision_statement')
+
         if vision_statement:
             try:
                 self.service.validate_choice(vision_statement)
             except ValueError as e:
                 self.add_error('vision_statement', str(e))
-        return cleaned_data
 
+        return cleaned_data
 
 
 
@@ -321,35 +327,8 @@ class StrategyHierarchyForm(forms.ModelForm):
             self.fields['formula'].initial = service.get_formula(perspective, pillar, objective, kpi)
         else:
             self.fields['formula'].initial = "Select a KPI to see the formula"
-#
-#
-# class StakeholderForm(forms.ModelForm):
-#     class Meta:
-#         model = Stakeholder
-#         exclude = ['organization_name']  # Exclude the organization field
-#         widgets = {
-#             'stakeholder_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Stakeholder Name'}),
-#             'stakeholder_type': forms.Select(attrs={'class': 'form-control'}),
-#             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Brief description'}),
-#             'impact_level': forms.Select(attrs={'class': 'form-control'}),
-#             'interest_level': forms.Select(attrs={'class': 'form-control'}),
-#             'influence_score': forms.Select(attrs={'class': 'form-control'}),
-#             'priority': forms.Select(attrs={'class': 'form-select', 'id': 'priority'}),
-#             'satisfaction_level': forms.Select(attrs={'class': 'form-control'}),
-#             'risk_level': forms.Select(attrs={'class': 'form-control'}),
-#             'contribution_score': forms.Select(attrs={'class': 'form-select', 'id': 'contribution_score'}),
-#             'contact_info': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email, Phone, or Contact'}),
-#         }
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#
-#         # Add 'is-invalid' class to fields with errors
-#         for field_name, field in self.fields.items():
-#             css_classes = field.widget.attrs.get('class', 'form-control')
-#             if field_name in self.errors:
-#                 css_classes += ' is-invalid'
-#             field.widget.attrs['class'] = css_classes
+
+
 
 class StakeholderForm(forms.ModelForm):
     role = MultiSelectFormField(

@@ -1,20 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 from management_project.models import Vision
 from management_project.forms import VisionForm
 from management_project.services.permission import role_required, get_user_permissions
 
+
 # -------------------- VISION LIST --------------------
 @login_required
-@role_required(['viewer', 'editor', 'owner', 'admin',], model_name='vision', action='view')
+@role_required(['viewer', 'editor', 'owner', 'admin'], model_name='vision', action='view')
 def vision_list(request):
-    """
-    List all visions for the logged-in user's organization.
-    """
-    visions = Vision.objects.filter(organization_name=request.user.organization_name).order_by('-id')
+    visions = Vision.objects.filter(
+        organization_name=request.user.organization_name
+    ).order_by('-id')
 
-    form = VisionForm()  # Empty form for creating new visions
+    form = VisionForm()  # No request needed
     permissions = get_user_permissions(request.user)
 
     context = {
@@ -43,7 +44,13 @@ def create_vision(request):
         form = VisionForm()
 
     permissions = get_user_permissions(request.user)
-    return render(request, 'vision/list.html', {'form': form, 'permissions': permissions})
+    visions = Vision.objects.filter(organization_name=request.user.organization_name).order_by('-id')
+
+    return render(request, 'vision/list.html', {
+        'form': form,
+        'visions': visions,
+        'permissions': permissions
+    })
 
 
 # -------------------- UPDATE VISION --------------------
@@ -68,8 +75,11 @@ def update_vision(request, pk):
         form = VisionForm(instance=vision)
 
     permissions = get_user_permissions(request.user)
+    visions = Vision.objects.filter(organization_name=request.user.organization_name).order_by('-id')
+
     context = {
         'form': form,
+        'visions': visions,
         'edit_mode': True,
         'editing_vision': vision,
         'permissions': permissions,
@@ -93,4 +103,7 @@ def delete_vision(request, pk):
         return redirect('vision_list')
 
     permissions = get_user_permissions(request.user)
-    return render(request, 'vision/delete_confirm.html', {'vision': vision, 'permissions': permissions})
+    return render(request, 'vision/delete_confirm.html', {
+        'vision': vision,
+        'permissions': permissions
+    })

@@ -193,3 +193,6 @@ def strategy_map(request):
     }
 
     return render(request, 'strategy_hierarchy/map.html', context)
+
+
+
