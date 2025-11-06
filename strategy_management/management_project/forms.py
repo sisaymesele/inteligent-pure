@@ -8,8 +8,8 @@ from management_project.models import (
 from management_project.services.vision import VisionService
 from management_project.services.mission import MissionService
 from .services.swot import SwotChoicesService
-# from .services.strategy_hierarchy import StrategyHierarchyChoicesService
-from .services.strategy_hierarchy.generic import StrategyHierarchyChoicesService
+# from management_project.services.strategy_hierarchy import StrategyService
+from .services.strategy_hierarchy.core import StrategyHierarchyChoiceService
 from .services.values import ValuesService
 from .services.initiative import InitiativePlanningChoicesService
 from multiselectfield import MultiSelectFormField
@@ -266,8 +266,135 @@ class SwotAnalysisForm(forms.ModelForm):
 
 
 
+#
+# class StrategyHierarchyForm(forms.ModelForm):
+#     formula = forms.CharField(
+#         required=False,
+#         widget=forms.Textarea(attrs={
+#             'readonly': 'readonly',
+#             'rows': 3,
+#             'class': 'form-control',
+#             'placeholder': 'Select KPI to see formula'
+#         }),
+#         label="KPI Formula"
+#     )
+#
+#     class Meta:
+#         model = StrategyHierarchy
+#         fields = ['strategic_perspective', 'focus_area', 'objective', 'kpi', 'formula']
+#         widgets = {
+#             'strategic_perspective': forms.Select(attrs={'class': 'form-control'}),
+#             'focus_area': forms.Select(attrs={'class': 'form-control'}),
+#             'objective': forms.Select(attrs={'class': 'form-control'}),
+#             'kpi': forms.Select(attrs={'class': 'form-control'}),
+#         }
+#
+#     def __init__(self, *args, **kwargs):
+#         # Extract organization from kwargs if passed
+#         self.organization = kwargs.pop('organization', None)
+#         super().__init__(*args, **kwargs)
+#
+#         service = StrategyService()
+#
+#         # Get sector
+#         sector = self._get_sector()
+#
+#         # Get current values - prioritize instance data for initial display
+#         perspective = getattr(self.instance, 'strategic_perspective', None)
+#         pillar = getattr(self.instance, 'focus_area', None)
+#         objective = getattr(self.instance, 'objective', None)
+#         kpi = getattr(self.instance, 'kpi', None)
+#
+#         # For POST requests, use POST data; for GET requests, use instance data
+#         if self.data:  # This is a POST request (HTMX or form submission)
+#             perspective = self.data.get('strategic_perspective') or perspective
+#             pillar = self.data.get('focus_area') or pillar
+#             objective = self.data.get('objective') or objective
+#             kpi = self.data.get('kpi') or kpi
+#
+#         # Populate strategic_perspective choices based on sector
+#         perspectives = service.get_perspectives(sector)
+#         self.fields['strategic_perspective'].choices = [('', '--- Select Perspective ---')] + perspectives
+#
+#         # Populate focus_area choices if perspective is selected
+#         if perspective:
+#             pillars = service.get_pillars(sector, perspective)
+#             self.fields['focus_area'].choices = [('', '--- Select Pillar ---')] + pillars
+#         else:
+#             self.fields['focus_area'].choices = [('', '--- Select Perspective First ---')]
+#
+#         # Populate objective choices if perspective and pillar are selected
+#         if perspective and pillar:
+#             objectives = service.get_objectives(sector, perspective, pillar)
+#             self.fields['objective'].choices = [('', '--- Select Objective ---')] + objectives
+#         else:
+#             self.fields['objective'].choices = [('', '--- Select Pillar First ---')]
+#
+#         # Populate KPI choices if all previous fields are selected
+#         if perspective and pillar and objective:
+#             kpis = service.get_kpis(sector, perspective, pillar, objective)
+#             self.fields['kpi'].choices = [('', '--- Select KPI ---')] + kpis
+#         else:
+#             self.fields['kpi'].choices = [('', '--- Select Objective First ---')]
+#
+#         # Auto-fill formula if all fields are selected
+#         if perspective and pillar and objective and kpi:
+#             self.fields['formula'].initial = service.get_kpi_formula(sector, perspective, pillar, objective, kpi)
+#         else:
+#             # Use existing formula if available, otherwise show placeholder
+#             self.fields['formula'].initial = getattr(self.instance, 'formula', "Select a KPI to see the formula")
+#
+#         # FIXED: Set initial values for all fields to ensure existing data is displayed
+#         if self.instance and self.instance.pk:
+#             self.initial['strategic_perspective'] = perspective
+#             self.initial['focus_area'] = pillar
+#             self.initial['objective'] = objective
+#             self.initial['kpi'] = kpi
+#             self.initial['formula'] = getattr(self.instance, 'formula', "")
+#
+#     def _get_sector(self):
+#         """Get sector from organization"""
+#         # Priority 1: Organization passed in kwargs
+#         if self.organization:
+#             if hasattr(self.organization, 'sector_name'):
+#                 return self.organization.sector_name
+#
+#         # Priority 2: Organization from instance
+#         if self.instance and self.instance.pk:
+#             org = getattr(self.instance, 'organization_name', None)
+#             if org and hasattr(org, 'sector_name'):
+#                 return org.sector_name
+#
+#         # Priority 3: Try to get from POST data
+#         if self.data.get('organization_sector'):
+#             return self.data.get('organization_sector')
+#
+#         return "default"
+#
+#     def save(self, commit=True):
+#         instance = super().save(commit=False)
+#
+#         # Auto-populate formula based on selections
+#         if (instance.strategic_perspective and instance.focus_area and
+#                 instance.objective and instance.kpi):
+#             service = StrategyService()
+#             sector = self._get_sector()
+#             instance.formula = service.get_kpi_formula(
+#                 sector,
+#                 instance.strategic_perspective,
+#                 instance.focus_area,
+#                 instance.objective,
+#                 instance.kpi
+#             )
+#
+#         if commit:
+#             instance.save()
+#
+#         return instance
+
+
+
 class StrategyHierarchyForm(forms.ModelForm):
-    # Include formula in the form explicitly
     formula = forms.CharField(
         required=False,
         widget=forms.Textarea(attrs={
@@ -290,43 +417,108 @@ class StrategyHierarchyForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
 
-        # instantiate the service once
-        service = StrategyHierarchyChoicesService()
+        service = StrategyHierarchyChoiceService()
 
-        # Load current selections
-        perspective = self.data.get('strategic_perspective') or getattr(self.instance, 'strategic_perspective', None)
-        pillar = self.data.get('focus_area') or getattr(self.instance, 'focus_area', None)
-        objective = self.data.get('objective') or getattr(self.instance, 'objective', None)
-        kpi = self.data.get('kpi') or getattr(self.instance, 'kpi', None)
+        # Get sector
+        sector = self._get_sector()
 
-        # Populate dropdowns dynamically
-        self.fields['strategic_perspective'].choices = [('', '--- Select Perspective ---')] + service.get_perspective_choices()
+        # Get current values - prioritize instance data for initial display
+        perspective = getattr(self.instance, 'strategic_perspective', None)
+        pillar = getattr(self.instance, 'focus_area', None)
+        objective = getattr(self.instance, 'objective', None)
+        kpi = getattr(self.instance, 'kpi', None)
 
+        # For POST requests, use POST data; for GET requests, use instance data
+        if self.data:  # This is a POST request (HTMX or form submission)
+            perspective = self.data.get('strategic_perspective') or perspective
+            pillar = self.data.get('focus_area') or pillar
+            objective = self.data.get('objective') or objective
+            kpi = self.data.get('kpi') or kpi
+
+        # Populate strategic_perspective choices based on sector
+        perspectives = service.get_perspectives(sector)
+        self.fields['strategic_perspective'].choices = [('', '--- Select Perspective ---')] + perspectives
+
+        # Populate focus_area choices if perspective is selected
         if perspective:
-            self.fields['focus_area'].choices = [('', '--- Select Pillar ---')] + service.get_pillar_choices(perspective)
+            pillars = service.get_pillars(sector, perspective)
+            self.fields['focus_area'].choices = [('', '--- Select Pillar ---')] + pillars
         else:
             self.fields['focus_area'].choices = [('', '--- Select Perspective First ---')]
-            self.fields['focus_area'].widget.attrs['disabled'] = True
 
+        # Populate objective choices if perspective and pillar are selected
         if perspective and pillar:
-            self.fields['objective'].choices = [('', '--- Select Objective ---')] + service.get_objective_choices(perspective, pillar)
+            objectives = service.get_objectives(sector, perspective, pillar)
+            self.fields['objective'].choices = [('', '--- Select Objective ---')] + objectives
         else:
             self.fields['objective'].choices = [('', '--- Select Pillar First ---')]
-            self.fields['objective'].widget.attrs['disabled'] = True
 
+        # Populate KPI choices if all previous fields are selected
         if perspective and pillar and objective:
-            self.fields['kpi'].choices = [('', '--- Select KPI ---')] + service.get_kpi_choices(perspective, pillar, objective)
+            kpis = service.get_kpis(sector, perspective, pillar, objective)
+            self.fields['kpi'].choices = [('', '--- Select KPI ---')] + kpis
         else:
             self.fields['kpi'].choices = [('', '--- Select Objective First ---')]
-            self.fields['kpi'].widget.attrs['disabled'] = True
 
-        # Auto-fill formula
+        # Auto-fill formula if all fields are selected
         if perspective and pillar and objective and kpi:
-            self.fields['formula'].initial = service.get_formula(perspective, pillar, objective, kpi)
+            self.fields['formula'].initial = service.get_kpi_formula(sector, perspective, pillar, objective, kpi)
         else:
-            self.fields['formula'].initial = "Select a KPI to see the formula"
+            # Use existing formula if available, otherwise show placeholder
+            self.fields['formula'].initial = getattr(self.instance, 'formula', "Select a KPI to see the formula")
+
+        # Set initial values for all fields to ensure existing data is displayed
+        if self.instance and self.instance.pk:
+            self.initial['strategic_perspective'] = perspective
+            self.initial['focus_area'] = pillar
+            self.initial['objective'] = objective
+            self.initial['kpi'] = kpi
+            self.initial['formula'] = getattr(self.instance, 'formula', "")
+
+    def _get_sector(self):
+        """Get sector from request or instance"""
+        # Priority 1: From request user's organization
+        if self.request and hasattr(self.request.user, 'organization_name'):
+            org = self.request.user.organization_name
+            if org and hasattr(org, 'sector_name'):
+                return org.sector_name
+
+        # Priority 2: Organization from instance
+        if self.instance and self.instance.pk:
+            org = getattr(self.instance, 'organization_name', None)
+            if org and hasattr(org, 'sector_name'):
+                return org.sector_name
+
+        # Priority 3: Try to get from POST data
+        if self.data.get('organization_sector'):
+            return self.data.get('organization_sector')
+
+        return "default"
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Auto-populate formula based on selections
+        if (instance.strategic_perspective and instance.focus_area and
+                instance.objective and instance.kpi):
+            service = StrategyHierarchyChoiceService()
+            sector = self._get_sector()
+            instance.formula = service.get_kpi_formula(
+                sector,
+                instance.strategic_perspective,
+                instance.focus_area,
+                instance.objective,
+                instance.kpi
+            )
+
+        if commit:
+            instance.save()
+
+        return instance
+
 
 
 
