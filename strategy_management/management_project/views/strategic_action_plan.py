@@ -30,7 +30,7 @@ def strategic_action_plan_by_cycle(request):
     """List distinct strategic cycles for the current organization with all info."""
     cycles_qs = StrategicCycle.objects.filter(
         organization_name=request.user.organization_name
-    ).order_by('-start_date')
+    ).order_by('-start_date', 'end_date')
 
     # Build a list of dicts including calculated properties
     cycles = []
@@ -69,7 +69,7 @@ def strategic_action_plan_list(request, cycle_slug):
     strategic_action_plans = StrategicActionPlan.objects.filter(
         strategic_cycle=strategy_by_cycle,
         organization_name=request.user.organization_name
-    ).order_by('-id')
+    ).order_by('-start_date', 'end_date')
 
     # Search query
     search_query = request.GET.get('search', '').strip()

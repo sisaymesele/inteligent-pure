@@ -1,208 +1,188 @@
+
+from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE_DATA
+
+
+
 EDUCATION_SECTOR = {
     "Financial Perspective": {
-        "Revenue Excellence & Growth": {
-            "Maximize Student Tuition Revenue Generation": {
-                "Tuition revenue growth rate": "(Current tuition revenue - Previous tuition revenue) / Previous tuition revenue * 100",
-                "Revenue per student": "Total tuition revenue / Number of enrolled students",
-                "Tuition collection rate": "(Collected tuition / Billed tuition) * 100",
-                "Tuition pricing optimization": "(Optimal pricing segments / Total pricing segments) * 100"
+        **GENERIC_FINANCE_PERSPECTIVE_DATA['Financial Perspective'],
+
+        # =============
+# ==================== PROFITABILITY ====================
+        "Profitability": {
+            "Maximize Net Educational Income": {
+                "Net operating margin (%)": "(Net operating income / Total revenue) * 100",
+                "Profit growth rate (%)": "(Current surplus - Previous) / Previous * 100",
+                "Return per student ($/student)": "Net income / Total enrolled students",
+                "Educational quality investment ratio": "(Instruction spending / Total spending) * 100"
             },
-            "Optimize Government Funding and Grants": {
-                "Government funding success rate": "(Secured government funds / Applied government funds) * 100",
-                "Grant application success rate": "(Awarded grants / Submitted grants) * 100",
-                "Funding diversification index": "Number of distinct funding sources / Total revenue",
-                "Compliance with funding requirements": "(Compliant uses / Total funded activities) * 100"
+            "Enhance Program Gross Margins": {
+                "Program gross margin (%)": "(Program revenue - Direct program costs) / Program revenue * 100",
+                "Program-specific margin improvement (%)": "Margin increase in underperforming programs",
+                "Direct instructional cost efficiency (%)": "Reduction in faculty, classroom, materials costs per student",
+                "Pricing strategy effectiveness": "Impact of tuition adjustments on enrollment and revenue"
             },
-            "Enhance Philanthropic and Donor Funding": {
-                "Donor retention rate": "(Retained donors / Total donors) * 100",
-                "Average donation size growth": "((Current average donation - Previous) / Previous) * 100",
-                "Major gifts acquisition": "(New major gifts / Target major gifts) * 100",
-                "Alumni giving participation": "(Donating alumni / Total alumni) * 100"
+            "Improve Institutional Operating Efficiency": {
+                "Administrative cost ratio (%)": "(Administrative costs / Total expenses) * 100",
+                "Student-to-administrator ratio": "Total students / Total administrative staff",
+                "Facilities utilization efficiency": "Classroom/space usage hours / Available hours",
+                "Break-even enrollment optimization": "Minimum enrollment needed to cover fixed costs"
             },
-            "Develop Auxiliary Service Revenue Streams": {
-                "Auxiliary service revenue growth": "((Current auxiliary revenue - Previous) / Previous) * 100",
-                "Service utilization rate": "(Utilized services / Available services) * 100",
-                "Auxiliary program ROI": "(Revenue from programs / Program costs) * 100",
-                "Student participation in auxiliary services": "(Participating students / Total students) * 100"
-            },
-            "Strengthen International Student Revenue": {
-                "International student enrollment growth": "((Current international - Previous international) / Previous) * 100",
-                "International tuition premium": "(International tuition rate / Domestic tuition rate) * 100",
-                "Retention rate of international students": "(Retained international students / Total international) * 100",
-                "Global partnership revenue": "Revenue from international partnerships / Total revenue * 100"
-            },
-            "Improve Continuing Education Program Revenue": {
-                "Continuing education enrollment growth": "((Current CE enrollment - Previous) / Previous) * 100",
-                "Program profitability improvement": "((Current profitability - Previous profitability) / Previous) * 100",
-                "Market share in continuing education": "(CE enrollment / Total market CE enrollment) * 100",
-                "Program completion rate": "(Completed programs / Enrolled programs) * 100"
-            },
-            "Expand Online and Distance Learning Revenue": {
-                "Online program revenue growth": "((Current online revenue - Previous) / Previous) * 100",
-                "Digital course enrollment rate": "(Online enrollments / Total enrollments) * 100",
-                "Technology ROI in online education": "(Benefits from edtech / Technology costs) * 100",
-                "Student satisfaction with online programs": "Average satisfaction with online learning"
-            },
-            "Increase Research and Contract Funding": {
-                "Research grant success rate": "(Awarded research grants / Submitted grants) * 100",
-                "Contract research revenue growth": "((Current contract revenue - Previous) / Previous) * 100",
-                "Industry partnership value": "Value of industry partnerships / Total research funding * 100",
-                "Research commercialization rate": "(Commercialized research / Total research) * 100"
+            "Optimize Educational Contribution Margins": {
+                "Average contribution margin per program (%)": "(Program revenue - Variable costs) / Program revenue * 100",
+                "Departmental profitability index": "Financial contribution by academic departments",
+                "Program mix optimization (%)": "Weighted margin across program portfolio",
+                "Variable cost control efficiency (%)": "Reduction in direct instructional costs"
             }
         },
 
-        "Cost Optimization & Efficiency": {
-            "Reduce Instructional Delivery Costs": {
-                "Cost per student credit hour": "Total instructional costs / Total credit hours delivered",
-                "Faculty productivity improvement": "((Current productivity - Previous productivity) / Previous) * 100",
-                "Class size optimization": "(Optimized class sizes / Total classes) * 100",
-                "Instructional technology efficiency": "(Efficient tech use / Total instruction) * 100"
+        # ==================== REVENUE GROWTH ====================
+        "Revenue Growth": {
+            "Enhance Student Enrollment Revenue": {
+                "Total tuition revenue growth (%)": "(Current tuition revenue - Previous) / Previous * 100",
+                "Revenue per student ($/student)": "Total tuition revenue / Total enrolled students",
+                "Student retention rate revenue impact": "Revenue from retained students vs. lost students",
+                "Program capacity utilization rate (%)": "(Actual enrollment / Maximum capacity) * 100"
             },
-            "Optimize Administrative and Operational Costs": {
-                "Administrative cost ratio": "(Administrative costs / Total expenses) * 100",
-                "Process automation rate": "(Automated processes / Total processes) * 100",
-                "Operational efficiency improvement": "((Current efficiency - Previous efficiency) / Previous) * 100",
-                "Cross-departmental collaboration savings": "Savings from collaboration / Total administrative costs * 100"
+            "Strengthen Market Position & Program Appeal": {
+                "Market share in key programs (%)": "(Our enrollment / Total regional enrollment in program) * 100",
+                "Revenue from high-demand programs ($)": "Income from STEM, healthcare, business programs",
+                "Geographic expansion revenue ($)": "Revenue from online, satellite campuses, international students",
+                "Admission yield rate (%)": "(Students enrolling / Students accepted) * 100"
             },
-            "Manage Facility and Infrastructure Costs": {
-                "Facility cost per square foot": "Total facility costs / Total square footage",
-                "Space utilization efficiency": "(Utilized space / Available space) * 100",
-                "Energy consumption reduction": "((Previous energy use - Current energy use) / Previous) * 100",
-                "Preventive maintenance compliance": "(Completed maintenance / Scheduled maintenance) * 100"
+            "Accelerate New Program Revenue": {
+                "Revenue from new academic programs (%)": "(Revenue from new programs / Total revenue) * 100",
+                "Time-to-break-even for new programs (months)": "Months for program revenue to cover development costs",
+                "R&D ROI on curriculum development (%)": "(Revenue from new curricula / Development investment) * 100",
+                "Employer partnership program revenue": "Revenue from corporate training and custom programs"
             },
-            "Improve Technology Infrastructure ROI": {
-                "Educational technology ROI": "(Benefits from edtech / Technology costs) * 100",
-                "System utilization optimization": "(Optimized system use / Total systems) * 100",
-                "Technology lifecycle management": "(Managed lifecycle / Total technology) * 100",
-                "Digital resource cost efficiency": "(Efficient digital costs / Total digital) * 100"
-            },
-            "Control Student Services and Support Costs": {
-                "Student support cost per student": "Total support costs / Number of students",
-                "Service delivery efficiency": "(Efficient deliveries / Total services) * 100",
-                "Support program effectiveness": "(Effective programs / Total programs) * 100",
-                "Resource allocation optimization": "(Optimized allocations / Total allocations) * 100"
-            },
-            "Optimize Library and Learning Resource Costs": {
-                "Resource utilization rate": "(Utilized resources / Available resources) * 100",
-                "Digital resource cost efficiency": "(Efficient digital costs / Total library costs) * 100",
-                "Collection development ROI": "(Usage value / Collection cost) * 100",
-                "Inter-library loan efficiency": "(Efficient loans / Total loans) * 100"
-            },
-            "Reduce Student Acquisition and Marketing Costs": {
-                "Cost per student acquisition": "Total marketing costs / New students acquired",
-                "Marketing campaign ROI": "(Revenue from campaigns / Campaign costs) * 100",
-                "Enrollment funnel efficiency": "(Enrolled students / Inquiries) * 100",
-                "Brand awareness cost efficiency": "(Awareness improvement / Marketing costs) * 100"
-            },
-            "Enhance Supply Chain and Procurement Efficiency": {
-                "Procurement cost savings": "((Previous costs - Current costs) / Previous) * 100",
-                "Vendor performance optimization": "((Current performance - Previous performance) / Previous) * 100",
-                "Inventory management efficiency": "(Efficient inventory / Total inventory) * 100",
-                "Strategic sourcing effectiveness": "(Effective sourcing / Total sourcing) * 100"
+            "Diversify Educational Revenue Streams": {
+                "Revenue diversity index": "1 - (Tuition revenue / Total revenue)",
+                "Revenue from continuing education ($)": "Income from professional development, certificates",
+                "Revenue from executive education ($)": "Income from non-degree executive programs",
+                "Summer/winter session revenue growth (%)": "(Off-term revenue - Previous) / Previous * 100"
             }
         },
 
-        "Capital Stewardship & Asset Performance": {
-            "Enhance Educational Facility Utilization": {
-                "Classroom utilization rate": "(Used classroom hours / Available hours) * 100",
-                "Laboratory equipment utilization": "(Used lab equipment / Available equipment) * 100",
-                "Space planning efficiency": "(Efficient space use / Total space) * 100",
-                "Facility ROI improvement": "((Current ROI - Previous ROI) / Previous) * 100"
+        # ==================== COST MANAGEMENT ====================
+        "Cost Management": {
+            "Administrative Cost Optimization": {
+                "Administrative cost ratio (%)": "(Admin costs / Total expenses) * 100",
+                "Staff cost per student ($)": "Total staff cost / Total students",
+                "Overhead reduction (%)": "(Previous overhead - Current) / Previous * 100",
+                "Procurement efficiency": "Cost savings through optimized purchasing"
             },
-            "Optimize Technology Asset Performance": {
-                "Educational technology utilization": "(Utilized technology / Available technology) * 100",
-                "Device lifecycle management": "(Managed devices / Total devices) * 100",
-                "Software license optimization": "(Optimized licenses / Total licenses) * 100",
-                "Technology refresh cycle compliance": "(Refreshed on schedule / Total technology) * 100"
+            "Instructional Cost Efficiency": {
+                "Instruction cost per student ($)": "Instruction spending / Total students",
+                "Faculty workload utilization (%)": "(Courses taught / Max course capacity) * 100",
+                "Resource cost savings ($)": "Savings from shared resources",
+                "Cost variance per program (%)": "(Planned - Actual) / Planned * 100"
             },
-            "Improve Capital Project Management": {
-                "Project completion on budget": "(On-budget projects / Total projects) * 100",
-                "Capital project ROI achievement": "(Achieved ROI / Target ROI) * 100",
-                "Stakeholder satisfaction with projects": "Average project satisfaction score",
-                "Facility improvement impact": "((Current impact - Previous impact) / Previous) * 100"
+            "Operational Expense Control": {
+                "Facilities cost per student ($)": "Facilities cost / Total students",
+                "Energy cost reduction (%)": "(Previous energy - Current) / Previous * 100",
+                "Maintenance cost efficiency": "Maintenance cost per square foot",
+                "Administrative process cost reduction (%)": "Improvement in processing cost efficiency"
             },
-            "Strengthen Endowment and Investment Management": {
-                "Endowment return rate": "(Investment income / Endowment balance) * 100",
-                "Spending policy compliance": "(Compliant spending / Total spending) * 100",
-                "Investment diversification score": "Composite score of investment spread",
-                "Long-term fund growth": "((Current value - Previous value) / Previous) * 100"
-            },
-            "Maximize Research Infrastructure ROI": {
-                "Research equipment utilization": "(Used equipment / Available equipment) * 100",
-                "Research facility efficiency": "(Efficient facilities / Total facilities) * 100",
-                "Shared resource utilization": "(Utilized shared resources / Available resources) * 100",
-                "Research infrastructure ROI": "(Research output / Infrastructure cost) * 100"
-            },
-            "Optimize Student Housing Asset Performance": {
-                "Residence hall occupancy rate": "(Occupied beds / Available beds) * 100",
-                "Housing facility condition improvement": "((Current condition - Previous condition) / Previous) * 100",
-                "Student satisfaction with housing": "Average housing satisfaction score",
-                "Housing operational efficiency": "(Efficient operations / Total operations) * 100"
-            },
-            "Improve Athletic and Recreation Facility Utilization": {
-                "Athletic facility usage rate": "(Used facility hours / Available hours) * 100",
-                "Recreation program participation": "(Participating students / Total students) * 100",
-                "Facility maintenance efficiency": "(Efficient maintenance / Total maintenance) * 100",
-                "Athletic program ROI": "(Program benefits / Program costs) * 100"
-            },
-            "Enhance Sustainability Infrastructure Investment": {
-                "Green building certification progress": "(Certified buildings / Total buildings) * 100",
-                "Energy efficiency ROI": "(Energy savings / Efficiency investment) * 100",
-                "Sustainable infrastructure utilization": "(Utilized sustainable infrastructure / Total infrastructure) * 100",
-                "Environmental impact reduction": "((Previous impact - Current impact) / Previous) * 100"
+            "Optimize Auxiliary Services Costs": {
+                "Auxiliary service cost ratio (%)": "(Direct service costs / Auxiliary revenue) * 100",
+                "Labor cost per service unit ($)": "Labor costs / Service units delivered",
+                "Material cost efficiency": "Reduction in materials cost per service",
+                "Service cost variance reduction (%)": "Planned vs Actual cost savings"
             }
         },
 
-        "Financial Resilience & Sustainability": {
-            "Strengthen Operating Margin Performance": {
-                "Operating margin stability": "(1 - |Current margin - Target margin| / Target margin) * 100",
-                "Revenue diversification index": "Number of distinct revenue sources / Total revenue",
-                "Cost structure optimization": "(Variable costs / Total costs) * 100",
-                "Financial buffer adequacy": "(Reserve funds / Annual operating expenses) * 100"
+        # ==================== RESOURCE UTILIZATION ====================
+        "Resource Utilization": {
+            "Optimize Facility Utilization": {
+                "Classroom utilization rate (%)": "(Actual classroom hours used / Available hours) * 100",
+                "Space efficiency index": "Educational output per square foot",
+                "Multiple scheduling efficiency": "Different programs using same facilities",
+                "Energy cost reduction per student (%)": "(Previous energy cost - Current) / Previous * 100"
             },
-            "Improve Cash Flow Management and Forecasting": {
-                "Cash flow forecasting accuracy": "(1 - |Actual cash flow - Forecasted| / Actual) * 100",
-                "Tuition collection efficiency": "(Collected tuition / Billed tuition) * 100",
-                "Days cash on hand": "Cash reserves / Daily operating expenses",
-                "Working capital optimization": "(Optimized working capital / Total working capital) * 100"
+            "Improve Instructional Productivity": {
+                "Revenue per faculty member": "Total educational revenue / Number of faculty",
+                "Student-to-faculty ratio": "Total students / Total instructional faculty",
+                "Course completion rate (%)": "(Courses completed / Courses started) * 100",
+                "Online program efficiency ratio": "Cost per online student vs. traditional student"
             },
-            "Enhance Debt Management and Creditworthiness": {
-                "Debt service coverage ratio": "Net operating income / Total debt service",
-                "Credit rating improvement": "Current credit rating - Previous rating",
-                "Debt-to-asset ratio optimization": "(Total debt / Total assets) * 100",
-                "Bond issuance success rate": "(Successful issuances / Total attempts) * 100"
+            "Enhance Technology Efficiency": {
+                "Technology cost per student": "Total technology costs / Total students",
+                "Digital resource utilization rate": "(Active digital resource users / Total users) * 100",
+                "IT support efficiency": "Support tickets resolved per IT staff member",
+                "Learning management system ROI": "Educational benefits / Technology investment"
             },
-            "Optimize Reserve Fund Strategy": {
-                "Reserve fund adequacy": "(Reserve funds / Target reserve level) * 100",
-                "Investment return achievement": "(Actual return / Target return) * 100",
-                "Reserve utilization effectiveness": "(Effective utilization / Total utilization) * 100",
-                "Risk-adjusted reserve performance": "(Performance / Risk level) * 100"
-            },
-            "Improve Financial Risk Mitigation": {
-                "Risk exposure reduction": "((Previous risk - Current risk) / Previous) * 100",
-                "Scenario planning completeness": "(Covered scenarios / Total scenarios) * 100",
-                "Contingency fund adequacy": "(Contingency funds / Risk exposure) * 100",
-                "Insurance coverage optimization": "(Optimal coverage / Total exposure) * 100"
-            },
-            "Strengthen Long-term Financial Planning": {
-                "Strategic plan financial alignment": "(Aligned finances / Total strategic plan) * 100",
-                "Capital plan implementation": "(Implemented capital projects / Total projects) * 100",
-                "Financial sustainability index": "Composite score of sustainability metrics",
-                "Stakeholder confidence in financial planning": "Average confidence assessment"
-            },
-            "Enhance Enrollment Revenue Stability": {
-                "Enrollment yield rate stability": "(1 - |Current yield - Previous yield| / Previous) * 100",
-                "Retention revenue impact": "(Revenue from retained students / Total revenue) * 100",
-                "Program mix revenue optimization": "(Optimized program revenue / Total revenue) * 100",
-                "Market position revenue stability": "(Stable revenue streams / Total revenue) * 100"
-            },
-            "Improve Philanthropic Sustainability": {
-                "Donor pipeline development": "(Developed pipeline / Required pipeline) * 100",
-                "Endowment growth sustainability": "((Current growth - Previous growth) / Previous) * 100",
-                "Major gift sustainability": "(Sustainable major gifts / Total major gifts) * 100",
-                "Alumni engagement financial impact": "(Financial impact / Engagement activities) * 100"
+            "Optimize Auxiliary Resource Utilization": {
+                "Service utilization rate (%)": "(Actual service usage / Service capacity) * 100",
+                "Facility operating efficiency": "Energy, maintenance costs per square foot",
+                "Break-even service volume optimization": "Minimum usage needed to cover fixed costs",
+                "Variable cost control efficiency (%)": "Reduction in direct service delivery costs"
             }
-        }
+        },
+
+        # ==================== ECONOMIC DEVELOPMENT & GDP CONTRIBUTION ====================
+        "Economic Development": {
+            "Increase Graduate Earnings Premium": {
+                "Graduate median income ($)": "Median graduate income",
+                "Premium over non-graduates (%)": "(Graduate - Non-graduate) / Non-graduate * 100",
+                "Graduate employment rate (%)": "(Employed graduates / Total graduates) * 100",
+                "Career progression acceleration (yrs)": "Time to mid-level positions"
+            },
+            "Promote Regional Economic Contribution": {
+                "Education sector GDP share (%)": "(Value of education services / Regional GDP) * 100",
+                "Jobs created (#)": "Direct + indirect employment",
+                "Industry partnerships (#)": "Number of active collaborations",
+                "Regional innovation impact (#)": "Patents/startups linked to institution"
+            },
+            "Increase Research Commercialization": {
+                "Revenue from patents/licensing ($)": "Income from IP",
+                "Startups created (#)": "Number of spin-offs",
+                "Industry collaboration revenue ($)": "Revenue from partnerships",
+                "Research impact index (%)": "Weighted impact on economy"
+            },
+            "Promote Lifelong Learning Economic Value": {
+                "Adult learner employment rate (%)": "(Employed / Total adult learners) * 100",
+                "Revenue per adult learner ($)": "Revenue / Adult learners",
+                "Credential impact index": "Job improvements per credential",
+                "Return on learning investment (%)": "(Benefits / Cost) * 100"
+            },
+            "Enhance Global Education Contribution": {
+                "International student revenue ($)": "Revenue from foreign students",
+                "Cross-border program enrollment (#)": "Students enrolled in international programs",
+                "Global ranking improvement (#)": "Ranking change over previous year",
+                "International partnership revenue ($)": "Revenue from collaborations"
+            },
+            "Increase Education's GDP Contribution": {
+                "Education GDP contribution (%)": "(Value of education sector output / Total GDP) * 100",
+                "Education value-added per student ($)": "GDP contribution / Total students",
+                "Growth in education GDP contribution (%)": "(Current - Previous) / Previous * 100",
+                "Sectoral impact multiplier": "Indirect economic impact of education spending"
+            },
+            "Enhance Employment Impact of Education": {
+                "Total education employment (#)": "Number of people employed in education sector",
+                "Jobs created per $1M revenue": "Employment impact per revenue unit",
+                "Faculty/staff retention rate (%)": "(Retained / Total) * 100",
+                "Skill gap reduction index": "Improvement in workforce readiness"
+            },
+            "Increase Knowledge & Innovation Contribution": {
+                "Patents & IP generated (#)": "Number of patents or licenses filed",
+                "Startups created (#)": "New companies launched from research",
+                "R&D output per faculty (#)": "Research outputs per faculty member",
+                "Innovation index (%)": "Weighted measure of tech transfer and commercialization"
+            },
+            "Promote Social & Community Impact": {
+                "Community education outreach (#)": "Programs delivered to local community",
+                "Volunteer student/staff hours (#)": "Total volunteer hours",
+                "Economic uplift in local region ($)": "Income generated via local engagement",
+                "Community engagement ROI (%)": "(Benefits / Cost of programs) * 100"
+            },
+            "Enhance Sustainable Economic Impact": {
+                "Green campus investment ROI (%)": "Benefits of sustainable infrastructure / Cost",
+                "Reduction in carbon footprint (%)": "(Previous emissions - Current) / Previous * 100",
+                "Energy efficiency savings ($)": "Savings from efficiency programs",
+                "Long-term financial sustainability index": "Endowment & reserve adequacy for 5-10 years"
+            }
+        },
     },
 
     "Student & Stakeholder Perspective": {

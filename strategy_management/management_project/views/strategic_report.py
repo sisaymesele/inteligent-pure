@@ -35,7 +35,7 @@ def strategy_report_by_cycle_list(request):
     permissions = get_user_permissions(request.user)
     cycles_qs = StrategicCycle.objects.filter(
         organization_name=request.user.organization_name
-    ).order_by('-start_date')
+    ).order_by('-start_date', 'end_date')
 
     # Build a list of dicts including calculated properties
     cycles = []
@@ -74,7 +74,7 @@ def strategic_report_list(request, cycle_slug):
     reports = StrategicReport.objects.filter(
         action_plan__strategic_cycle=strategy_by_cycle,
         organization_name=request.user.organization_name
-    ).select_related("action_plan").order_by("-id")
+    ).select_related("action_plan").order_by("-start_date", "end_date")
 
     # Search query
     search_query = request.GET.get("search", "").strip()

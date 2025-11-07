@@ -1,6 +1,6 @@
 from management_project.services.strategy_hierarchy.agriculture import AGRICULTURE_SECTOR
 from management_project.services.strategy_hierarchy.health import HEALTH_SECTOR
-from management_project.services.strategy_hierarchy.finance import FINANCE_SECTOR
+from management_project.services.strategy_hierarchy.banking_and_finance import FINANCE_SECTOR
 from management_project.services.strategy_hierarchy.default import DEFAULT_SECTOR
 
 class StrategyHierarchyChoiceService:

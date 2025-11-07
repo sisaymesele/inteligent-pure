@@ -33,25 +33,22 @@ class OrganizationalProfile(models.Model):
 
     SECTOR_CHOICES = [
         ('agriculture', 'Agriculture'),
-        ('mining', 'Mining'),
-        ('manufacturing', 'Manufacturing'),
-        ('construction', 'Construction'),
-        ('water_and_energy', 'Water and Energy'),
-        ('transport', 'Transport'),
-        ('trade', 'Trade'),
-        ('finance', 'Finance'),
-        ('tourism', 'Tourism'),
-        ('hotels', 'Hotels'),
-        ('professional_services', 'Professional Services'),
-        ('ict', 'ICT'),
-        ('telecommunications', 'Telecommunications'),
-        ('research', 'Research'),
+        ('art_and_recreation', 'Art and Recreation'),
+        ('banking_and_finance', 'Banking and Finance'),
+        ('construction_and_urban_development', 'Construction and Urban Development'),
         ('education', 'Education'),
-        ('health', 'Health'),
-        ('creative', 'Creative'),
         ('environment', 'Environment'),
+        ('health', 'Health'),
+        ('hospitality_and_tourism', 'Hospitality & Tourism'),
+        ('ict', 'ICT'),
+        ('manufacturing_and_industry', 'Manufacturing and Industry'),
+        ('mining', 'Mining'),
+        ('professional_services', 'Professional Services'),
+        ('real_estate', 'Real Estate'),
+        ('retail_and_trade', 'Retail and Trade'),
+        ('transport_and_logistics', 'Transport and Logistics'),
+        ('water_and_energy', 'Water and Energy'),
     ]
-
 
     CLASSIFICATION_CHOICES = [
         ('profitable', 'Profitable'),

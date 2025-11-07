@@ -341,34 +341,6 @@ class StrategyHierarchyChoicesService:
                     "Financial transparency index": "Openness in financial reporting"
                 }
             },
-
-            # ---------------- 13. SUSTAINABLE FINANCE & ESG INTEGRATION ----------------
-            "Sustainable Finance & ESG Integration": {
-                "Enhance Environmental Financial Performance": {
-                    "Green investment portfolio (%)": "(Sustainable investments / Total portfolio) * 100",
-                    "Carbon cost reduction ($)": "Savings from emissions reduction",
-                    "Circular economy revenue ($)": "Income from waste-to-value initiatives",
-                    "Climate resilience investment ROI": "Return on climate adaptation spending"
-                },
-                "Strengthen Social Impact Finance": {
-                    "Social impact bond performance": "Achievement of social outcome targets",
-                    "Community investment returns": "Financial and social returns",
-                    "Financial inclusion rate (%)": "(Population with financial access / Total) * 100",
-                    "Affordable financing availability": "Access to credit for underserved groups"
-                },
-                "Optimize Governance-Linked Finance": {
-                    "ESG compliance cost reduction": "Savings from proactive compliance",
-                    "Stakeholder engagement value": "Financial benefits from engagement",
-                    "Ethical investment growth (%)": "Increase in responsible investing",
-                    "Transparency premium": "Value from open financial practices"
-                },
-                "Implement Sustainable Banking Practices": {
-                    "Green loan portfolio growth (%)": "Increase in environmentally friendly lending",
-                    "Social responsibility banking": "Community-focused financial services",
-                    "Sustainable risk management": "Integration of ESG in risk assessment",
-                    "Impact measurement sophistication": "Quality of sustainability reporting"
-                },
-            },
         },
 
         "Customer Perspective": {
@@ -432,8 +404,9 @@ class StrategyHierarchyChoicesService:
                     "Customer acquisition cost per campaign": "Total campaign cost / Customers acquired from campaign",
                     "Conversion rate per campaign": "(Conversions / Total leads generated from campaign) * 100",
                     "Revenue generated from campaigns": "Total revenue attributable to specific campaigns"
-                }
+                },
             },
+
             "Customer Satisfaction & Experience": {
                 "Improve service quality standards": {
                     "Customer satisfaction score (CSAT)": "(Sum of satisfaction ratings / Number of survey respondents) * 100",
