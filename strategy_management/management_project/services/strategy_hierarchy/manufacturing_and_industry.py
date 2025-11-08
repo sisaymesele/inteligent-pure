@@ -1,5 +1,5 @@
 
-MANUFACTURING_SECTOR = {
+MANUFACTURING_AND_INDUSTRY_PERSPECTIVE = {
   "Financial Perspective": {
     "Revenue & Profitability Management": {
       "Maximize Manufacturing Revenue": {

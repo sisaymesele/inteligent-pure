@@ -1,146 +1,171 @@
 MINING_SECTOR = {
     "Financial Perspective": {
         # -------------------- Revenue Excellence & Growth --------------------
-        "Revenue Excellence & Growth": {
-            "Maximize Mineral Sales Revenue": {
-                "Ore and mineral sales growth rate": "(Current sales revenue - Previous revenue) / Previous * 100",
+        # -------------------- Revenue Growth & Diversification --------------------
+        "Mining Revenue Growth & Diversification": {
+            "Increase revenue from core minerals": {
+                "Revenue growth rate (%)": "(Current revenue - Previous revenue) / Previous revenue * 100",
                 "Revenue per ton of mineral produced": "Total revenue / Total tons produced",
-                "Customer collection rate": "(Collected sales / Billed sales) * 100",
-                "Pricing optimization per mineral": "(Optimal pricing segments / Total pricing segments) * 100"
+                "Customer collection rate (%)": "(Collected sales / Billed sales) * 100",
+                "Pricing optimization per mineral (%)": "(Optimal pricing segments / Total pricing segments) * 100"
             },
-            "Optimize Government Royalties & Export Revenues": {
-                "Royalty compliance rate": "(Paid royalties / Total royalties due) * 100",
-                "Export revenue growth": "((Current export revenue - Previous) / Previous) * 100",
-                "Government funding utilization": "(Utilized funds / Allocated funds) * 100",
-                "Compliance with taxation and royalty rules": "(Compliant activities / Total required) * 100"
+            "Expand sales to new geographic markets": {
+                "New market revenue growth (%)": "(Revenue from new markets - Previous) / Previous * 100",
+                "Number of new market customers": "Count of customers in new markets",
+                "Market penetration rate (%)": "(Active customers / Total target population) * 100",
+                "Revenue contribution from new markets (%)": "Revenue from new markets / Total revenue * 100"
             },
-            "Enhance Stakeholder & Community Contributions": {
-                "Community development fund contribution": "Amount contributed / Total planned contributions * 100",
-                "Donor or investor retention rate": "(Retained investors/donors / Total) * 100",
-                "Average investment or donation growth": "((Current avg - Previous) / Previous) * 100",
-                "CSR program participation": "(Participating stakeholders / Total targeted) * 100"
+            "Develop value-added processing or by-products": {
+                "Revenue from value-added products ($)": "Total revenue from by-products",
+                "Growth in by-product revenue (%)": "(Current - Previous) / Previous * 100",
+                "Contribution to total revenue (%)": "By-product revenue / Total revenue * 100",
+                "Units sold of value-added products (#)": "Total units sold"
             },
-            "Develop Auxiliary & Service Revenue Streams": {
-                "Ancillary revenue growth (logistics, energy, etc.)": "((Current auxiliary revenue - Previous) / Previous) * 100",
-                "Service utilization rate": "(Utilized services / Available services) * 100",
-                "Program ROI": "(Revenue / Cost) * 100",
-                "Participation in auxiliary services": "(Participating units / Total units) * 100"
+            "Increase revenue from exploration projects": {
+                "Exploration revenue ($)": "Revenue from exploration output",
+                "Revenue growth (%)": "(Current - Previous) / Previous * 100",
+                "Exploration ROI (%)": "(Revenue - Cost) / Cost * 100",
+                "Number of exploration projects contributing to revenue": "Count of projects"
             }
         },
 
-        # -------------------- Mining Profitability --------------------
-        "Mining Profitability": {
-            "Maximize Mine and Mineral Line Profitability": {
-                "Gross margin per mineral": "(Revenue - Direct extraction costs) / Revenue * 100",
-                "Net margin per mine": "(Revenue - Total operational costs) / Revenue * 100",
-                "Cost per ton produced": "Total cost / Total tons mined",
-                "High-margin mineral ratio": "Revenue from high-margin minerals / Total revenue * 100"
+        # -------------------- Cost Efficiency & Operational Optimization --------------------
+        "Mining Cost Efficiency & Operational Optimization": {
+            "Reduce extraction and processing costs per ton": {
+                "Cost per ton mined ($)": "Total costs / Total tons mined",
+                "Reduction in cost (%)": "(Previous cost - Current) / Previous * 100",
+                "Direct labor cost per ton ($)": "Labor costs / Tons mined",
+                "Energy cost per ton ($)": "Total energy cost / Tons mined"
             },
-            "Optimize Resource Allocation": {
-                "Labor cost efficiency": "Tons produced per labor cost unit",
-                "Equipment cost efficiency": "Tons produced per unit equipment cost",
-                "Administrative cost efficiency": "Revenue per administrative cost unit",
-                "Technology ROI per operation": "Improvement in productivity per technology cost"
+            "Optimize energy consumption in mining operations": {
+                "Energy efficiency ratio": "Energy used / Tons mined",
+                "Renewable energy usage (%)": "Renewable energy / Total energy used * 100",
+                "Cost savings from energy optimization ($)": "Previous cost - Current cost",
+                "Energy consumption reduction (%)": "(Previous - Current) / Previous * 100"
             },
-            "Improve Overall Mining Profitability": {
-                "Net income per mine": "Net income / Number of mines",
-                "Return on mining investment (ROI)": "Net profit / Total capital invested * 100",
-                "Break-even production volume": "Total cost / Avg revenue per ton",
-                "Revenue diversification impact": "Revenue from alternative sources / Total revenue * 100"
+            "Reduce maintenance costs of heavy machinery": {
+                "Maintenance cost per machine ($)": "Total maintenance / Machines",
+                "Downtime reduction (%)": "(Previous downtime - Current) / Previous * 100",
+                "Preventive maintenance ratio (%)": "(Preventive maintenance hours / Total maintenance hours) * 100",
+                "Repair cost reduction (%)": "(Previous repair costs - Current) / Previous * 100"
+            },
+            "Improve labor productivity per ton mined": {
+                "Tons per worker": "Total tons / Number of workers",
+                "Labor productivity growth (%)": "(Current - Previous) / Previous * 100",
+                "Overtime reduction (%)": "(Previous overtime - Current) / Previous * 100",
+                "Cost per ton of labor ($)": "Labor cost / Tons mined"
             }
         },
 
-        # -------------------- Cost Management & Operational Efficiency --------------------
-        "Cost Management & Operational Efficiency": {
-            "Optimize Labor & Staff Productivity": {
-                "Labor cost per ton": "Total labor cost / Total tons produced",
-                "Overtime cost ratio": "(Overtime cost / Total labor cost) * 100",
-                "Operator productivity": "Tons produced / Operator hours",
-                "Staff efficiency index": "Actual output / Planned output * 100"
+        # -------------------- Profitability & Return Optimization --------------------
+        "Mining Profitability & Return Optimization": {
+            "Improve gross margin per ton of ore": {
+                "Gross margin per ton (%)": "(Revenue - Direct costs) / Revenue * 100",
+                "Gross margin growth (%)": "(Current - Previous) / Previous * 100",
+                "High-margin ore ratio (%)": "Revenue from high-margin ore / Total revenue * 100",
+                "Gross profit ($)": "Revenue - Direct costs"
             },
-            "Control Consumables & Energy Costs": {
-                "Fuel cost per ton": "Total fuel cost / Total tons mined",
-                "Explosives & chemical usage efficiency": "(Used / Planned) * 100",
-                "Maintenance cost per ton": "Total maintenance cost / Total tons produced",
-                "Energy consumption efficiency": "Total energy used / Tons produced"
+            "Optimize return on mining assets (ROA)": {
+                "ROA (%)": "Net income / Total assets * 100",
+                "Return per mine ($)": "Net profit per mine",
+                "Asset utilization ratio (%)": "Revenue / Total assets * 100",
+                "Capital efficiency ratio": "Output / Capital invested"
             },
-            "Optimize Facility & Equipment Usage": {
-                "Equipment utilization rate": "(Operational hours / Available hours) * 100",
-                "Equipment downtime reduction": "((Previous downtime - Current downtime) / Previous) * 100",
-                "Mine infrastructure cost per ton": "Total facility costs / Total tons produced",
-                "Processing plant throughput efficiency": "(Actual throughput / Design capacity) * 100"
+            "Reduce operational cost-to-revenue ratio": {
+                "Cost-to-revenue ratio (%)": "Operational costs / Revenue * 100",
+                "Reduction in ratio (%)": "(Previous - Current) / Previous * 100",
+                "Indirect cost efficiency": "Revenue / Indirect costs",
+                "Operational leverage ratio": "Revenue growth / Cost growth"
             },
-            "Improve Supply Chain & Logistics Efficiency": {
-                "Ore transport cost per ton": "Total transport cost / Tons transported",
-                "Logistics utilization rate": "(Utilized logistics capacity / Total capacity) * 100",
-                "Inventory turnover ratio": "Cost of goods used / Average inventory",
-                "Material wastage reduction": "((Previous waste - Current waste) / Previous waste) * 100"
+            "Maximize return on equity (ROE)": {
+                "ROE (%)": "Net income / Shareholders' equity * 100",
+                "Profit growth (%)": "(Current - Previous) / Previous * 100",
+                "Net profit per shareholder ($)": "Net income / Number of shareholders",
+                "Shareholder value added ($)": "Net profit - Cost of equity"
             }
         },
 
-        # -------------------- Capital Investment & Asset Performance --------------------
-        "Capital Investment & Asset Performance": {
-            "Enhance Mine Facility Utilization": {
-                "Pit utilization rate": "(Extracted area / Planned extraction area) * 100",
-                "Processing plant utilization": "(Processed tons / Plant capacity tons) * 100",
-                "Space and stockpile efficiency": "(Used storage / Available storage) * 100",
-                "Facility ROI improvement": "((Current ROI - Previous ROI) / Previous) * 100"
+        # -------------------- Investment & Capital Management --------------------
+        "Mining Investment & Capital Management": {
+            "Optimize investment in new mining equipment": {
+                "Equipment ROI (%)": "(Revenue or savings - Cost) / Cost * 100",
+                "Equipment utilization rate (%)": "(Operational hours / Available hours) * 100",
+                "Capex efficiency ratio": "Output / Capital expenditure",
+                "Reduction in project overruns (%)": "(Planned - Actual) / Planned * 100"
             },
-            "Optimize Mining Equipment Asset Performance": {
-                "Heavy machinery utilization": "(Used hours / Available hours) * 100",
-                "Equipment lifecycle management": "(Managed equipment / Total equipment) * 100",
-                "Spare parts optimization": "(Optimized inventory / Total inventory) * 100",
-                "Technology refresh compliance": "(Equipment refreshed on schedule / Total equipment) * 100"
-            },
-            "Improve Capital Project Management": {
-                "Project completion on budget": "(On-budget projects / Total projects) * 100",
-                "Capital project ROI achievement": "(Achieved ROI / Target ROI) * 100",
-                "Stakeholder satisfaction with projects": "Average project satisfaction score",
-                "Mine improvement impact": "((Current impact - Previous impact) / Previous) * 100"
-            }
-        },
-
-        # -------------------- Financial Risk & Compliance --------------------
-        "Financial Risk & Compliance": {
-            "Reduce Revenue Leakage": {
-                "Billing error rate": "(Incorrect invoices / Total invoices) * 100",
-                "Claim denial rate": "(Denied claims / Total claims) * 100",
-                "Appeal success rate": "(Successful appeals / Total appeals) * 100",
-                "Revenue lost due to errors": "Total $ lost / Total revenue * 100"
-            },
-            "Ensure Regulatory & Contract Compliance": {
-                "Permit & license compliance": "(Compliant operations / Total required) * 100",
-                "Environmental levy compliance": "(Paid levies / Total levies due) * 100",
-                "Audit findings resolution": "(Resolved findings / Total findings) * 100",
-                "Legal & regulatory fines": "Total fines / Total revenue * 100"
-            },
-            "Financial Contingency & Risk Management": {
-                "Emergency fund adequacy": "(Available contingency funds / Required funds) * 100",
-                "Debt service coverage ratio": "Net operating income / Total debt service",
-                "Scenario planning completeness": "(Covered scenarios / Total relevant scenarios) * 100",
-                "Insurance coverage optimization": "(Optimal coverage / Total exposure) * 100"
-            }
-        },
-
-        # -------------------- Sustainability & Long-term Financial Resilience --------------------
-        "Sustainability & Financial Resilience": {
-            "Strengthen Operating Margin Stability": {
-                "Operating margin consistency": "(1 - |Current margin - Target margin| / Target margin) * 100",
+            "Diversify mining portfolio by commodity": {
                 "Revenue diversification index": "Number of revenue sources / Total revenue",
-                "Cost structure optimization": "(Variable costs / Total costs) * 100",
-                "Financial buffer adequacy": "(Reserve funds / Annual operating expenses) * 100"
+                "Revenue share per commodity (%)": "Revenue by commodity / Total revenue * 100",
+                "Contribution of new commodities (%)": "Revenue from new commodities / Total revenue * 100",
+                "Risk-adjusted return per commodity (%)": "Return / Volatility measure"
             },
-            "Enhance Long-term Capital Planning": {
-                "Strategic plan financial alignment": "(Aligned finances / Total strategic plan) * 100",
-                "Capital project completion rate": "(Completed projects / Planned projects) * 100",
-                "Investment diversification score": "Composite score of investment spread",
-                "Stakeholder confidence in financial planning": "Average confidence assessment"
+            "Minimize capital project overruns (%)": {
+                "Project completion on budget (%)": "(Projects on budget / Total projects) * 100",
+                "Cost variance ratio (%)": "(Budgeted - Actual cost) / Budgeted * 100",
+                "Schedule adherence (%)": "(On-time projects / Total projects) * 100",
+                "Stakeholder satisfaction": "Average project satisfaction score"
             },
-            "Maintain Community & Stakeholder Support Sustainability": {
-                "CSR program continuity": "(Implemented programs / Planned programs) * 100",
-                "Donor/investor pipeline growth": "(Developed pipeline / Target pipeline) * 100",
-                "Community funding growth": "((Current funding - Previous) / Previous) * 100",
-                "Major stakeholder support sustainability": "(Sustainable major contributions / Total contributions) * 100"
+            "Ensure efficient utilization of exploration and development capital": {
+                "Capital utilization rate (%)": "Used capital / Allocated capital * 100",
+                "Exploration ROI (%)": "(Revenue - Cost) / Cost * 100",
+                "Development efficiency index": "Output / Capital invested",
+                "Unutilized capital (%)": "(Allocated - Used) / Allocated * 100"
+            }
+        },
+
+        # -------------------- Risk Management & Solvency --------------------
+        "Mining Risk Management & Solvency": {
+            "Hedge commodity price volatility": {
+                "Hedging coverage (%)": "(Hedged production / Total production) * 100",
+                "Revenue volatility reduction (%)": "(Previous volatility - Current) / Previous * 100",
+                "Hedging ROI (%)": "(Revenue gained from hedging - Cost) / Cost * 100",
+                "Number of hedged contracts": "Count of hedged contracts"
+            },
+            "Maintain sufficient insurance coverage for operations": {
+                "Insurance coverage ratio (%)": "Insured value / Total asset value * 100",
+                "Claims settlement ratio (%)": "(Settled claims / Total claims) * 100",
+                "Premium efficiency ratio": "Insurance cost / Covered value * 100",
+                "Coverage adequacy index": "Internal score for risk coverage"
+            },
+            "Reduce exposure to environmental penalties": {
+                "Penalty incidence rate (%)": "(Penalties incurred / Total operations) * 100",
+                "Penalty cost ($)": "Total penalty amount",
+                "Compliance improvement (%)": "(Previous violations - Current) / Previous * 100",
+                "Regulatory adherence ratio (%)": "(Compliant operations / Total operations) * 100"
+            },
+            "Monitor and maintain regulatory compliance costs": {
+                "Compliance cost ratio (%)": "Regulatory costs / Revenue * 100",
+                "Regulatory audit success rate (%)": "(Passed audits / Total audits) * 100",
+                "Compliance efficiency index": "Output per compliance $ spent",
+                "Penalty avoidance rate (%)": "(Penalties avoided / Total potential) * 100"
+            }
+        },
+
+        # -------------------- Liquidity & Cash Flow Management --------------------
+        "Mining Liquidity & Cash Flow Management": {
+            "Ensure timely revenue collection from buyers": {
+                "Days sales outstanding (DSO)": "Average collection period",
+                "Collection efficiency (%)": "(Collected / Billed) * 100",
+                "Past due ratio (%)": "Overdue invoices / Total invoices * 100",
+                "Cash conversion cycle (days)": "DSO + Inventory days - Payables days"
+            },
+            "Maintain working capital for operational continuity": {
+                "Current ratio": "Current assets / Current liabilities",
+                "Quick ratio": "(Current assets - Inventory) / Current liabilities",
+                "Working capital adequacy (%)": "Available working capital / Required working capital * 100",
+                "Liquidity buffer ($)": "Cash and equivalents available for operations"
+            },
+            "Forecast cash flow for capital-intensive projects": {
+                "Forecast accuracy (%)": "(Actual - Forecast) / Forecast * 100",
+                "Operating cash balance ($)": "Cash available for operations",
+                "Cash flow variance ($)": "Actual - Forecasted inflows",
+                "Capital project coverage ratio (%)": "Forecasted cash / Project requirement * 100"
+            },
+            "Reduce idle cash and optimize reserve allocation": {
+                "Idle cash ratio (%)": "Idle cash / Total cash * 100",
+                "Excess reserve ratio (%)": "Excess reserves / Required reserves * 100",
+                "Cash optimization ($)": "Amount released from idle/excess cash",
+                "Reserve utilization efficiency (%)": "Reserves used / Total reserves * 100"
             }
         },
     },

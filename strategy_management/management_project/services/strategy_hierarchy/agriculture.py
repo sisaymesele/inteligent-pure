@@ -1,6 +1,6 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE_DATA
 
-AGRICULTURE_SECTOR = {
+AGRICULTURE_PERSPECTIVE = {
 
     "Financial Perspective": {
         **GENERIC_FINANCE_PERSPECTIVE_DATA['Financial Perspective'],

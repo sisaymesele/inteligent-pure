@@ -1,14 +1,14 @@
-from management_project.services.strategy_hierarchy.agriculture import AGRICULTURE_SECTOR
+from management_project.services.strategy_hierarchy.agriculture import AGRICULTURE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.health import HEALTH_SECTOR
-from management_project.services.strategy_hierarchy.banking_and_finance import FINANCE_SECTOR
+from management_project.services.strategy_hierarchy.banking import BANKING_PERSPECTIVE
 from management_project.services.strategy_hierarchy.default import DEFAULT_SECTOR
 
 class StrategyHierarchyChoiceService:
     # Define sector-specific hierarchies
     SECTOR_MAP = {
-        "agriculture": AGRICULTURE_SECTOR,
+        "agriculture": AGRICULTURE_PERSPECTIVE,
         "health": HEALTH_SECTOR,
-        "finance": FINANCE_SECTOR,
+        "banking": BANKING_PERSPECTIVE,
         "default": DEFAULT_SECTOR
     }
 
