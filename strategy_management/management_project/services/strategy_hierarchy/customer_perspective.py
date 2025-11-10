@@ -1,6 +1,6 @@
 
 
-GENERIC_CUSTOMER_PERSPECTIVE_DATA = {
+GENERIC_CUSTOMER_PERSPECTIVE = {
     "Customer Perspective": {
         "Customer Acquisition & Market Reach": {
             "Increase qualified lead generation": {

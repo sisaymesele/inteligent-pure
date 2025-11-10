@@ -1,5 +1,5 @@
 
-GENERIC_FINANCE_PERSPECTIVE_DATA = {
+GENERIC_FINANCE_PERSPECTIVE = {
     "Financial Perspective": {
         "Revenue Growth & Diversification": {
             "Enhance Total Revenue Performance": {

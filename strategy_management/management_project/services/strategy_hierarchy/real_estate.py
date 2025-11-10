@@ -1,6 +1,6 @@
 
 
-REAL_ESTATE_PERSPECTIVE_DATA = {
+REAL_ESTATE_PERSPECTIVE = {
 
     "Financial Perspective": {
 

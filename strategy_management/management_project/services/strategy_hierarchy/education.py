@@ -1,805 +1,671 @@
+from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
 
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE_DATA
-
-
-
-EDUCATION_SECTOR = {
+EDUCATION_PERSPECTIVE = {
     "Financial Perspective": {
-        **GENERIC_FINANCE_PERSPECTIVE_DATA['Financial Perspective'],
-
-        # =============
-# ==================== PROFITABILITY ====================
-        "Profitability": {
-            "Maximize Net Educational Income": {
-                "Net operating margin (%)": "(Net operating income / Total revenue) * 100",
-                "Profit growth rate (%)": "(Current surplus - Previous) / Previous * 100",
-                "Return per student ($/student)": "Net income / Total enrolled students",
-                "Educational quality investment ratio": "(Instruction spending / Total spending) * 100"
+        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        # ==================== 1. EDUCATION REVENUE GROWTH & DIVERSIFICATION ====================
+        "Education Revenue Growth & Diversification": {
+            "Increase Tuition and Fee Income": {
+                "Tuition revenue growth (%)": "(Current tuition - Previous) / Previous * 100",
+                "Student fee collection rate (%)": "(Fees collected / Fees billed) * 100",
+                "Average revenue per student ($)": "Total tuition revenue / Total enrolled students",
+                "New program enrollment revenue ($)": "Revenue from new degree or certificate programs"
             },
-            "Enhance Program Gross Margins": {
-                "Program gross margin (%)": "(Program revenue - Direct program costs) / Program revenue * 100",
-                "Program-specific margin improvement (%)": "Margin increase in underperforming programs",
-                "Direct instructional cost efficiency (%)": "Reduction in faculty, classroom, materials costs per student",
-                "Pricing strategy effectiveness": "Impact of tuition adjustments on enrollment and revenue"
+            "Diversify Funding Sources": {
+                "Non-tuition revenue share (%)": "(Non-tuition income / Total revenue) * 100",
+                "Grant funding ratio (%)": "(Grant revenue / Total revenue) * 100",
+                "Industry partnership revenue ($)": "Revenue from corporate partnerships",
+                "Philanthropic donations ($)": "Value of external contributions and endowments"
             },
-            "Improve Institutional Operating Efficiency": {
-                "Administrative cost ratio (%)": "(Administrative costs / Total expenses) * 100",
-                "Student-to-administrator ratio": "Total students / Total administrative staff",
-                "Facilities utilization efficiency": "Classroom/space usage hours / Available hours",
-                "Break-even enrollment optimization": "Minimum enrollment needed to cover fixed costs"
+            "Expand Research Funding": {
+                "Research grants secured ($)": "Total research grant funding received",
+                "Grant success rate (%)": "(Grants won / Grants applied) * 100",
+                "External research funding growth (%)": "(Current - Previous) / Previous * 100",
+                "Research income per faculty ($)": "Total research revenue / Total academic staff"
             },
-            "Optimize Educational Contribution Margins": {
-                "Average contribution margin per program (%)": "(Program revenue - Variable costs) / Program revenue * 100",
-                "Departmental profitability index": "Financial contribution by academic departments",
-                "Program mix optimization (%)": "Weighted margin across program portfolio",
-                "Variable cost control efficiency (%)": "Reduction in direct instructional costs"
+            "Enhance International Student Revenue": {
+                "International tuition share (%)": "(International student revenue / Total tuition) * 100",
+                "International enrollment growth (%)": "(Current - Previous) / Previous * 100",
+                "Revenue per international student ($)": "Total international revenue / Total international students",
+                "Scholarship to revenue ratio (%)": "(Scholarship value / International tuition revenue) * 100"
+            },
+            "Increase Continuing Education Income": {
+                "Short-course revenue growth (%)": "(Current - Previous) / Previous * 100",
+                "Corporate training income ($)": "Revenue from professional/industry training programs",
+                "Online learning revenue share (%)": "(Online program revenue / Total revenue) * 100",
+                "Adult learner participation rate (%)": "(Adult learners / Total enrollment) * 100"
+            },
+            "Promote Innovation & Commercialization": {
+                "Patents licensed (#)": "Number of university patents licensed to industry",
+                "Commercialization revenue ($)": "Income from spin-offs and IP commercialization",
+                "Innovation partnership income ($)": "Revenue from joint R&D and technology transfer",
+                "Return on innovation investment (%)": "(Innovation income / Investment) * 100"
+            },
+            "Grow Alumni Contributions": {
+                "Alumni donation growth (%)": "(Current donations - Previous) / Previous * 100",
+                "Active alumni donors (%)": "(Donating alumni / Total alumni) * 100",
+                "Endowment fund growth (%)": "(Current endowment - Previous) / Previous * 100",
+                "Average gift size ($)": "Total donations / Number of donors"
+            },
+            "Enhance Revenue from Campus Assets": {
+                "Facility rental income ($)": "Revenue from leasing or renting campus spaces",
+                "Accommodation occupancy rate (%)": "(Occupied student beds / Total beds) * 100",
+                "Cafeteria and bookstore profit margin (%)": "(Net profit / Revenue) * 100",
+                "Event and conference revenue ($)": "Income from hosting external events"
             }
         },
 
-        # ==================== REVENUE GROWTH ====================
-        "Revenue Growth": {
-            "Enhance Student Enrollment Revenue": {
-                "Total tuition revenue growth (%)": "(Current tuition revenue - Previous) / Previous * 100",
-                "Revenue per student ($/student)": "Total tuition revenue / Total enrolled students",
-                "Student retention rate revenue impact": "Revenue from retained students vs. lost students",
-                "Program capacity utilization rate (%)": "(Actual enrollment / Maximum capacity) * 100"
+        # ==================== 3. EDUCATION PROFITABILITY & RETURN ====================
+        "Education Profitability & Return": {
+            "Improve Overall Profit Margin": {
+                "Net profit margin (%)": "(Net income / Total revenue) * 100",
+                "Gross margin (%)": "(Revenue - Direct costs) / Revenue * 100",
+                "EBITDA margin (%)": "(EBITDA / Revenue) * 100",
+                "Operating profit growth (%)": "(Current - Previous) / Previous * 100"
             },
-            "Strengthen Market Position & Program Appeal": {
-                "Market share in key programs (%)": "(Our enrollment / Total regional enrollment in program) * 100",
-                "Revenue from high-demand programs ($)": "Income from STEM, healthcare, business programs",
-                "Geographic expansion revenue ($)": "Revenue from online, satellite campuses, international students",
-                "Admission yield rate (%)": "(Students enrolling / Students accepted) * 100"
+            "Enhance Program Profitability": {
+                "Program ROI (%)": "(Program revenue - Cost) / Cost * 100",
+                "Cost per enrolled student ($)": "Program cost / Students enrolled",
+                "Program profit margin (%)": "(Net profit / Program revenue) * 100",
+                "Break-even enrollment (#)": "Fixed costs / (Tuition - Variable cost per student)"
             },
-            "Accelerate New Program Revenue": {
-                "Revenue from new academic programs (%)": "(Revenue from new programs / Total revenue) * 100",
-                "Time-to-break-even for new programs (months)": "Months for program revenue to cover development costs",
-                "R&D ROI on curriculum development (%)": "(Revenue from new curricula / Development investment) * 100",
-                "Employer partnership program revenue": "Revenue from corporate training and custom programs"
+            "Increase Research Profitability": {
+                "Research project ROI (%)": "(Research income - Cost) / Cost * 100",
+                "Overhead recovery rate (%)": "(Indirect cost recovered / Total research cost) * 100",
+                "Research income growth (%)": "(Current - Previous) / Previous * 100",
+                "Research cost efficiency (%)": "(Research output value / Research spending) * 100"
             },
-            "Diversify Educational Revenue Streams": {
-                "Revenue diversity index": "1 - (Tuition revenue / Total revenue)",
-                "Revenue from continuing education ($)": "Income from professional development, certificates",
-                "Revenue from executive education ($)": "Income from non-degree executive programs",
-                "Summer/winter session revenue growth (%)": "(Off-term revenue - Previous) / Previous * 100"
+            "Improve Auxiliary Services Profitability": {
+                "Cafeteria profit margin (%)": "(Profit / Sales) * 100",
+                "Accommodation profit per bed ($)": "Accommodation profit / Total beds",
+                "Event service profit margin (%)": "(Profit / Revenue) * 100",
+                "Bookstore ROI (%)": "(Bookstore income - Cost) / Cost * 100"
+            },
+            "Enhance Cost Recovery in Subsidized Programs": {
+                "Subsidy recovery ratio (%)": "(Revenue / Total cost) * 100",
+                "Scholarship efficiency index": "Proportion of funded students with completion success",
+                "Fee waiver impact (%)": "(Waived revenue / Total tuition) * 100",
+                "Funding leverage ratio": "(External funding / Institutional funding) * 100"
+            },
+            "Optimize Revenue-Cost Alignment": {
+                "Revenue-cost ratio": "Total revenue / Total cost",
+                "Operating leverage ratio": "(Revenue growth / Cost growth)",
+                "Profit variance (%)": "(Budgeted profit - Actual) / Budgeted * 100",
+                "Fixed cost absorption rate (%)": "(Revenue contribution / Fixed cost) * 100"
+            },
+            "Enhance Return on Institutional Assets": {
+                "ROA (%)": "(Net income / Total assets) * 100",
+                "Asset utilization ratio": "Revenue / Average assets",
+                "Idle asset reduction (%)": "(Previous idle assets - Current) / Previous * 100",
+                "Asset maintenance cost ratio (%)": "(Maintenance / Asset value) * 100"
+            },
+            "Increase Financial Sustainability": {
+                "Operating surplus ratio (%)": "(Operating surplus / Operating revenue) * 100",
+                "Liquidity ratio": "Current assets / Current liabilities",
+                "Debt service coverage ratio": "Operating cash flow / Debt service",
+                "Self-financing ratio (%)": "(Internal funds / Total funding) * 100"
+            },
+
+            # ==================== Education Infrastructure & Asset Finance ====================
+            "Education Infrastructure & Asset Finance": {
+                "Expand and Modernize Learning Facilities": {
+                    "New classroom construction rate (%)": "(New classrooms / Total classrooms) * 100",
+                    "New laboratory construction rate (%)": "(New labs / Total labs) * 100",
+                    "Upgrade of faculty offices (%)": "(Offices meeting standards / Total offices) * 100",
+                    "Capital investment per student ($)": "Total capital spent / Total students"
+                },
+                "Optimize Utilization of Educational Spaces": {
+                    "Classroom occupancy rate (%)": "(Hours classrooms used / Total available hours) * 100",
+                    "Lab usage efficiency (%)": "(Lab hours used / Total lab hours) * 100",
+                    "Lecture hall utilization (%)": "(Scheduled lecture hours / Total available hours) * 100",
+                    "Flexible space adaptation rate (%)": "(Multi-purpose rooms / Total rooms) * 100"
+                },
+                "Strengthen Digital Learning and ICT Infrastructure": {
+                    "LMS adoption rate (%)": "(Students actively using LMS / Total students) * 100",
+                    "Faculty ICT utilization (%)": "(Faculty using digital tools / Total faculty) * 100",
+                    "Student-to-device ratio": "Total students / Available digital devices",
+                    "Investment in digital teaching tools ($)": "Spending on e-learning platforms, software, and virtual labs"
+                },
+                "Enhance Preventive Maintenance and Lifecycle Management": {
+                    "Preventive maintenance coverage (%)": "(Assets maintained preventively / Total assets) * 100",
+                    "Average repair turnaround time (days)": "Average days to fix classrooms, labs, or offices",
+                    "Classroom and lab functionality rate (%)": "(Functional classrooms/labs / Total) * 100",
+                    "Maintenance backlog reduction (%)": "(Previous backlog - Current backlog) / Previous * 100"
+                },
+                "Improve Energy Efficiency in Academic Assets": {
+                    "Energy cost per student ($)": "Total energy cost / Total students",
+                    "Water cost per student ($)": "Total water cost / Total students",
+                    "Green building adoption (%)": "(Energy-efficient classrooms / Total classrooms) * 100",
+                    "Utility cost reduction (%)": "(Previous utility cost - Current) / Previous * 100"
+                },
+                "Leverage Public–Private Partnerships for Asset Development": {
+                    "PPP-supported infrastructure ratio (%)": "(PPP-funded facilities / Total facilities) * 100",
+                    "Private funding attracted for labs and classrooms ($)": "Funds contributed by private partners",
+                    "Number of co-funded facility projects": "Projects jointly funded with private sector",
+                    "Average project completion time (months)": "Average months to complete PPP projects"
+                },
+                "Maximize Return on Educational Assets": {
+                    "Revenue per facility ($)": "Income from labs, classrooms, or event rentals",
+                    "Asset contribution to student outcomes": "Score reflecting impact of facilities on learning",
+                    "Reduction in idle facilities (%)": "(Previously unused facilities - Current) / Previous * 100",
+                    "Facility productivity index": "Student contact hours per m² of academic space"
+                },
+                "Strengthen Asset Register and Compliance Monitoring": {
+                    "Verified educational assets (%)": "(Verified classrooms, labs, and offices / Total assets) * 100",
+                    "Accuracy of asset valuations (%)": "(Assets valued correctly / Total assets) * 100",
+                    "Timeliness of asset reporting (%)": "(Reports submitted on time / Total reports) * 100",
+                    "Compliance with asset management policies (%)": "(Assets managed per policy / Total assets) * 100"
+                },
+            },
+
+            # ECONOMIC DEVELOPMENT & SOCIAL IMPACT
+            # -------------------------------------------------------
+            "Economic Development & Social Impact": {
+                "Increase local economic contribution": {
+                    "Local procurement ratio (%)": "(Local purchases / Total purchases) * 100",
+                    "Jobs created through projects": "Number of local jobs supported",
+                    "Income generated in communities (USD)": "Value of institutional spending locally",
+                    "Multiplier effect ratio": "Indirect benefit / Direct expenditure",
+                },
+                "Promote graduate employability": {
+                    "Graduate employment rate (%)": "(Employed graduates / Total graduates) * 100",
+                    "Average time to employment (months)": "Average months post-graduation to job",
+                    "Employer satisfaction index": "Survey rating from employers",
+                    "Graduate self-employment rate (%)": "(Self-employed / Total employed) * 100",
+                },
+                "Support research for local innovation": {
+                    "Research addressing local needs (%)": "(Local research / Total research) * 100",
+                    "Number of community-based innovations": "Count of innovations applied locally",
+                    "Partnerships with local enterprises": "Active collaborations with small businesses",
+                    "Innovation adoption rate (%)": "(Implemented innovations / Proposed) * 100",
+                },
+                "Promote inclusive education access": {
+                    "Scholarship beneficiaries (%)": "(Scholarship students / Total students) * 100",
+                    "Students from low-income households (%)": "(Low-income students / Total) * 100",
+                    "Dropout reduction rate (%)": "(Previous dropout - Current) / Previous * 100",
+                    "Female enrollment ratio (%)": "(Female students / Total) * 100",
+                },
+                "Enhance contribution to national productivity": {
+                    "Number of industry partnerships": "Active institutional collaborations with industries",
+                    "Applied research projects (%)": "(Applied research / Total research) * 100",
+                    "Economic return from education (%)": "(Graduate contribution / Public investment) * 100",
+                    "Training programs delivered": "Count of workforce development programs",
+                },
+                "Support entrepreneurship and startups": {
+                    "Student startups incubated": "Count of student-led enterprises supported",
+                    "Incubator program success rate (%)": "(Sustainable startups / Total incubated) * 100",
+                    "Startup funding attracted (USD)": "Total external funding raised by startups",
+                    "Number of patents registered": "Patents filed or granted through incubator",
+                },
+                "Enhance social responsibility initiatives": {
+                    "CSR budget allocation (%)": "(CSR budget / Total budget) * 100",
+                    "Number of social outreach programs": "Community programs executed per year",
+                    "Beneficiaries reached": "Individuals supported through CSR activities",
+                    "Impact satisfaction score": "Survey-based social impact rating",
+                },
+                "Contribute to regional development goals": {
+                    "Alignment with SDGs (%)": "(SDG-aligned projects / Total projects) * 100",
+                    "Regional partnerships count": "Number of collaborations with local governments",
+                    "Development fund leveraged (USD)": "Funds secured for regional projects",
+                    "Infrastructure built in underserved areas": "Number of rural or low-income projects",
+                },
+            },
+        },
+    },
+    "Customer Perspective": {
+
+        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+
+        "Access & Enrollment": {
+            "Increase overall student enrollment": {
+                "Enrollment growth rate (%)": "(Current enrolled - Previous enrolled) / Previous enrolled * 100",
+                "Application-to-enrollment conversion (%)": "(Enrolled / Applications) * 100",
+                "Enrollment from underserved communities (%)": "(Students from target areas / Total students) * 100",
+                "Scholarship utilization rate (%)": "(Students receiving scholarships / Total eligible) * 100"
+            },
+            "Expand access to remote/distance learning": {
+                "Distance learning enrollment (#)": "Number of students enrolled in remote programs",
+                "Growth rate in distance enrollment (%)": "((Current - Previous) / Previous) * 100",
+                "Digital platform adoption (%)": "(Students actively using platforms / Total students) * 100",
+                "Course completion rate (%)": "(Completed / Enrolled) * 100"
+            },
+            "Promote inclusive education": {
+                "Students with special needs supported (#)": "Count of students",
+                "Accessibility facilities coverage (%)": "(Accessible facilities / Total facilities) * 100",
+                "Faculty trained in inclusive practices (#)": "Number of faculty trained",
+                "Satisfaction with inclusivity (%)": "Survey rating"
+            },
+            "Streamline admission process": {
+                "Average application processing time (days)": "Mean processing days",
+                "On-time admission completion (%)": "(Completed / Scheduled) * 100",
+                "Admission errors (%)": "(Errors / Total processed) * 100",
+                "Student satisfaction with admission process (%)": "Survey rating"
+            },
+            "Increase diversity of student body": {
+                "Representation of underrepresented groups (%)": "(Number / Total students) * 100",
+                "Retention of diverse students (%)": "(Continuing / Total diverse students) * 100",
+                "Scholarship allocation to diverse groups (%)": "(Awarded / Total scholarships) * 100",
+                "Engagement in diversity programs (%)": "(Participants / Eligible students) * 100"
+            },
+            "Strengthen international student enrollment": {
+                "International student count (#)": "Number of enrolled international students",
+                "Growth rate of international students (%)": "((Current - Previous) / Previous) * 100",
+                "International student retention (%)": "(Continuing / Total enrolled) * 100",
+                "Satisfaction of international students (%)": "Survey rating"
+            },
+            "Leverage partnerships with feeder schools": {
+                "Feeder school partnerships (#)": "Total active partnerships",
+                "Students recruited via partnerships (#)": "Count of students",
+                "Retention of recruited students (%)": "(Continuing / Total recruited) * 100",
+                "Engagement events with feeder schools (#)": "Count of workshops/events"
+            },
+            "Optimize digital recruitment campaigns": {
+                "Conversion rate from digital channels (%)": "(Applications from digital / Total applications) * 100",
+                "Cost per digital applicant ($)": "Total digital spend / Applicants",
+                "Website engagement score": "Average user interaction metric",
+                "Social media reach (#)": "Total reach via campaigns"
             }
         },
-
-        # ==================== COST MANAGEMENT ====================
-        "Cost Management": {
-            "Administrative Cost Optimization": {
-                "Administrative cost ratio (%)": "(Admin costs / Total expenses) * 100",
-                "Staff cost per student ($)": "Total staff cost / Total students",
-                "Overhead reduction (%)": "(Previous overhead - Current) / Previous * 100",
-                "Procurement efficiency": "Cost savings through optimized purchasing"
+        "Student Satisfaction & Engagement": {
+            "Enhance teaching quality": {
+                "Course satisfaction (%)": "Survey rating",
+                "Faculty evaluation score": "Average evaluation",
+                "Course completion rate (%)": "(Completed / Registered) * 100",
+                "Dropout rate reduction (%)": "((Previous - Current) / Previous) * 100"
             },
-            "Instructional Cost Efficiency": {
-                "Instruction cost per student ($)": "Instruction spending / Total students",
-                "Faculty workload utilization (%)": "(Courses taught / Max course capacity) * 100",
-                "Resource cost savings ($)": "Savings from shared resources",
-                "Cost variance per program (%)": "(Planned - Actual) / Planned * 100"
+            "Improve academic support services": {
+                "Tutoring utilization (%)": "(Students using tutoring / Total students) * 100",
+                "Support satisfaction (%)": "Survey rating",
+                "Support session attendance (#)": "Count of sessions",
+                "Average student performance improvement (%)": "Average score improvement"
             },
-            "Operational Expense Control": {
-                "Facilities cost per student ($)": "Facilities cost / Total students",
-                "Energy cost reduction (%)": "(Previous energy - Current) / Previous * 100",
-                "Maintenance cost efficiency": "Maintenance cost per square foot",
-                "Administrative process cost reduction (%)": "Improvement in processing cost efficiency"
+            "Strengthen student engagement": {
+                "Participation in clubs/activities (%)": "(Active / Total students) * 100",
+                "Engagement survey score": "Survey rating",
+                "Event attendance (#)": "Count of events attended",
+                "Feedback implementation (%)": "(Implemented / Total feedback) * 100"
             },
-            "Optimize Auxiliary Services Costs": {
-                "Auxiliary service cost ratio (%)": "(Direct service costs / Auxiliary revenue) * 100",
-                "Labor cost per service unit ($)": "Labor costs / Service units delivered",
-                "Material cost efficiency": "Reduction in materials cost per service",
-                "Service cost variance reduction (%)": "Planned vs Actual cost savings"
+            "Enhance campus facilities experience": {
+                "Facilities satisfaction (%)": "Survey rating",
+                "Facility usage rate (%)": "(Hours used / Available hours) * 100",
+                "Maintenance completion rate (%)": "(Completed / Submitted) * 100",
+                "Safety incident reduction (%)": "((Previous - Current) / Previous) * 100"
+            },
+            "Improve digital learning experience": {
+                "E-learning course completion (%)": "(Completed / Enrolled) * 100",
+                "Platform satisfaction (%)": "Survey rating",
+                "Technical issue resolution (%)": "(Resolved / Reported) * 100",
+                "Platform engagement score": "Metric of interactions per student"
+            },
+            "Enhance feedback & complaint resolution": {
+                "Response time (days)": "Average days",
+                "Resolution rate (%)": "(Resolved / Total complaints) * 100",
+                "Student satisfaction with resolution (%)": "Survey rating",
+                "Reduction in repeat complaints (%)": "((Previous - Current) / Previous) * 100"
+            },
+            "Promote student well-being": {
+                "Counseling participation (%)": "(Participating / Total students) * 100",
+                "Well-being satisfaction (%)": "Survey rating",
+                "Stress incident reduction (%)": "((Previous - Current) / Previous) * 100",
+                "Health program utilization (%)": "(Participants / Eligible students) * 100"
+            },
+            "Improve student communication": {
+                "Query response rate (%)": "(Responded / Total queries) * 100",
+                "Communication satisfaction (%)": "Survey rating",
+                "Information dissemination effectiveness (%)": "Metric based on engagement",
+                "Feedback loop closure (%)": "(Issues addressed / Total feedback) * 100"
             }
         },
-
-        # ==================== RESOURCE UTILIZATION ====================
-        "Resource Utilization": {
-            "Optimize Facility Utilization": {
-                "Classroom utilization rate (%)": "(Actual classroom hours used / Available hours) * 100",
-                "Space efficiency index": "Educational output per square foot",
-                "Multiple scheduling efficiency": "Different programs using same facilities",
-                "Energy cost reduction per student (%)": "(Previous energy cost - Current) / Previous * 100"
+        "Student Support & Wellbeing": {
+            "Promote mental health programs": {
+                "Participation in counseling (%)": "(Participating / Total students) * 100",
+                "Student satisfaction with mental health support (%)": "Survey rating",
+                "Reduction in stress incidents (%)": "((Previous - Current) / Previous) * 100",
+                "Peer support program adoption (%)": "(Participants / Eligible students) * 100"
             },
-            "Improve Instructional Productivity": {
-                "Revenue per faculty member": "Total educational revenue / Number of faculty",
-                "Student-to-faculty ratio": "Total students / Total instructional faculty",
-                "Course completion rate (%)": "(Courses completed / Courses started) * 100",
-                "Online program efficiency ratio": "Cost per online student vs. traditional student"
+            "Enhance health and safety services": {
+                "Participation in health programs (%)": "(Participants / Eligible students) * 100",
+                "Health satisfaction (%)": "Survey rating",
+                "Safety incident reduction (%)": "((Previous - Current) / Previous) * 100",
+                "Emergency response time (min)": "Average time to respond"
             },
-            "Enhance Technology Efficiency": {
-                "Technology cost per student": "Total technology costs / Total students",
-                "Digital resource utilization rate": "(Active digital resource users / Total users) * 100",
-                "IT support efficiency": "Support tickets resolved per IT staff member",
-                "Learning management system ROI": "Educational benefits / Technology investment"
+            "Provide academic advising & mentorship": {
+                "Advisor sessions attended (#)": "Count per student",
+                "Satisfaction with advisors (%)": "Survey rating",
+                "Advising session coverage (%)": "(Students with advisor / Total students) * 100",
+                "Mentorship program adoption (%)": "(Students in mentorship / Eligible students) * 100"
             },
-            "Optimize Auxiliary Resource Utilization": {
-                "Service utilization rate (%)": "(Actual service usage / Service capacity) * 100",
-                "Facility operating efficiency": "Energy, maintenance costs per square foot",
-                "Break-even service volume optimization": "Minimum usage needed to cover fixed costs",
-                "Variable cost control efficiency (%)": "Reduction in direct service delivery costs"
+            "Enhance support for students with disabilities": {
+                "Accessibility facility coverage (%)": "(Accessible / Total facilities) * 100",
+                "Participation of students with disabilities (%)": "(Engaged / Total disabled students) * 100",
+                "Satisfaction of disabled students (%)": "Survey rating",
+                "Special support program adoption (%)": "(Participants / Eligible students) * 100"
+            },
+            "Promote inclusive support programs": {
+                "Diversity program participation (%)": "(Participating / Total students) * 100",
+                "Satisfaction with inclusivity support (%)": "Survey rating",
+                "Program reach (%)": "(Engaged students / Total students) * 100",
+                "Retention of participants (%)": "(Continuing / Total participants) * 100"
+            },
+            "Strengthen student counseling services": {
+                "Counseling session completion (%)": "(Completed / Scheduled) * 100",
+                "Student satisfaction (%)": "Survey rating",
+                "Average session duration (min)": "Average minutes",
+                "Follow-up adherence (%)": "(Followed-up / Total sessions) * 100"
+            },
+            "Promote extracurricular engagement": {
+                "Participation in clubs (%)": "(Active / Total students) * 100",
+                "Event satisfaction (%)": "Survey rating",
+                "Hours spent in extracurricular activities (#)": "Total hours per student",
+                "Peer engagement index": "Composite engagement measure"
+            },
+            "Provide financial support & scholarships": {
+                "Scholarship coverage (%)": "(Recipients / Eligible students) * 100",
+                "Satisfaction with financial support (%)": "Survey rating",
+                "Timeliness of disbursement (%)": "(On-time / Total disbursement) * 100",
+                "Impact on retention (%)": "((Retained - Not retained) / Total recipients) * 100"
             }
         },
-
-        # ==================== ECONOMIC DEVELOPMENT & GDP CONTRIBUTION ====================
-        "Economic Development": {
-            "Increase Graduate Earnings Premium": {
-                "Graduate median income ($)": "Median graduate income",
-                "Premium over non-graduates (%)": "(Graduate - Non-graduate) / Non-graduate * 100",
-                "Graduate employment rate (%)": "(Employed graduates / Total graduates) * 100",
-                "Career progression acceleration (yrs)": "Time to mid-level positions"
+        "Employability & Career Services": {
+            "Increase internship placements": {
+                "Placement rate (%)": "(Placed / Total students seeking internship) * 100",
+                "Satisfaction with placements (%)": "Survey rating",
+                "Employer feedback score": "Average employer rating",
+                "Internship completion rate (%)": "(Completed / Assigned) * 100"
             },
-            "Promote Regional Economic Contribution": {
-                "Education sector GDP share (%)": "(Value of education services / Regional GDP) * 100",
-                "Jobs created (#)": "Direct + indirect employment",
-                "Industry partnerships (#)": "Number of active collaborations",
-                "Regional innovation impact (#)": "Patents/startups linked to institution"
+            "Enhance career counseling": {
+                "Career counseling utilization (%)": "(Students using service / Total students) * 100",
+                "Satisfaction with counseling (%)": "Survey rating",
+                "Sessions per student (#)": "Average number per student",
+                "Follow-up action rate (%)": "(Implemented / Total recommended) * 100"
             },
-            "Increase Research Commercialization": {
-                "Revenue from patents/licensing ($)": "Income from IP",
-                "Startups created (#)": "Number of spin-offs",
-                "Industry collaboration revenue ($)": "Revenue from partnerships",
-                "Research impact index (%)": "Weighted impact on economy"
+            "Improve employability skills": {
+                "Students completing skills programs (%)": "(Completed / Enrolled) * 100",
+                "Satisfaction with skill programs (%)": "Survey rating",
+                "Employer satisfaction (%)": "Employer survey rating",
+                "Skill assessment improvement (%)": "Average improvement"
             },
-            "Promote Lifelong Learning Economic Value": {
-                "Adult learner employment rate (%)": "(Employed / Total adult learners) * 100",
-                "Revenue per adult learner ($)": "Revenue / Adult learners",
-                "Credential impact index": "Job improvements per credential",
-                "Return on learning investment (%)": "(Benefits / Cost) * 100"
+            "Enhance job placement services": {
+                "Job placement rate (%)": "(Placed / Graduates seeking jobs) * 100",
+                "Time-to-placement (days)": "Average days to secure job",
+                "Employer satisfaction (%)": "Survey rating",
+                "Alumni referrals for placements (#)": "Count of referrals"
             },
-            "Enhance Global Education Contribution": {
-                "International student revenue ($)": "Revenue from foreign students",
-                "Cross-border program enrollment (#)": "Students enrolled in international programs",
-                "Global ranking improvement (#)": "Ranking change over previous year",
-                "International partnership revenue ($)": "Revenue from collaborations"
+            "Strengthen industry partnerships": {
+                "Partnership agreements (#)": "Total active agreements",
+                "Students benefiting from partnerships (#)": "Count",
+                "Employer satisfaction with partnerships (%)": "Survey rating",
+                "Internship/job conversion rate (%)": "(Students converted to jobs / Total students in program) * 100"
             },
-            "Increase Education's GDP Contribution": {
-                "Education GDP contribution (%)": "(Value of education sector output / Total GDP) * 100",
-                "Education value-added per student ($)": "GDP contribution / Total students",
-                "Growth in education GDP contribution (%)": "(Current - Previous) / Previous * 100",
-                "Sectoral impact multiplier": "Indirect economic impact of education spending"
+            "Provide entrepreneurship support": {
+                "Students engaged in entrepreneurship programs (#)": "Count",
+                "Startup formation rate (%)": "(Startups formed / Participating students) * 100",
+                "Revenue from student startups ($)": "Total revenue",
+                "Satisfaction with entrepreneurship support (%)": "Survey rating"
             },
-            "Enhance Employment Impact of Education": {
-                "Total education employment (#)": "Number of people employed in education sector",
-                "Jobs created per $1M revenue": "Employment impact per revenue unit",
-                "Faculty/staff retention rate (%)": "(Retained / Total) * 100",
-                "Skill gap reduction index": "Improvement in workforce readiness"
+            "Offer career workshops & events": {
+                "Participation rate (%)": "(Attending / Total students) * 100",
+                "Satisfaction with workshops (%)": "Survey rating",
+                "Employers attending events (#)": "Count",
+                "Follow-up action rate (%)": "(Implemented / Total recommended) * 100"
             },
-            "Increase Knowledge & Innovation Contribution": {
-                "Patents & IP generated (#)": "Number of patents or licenses filed",
-                "Startups created (#)": "New companies launched from research",
-                "R&D output per faculty (#)": "Research outputs per faculty member",
-                "Innovation index (%)": "Weighted measure of tech transfer and commercialization"
+            "Improve alumni job network support": {
+                "Alumni mentoring participation (%)": "(Engaged / Eligible alumni) * 100",
+                "Student satisfaction with mentorship (%)": "Survey rating",
+                "Job referrals via alumni (#)": "Count of referrals",
+                "Employment outcome improvement (%)": "Average improvement"
+            }
+        },
+        "Alumni Relations & Reputation": {
+            "Increase alumni engagement": {
+                "Alumni participation rate (%)": "(Active alumni / Total alumni) * 100",
+                "Alumni event attendance (#)": "Count",
+                "Alumni survey satisfaction (%)": "Survey rating",
+                "Alumni program growth rate (%)": "((Current - Previous) / Previous) * 100"
             },
-            "Promote Social & Community Impact": {
-                "Community education outreach (#)": "Programs delivered to local community",
-                "Volunteer student/staff hours (#)": "Total volunteer hours",
-                "Economic uplift in local region ($)": "Income generated via local engagement",
-                "Community engagement ROI (%)": "(Benefits / Cost of programs) * 100"
+            "Strengthen alumni communications": {
+                "Newsletter open rate (%)": "(Opened / Sent) * 100",
+                "Social media engagement (#)": "Count",
+                "Alumni feedback implementation (%)": "(Implemented / Total feedback) * 100",
+                "Response time to alumni queries (days)": "Average"
             },
-            "Enhance Sustainable Economic Impact": {
-                "Green campus investment ROI (%)": "Benefits of sustainable infrastructure / Cost",
-                "Reduction in carbon footprint (%)": "(Previous emissions - Current) / Previous * 100",
-                "Energy efficiency savings ($)": "Savings from efficiency programs",
-                "Long-term financial sustainability index": "Endowment & reserve adequacy for 5-10 years"
+            "Promote alumni giving & donations": {
+                "Donation participation (%)": "(Donating alumni / Total alumni) * 100",
+                "Total donations ($)": "Amount",
+                "Average donation per donor ($)": "Amount / Donors",
+                "Repeat donation rate (%)": "(Repeat donors / Total donors) * 100"
+            },
+            "Showcase alumni achievements": {
+                "Alumni achievements recorded (#)": "Count",
+                "Media mentions (#)": "Count",
+                "Alumni awards (#)": "Count",
+                "Satisfaction with recognition (%)": "Survey rating"
+            },
+            "Enhance alumni mentoring & networking": {
+                "Mentoring participation (#)": "Count",
+                "Student satisfaction with mentorship (%)": "Survey rating",
+                "Networking event attendance (#)": "Count",
+                "Successful job placements (%)": "(Placed / Participating students) * 100"
+            },
+            "Build institutional reputation": {
+                "Student satisfaction with reputation (%)": "Survey rating",
+                "Positive media coverage (#)": "Count",
+                "Employer satisfaction with graduates (%)": "Survey rating",
+                "Peer institution ranking improvement (%)": "((Current - Previous) / Previous) * 100"
+            },
+            "Strengthen global alumni network": {
+                "International alumni engagement (#)": "Count",
+                "Global alumni event participation (#)": "Count",
+                "Satisfaction with international network (%)": "Survey rating",
+                "Alumni advocacy rate (%)": "(Actively promoting / Total alumni) * 100"
+            },
+            "Leverage alumni for institutional promotion": {
+                "Alumni referrals (#)": "Count of students referred",
+                "Participation in promotion campaigns (#)": "Count",
+                "Impact on enrollment (%)": "((Increase due to alumni / Total new students) * 100)",
+                "Satisfaction with alumni contribution (%)": "Survey rating"
+            }
+        },
+        "Parent & Community Engagement": {
+            "Increase parent involvement": {
+                "Parent participation in school events (%)": "(Participating / Total invited) * 100",
+                "Parent satisfaction with school communication (%)": "Survey rating",
+                "Parent feedback implementation (%)": "(Implemented / Total feedback) * 100",
+                "Parent-teacher meeting attendance (#)": "Count"
+            },
+            "Enhance community partnerships": {
+                "Community partnership programs (#)": "Count",
+                "Community engagement satisfaction (%)": "Survey rating",
+                "Students benefiting from programs (#)": "Count",
+                "Volunteer participation (#)": "Count"
+            },
+            "Improve school communication": {
+                "Timely information dissemination (%)": "(On-time / Total updates) * 100",
+                "Communication satisfaction (%)": "Survey rating",
+                "Parent query response time (days)": "Average",
+                "Feedback closure rate (%)": "(Closed / Total feedback) * 100"
+            },
+            "Promote collaborative decision-making": {
+                "Parent representation in committees (#)": "Count",
+                "Satisfaction with involvement (%)": "Survey rating",
+                "Action taken based on parent input (#)": "Count",
+                "Policy awareness (%)": "(Informed parents / Total parents) * 100"
+            },
+            "Strengthen social responsibility initiatives": {
+                "Community program participation (#)": "Count",
+                "Positive community feedback (%)": "Survey rating",
+                "Students benefiting (#)": "Count",
+                "Volunteer hours contributed (#)": "Total hours"
+            },
+            "Enhance partnerships with local organizations": {
+                "Local organization partnerships (#)": "Count",
+                "Student participation (%)": "(Participating / Total students) * 100",
+                "Program satisfaction (%)": "Survey rating",
+                "Sustainability of partnerships (%)": "(Ongoing / Total partnerships) * 100"
+            },
+            "Improve parent feedback systems": {
+                "Feedback submission rate (%)": "(Submitted / Total invited) * 100",
+                "Feedback response time (days)": "Average",
+                "Parent satisfaction with feedback handling (%)": "Survey rating",
+                "Repeat feedback resolution (%)": "(Resolved repeat issues / Total repeat feedback) * 100"
+            },
+            "Promote inclusive community engagement": {
+                "Participation from diverse groups (%)": "(Participants / Total invited) * 100",
+                "Satisfaction across community groups (%)": "Survey rating",
+                "Engagement in programs (#)": "Count",
+                "Retention of participants (%)": "(Continuing / Total participants) * 100"
+            }
+        },
+        "Curriculum Relevance & Quality": {
+            "Improve curriculum relevance": {
+                "Employer satisfaction with graduates (%)": "Survey rating",
+                "Curriculum alignment with industry standards (%)": "(Aligned courses / Total courses) * 100",
+                "Student satisfaction with curriculum (%)": "Survey rating",
+                "Graduate employability rate (%)": "(Employed / Total graduates) * 100"
+            },
+            "Enhance teaching quality": {
+                "Faculty training completion (%)": "(Trained / Total faculty) * 100",
+                "Student satisfaction with teaching (%)": "Survey rating",
+                "Peer review score": "Average score",
+                "Course evaluation improvement (%)": "((Current - Previous) / Previous) * 100"
+            },
+            "Promote experiential learning": {
+                "Students in experiential programs (%)": "(Enrolled / Total students) * 100",
+                "Satisfaction with experiential learning (%)": "Survey rating",
+                "Skill improvement (%)": "Average improvement",
+                "Completion rate of experiential activities (%)": "(Completed / Enrolled) * 100"
+            },
+            "Strengthen assessment methods": {
+                "Assessment reliability score": "Metric score",
+                "Student satisfaction with assessments (%)": "Survey rating",
+                "Timeliness of feedback (%)": "(On-time / Total assessments) * 100",
+                "Assessment coverage (%)": "(Assessed learning outcomes / Total outcomes) * 100"
+            },
+            "Integrate technology in curriculum": {
+                "Courses using digital tools (%)": "(Courses using tech / Total courses) * 100",
+                "Student satisfaction with tech use (%)": "Survey rating",
+                "Digital learning adoption (%)": "(Students using tools / Total students) * 100",
+                "Faculty satisfaction with tech integration (%)": "Survey rating"
+            },
+            "Promote continuous curriculum review": {
+                "Curriculum review cycles completed (#)": "Count",
+                "Updates implemented (%)": "(Updated / Total recommendations) * 100",
+                "Stakeholder satisfaction with updates (%)": "Survey rating",
+                "Impact on learning outcomes (%)": "Improvement in outcomes"
+            },
+            "Enhance interdisciplinary learning": {
+                "Interdisciplinary courses offered (#)": "Count",
+                "Student enrollment in interdisciplinary courses (#)": "Count",
+                "Satisfaction with interdisciplinary learning (%)": "Survey rating",
+                "Interdisciplinary project completion (%)": "(Completed / Assigned) * 100"
+            },
+            "Align curriculum with global standards": {
+                "International accreditation (%)": "(Accredited programs / Total programs) * 100",
+                "Benchmarking against global peers (#)": "Count",
+                "Curriculum gap closure (%)": "(Closed gaps / Identified gaps) * 100",
+                "Student satisfaction with global alignment (%)": "Survey rating"
+            }
+        },
+        "Educational Infrastructure": {
+            "Enhance campus facilities": {
+                "Facility adequacy (%)": "(Facilities meeting standards / Total facilities) * 100",
+                "Student satisfaction with facilities (%)": "Survey rating",
+                "Maintenance completion rate (%)": "(Completed / Scheduled maintenance) * 100",
+                "Facility utilization rate (%)": "(Used hours / Available hours) * 100"
+            },
+            "Improve digital & IT infrastructure": {
+                "Internet coverage (%)": "(Areas covered / Total areas) * 100",
+                "Digital resource availability (%)": "(Available resources / Required resources) * 100",
+                "Student satisfaction with IT services (%)": "Survey rating",
+                "Technical support resolution rate (%)": "(Resolved / Reported issues) * 100"
+            },
+            "Expand classroom & laboratory capacity": {
+                "Classroom utilization (%)": "(Occupied / Total classrooms) * 100",
+                "Lab equipment adequacy (%)": "(Functional / Total required) * 100",
+                "Student satisfaction with labs (%)": "Survey rating",
+                "Growth in capacity (%)": "((Current capacity - Previous) / Previous) * 100"
+            },
+            "Enhance accessibility and safety": {
+                "Accessible facilities (%)": "(Accessible / Total facilities) * 100",
+                "Safety compliance (%)": "(Facilities meeting safety standards / Total facilities) * 100",
+                "Incident reduction rate (%)": "((Previous incidents - Current) / Previous) * 100",
+                "Student satisfaction with safety (%)": "Survey rating"
+            },
+            "Improve housing and accommodation": {
+                "Student housing occupancy (%)": "(Occupied / Total available) * 100",
+                "Satisfaction with housing (%)": "Survey rating",
+                "Maintenance response time (days)": "Average days to resolve",
+                "Student retention due to housing (%)": "(Retained / Total students in housing) * 100"
+            },
+            "Optimize energy & utilities management": {
+                "Energy efficiency improvement (%)": "((Previous - Current consumption)/Previous)*100",
+                "Water supply adequacy (%)": "(Adequate supply / Total required) * 100",
+                "Satisfaction with utilities (%)": "Survey rating",
+                "Cost savings ($)": "Total utility savings"
+            },
+            "Strengthen transportation infrastructure": {
+                "Student transport coverage (%)": "(Students served / Total students) * 100",
+                "Satisfaction with transportation (%)": "Survey rating",
+                "On-time transport service (%)": "(On-time trips / Total trips) * 100",
+                "Incident reduction (%)": "((Previous incidents - Current) / Previous) * 100"
+            },
+            "Promote sustainable & green infrastructure": {
+                "Green building compliance (%)": "(Compliant buildings / Total buildings) * 100",
+                "Energy from renewable sources (%)": "(Renewable / Total energy) * 100",
+                "Satisfaction with sustainable facilities (%)": "Survey rating",
+                "Waste reduction (%)": "((Previous waste - Current)/Previous)*100"
+            }
+        },
+        "Education Development": {
+            "Improve curriculum innovation": {
+                "New programs developed (#)": "Count of new courses or programs",
+                "Student satisfaction with new programs (%)": "Survey rating",
+                "Enrollment in innovative programs (#)": "Number of students enrolled",
+                "Program completion rate (%)": "(Completed / Enrolled) * 100"
+            },
+            "Strengthen teacher development": {
+                "Faculty training completion (%)": "(Trained / Total faculty) * 100",
+                "Teaching effectiveness improvement (%)": "Average improvement",
+                "Satisfaction with professional development (%)": "Survey rating",
+                "Retention of trained faculty (%)": "(Retained / Trained faculty) * 100"
+            },
+            "Enhance research & knowledge creation": {
+                "Research projects (#)": "Count",
+                "Publications (#)": "Count",
+                "Research citation impact": "Average citation per publication",
+                "Student participation in research (%)": "(Engaged / Total students) * 100"
+            },
+            "Promote community & social impact": {
+                "Community projects (#)": "Count of projects conducted",
+                "Student participation (%)": "(Participants / Total students) * 100",
+                "Positive community feedback (%)": "Survey rating",
+                "Impact index": "Composite measure of outcomes"
+            },
+            "Increase international collaboration": {
+                "Partnership agreements (#)": "Count of active agreements",
+                "Student exchange participation (#)": "Number of students",
+                "Joint programs developed (#)": "Count of programs",
+                "Satisfaction with collaborations (%)": "Survey rating"
+            },
+            "Strengthen educational equity": {
+                "Students from disadvantaged groups (%)": "(Enrolled / Total students) * 100",
+                "Retention of disadvantaged students (%)": "(Retained / Enrolled) * 100",
+                "Scholarships & support coverage (%)": "(Recipients / Eligible students) * 100",
+                "Satisfaction with support programs (%)": "Survey rating"
+            },
+            "Enhance lifelong learning programs": {
+                "Participants in lifelong learning (#)": "Count",
+                "Completion rate (%)": "(Completed / Enrolled) * 100",
+                "Satisfaction with learning programs (%)": "Survey rating",
+                "Employment or skill application (%)": "(Applying skills / Total participants) * 100"
+            },
+            "Promote innovation & digital education": {
+                "Digital courses offered (#)": "Count of courses",
+                "Student enrollment in digital courses (#)": "Count",
+                "Satisfaction with digital learning (%)": "Survey rating",
+                "Learning outcome improvement (%)": "Average improvement"
             }
         },
     },
-
-    "Student & Stakeholder Perspective": {
-        "Student Success & Learning Outcomes": {
-            "Improve Student Academic Achievement": {
-                "Course completion rate": "(Completed courses / Attempted courses) * 100",
-                "GPA improvement rate": "((Current average GPA - Previous) / Previous) * 100",
-                "Learning outcome achievement": "(Achieved outcomes / Total outcomes) * 100",
-                "Academic proficiency growth": "((Current proficiency - Previous) / Previous) * 100"
-            },
-            "Enhance Student Retention and Persistence": {
-                "First-year retention rate": "(Returning students / Total first-year students) * 100",
-                "Persistence to graduation rate": "(Persisting students / Cohort students) * 100",
-                "Stop-out reduction rate": "((Previous stop-outs - Current stop-outs) / Previous) * 100",
-                "Academic progress rate": "(Making progress students / Total students) * 100"
-            },
-            "Increase Graduation and Completion Rates": {
-                "Graduation rate improvement": "((Current rate - Previous rate) / Previous) * 100",
-                "Time-to-degree reduction": "((Previous time - Current time) / Previous) * 100",
-                "Program completion rate": "(Completed programs / Started programs) * 100",
-                "Degree attainment growth": "((Current attainment - Previous) / Previous) * 100"
-            },
-            "Strengthen Student Learning Engagement": {
-                "Active learning participation": "(Participating students / Total students) * 100",
-                "Classroom engagement score": "Average classroom engagement assessment",
-                "Learning technology utilization": "(Utilizing technology / Available technology) * 100",
-                "Collaborative learning effectiveness": "(Effective collaboration / Total collaboration) * 100"
-            },
-            "Improve Critical Thinking and Problem-Solving Skills": {
-                "Critical thinking assessment improvement": "((Current scores - Previous scores) / Previous) * 100",
-                "Problem-solving competency growth": "((Current competency - Previous) / Previous) * 100",
-                "Analytical skills development": "(Developed skills / Required skills) * 100",
-                "Real-world application success": "(Successful applications / Total applications) * 100"
-            },
-            "Enhance Digital Literacy and Technology Skills": {
-                "Digital literacy assessment improvement": "((Current literacy - Previous literacy) / Previous) * 100",
-                "Technology skill development": "(Developed skills / Required skills) * 100",
-                "Digital tool proficiency": "(Proficient students / Total students) * 100",
-                "Online learning readiness": "(Ready students / Total students) * 100"
-            },
-            "Strengthen Career Readiness and Employability": {
-                "Career readiness assessment": "(Ready students / Total students) * 100",
-                "Employability skill development": "(Developed skills / Required skills) * 100",
-                "Internship and co-op participation": "(Participating students / Eligible students) * 100",
-                "Job placement rate improvement": "((Current placement - Previous placement) / Previous) * 100"
-            },
-            "Improve Graduate Outcomes and Success": {
-                "Graduate employment rate": "(Employed graduates / Total graduates) * 100",
-                "Further education rate": "(Continuing education / Total graduates) * 100",
-                "Graduate satisfaction with education": "Average graduate satisfaction score",
-                "Long-term career success": "(Successful careers / Total graduates) * 100"
-            }
-        },
-
-        "Student Experience & Satisfaction": {
-            "Elevate Overall Student Satisfaction": {
-                "Student satisfaction score": "Average satisfaction survey results",
-                "Net Promoter Score (NPS)": "Promoters % - Detractors %",
-                "Satisfaction trend improvement": "((Current satisfaction - Previous) / Previous) * 100",
-                "Experience consistency score": "(Consistent experiences / Total experiences) * 100"
-            },
-            "Enhance Teaching Quality and Effectiveness": {
-                "Teaching evaluation scores": "Average teaching assessment scores",
-                "Student-faculty interaction quality": "Average interaction quality score",
-                "Instructional method effectiveness": "(Effective methods / Total methods) * 100",
-                "Faculty accessibility and support": "Average accessibility satisfaction"
-            },
-            "Improve Campus Life and Student Engagement": {
-                "Campus activity participation": "(Participating students / Total students) * 100",
-                "Student organization involvement": "(Involved students / Total students) * 100",
-                "Campus community satisfaction": "Average community satisfaction score",
-                "Student leadership development": "(Developed leaders / Total students) * 100"
-            },
-            "Strengthen Student Support Services": {
-                "Support service utilization": "(Utilized services / Available services) * 100",
-                "Service satisfaction scores": "Average support service satisfaction",
-                "Support access improvement": "((Current access - Previous access) / Previous) * 100",
-                "Early intervention effectiveness": "(Effective interventions / Total interventions) * 100"
-            },
-            "Optimize Learning Environment Quality": {
-                "Classroom facility satisfaction": "Average facility satisfaction score",
-                "Learning technology reliability": "(Reliable technology / Total technology) * 100",
-                "Study space adequacy": "(Adequate spaces / Total spaces) * 100",
-                "Environmental comfort improvement": "((Current comfort - Previous comfort) / Previous) * 100"
-            },
-            "Enhance Diversity, Equity and Inclusion Experience": {
-                "Inclusion perception score": "Average inclusion assessment",
-                "Diverse student satisfaction": "Average satisfaction among diverse populations",
-                "Equity in student experience": "(Equitable experiences / Total experiences) * 100",
-                "Cultural competence development": "(Developed competence / Total students) * 100"
-            },
-            "Improve Health and Wellness Support": {
-                "Wellness service utilization": "(Utilized services / Available services) * 100",
-                "Mental health support effectiveness": "(Effective support / Total support) * 100",
-                "Student wellness improvement": "((Current wellness - Previous wellness) / Previous) * 100",
-                "Health education participation": "(Participating students / Total students) * 100"
-            },
-            "Strengthen Career Development Services": {
-                "Career service utilization": "(Utilized services / Available services) * 100",
-                "Career counseling satisfaction": "Average counseling satisfaction score",
-                "Internship placement success": "(Successful placements / Total placements) * 100",
-                "Alumni network engagement": "(Engaged alumni / Total alumni) * 100"
-            }
-        },
-
-        "Access & Equity": {
-            "Expand Educational Access and Opportunity": {
-                "Underrepresented student enrollment": "(Underrepresented students / Total students) * 100",
-                "First-generation student access": "(First-generation students / Total students) * 100",
-                "Geographic diversity improvement": "((Current diversity - Previous diversity) / Previous) * 100",
-                "Access program effectiveness": "(Effective programs / Total programs) * 100"
-            },
-            "Enhance Financial Aid and Affordability": {
-                "Financial aid distribution equity": "(Equitable distribution / Total distribution) * 100",
-                "Student debt reduction": "((Previous debt - Current debt) / Previous) * 100",
-                "Scholarship availability growth": "((Current scholarships - Previous) / Previous) * 100",
-                "Affordability satisfaction": "Average affordability satisfaction score"
-            },
-            "Improve Digital Access and Inclusion": {
-                "Digital access equity": "(Equitable access / Total access) * 100",
-                "Technology resource availability": "(Available resources / Required resources) * 100",
-                "Digital literacy support effectiveness": "(Effective support / Total support) * 100",
-                "Online learning accessibility": "(Accessible online courses / Total courses) * 100"
-            },
-            "Strengthen Support for Diverse Learning Needs": {
-                "Learning accommodation effectiveness": "(Effective accommodations / Total accommodations) * 100",
-                "Specialized support service utilization": "(Utilized services / Available services) * 100",
-                "Inclusive teaching practices": "(Inclusive practices / Total practices) * 100",
-                "Diverse learning style accommodation": "(Accommodated styles / Total styles) * 100"
-            },
-            "Enhance Transfer and Articulation Pathways": {
-                "Transfer student success rate": "(Successful transfers / Total transfers) * 100",
-                "Articulation agreement effectiveness": "(Effective agreements / Total agreements) * 100",
-                "Credit transfer efficiency": "(Efficient transfers / Total transfers) * 100",
-                "Pathway program completion": "(Completed pathways / Total pathways) * 100"
-            },
-            "Improve Adult and Continuing Education Access": {
-                "Adult learner enrollment growth": "((Current adult learners - Previous) / Previous) * 100",
-                "Flexible program availability": "(Available flexible programs / Total programs) * 100",
-                "Workforce development participation": "(Participating workers / Eligible workers) * 100",
-                "Lifelong learning access": "(Accessible programs / Total programs) * 100"
-            },
-            "Strengthen International Student Support": {
-                "International student satisfaction": "Average international student satisfaction",
-                "Cross-cultural support effectiveness": "(Effective support / Total support) * 100",
-                "Global learning opportunities": "(Available opportunities / Required opportunities) * 100",
-                "International student retention": "(Retained international students / Total international) * 100"
-            },
-            "Enhance Community Education Access": {
-                "Community program participation": "(Participating community members / Target population) * 100",
-                "Outreach program effectiveness": "(Effective outreach / Total outreach) * 100",
-                "Community partnership access points": "(Access points / Required points) * 100",
-                "Lifelong learning community engagement": "(Engaged community / Total community) * 100"
-            }
-        },
-
-        "Stakeholder Engagement & Partnerships": {
-            "Strengthen Parent and Family Engagement": {
-                "Parent satisfaction score": "Average parent satisfaction assessment",
-                "Family engagement participation": "(Engaged families / Total families) * 100",
-                "Communication effectiveness with families": "(Effective communications / Total communications) * 100",
-                "Family support program utilization": "(Utilized programs / Available programs) * 100"
-            },
-            "Enhance Employer and Industry Partnerships": {
-                "Industry partnership satisfaction": "Average partnership satisfaction score",
-                "Work-based learning opportunities": "(Available opportunities / Required opportunities) * 100",
-                "Employer feedback integration": "(Integrated feedback / Total feedback) * 100",
-                "Industry advisory board effectiveness": "(Effective boards / Total boards) * 100"
-            },
-            "Improve Community Relations and Impact": {
-                "Community satisfaction with institution": "Average community satisfaction score",
-                "Community service participation": "(Participating students / Total students) * 100",
-                "Local economic impact": "Economic contribution / Total operations * 100",
-                "Community program collaboration": "(Collaborative programs / Total programs) * 100"
-            },
-            "Strengthen K-12 Educational Partnerships": {
-                "Partnership program effectiveness": "(Effective programs / Total programs) * 100",
-                "College readiness collaboration": "(Collaborative readiness / Total readiness) * 100",
-                "Dual enrollment participation": "(Participating students / Eligible students) * 100",
-                "Educational pathway alignment": "(Aligned pathways / Total pathways) * 100"
-            },
-            "Enhance Government and Policy Relations": {
-                "Policy advocacy effectiveness": "(Effective advocacy / Total advocacy) * 100",
-                "Regulatory compliance rate": "(Compliant operations / Total operations) * 100",
-                "Government relationship satisfaction": "Average relationship satisfaction",
-                "Public policy influence": "(Influenced policies / Total policy engagements) * 100"
-            },
-            "Improve Alumni Engagement and Support": {
-                "Alumni engagement rate": "(Engaged alumni / Total alumni) * 100",
-                "Alumni satisfaction score": "Average alumni satisfaction assessment",
-                "Alumni giving participation": "(Donating alumni / Total alumni) * 100",
-                "Alumni network effectiveness": "(Effective network / Total network) * 100"
-            },
-            "Strengthen Research and Academic Partnerships": {
-                "Collaborative research success": "(Successful collaborations / Total collaborations) * 100",
-                "Joint publication rate": "(Joint publications / Total publications) * 100",
-                "Academic partnership satisfaction": "Average partnership satisfaction",
-                "Knowledge exchange effectiveness": "(Effective exchanges / Total exchanges) * 100"
-            },
-            "Enhance International Educational Partnerships": {
-                "Global partnership satisfaction": "Average international partnership satisfaction",
-                "Study abroad participation": "(Participating students / Eligible students) * 100",
-                "International research collaboration": "(Collaborative research / Total research) * 100",
-                "Cross-cultural program effectiveness": "(Effective programs / Total programs) * 100"
-            }
-        }
-    },
-
-    "Internal Process Perspective": {
-        "Academic Excellence & Curriculum Development": {
-            "Enhance Curriculum Quality and Relevance": {
-                "Curriculum review completion rate": "(Reviewed programs / Total programs) * 100",
-                "Industry relevance assessment": "(Relevant curricula / Total curricula) * 100",
-                "Learning outcome alignment": "(Aligned outcomes / Total outcomes) * 100",
-                "Curriculum innovation rate": "(Innovative elements / Total curriculum) * 100"
-            },
-            "Improve Teaching Methodologies and Pedagogy": {
-                "Evidence-based teaching adoption": "(Adopted methods / Available methods) * 100",
-                "Faculty development participation": "(Participating faculty / Total faculty) * 100",
-                "Teaching innovation implementation": "(Implemented innovations / Total innovations) * 100",
-                "Student-centered approach adoption": "(Adopted approaches / Total approaches) * 100"
-            },
-            "Strengthen Academic Program Assessment": {
-                "Program assessment completion": "(Assessed programs / Total programs) * 100",
-                "Assessment data utilization": "(Utilized data / Collected data) * 100",
-                "Continuous improvement implementation": "(Implemented improvements / Total improvements) * 100",
-                "Accreditation standard compliance": "(Compliant standards / Total standards) * 100"
-            },
-            "Optimize Course Scheduling and Delivery": {
-                "Course availability rate": "(Available courses / Required courses) * 100",
-                "Schedule efficiency improvement": "((Current efficiency - Previous efficiency) / Previous) * 100",
-                "Classroom utilization optimization": "(Optimized utilization / Total utilization) * 100",
-                "Student schedule satisfaction": "Average schedule satisfaction score"
-            },
-            "Enhance Interdisciplinary Program Development": {
-                "Interdisciplinary course offerings": "(Interdisciplinary courses / Total courses) * 100",
-                "Cross-departmental collaboration": "(Collaborative programs / Total programs) * 100",
-                "Integrated learning opportunities": "(Available opportunities / Required opportunities) * 100",
-                "Interdisciplinary research participation": "(Participating faculty / Total faculty) * 100"
-            },
-            "Improve Online and Hybrid Course Quality": {
-                "Online course quality standards": "(Meeting standards courses / Total online courses) * 100",
-                "Hybrid learning effectiveness": "(Effective hybrid courses / Total hybrid courses) * 100",
-                "Digital content quality": "(Quality content / Total content) * 100",
-                "Online student engagement": "(Engaged online students / Total online students) * 100"
-            },
-            "Strengthen Undergraduate Research Opportunities": {
-                "Research participation rate": "(Participating undergraduates / Total undergraduates) * 100",
-                "Mentored research opportunities": "(Available opportunities / Required opportunities) * 100",
-                "Research presentation rate": "(Presenting students / Research students) * 100",
-                "Undergraduate publication rate": "(Publishing students / Research students) * 100"
-            },
-            "Enhance Capstone and Experiential Learning": {
-                "Experiential learning participation": "(Participating students / Eligible students) * 100",
-                "Capstone project completion": "(Completed projects / Total projects) * 100",
-                "Real-world application success": "(Successful applications / Total applications) * 100",
-                "Industry project collaboration": "(Collaborative projects / Total projects) * 100"
-            }
-        },
-
-        "Faculty & Staff Excellence": {
-            "Improve Faculty Recruitment and Retention": {
-                "Faculty retention rate": "(Retained faculty / Total faculty) * 100",
-                "Time-to-fill faculty positions": "Average days to fill faculty positions",
-                "Faculty diversity improvement": "((Current diversity - Previous diversity) / Previous) * 100",
-                "Candidate quality index": "Composite score of faculty candidate quality"
-            },
-            "Enhance Faculty Development and Support": {
-                "Professional development participation": "(Participating faculty / Total faculty) * 100",
-                "Mentoring program effectiveness": "(Effective mentoring / Total mentoring) * 100",
-                "Research support satisfaction": "Average research support satisfaction",
-                "Teaching resource availability": "(Available resources / Required resources) * 100"
-            },
-            "Strengthen Faculty Research and Scholarship": {
-                "Research productivity growth": "((Current productivity - Previous productivity) / Previous) * 100",
-                "Grant funding success rate": "(Awarded grants / Submitted grants) * 100",
-                "Publication impact factor": "Average citation impact per publication",
-                "Interdisciplinary research collaboration": "(Collaborative research / Total research) * 100"
-            },
-            "Optimize Faculty Workload and Balance": {
-                "Workload equity assessment": "(Equitable workloads / Total workloads) * 100",
-                "Work-life balance satisfaction": "Average work-life balance satisfaction",
-                "Faculty burnout reduction": "((Previous burnout - Current burnout) / Previous) * 100",
-                "Productivity optimization": "(Optimized productivity / Total productivity) * 100"
-            },
-            "Improve Staff Professional Development": {
-                "Staff training completion rate": "(Completed training / Required training) * 100",
-                "Career advancement opportunities": "(Available opportunities / Required opportunities) * 100",
-                "Skill development effectiveness": "(Effective development / Total development) * 100",
-                "Cross-training participation": "(Cross-trained staff / Total staff) * 100"
-            },
-            "Enhance Staff Performance and Engagement": {
-                "Staff performance evaluation completion": "(Completed evaluations / Total staff) * 100",
-                "Staff engagement score": "Average staff engagement assessment",
-                "Performance improvement rate": "((Current performance - Previous performance) / Previous) * 100",
-                "Recognition program effectiveness": "(Effective recognition / Total recognition) * 100"
-            },
-            "Strengthen Administrative Efficiency": {
-                "Process standardization rate": "(Standardized processes / Total processes) * 100",
-                "Administrative response time": "Average time for administrative responses",
-                "Cross-departmental coordination": "(Coordinated activities / Total activities) * 100",
-                "Administrative technology utilization": "(Utilized technology / Available technology) * 100"
-            },
-            "Improve HR Services and Support": {
-                "HR service satisfaction": "Average HR service satisfaction score",
-                "Benefits utilization rate": "(Utilized benefits / Available benefits) * 100",
-                "Recruitment process efficiency": "(Efficient recruitment / Total recruitment) * 100",
-                "Employee relations effectiveness": "(Effective relations / Total relations) * 100"
-            }
-        },
-
-        "Educational Technology & Infrastructure": {
-            "Enhance Learning Management System Effectiveness": {
-                "LMS utilization rate": "(Active users / Total users) * 100",
-                "System reliability score": "(Reliable operation time / Total time) * 100",
-                "Feature adoption rate": "(Adopted features / Available features) * 100",
-                "User satisfaction with LMS": "Average LMS satisfaction score"
-            },
-            "Improve Classroom Technology Integration": {
-                "Technology-enhanced classroom rate": "(Enhanced classrooms / Total classrooms) * 100",
-                "Classroom technology reliability": "(Reliable technology / Total technology) * 100",
-                "Faculty technology proficiency": "(Proficient faculty / Total faculty) * 100",
-                "Student technology satisfaction": "Average technology satisfaction score"
-            },
-            "Strengthen Digital Learning Resources": {
-                "Digital resource availability": "(Available resources / Required resources) * 100",
-                "Resource utilization rate": "(Utilized resources / Available resources) * 100",
-                "Open educational resource adoption": "(Adopted OER / Total resources) * 100",
-                "Digital content quality assessment": "(Quality content / Total content) * 100"
-            },
-            "Optimize IT Infrastructure and Support": {
-                "Network reliability improvement": "((Current reliability - Previous reliability) / Previous) * 100",
-                "Help desk response time": "Average time to help desk response",
-                "System uptime percentage": "(Uptime / Total operational time) * 100",
-                "IT service satisfaction": "Average IT service satisfaction score"
-            },
-            "Enhance Data Analytics for Student Success": {
-                "Predictive analytics accuracy": "(Accurate predictions / Total predictions) * 100",
-                "Early alert system effectiveness": "(Effective alerts / Total alerts) * 100",
-                "Data-driven intervention rate": "(Data-informed interventions / Total interventions) * 100",
-                "Analytics platform utilization": "(Utilized platform / Available platform) * 100"
-            },
-            "Improve Cybersecurity and Data Protection": {
-                "Security incident reduction": "((Previous incidents - Current incidents) / Previous) * 100",
-                "Security training completion": "(Trained users / Total users) * 100",
-                "Data protection compliance": "(Compliant data / Total data) * 100",
-                "Security audit success rate": "(Successful audits / Total audits) * 100"
-            },
-            "Strengthen Educational Software Integration": {
-                "Software integration success rate": "(Successful integrations / Total integrations) * 100",
-                "Application interoperability": "(Interoperable applications / Total applications) * 100",
-                "User proficiency with software": "(Proficient users / Total users) * 100",
-                "Software ROI achievement": "(Achieved ROI / Target ROI) * 100"
-            },
-            "Enhance Mobile and Remote Access": {
-                "Mobile app adoption rate": "(Active app users / Total users) * 100",
-                "Remote access reliability": "(Reliable access / Total access attempts) * 100",
-                "Mobile feature utilization": "(Utilized features / Available features) * 100",
-                "User satisfaction with mobile access": "Average mobile access satisfaction"
-            }
-        },
-
-        "Operational Excellence & Administration": {
-            "Improve Enrollment Management Processes": {
-                "Application processing time": "Average days to process applications",
-                "Enrollment yield rate improvement": "((Current yield - Previous yield) / Previous) * 100",
-                "Admissions communication effectiveness": "(Effective communications / Total communications) * 100",
-                "Enrollment forecasting accuracy": "(1 - |Actual enrollment - Forecasted| / Actual) * 100"
-            },
-            "Enhance Student Information System Management": {
-                "Data accuracy rate": "(Accurate records / Total records) * 100",
-                "System integration effectiveness": "(Effective integrations / Total integrations) * 100",
-                "User proficiency with SIS": "(Proficient users / Total users) * 100",
-                "Reporting efficiency improvement": "((Current efficiency - Previous efficiency) / Previous) * 100"
-            },
-            "Optimize Financial Aid Administration": {
-                "Financial aid processing time": "Average days to process aid applications",
-                "Award accuracy rate": "(Accurate awards / Total awards) * 100",
-                "Compliance with aid regulations": "(Compliant processes / Total processes) * 100",
-                "Student satisfaction with aid services": "Average aid service satisfaction"
-            },
-            "Strengthen Registrar Operations": {
-                "Course registration efficiency": "(Efficient registrations / Total registrations) * 100",
-                "Transcript processing time": "Average days to process transcript requests",
-                "Degree audit accuracy": "(Accurate audits / Total audits) * 100",
-                "Registration system reliability": "(Reliable system / Total operation time) * 100"
-            },
-            "Improve Facilities Management": {
-                "Maintenance request completion": "(Completed requests / Total requests) * 100",
-                "Facility condition improvement": "((Current condition - Previous condition) / Previous) * 100",
-                "Energy efficiency improvement": "((Current efficiency - Previous efficiency) / Previous) * 100",
-                "Space utilization optimization": "(Optimized space / Total space) * 100"
-            },
-            "Enhance Campus Safety and Security": {
-                "Safety incident reduction": "((Previous incidents - Current incidents) / Previous) * 100",
-                "Emergency response time": "Average time to emergency response",
-                "Security system reliability": "(Reliable systems / Total systems) * 100",
-                "Campus safety satisfaction": "Average safety satisfaction score"
-            },
-            "Optimize Procurement and Supply Chain": {
-                "Procurement cycle time reduction": "((Previous cycle time - Current cycle time) / Previous) * 100",
-                "Vendor performance improvement": "((Current performance - Previous performance) / Previous) * 100",
-                "Cost savings achievement": "(Actual savings / Target savings) * 100",
-                "Sustainable procurement rate": "(Sustainable purchases / Total purchases) * 100"
-            },
-            "Improve Event and Conference Management": {
-                "Event planning efficiency": "(Efficient planning / Total planning) * 100",
-                "Participant satisfaction score": "Average event satisfaction score",
-                "Facility utilization for events": "(Utilized facilities / Available facilities) * 100",
-                "Revenue generation from events": "Event revenue / Total event costs * 100"
-            }
-        }
-    },
-
-    "Learning & Growth Perspective": {
-        "Organizational Learning & Development": {
-            "Enhance Institutional Research and Assessment": {
-                "Research project completion rate": "(Completed projects / Total projects) * 100",
-                "Data-driven decision rate": "(Data-informed decisions / Total decisions) * 100",
-                "Assessment methodology improvement": "((Current methodology - Previous) / Previous) * 100",
-                "Research impact on policy": "(Influenced policies / Total research) * 100"
-            },
-            "Improve Knowledge Management Systems": {
-                "Knowledge sharing participation": "(Participating staff / Total staff) * 100",
-                "Best practice adoption rate": "(Adopted practices / Available practices) * 100",
-                "Document management efficiency": "(Efficient management / Total documents) * 100",
-                "Knowledge retention effectiveness": "(Retained knowledge / Total knowledge) * 100"
-            },
-            "Strengthen Continuous Improvement Culture": {
-                "Improvement initiative participation": "(Participating employees / Total employees) * 100",
-                "Process improvement success rate": "(Successful improvements / Total improvements) * 100",
-                "Innovation suggestion rate": "(Submitted suggestions / Total employees) * 100",
-                "Quality improvement measurement": "(Measured improvements / Total improvements) * 100"
-            },
-            "Enhance Leadership Development Programs": {
-                "Leadership training completion": "(Completed training / Required training) * 100",
-                "Leadership competency improvement": "((Current competency - Previous competency) / Previous) * 100",
-                "Succession plan readiness": "(Ready successors / Key positions) * 100",
-                "Leadership program satisfaction": "Average leadership program satisfaction"
-            },
-            "Improve Change Management Capability": {
-                "Change initiative success rate": "(Successful initiatives / Total initiatives) * 100",
-                "Employee change readiness": "Average change readiness assessment",
-                "Change adoption rate improvement": "((Current adoption - Previous adoption) / Previous) * 100",
-                "Change resistance reduction": "((Previous resistance - Current resistance) / Previous) * 100"
-            },
-            "Strengthen Strategic Planning Processes": {
-                "Strategic goal achievement": "(Achieved goals / Total goals) * 100",
-                "Planning process satisfaction": "Average planning process satisfaction",
-                "Stakeholder input integration": "(Integrated input / Total planning) * 100",
-                "Strategic alignment score": "Composite score of organizational alignment"
-            },
-            "Enhance Performance Management Systems": {
-                "Performance review completion": "(Completed reviews / Total employees) * 100",
-                "Goal achievement rate": "(Achieved goals / Total goals) * 100",
-                "Feedback quality improvement": "((Current quality - Previous quality) / Previous) * 100",
-                "Development plan implementation": "(Implemented plans / Total plans) * 100"
-            },
-            "Improve Organizational Agility and Resilience": {
-                "Agility index score": "Composite score of organizational agility",
-                "Response time to challenges": "Average time to respond to challenges",
-                "Adaptive capacity improvement": "((Current capacity - Previous capacity) / Previous) * 100",
-                "Crisis management effectiveness": "(Effective management / Total crises) * 100"
-            }
-        },
-
-        "Innovation & Educational Research": {
-            "Enhance Educational Innovation Programs": {
-                "Innovation project initiation": "(Initiated projects / Proposed projects) * 100",
-                "Educational technology adoption rate": "(Adopted technologies / Available technologies) * 100",
-                "Pedagogical innovation implementation": "(Implemented innovations / Total innovations) * 100",
-                "Innovation impact measurement": "(Measured impact / Total innovations) * 100"
-            },
-            "Improve Research and Development Infrastructure": {
-                "R&D facility utilization": "(Utilized facilities / Available facilities) * 100",
-                "Research equipment availability": "(Available equipment / Required equipment) * 100",
-                "Collaborative research space effectiveness": "(Effective spaces / Total spaces) * 100",
-                "Research support service satisfaction": "Average research support satisfaction"
-            },
-            "Strengthen Intellectual Property Management": {
-                "IP disclosure rate": "(Disclosed inventions / Total inventions) * 100",
-                "Patent application success": "(Successful applications / Total applications) * 100",
-                "Technology transfer effectiveness": "(Effective transfers / Total transfers) * 100",
-                "Commercialization revenue growth": "((Current revenue - Previous revenue) / Previous) * 100"
-            },
-            "Optimize Innovation Ecosystem Development": {
-                "Industry partnership innovation": "(Innovative partnerships / Total partnerships) * 100",
-                "Startup incubation success": "(Successful incubations / Total incubations) * 100",
-                "Innovation network expansion": "((Current network - Previous network) / Previous) * 100",
-                "Cross-sector collaboration rate": "(Collaborative projects / Total projects) * 100"
-            },
-            "Enhance Educational Research Quality": {
-                "Research publication rate": "(Published research / Completed research) * 100",
-                "Citation impact improvement": "((Current impact - Previous impact) / Previous) * 100",
-                "Peer review success rate": "(Successful reviews / Total submissions) * 100",
-                "Research methodology innovation": "(Innovative methods / Total methods) * 100"
-            },
-            "Improve Grant Writing and Management": {
-                "Grant writing training effectiveness": "(Effective training / Total training) * 100",
-                "Grant management compliance": "(Compliant management / Total grants) * 100",
-                "Multi-investigator grant success": "(Successful team grants / Total team grants) * 100",
-                "Grant outcome achievement": "(Achieved outcomes / Funded outcomes) * 100"
-            },
-            "Strengthen Research Ethics and Compliance": {
-                "IRB approval efficiency": "(Efficient approvals / Total approvals) * 100",
-                "Research ethics training completion": "(Completed training / Required training) * 100",
-                "Compliance audit success rate": "(Successful audits / Total audits) * 100",
-                "Research integrity assessment": "(Integrity maintained / Total research) * 100"
-            },
-            "Enhance Knowledge Translation and Dissemination": {
-                "Research dissemination effectiveness": "(Effective dissemination / Total research) * 100",
-                "Public engagement in research": "(Engaged public / Target public) * 100",
-                "Policy impact from research": "(Influenced policies / Total research) * 100",
-                "Community research partnership satisfaction": "Average partnership satisfaction"
-            }
-        },
-
-        "Technology & Digital Transformation": {
-            "Improve Digital Literacy Development": {
-                "Digital skills assessment improvement": "((Current skills - Previous skills) / Previous) * 100",
-                "Technology training participation": "(Participating community / Total community) * 100",
-                "Digital tool proficiency growth": "((Current proficiency - Previous proficiency) / Previous) * 100",
-                "Technology confidence improvement": "((Current confidence - Previous confidence) / Previous) * 100"
-            },
-            "Enhance Educational Technology Integration": {
-                "Technology integration success rate": "(Successful integrations / Total integrations) * 100",
-                "EdTech ROI achievement": "(Achieved ROI / Target ROI) * 100",
-                "User adoption rate improvement": "((Current adoption - Previous adoption) / Previous) * 100",
-                "Technology-enhanced learning effectiveness": "(Effective enhancement / Total enhancement) * 100"
-            },
-            "Strengthen Data Analytics Capability": {
-                "Analytics platform utilization": "(Utilized platform / Available platform) * 100",
-                "Predictive modeling accuracy": "(Accurate predictions / Total predictions) * 100",
-                "Data-driven intervention effectiveness": "(Effective interventions / Total interventions) * 100",
-                "Analytics skill development": "(Developed skills / Required skills) * 100"
-            },
-            "Optimize Cloud Infrastructure and Services": {
-                "Cloud service reliability": "(Reliable services / Total services) * 100",
-                "Cloud cost optimization": "((Previous costs - Current costs) / Previous) * 100",
-                "Cloud security compliance": "(Compliant security / Total security) * 100",
-                "User satisfaction with cloud services": "Average cloud service satisfaction"
-            },
-            "Enhance Cybersecurity Awareness and Training": {
-                "Security awareness training completion": "(Completed training / Required training) * 100",
-                "Phishing test success rate": "(Successful tests / Total tests) * 100",
-                "Security incident response time": "Average time to security incident response",
-                "Data protection compliance rate": "(Compliant data / Total data) * 100"
-            },
-            "Improve IT Governance and Strategy": {
-                "IT governance effectiveness": "(Effective governance / Total governance) * 100",
-                "Technology strategy alignment": "(Aligned strategy / Total strategy) * 100",
-                "IT project success rate": "(Successful projects / Total projects) * 100",
-                "Technology investment optimization": "(Optimized investments / Total investments) * 100"
-            },
-            "Strengthen Digital Accessibility and Inclusion": {
-                "Digital accessibility compliance": "(Compliant digital assets / Total digital assets) * 100",
-                "Assistive technology availability": "(Available technology / Required technology) * 100",
-                "Universal design implementation": "(Implemented design / Total design) * 100",
-                "Accessibility training completion": "(Completed training / Required training) * 100"
-            },
-            "Enhance Emerging Technology Adoption": {
-                "Emerging technology evaluation rate": "(Evaluated technologies / Available technologies) * 100",
-                "AI and machine learning implementation": "(Implemented AI/ML / Available AI/ML) * 100",
-                "Technology pilot success rate": "(Successful pilots / Total pilots) * 100",
-                "Future-ready technology infrastructure": "(Ready infrastructure / Total infrastructure) * 100"
-            }
-        },
-
-        "Strategic Partnerships & Community Engagement": {
-            "Enhance Industry-Academia Collaboration": {
-                "Industry partnership satisfaction": "Average partnership satisfaction score",
-                "Work-integrated learning opportunities": "(Available opportunities / Required opportunities) * 100",
-                "Joint research project success": "(Successful projects / Total projects) * 100",
-                "Industry feedback integration": "(Integrated feedback / Total feedback) * 100"
-            },
-            "Improve Community Outreach and Service": {
-                "Community service participation": "(Participating members / Total members) * 100",
-                "Outreach program effectiveness": "(Effective programs / Total programs) * 100",
-                "Community need assessment completion": "(Completed assessments / Required assessments) * 100",
-                "Local impact measurement": "(Measured impact / Total impact) * 100"
-            },
-            "Strengthen Global Educational Partnerships": {
-                "International partnership satisfaction": "Average international partnership satisfaction",
-                "Global learning opportunity creation": "(Created opportunities / Required opportunities) * 100",
-                "Cross-cultural program effectiveness": "(Effective programs / Total programs) * 100",
-                "International student exchange success": "(Successful exchanges / Total exchanges) * 100"
-            },
-            "Optimize Alumni Relations and Engagement": {
-                "Alumni network growth": "((Current network - Previous network) / Previous) * 100",
-                "Alumni event participation": "(Participating alumni / Total alumni) * 100",
-                "Alumni mentorship program effectiveness": "(Effective mentorship / Total mentorship) * 100",
-                "Alumni career support satisfaction": "Average career support satisfaction"
-            },
-            "Enhance Government and Policy Engagement": {
-                "Policy advocacy effectiveness": "(Effective advocacy / Total advocacy) * 100",
-                "Government relationship satisfaction": "Average relationship satisfaction",
-                "Regulatory compliance improvement": "((Current compliance - Previous compliance) / Previous) * 100",
-                "Public policy contribution": "(Contributed policies / Total policy engagements) * 100"
-            },
-            "Improve Educational Consortium Participation": {
-                "Consortium collaboration effectiveness": "(Effective collaboration / Total collaboration) * 100",
-                "Shared resource utilization": "(Utilized resources / Available resources) * 100",
-                "Joint program success rate": "(Successful programs / Total programs) * 100",
-                "Consortium value contribution": "(Contributed value / Total value) * 100"
-            },
-            "Strengthen K-12 and Higher Education Alignment": {
-                "Educational pathway effectiveness": "(Effective pathways / Total pathways) * 100",
-                "College readiness program success": "(Successful programs / Total programs) * 100",
-                "Teacher professional development collaboration": "(Collaborative development / Total development) * 100",
-                "Dual credit program quality": "(Quality programs / Total programs) * 100"
-            },
-            "Enhance Research and Innovation Networks": {
-                "Research network participation": "(Participating researchers / Total researchers) * 100",
-                "Collaborative publication rate": "(Collaborative publications / Total publications) * 100",
-                "Knowledge sharing effectiveness": "(Effective sharing / Total sharing) * 100",
-                "Network impact measurement": "(Measured impact / Total network) * 100"
-            }
-        }
-    }
 }

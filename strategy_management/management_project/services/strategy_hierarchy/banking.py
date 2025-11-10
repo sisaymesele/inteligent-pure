@@ -1,6 +1,11 @@
 
+from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+
 BANKING_PERSPECTIVE = {
     "Financial Perspective": {
+
+        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
 
         "Banking Revenue Growth & Diversification": {
             "Increase net interest income through loan portfolio expansion": {
@@ -845,4 +850,10 @@ BANKING_PERSPECTIVE = {
             }
         }
     },
+
+    "Customer Perspective": {
+
+        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+    }
+
 }

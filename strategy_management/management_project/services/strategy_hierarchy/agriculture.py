@@ -1,9 +1,10 @@
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE_DATA
+from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
 
 AGRICULTURE_PERSPECTIVE = {
 
     "Financial Perspective": {
-        **GENERIC_FINANCE_PERSPECTIVE_DATA['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
         # ==================== CROP ENTERPRISE FINANCE ====================
         "Crop Revenue Growth & Diversification": {
             "Enhance Crop Revenue Performance": {
@@ -410,200 +411,730 @@ AGRICULTURE_PERSPECTIVE = {
     },
 
     "Customer Perspective": {
+
+        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        # -------------------- Food Security & Nutrition --------------------
         "Food Security & Nutrition": {
             "Enhance Household Food Security": {
-                "Household food security status": "(Households meeting food security criteria / Total households) * 100",
-                "Food self-sufficiency ratio": "(Food produced for own consumption / Total food needs) * 100",
+                "Household food security status (%)": "(Households meeting food security criteria / Total households) * 100",
+                "Food self-sufficiency ratio (%)": "(Food produced for own consumption / Total food needs) * 100",
                 "Dietary diversity improvement": "Increase in number of food groups consumed",
-                "Food storage capacity": "Months of food storage capacity per household"
+                "Food storage capacity (months)": "Average months of food storage per household"
             },
             "Improve Food Quality & Safety": {
-                "Food safety compliance": "(Products meeting safety standards / Total products) * 100",
-                "Quality grade achievement": "(Produce meeting quality standards / Total production) * 100",
+                "Food safety compliance (%)": "(Products meeting safety standards / Total products) * 100",
+                "Quality grade achievement (%)": "(Produce meeting quality standards / Total production) * 100",
                 "Nutritional value enhancement": "Increase in nutrient content of food products",
-                "Food contamination prevention": "Reduction in food contamination incidents"
+                "Food contamination prevention (%)": "Reduction in food contamination incidents"
             },
             "Increase Food Affordability": {
                 "Food price stability index": "Standard deviation of food prices over time",
-                "Affordable diet coverage": "(Population able to afford nutritious diet / Total population) * 100",
-                "Food expenditure share reduction": "((Previous food expenditure share - Current) / Previous) * 100",
+                "Affordable diet coverage (%)": "(Population able to afford nutritious diet / Total population) * 100",
+                "Food expenditure share reduction (%)": "((Previous share - Current) / Previous) * 100",
                 "Local food availability index": "Availability of locally produced food in markets"
             },
             "Strengthen Food Distribution Systems": {
-                "Food distribution efficiency": "(Food reaching consumers / Total production) * 100",
-                "Market access for consumers": "(Consumers with market access / Total population) * 100",
-                "Food waste reduction": "((Previous food waste - Current waste) / Previous waste) * 100",
-                "Emergency food reserve adequacy": "(Available reserves / Required reserves) * 100"
+                "Distribution efficiency (%)": "(Food reaching consumers / Total production) * 100",
+                "Market access for consumers (%)": "(Consumers with market access / Total population) * 100",
+                "Food loss reduction (%)": "((Previous food loss - Current) / Previous) * 100",
+                "Emergency reserve adequacy (%)": "(Available reserves / Required reserves) * 100"
             },
-            "Enhance Nutritional Outcomes": {
-                "Micronutrient availability": "Access to vitamin and mineral rich foods",
-                "Food fortification reach": "Population coverage of fortified products",
-                "Special dietary need accommodation": "Availability of specialized food products",
+            "Promote Post-Harvest Management": {
+                "Storage facility utilization (%)": "(Used storage capacity / Total capacity) * 100",
+                "Post-harvest loss reduction (%)": "((Previous loss - Current) / Previous) * 100",
+                "Cold chain adoption (%)": "(Farmers using cold storage / Total farmers) * 100",
+                "Processing infrastructure coverage (%)": "(Farmers with access to processing facilities / Total farmers) * 100"
+            },
+            "Enhance Nutrition Outcomes": {
+                "Micronutrient availability (%)": "Access to vitamin- and mineral-rich foods",
+                "Food fortification reach (%)": "Population covered by fortified products",
+                "Special dietary accommodation (%)": "Availability of specialized food products",
                 "Nutrition education impact": "Improvement in nutritional knowledge and practices"
+            },
+            "Promote Agricultural Diversity": {
+                "Crop diversification index": "Number of crop varieties grown per household",
+                "Livestock diversity index": "Number of livestock types per household",
+                "Agroforestry adoption (%)": "(Households practicing agroforestry / Total households) * 100",
+                "Seed variety adoption (%)": "(Households using improved varieties / Total households) * 100"
+            },
+            "Ensure Food Security Resilience": {
+                "Climate-resilient practice adoption (%)": "(Farmers using resilient practices / Total farmers) * 100",
+                "Early warning system coverage (%)": "(Population covered by food security alerts / Total population) * 100",
+                "Disaster preparedness (%)": "(Households prepared for shocks / Total households) * 100",
+                "Emergency response effectiveness (%)": "Timeliness of response to food crises"
             }
         },
 
+        # -------------------- Farmer Welfare & Livelihoods --------------------
         "Farmer Welfare & Livelihoods": {
             "Improve Farmer Incomes": {
-                "Average farm household income growth": "((Current income - Previous income) / Previous income) * 100",
-                "Income diversification index": "Number of income sources per farming household",
-                "Debt-to-income ratio improvement": "((Previous ratio - Current ratio) / Previous ratio) * 100",
-                "Profit margin per enterprise": "Net income per farming enterprise"
+                "Average household income growth (%)": "((Current income - Previous income) / Previous income) * 100",
+                "Income diversification index": "Number of income sources per household",
+                "Profit margin per enterprise (%)": "Net income per farming enterprise",
+                "Debt-to-income ratio improvement (%)": "((Previous ratio - Current ratio) / Previous ratio) * 100"
             },
             "Enhance Social Protection": {
-                "Social safety net coverage": "(Farmers covered by safety nets / Total farmers) * 100",
-                "Health insurance access": "(Farmers with health insurance / Total farmers) * 100",
-                "Disaster relief effectiveness": "Timeliness and adequacy of disaster support",
-                "Old-age security provision": "(Elderly farmers with security / Total elderly farmers) * 100"
+                "Social safety net coverage (%)": "(Farmers covered / Total farmers) * 100",
+                "Health insurance access (%)": "(Farmers with health insurance / Total farmers) * 100",
+                "Disaster relief timeliness (%)": "Speed of relief provision during disasters",
+                "Old-age security provision (%)": "(Elderly farmers with security / Total elderly farmers) * 100"
             },
             "Promote Rural Livelihoods": {
-                "Rural employment generation": "Number of jobs created in rural areas",
+                "Rural employment generation": "Number of rural jobs created",
                 "Local economic multiplier": "Local economic impact per unit investment",
-                "Rural enterprise development": "Number of new rural enterprises established",
-                "Income inequality reduction": "Reduction in Gini coefficient for rural income"
+                "Rural enterprise development": "Number of new rural enterprises",
+                "Income inequality reduction (%)": "Reduction in Gini coefficient for rural income"
             },
             "Strengthen Smallholder Resilience": {
-                "Smallholder income diversification rate": "(Farmers with multiple income sources / Total farmers) * 100",
-                "Risk mitigation strategy adoption": "(Farmers using risk strategies / Total farmers) * 100",
-                "Emergency savings adequacy": "(Households with adequate savings / Total households) * 100",
-                "Climate adaptation practice implementation": "(Area under adaptation practices / Total area) * 100"
+                "Income diversification (%)": "(Farmers with multiple income sources / Total farmers) * 100",
+                "Risk management adoption (%)": "(Farmers adopting risk strategies / Total farmers) * 100",
+                "Emergency savings adequacy (%)": "(Households with adequate savings / Total households) * 100",
+                "Climate adaptation adoption (%)": "(Area under adaptation practices / Total area) * 100"
             },
+            "Access to Financial Services": {
+                "Credit access (%)": "(Farmers with loans / Total farmers) * 100",
+                "Savings account access (%)": "(Farmers with savings accounts / Total farmers) * 100",
+                "Microinsurance coverage (%)": "(Farmers with crop/livestock insurance / Total farmers) * 100",
+                "Financial literacy improvement": "Average financial knowledge score increase"
+            },
+            "Support Youth & Women Farmers": {
+                "Youth participation (%)": "(Youth farmers / Total farmers) * 100",
+                "Women participation (%)": "(Women farmers / Total farmers) * 100",
+                "Youth-focused training (%)": "(Youth attending training / Total youth) * 100",
+                "Women-focused training (%)": "(Women attending training / Total women) * 100"
+            },
+            "Promote Health & Safety": {
+                "Access to protective equipment (%)": "(Farmers using PPE / Total farmers) * 100",
+                "Occupational health training (%)": "(Farmers trained in safety / Total farmers) * 100",
+                "Reduction in accidents (%)": "((Previous accidents - Current) / Previous) * 100",
+                "Safe pesticide use compliance (%)": "(Farmers following safe use / Total farmers) * 100"
+            },
+            "Encourage Farmer Organizations": {
+                "Farmer association membership (%)": "(Members / Total farmers) * 100",
+                "Collective decision-making adoption (%)": "(Members participating in decisions / Total members) * 100",
+                "Capacity building participation (%)": "(Members attending capacity programs / Total members) * 100",
+                "Resource sharing initiatives": "Number of joint initiatives implemented"
+            }
+        },
+
+        # -------------------- Market Access & Value Chain Development --------------------
+        # -------------------- Cooperative Development --------------------
+        "Cooperative Development": {
+            "Increase Cooperative Membership": {
+                "Farmer membership growth (%)": "(New members / Total farmers) * 100",
+                "Member retention rate (%)": "(Retained members / Total members) * 100",
+                "Youth participation (%)": "(Youth members / Total members) * 100",
+                "Women participation (%)": "(Women members / Total members) * 100"
+            },
+            "Strengthen Cooperative Governance": {
+                "Board election transparency (%)": "(Transparent elections / Total cooperatives) * 100",
+                "Compliance with regulations (%)": "(Cooperatives in compliance / Total cooperatives) * 100",
+                "Member satisfaction score": "Average member satisfaction rating",
+                "Conflict resolution efficiency (%)": "(Conflicts resolved / Total conflicts) * 100"
+            },
+            "Enhance Financial Management": {
+                "Financial audit coverage (%)": "(Cooperatives audited / Total cooperatives) * 100",
+                "Loan repayment rate (%)": "(Loans repaid on time / Total loans) * 100",
+                "Capital accumulation growth (%)": "Increase in cooperative funds",
+                "Operational cost efficiency (%)": "(Budget used efficiently / Total budget) * 100"
+            },
+            "Promote Market Linkages": {
+                "Volume sold via cooperative (%)": "(Sales through cooperative / Total production) * 100",
+                "Revenue generated ($)": "Total revenue through cooperative marketing",
+                "New market access (%)": "(Markets accessed via cooperative / Total potential markets) * 100",
+                "Buyer satisfaction score": "Average rating of buyers linked to cooperative"
+            },
+            "Capacity Building & Training": {
+                "Member training coverage (%)": "(Members trained / Total members) * 100",
+                "Training effectiveness score": "Average score from post-training evaluation",
+                "Leadership skill improvement (%)": "(Members demonstrating improved leadership / Total trained members) * 100",
+                "Adoption of training practices (%)": "(Trained members applying knowledge / Total trained members) * 100"
+            },
+            "Foster Innovation & Entrepreneurship": {
+                "New business initiatives (%)": "(Innovative projects / Total projects) * 100",
+                "Agri-product development (%)": "(New products developed / Total products) * 100",
+                "Revenue from innovation ($)": "Income generated from innovative activities",
+                "Innovation adoption (%)": "(Members adopting innovations / Total members) * 100"
+            },
+            "Promote Cooperative Networking": {
+                "Inter-cooperative collaboration (%)": "(Cooperatives collaborating / Total cooperatives) * 100",
+                "Knowledge exchange events": "Number of joint events conducted",
+                "Shared service initiatives (%)": "(Cooperatives sharing services / Total cooperatives) * 100",
+                "Joint marketing success (%)": "(Successful joint sales initiatives / Total initiatives) * 100"
+            },
+            "Support Policy Advocacy": {
+                "Participation in policy forums (%)": "(Cooperatives participating / Total cooperatives) * 100",
+                "Policy influence effectiveness (%)": "Score of policy impact",
+                "Advocacy campaigns conducted": "Number of advocacy initiatives",
+                "Member awareness improvement (%)": "(Members aware of policies / Total members) * 100"
+            }
+        },
+
+        # -------------------- Rural & Community Development --------------------
+        "Rural & Community Development": {
             "Improve Rural Infrastructure Access": {
-                "Rural road connectivity": "Percentage of farms with all-weather road access",
-                "Electricity access reliability": "Hours of reliable electricity supply per day",
-                "Communication network coverage": "Mobile and internet connectivity quality",
-                "Market infrastructure proximity": "Distance to nearest market facilities"
+                "Road connectivity (%)": "(Households with road access / Total households) * 100",
+                "Electricity access (%)": "(Households with reliable electricity / Total households) * 100",
+                "Water access (%)": "(Households with improved water access / Total households) * 100",
+                "Communication access (%)": "(Households with phone/internet / Total households) * 100"
+            },
+            "Promote Health & Sanitation": {
+                "Health facility access (%)": "(Households with health access / Total households) * 100",
+                "Sanitation coverage (%)": "(Households with improved sanitation / Total households) * 100",
+                "Immunization rate (%)": "(Children vaccinated / Total children) * 100",
+                "Hygiene education coverage (%)": "(Households receiving hygiene training / Total households) * 100"
+            },
+            "Support Education & Skills Development": {
+                "School enrollment rate (%)": "(Children enrolled / Total school-age children) * 100",
+                "Adult literacy improvement (%)": "Increase in adult literacy",
+                "Vocational training coverage (%)": "(Individuals trained / Total target population) * 100",
+                "Training adoption rate (%)": "(Trained individuals applying skills / Total trained) * 100"
+            },
+            "Enhance Social Cohesion & Governance": {
+                "Community participation rate (%)": "(Active members / Total eligible members) * 100",
+                "Local decision-making inclusivity (%)": "(Women & youth participation / Total participants) * 100",
+                "Conflict resolution effectiveness (%)": "(Conflicts resolved / Total conflicts) * 100",
+                "Community satisfaction score": "Average rating from community surveys"
+            },
+            "Promote Sustainable Livelihoods": {
+                "Income diversification (%)": "(Households with multiple income sources / Total households) * 100",
+                "Microenterprise development (%)": "(Households with microenterprises / Total households) * 100",
+                "Access to finance (%)": "(Households accessing credit / Total households) * 100",
+                "Employment generation": "Number of new rural jobs created"
+            },
+            "Support Women & Youth Empowerment": {
+                "Women participation (%)": "(Women in programs / Total women) * 100",
+                "Youth participation (%)": "(Youth in programs / Total youth) * 100",
+                "Leadership skill improvement (%)": "Average leadership score improvement",
+                "Program adoption rate (%)": "(Participants applying learned skills / Total participants) * 100"
+            },
+            "Encourage Environmental Stewardship": {
+                "Community forest coverage (%)": "(Area under community forestry / Total land area) * 100",
+                "Soil conservation adoption (%)": "(Households practicing soil conservation / Total households) * 100",
+                "Water conservation initiatives (#)": "Number of community water projects implemented",
+                "Renewable energy adoption (%)": "(Households using renewable energy / Total households) * 100"
+            },
+            "Promote Cultural & Social Heritage": {
+                "Traditional knowledge integration (%)": "(Practices integrated / Total recommended practices) * 100",
+                "Cultural event participation (%)": "(Population attending events / Total population) * 100",
+                "Heritage site preservation (%)": "(Sites preserved / Total sites) * 100",
+                "Community awareness improvement (%)": "(Population aware of cultural programs / Total population) * 100"
             }
         },
 
-        "Market Access & Value Chain Development": {
-            "Expand Market Opportunities": {
-                "Smallholder market participation": "(Smallholders in formal markets / Total smallholders) * 100",
-                "Number of market options": "Count of accessible market channels",
-                "Market information access": "(Smallholders with market info / Total smallholders) * 100",
-                "Collective marketing participation": "(Smallholders in collective marketing / Total smallholders) * 100"
+        "Subsidies & Input Support": {
+            "Improve access to affordable inputs for smallholders": {
+                "Average input cost reduction (%)": "((Previous input price - Current price) / Previous price) * 100",
+                "Number of farmers receiving subsidized inputs": "Count of registered subsidy beneficiaries",
+                "Distribution coverage (%)": "(Beneficiaries / Total smallholder farmers) * 100",
+                "Input satisfaction score": "Survey-based satisfaction level with input quality"
             },
-            "Enhance Value Addition": {
-                "Processing level improvement": "Increase in value addition through processing",
-                "Packaging and branding development": "Quality of packaging and branding",
-                "Product differentiation success": "Effectiveness of product differentiation strategies",
-                "Quality standardization achievement": "(Products meeting standards / Total products) * 100"
+            "Enhance timely distribution of inputs": {
+                "Input delivery timeliness (%)": "(On-time deliveries / Total deliveries) * 100",
+                "Average distribution delay (days)": "Mean delay per delivery",
+                "Farmer complaint rate (%)": "(Complaints / Total deliveries) * 100",
+                "Input delivery coverage (%)": "(Regions served / Total regions) * 100"
             },
-            "Improve Market Infrastructure": {
-                "Collection center accessibility": "(Smallholders near collection points / Total smallholders) * 100",
-                "Storage facility availability": "Adequacy of storage infrastructure",
-                "Transport access improvement": "Reduction in transport constraints",
-                "Market facility utilization": "Usage rate of market facilities"
+            "Promote local input production and distribution": {
+                "Share of locally produced inputs (%)": "(Local inputs / Total inputs) * 100",
+                "Number of certified local suppliers": "Registered and verified input producers",
+                "Input quality compliance rate (%)": "(Compliant inputs / Total tested) * 100",
+                "Input price volatility index": "Standard deviation of monthly input prices"
             },
-            "Develop Digital Market Solutions": {
-                "Online sales participation": "(Farmers selling online / Total farmers) * 100",
-                "Digital payment utilization": "(Transactions using digital payments / Total transactions) * 100",
-                "E-platform engagement": "Frequency and depth of platform usage",
-                "Digital marketing effectiveness": "Revenue from digital marketing efforts"
+            "Enhance targeting and efficiency of subsidies": {
+                "Subsidy targeting accuracy (%)": "(Eligible beneficiaries / Total beneficiaries) * 100",
+                "Leakage rate (%)": "(Non-eligible recipients / Total recipients) * 100",
+                "Average subsidy utilization rate (%)": "(Inputs used / Inputs distributed) * 100",
+                "Subsidy satisfaction level": "Survey rating from farmers"
             },
-            "Enhance Export Competitiveness": {
-                "Export certification compliance": "Percentage of products meeting export standards",
-                "International market access": "Number of countries with market access",
-                "Export logistics efficiency": "Time and cost of export procedures",
-                "Global value chain integration": "Position in international supply chains"
+            "Increase mechanization adoption": {
+                "Mechanized farming adoption rate (%)": "(Mechanized farms / Total farms) * 100",
+                "Tractor hours per hectare": "Average mechanization usage per farm",
+                "Machinery maintenance rate (%)": "(Maintained machinery / Total machinery) * 100",
+                "Equipment ownership ratio": "(Equipment owners / Total farmers) * 100"
+            },
+            "Support input quality assurance systems": {
+                "Certified input products (%)": "(Certified / Total inputs) * 100",
+                "Inspection coverage (%)": "(Inspections done / Total input outlets) * 100",
+                "Rejected input batches (%)": "(Rejected / Tested batches) * 100",
+                "Farmer trust score": "Survey-based input trust level"
+            },
+            "Enhance fertilizer and seed usage efficiency": {
+                "Optimal fertilizer usage rate (%)": "(Optimal users / Total users) * 100",
+                "Seed germination success rate (%)": "(Successful germination / Total seeds planted) * 100",
+                "Fertilizer response yield gain (%)": "Average yield increase due to fertilizer",
+                "Soil nutrient balance index": "Soil test-based nutrient balance"
+            },
+            "Promote gender-inclusive input programs": {
+                "Female beneficiary ratio (%)": "(Women recipients / Total recipients) * 100",
+                "Women-led input cooperatives": "Count of active cooperatives led by women",
+                "Gender gap in input access (%)": "(Male access - Female access) / Male access * 100",
+                "Satisfaction gap index": "Difference in satisfaction between genders"
             }
         },
 
-        "Quality & Standards Compliance": {
-            "Implement Quality Assurance Systems": {
-                "Quality management system adoption": "(Farms with quality systems / Total farms) * 100",
-                "Quality control compliance": "(Quality standards met / Total quality checks) * 100",
-                "Traceability system implementation": "(Traceable products / Total products) * 100",
-                "Quality documentation completeness": "(Complete quality records / Total records) * 100"
+        "Technical Assistance & Extension Services": {
+            "Enhance reach of extension services": {
+                "Farmers reached (%)": "(Farmers served / Total farmers) * 100",
+                "Extension officer-to-farmer ratio": "Number of farmers per extension officer",
+                "Coverage of extension regions (%)": "(Regions covered / Total regions) * 100",
+                "Satisfaction with extension services (%)": "Survey rating"
             },
-            "Enhance Certification Systems": {
-                "Certification scheme participation": "(Farmers in certification schemes / Total farmers) * 100",
-                "Certification maintenance rate": "(Maintained certifications / Total certifications) * 100",
-                "Premium certification achievement": "(Products with premium certification / Total products) * 100",
-                "International standard compliance": "(Products meeting international standards / Total products) * 100"
+            "Improve technical knowledge dissemination": {
+                "Training sessions conducted": "Total number of extension-led training",
+                "Knowledge retention rate (%)": "Post-training test score retention",
+                "Digital advisory usage (%)": "(Digital advisory users / Total farmers) * 100",
+                "Follow-up visit compliance (%)": "(Follow-up visits done / Scheduled visits) * 100"
             },
-            "Improve Quality Infrastructure": {
-                "Testing facility access": "(Farmers with testing access / Total farmers) * 100",
-                "Laboratory service quality": "Quality score of testing services",
-                "Standardization participation": "Involvement in standards development",
-                "Quality infrastructure investment": "Level of investment in quality infrastructure"
+            "Promote climate-smart agriculture training": {
+                "Farmers trained on CSA (%)": "(CSA trainees / Total trainees) * 100",
+                "Adoption rate of CSA practices (%)": "(Adopters / Trained farmers) * 100",
+                "Average yield change after CSA (%)": "((New yield - Old yield) / Old yield) * 100",
+                "CSA satisfaction score": "Survey rating"
             },
-            "Strengthen Consumer Confidence": {
-                "Product recall rate reduction": "((Previous recalls - Current recalls) / Previous recalls) * 100",
-                "Consumer satisfaction score": "Average consumer satisfaction rating",
-                "Brand reputation index": "Composite score of brand perception",
-                "Product quality consistency": "Standard deviation of quality measurements"
+            "Enhance ICT-based extension delivery": {
+                "Digital advisory adoption rate (%)": "(ICT users / Total farmers) * 100",
+                "SMS alert effectiveness (%)": "(Acted farmers / Recipients) * 100",
+                "Online advisory uptime (%)": "(System uptime / Total time) * 100",
+                "Mobile penetration rate (%)": "(Farmers with mobile access / Total farmers) * 100"
             },
-            "Enhance Food Safety Systems": {
-                "HACCP implementation rate": "Percentage of operations with HACCP systems",
-                "Food safety audit performance": "Scores from regulatory and customer audits",
-                "Contamination prevention effectiveness": "Reduction in food safety incidents",
-                "Recall management efficiency": "Speed and effectiveness of product recalls"
+            "Strengthen field visit programs": {
+                "Extension visits per farm per year": "Average field visit frequency",
+                "Response time to farmer request (days)": "Average delay to attend farmers",
+                "Satisfaction with field visits (%)": "Survey-based rating",
+                "Knowledge application rate (%)": "(Farmers applying advice / Farmers visited) * 100"
+            },
+            "Develop specialized expertise per crop": {
+                "Crop-specific expert ratio": "(Specialized officers / Total officers) * 100",
+                "Coverage of key crop regions (%)": "(Regions covered / Total key regions) * 100",
+                "Farmer productivity increase (%)": "((Current yield - Previous yield)/Previous)*100",
+                "Technical advice satisfaction (%)": "Survey-based rating"
+            },
+            "Encourage private sector participation in extension": {
+                "Private advisory share (%)": "(Private providers / Total providers) * 100",
+                "PPP extension programs (%)": "(Public-private programs / Total) * 100",
+                "Private sector satisfaction index": "Survey from private partners",
+                "Coverage expansion due to PPP (%)": "(Additional reach / Total farmers) * 100"
+            },
+            "Monitor and evaluate extension impact": {
+                "Impact assessment frequency (per year)": "Number of evaluations conducted annually",
+                "Farmer income change (%)": "((Current income - Previous) / Previous) * 100",
+                "Knowledge adoption index": "Composite score of adoption metrics",
+                "Yield variation due to advisory (%)": "((With advisory - Without) / Without) * 100"
             }
         },
 
-        "Customer Relationship Management": {
-            "Increase Customer Satisfaction & Loyalty": {
-                "Net Promoter Score (NPS)": "Percentage of promoters minus percentage of detractors",
-                "Customer Satisfaction (CSAT) score": "Average satisfaction rating from customer surveys",
-                "Customer Effort Score": "Ease of doing business with the farm",
-                "Customer retention rate": "(Retained customers / Total customers) * 100"
+        "Training & Capacity Building": {
+            "Expand farmer training participation": {
+                "Training attendance rate (%)": "(Participants / Total targeted) * 100",
+                "Number of training sessions conducted": "Count of sessions completed",
+                "Average hours per participant": "Total training hours / Total participants",
+                "Satisfaction with training quality (%)": "Survey-based score"
             },
-            "Improve Customer Service Quality": {
-                "On-Time In-Full (OTIF) delivery rate": "(Orders delivered complete and on time / Total orders) * 100",
-                "Customer query resolution time": "Average time to resolve customer inquiries",
-                "Order accuracy rate": "(Accurate orders / Total orders) * 100",
-                "Customer service cost per order": "Total service costs / Number of orders processed"
+            "Enhance youth and women participation in training": {
+                "Youth participation rate (%)": "(Youth trainees / Total trainees) * 100",
+                "Female participation rate (%)": "(Women trainees / Total trainees) * 100",
+                "Gender equality score": "Composite gender inclusion index",
+                "Youth employment outcome rate (%)": "(Youth employed / Youth trained) * 100"
             },
-            "Enhance Brand Image & Reputation": {
-                "Brand awareness score": "Percentage of target market familiar with the brand",
-                "Brand perception index": "Composite score of brand attributes perception",
-                "Media sentiment analysis": "Positive vs negative media mentions ratio",
-                "Brand advocacy mentions": "Number of unsolicited positive brand references"
+            "Improve training relevance and impact": {
+                "Post-training application rate (%)": "(Farmers applying skills / Total trained) * 100",
+                "Yield improvement after training (%)": "((Post-training yield - Pre-training) / Pre-training) * 100",
+                "Satisfaction with training content (%)": "Survey rating",
+                "Retention rate after 6 months (%)": "(Still applying / Total trained) * 100"
             },
-            "Optimize Pricing Perception": {
-                "Price sensitivity meter": "Customer sensitivity to price changes",
-                "Perceived value for money": "Customer rating of value proposition",
-                "Competitive price positioning": "Price comparison with competitor offerings",
-                "Promotion effectiveness": "Impact of promotional activities on sales"
+            "Develop trainer quality and expertise": {
+                "Certified trainers (%)": "(Certified trainers / Total trainers) * 100",
+                "Trainer-to-farmer ratio": "Trainers / Total participants",
+                "Trainer evaluation score": "Average rating per trainer",
+                "Refresher training frequency (per year)": "Sessions per trainer annually"
             },
-            "Develop Customer Insights": {
-                "Customer feedback utilization": "Percentage of feedback implemented in improvements",
-                "Market segmentation effectiveness": "Accuracy of customer segmentation",
-                "Customer needs anticipation": "Ability to predict and meet emerging needs",
-                "Loyalty program participation": "Engagement rate in customer loyalty programs"
+            "Promote peer-to-peer learning networks": {
+                "Active farmer field schools": "Number of ongoing peer learning groups",
+                "Peer mentoring participation (%)": "(Participants / Total farmers) * 100",
+                "Knowledge sharing sessions held": "Count per quarter",
+                "Peer learning satisfaction (%)": "Survey-based feedback"
+            },
+            "Increase access to e-learning and digital capacity tools": {
+                "Online training access rate (%)": "(Online trainees / Total trainees) * 100",
+                "Completion rate (%)": "(Completed courses / Enrolled users) * 100",
+                "Platform uptime (%)": "(Uptime hours / Total hours) * 100",
+                "Knowledge retention test score": "Average post-test score"
+            },
+            "Enhance technical specialization in priority crops": {
+                "Specialized training coverage (%)": "(Farmers trained in key crops / Total trained) * 100",
+                "Crop productivity improvement (%)": "((New yield - Old yield)/Old yield) * 100",
+                "Training cost efficiency (%)": "(Output gain / Training cost) * 100",
+                "Specialized trainer certification rate (%)": "(Certified / Total trainers) * 100"
+            },
+            "Integrate business and entrepreneurship skills": {
+                "Farmers trained in business planning (%)": "(Business trainees / Total trainees) * 100",
+                "Enterprise startup rate (%)": "(New enterprises / Trained farmers) * 100",
+                "Access to finance after training (%)": "(Financed farmers / Trained farmers) * 100",
+                "Profitability improvement (%)": "((Post-training profit - Pre-training)/Pre-training)*100"
             }
         },
 
-        "Stakeholder & Community Relations": {
-            "Strengthen Community Engagement": {
-                "Community investment ratio": "(Community investment / Total profit) * 100",
-                "Community partnership projects": "Number of active community development projects",
-                "Local employment ratio": "(Local employees / Total employees) * 100",
-                "Community perception score": "Results from community satisfaction surveys"
+        "Access to Credit & Financial Services": {
+            "Increase access to agricultural finance": {
+                "Farmers with credit access (%)": "(Credit beneficiaries / Total farmers) * 100",
+                "Total agricultural loan volume ($)": "Sum of disbursed agricultural loans",
+                "Average loan size ($)": "Total loans / Number of borrowers",
+                "Loan approval rate (%)": "(Approved / Applied) * 100"
             },
-            "Manage External Partnerships": {
-                "Partner collaboration effectiveness": "Score from partnership performance assessments",
-                "Joint project success rate": "(Successful joint projects / Total joint projects) * 100",
-                "Revenue from partnerships": "Total revenue generated through collaborative efforts",
-                "Strategic partner retention": "(Retained partners / Total partners) * 100"
+            "Promote inclusive rural financial systems": {
+                "Rural financial institutions coverage (%)": "(Active institutions / Rural districts) * 100",
+                "Female borrower ratio (%)": "(Women borrowers / Total borrowers) * 100",
+                "Youth borrower ratio (%)": "(Youth borrowers / Total borrowers) * 100",
+                "Average distance to nearest finance point (km)": "Mean distance from rural households"
             },
-            "Enhance Citizen & Stakeholder Trust": {
-                "Stakeholder trust index": "Composite measure of stakeholder confidence",
-                "Transparency rating": "Score from transparency and disclosure assessments",
-                "Stakeholder grievance resolution rate": "(Resolved grievances / Total grievances) * 100",
-                "Multi-stakeholder platform participation": "Level of engagement in collaborative forums"
+            "Improve agricultural credit repayment performance": {
+                "Loan repayment rate (%)": "(Repaid loans / Total due loans) * 100",
+                "Default rate (%)": "(Defaults / Total borrowers) * 100",
+                "Average repayment period (months)": "Mean duration to settle loans",
+                "Credit risk index": "Composite index of portfolio performance"
             },
-            "Develop Community Partnerships": {
-                "Local supplier development": "Percentage of procurement from local suppliers",
-                "Community capacity building": "Number of community training programs conducted",
-                "Shared value creation": "Economic and social benefits to local communities",
-                "Stakeholder engagement depth": "Quality and frequency of stakeholder interactions"
+            "Promote crop insurance adoption": {
+                "Insured farmer coverage (%)": "(Farmers insured / Total farmers) * 100",
+                "Claims settlement rate (%)": "(Claims paid / Claims filed) * 100",
+                "Average premium per hectare ($)": "Total premiums / Hectares insured",
+                "Insurance satisfaction index": "Survey-based rating"
+            },
+            "Expand mobile and digital financial access": {
+                "Mobile wallet adoption rate (%)": "(Farmers using digital finance / Total farmers) * 100",
+                "Transaction volume via mobile ($)": "Sum of mobile-based transactions",
+                "Digital transaction success rate (%)": "(Successful / Total attempts) * 100",
+                "Digital literacy score": "Survey-based index"
+            },
+            "Establish agricultural guarantee funds": {
+                "Guarantee fund utilization (%)": "(Funds used / Total funds) * 100",
+                "Number of loans guaranteed": "Loans backed by fund guarantees",
+                "Recovery rate on guarantees (%)": "(Recovered / Guaranteed) * 100",
+                "Leverage ratio": "Private capital mobilized / Guarantee fund value"
+            },
+            "Develop microfinance schemes for smallholders": {
+                "Active microfinance beneficiaries": "Count of ongoing microfinance clients",
+                "Microloan average repayment rate (%)": "(Repaid / Total disbursed) * 100",
+                "Women-led group loan ratio (%)": "(Women group loans / Total group loans) * 100",
+                "Loan usage productivity gain (%)": "((Post-loan yield - Pre-loan yield)/Pre-loan)*100"
+            },
+            "Integrate saving and investment programs": {
+                "Farmer saving account penetration (%)": "(Farmers with savings / Total farmers) * 100",
+                "Average saving growth rate (%)": "((Current - Previous)/Previous)*100",
+                "Group saving participation (%)": "(Group savers / Total farmers) * 100",
+                "Investment in farm improvements ($)": "Sum of reinvested capital"
             }
-        }
+        },
+
+        "Market Information & Linkages": {
+            "Enhance access to real-time market information": {
+                "Farmers accessing market data (%)": "(Users / Total farmers) * 100",
+                "Market price accuracy (%)": "(Verified / Published) * 100",
+                "Update frequency (per week)": "Number of updates",
+                "User satisfaction index": "Survey-based score"
+            },
+            "Improve market infrastructure connectivity": {
+                "Operational market centers": "Count of functional markets",
+                "Distance to nearest market (km)": "Average travel distance",
+                "Post-harvest loss reduction (%)": "((Previous - Current)/Previous)*100",
+                "Market infrastructure coverage (%)": "(Markets with facilities / Total markets) * 100"
+            },
+            "Strengthen value chain coordination": {
+                "Active producer-buyer contracts": "Number of active value chain contracts",
+                "Producer organization participation (%)": "(Linked producers / Total producers) * 100",
+                "Average farmgate-to-market margin (%)": "(Market price - Farmgate price)/Farmgate price * 100",
+                "Supply chain efficiency index": "Composite logistics index"
+            },
+            "Promote farmer aggregation and collective marketing": {
+                "Aggregated volume share (%)": "(Cooperative sales / Total sales) * 100",
+                "Number of active cooperatives": "Registered and trading cooperatives",
+                "Average price improvement (%)": "((Collective - Individual)/Individual)*100",
+                "Cooperative member satisfaction (%)": "Survey-based score"
+            },
+            "Support export market diversification": {
+                "Export product variety": "Number of exported products",
+                "Export market destinations": "Count of export countries",
+                "Export revenue growth (%)": "((Current - Previous)/Previous)*100",
+                "Export quality compliance rate (%)": "(Compliant / Total shipments) * 100"
+            },
+            "Develop e-commerce and digital platforms for farmers": {
+                "Online transaction volume ($)": "Total digital sales",
+                "Registered digital traders": "Number of active e-commerce users",
+                "Average delivery time (days)": "Mean time between order and delivery",
+                "Digital market satisfaction (%)": "User survey rating"
+            },
+            "Facilitate contract farming schemes": {
+                "Farmers under contract (%)": "(Contracted farmers / Total farmers) * 100",
+                "Contract compliance rate (%)": "(Contracts honored / Total contracts) * 100",
+                "Dispute occurrence rate (%)": "(Disputes / Contracts) * 100",
+                "Average price stability (%)": "((Contract price - Market price)/Market price)*100"
+            },
+            "Enhance price transparency and fairness": {
+                "Price spread ratio": "(Market price - Producer price) / Producer price * 100",
+                "Farmer trust index": "Survey-based perception rating",
+                "Complaints resolved (%)": "(Resolved / Reported) * 100",
+                "Market regulation compliance (%)": "(Compliant traders / Total traders) * 100"
+            }
+        },
+
+        "Infrastructure Development (irrigation, storage, roads)": {
+            "Expand irrigation coverage and efficiency": {
+                "Irrigated land area (ha)": "Total hectares under irrigation",
+                "Irrigation system efficiency (%)": "(Water delivered / Water required) * 100",
+                "Operational irrigation schemes (%)": "(Functional / Total schemes) * 100",
+                "Water productivity (kg/m³)": "Crop output per unit of water used"
+            },
+            "Improve rural road accessibility for farmers": {
+                "Rural road length improved (km)": "Kilometers of farm-to-market roads upgraded",
+                "Transport time reduction (%)": "((Old time - New time) / Old time) * 100",
+                "Market access improvement index": "Composite score of accessibility",
+                "Freight cost reduction (%)": "((Previous - Current)/Previous)*100"
+            },
+            "Enhance post-harvest storage capacity": {
+                "Storage capacity built (tons)": "New or improved storage volume",
+                "Post-harvest loss reduction (%)": "((Before - After)/Before) * 100",
+                "Utilization rate (%)": "(Used capacity / Total capacity) * 100",
+                "Storage facility operational (%)": "(Operational / Total facilities) * 100"
+            },
+            "Increase access to cold chain logistics": {
+                "Cold storage capacity (tons)": "Total cold storage available",
+                "Perishable loss rate (%)": "(Lost produce / Total perishable) * 100",
+                "Cold chain coverage (%)": "(Regions served / Total regions) * 100",
+                "Energy efficiency of cold facilities (%)": "(Actual energy used / Standard use) * 100"
+            },
+            "Develop feeder roads and rural transport hubs": {
+                "New feeder roads constructed (km)": "Kilometers built",
+                "Travel cost reduction (%)": "((Previous - Current)/Previous)*100",
+                "Average market trip time (minutes)": "Mean travel duration per trip",
+                "Vehicle access ratio (%)": "(Accessible villages / Total villages) * 100"
+            },
+            "Upgrade processing and aggregation centers": {
+                "Processing center utilization (%)": "(Used / Total capacity) * 100",
+                "Processing output volume (tons)": "Total processed products",
+                "Facility uptime (%)": "(Operational hours / Total hours) * 100",
+                "Farmer access rate (%)": "(Farmers using / Total farmers) * 100"
+            },
+            "Promote water harvesting and small-scale infrastructure": {
+                "Water harvesting systems installed": "Number of water collection units",
+                "Water retention efficiency (%)": "(Stored / Rainfall) * 100",
+                "Maintenance compliance rate (%)": "(Maintained / Total systems) * 100",
+                "Beneficiary coverage (%)": "(Farmers served / Total farmers) * 100"
+            },
+            "Enhance climate-resilient infrastructure": {
+                "Climate-proofed infrastructure (%)": "(Resilient facilities / Total) * 100",
+                "Resilience investment ratio (%)": "(Resilient investment / Total investment) * 100",
+                "Climate damage incidents (#)": "Number of infrastructure damage events",
+                "Recovery time (days)": "Average days to restore functionality"
+            }
+        },
+
+        "Social Safety Nets (cash transfers, food aid)": {
+            "Expand coverage of agricultural social protection programs": {
+                "Beneficiary households (#)": "Number of households receiving support",
+                "Coverage rate (%)": "(Beneficiary households / Target households) * 100",
+                "Targeting accuracy (%)": "(Eligible beneficiaries / Total beneficiaries) * 100",
+                "Payment timeliness (%)": "(On-time payments / Total payments) * 100"
+            },
+            "Enhance efficiency of cash transfer delivery": {
+                "Digital payment utilization (%)": "(Payments made digitally / Total payments) * 100",
+                "Transaction cost per beneficiary ($)": "Total cost / Beneficiaries",
+                "Delivery delay rate (%)": "(Delayed transfers / Total transfers) * 100",
+                "Beneficiary satisfaction score": "Average satisfaction rating"
+            },
+            "Integrate safety nets with productive programs": {
+                "Beneficiaries linked to livelihoods (%)": "(Linked / Total beneficiaries) * 100",
+                "Graduation rate (%)": "(Beneficiaries exiting due to self-sufficiency / Total beneficiaries) * 100",
+                "Complementary training provided (#)": "Training sessions conducted",
+                "Income increase among beneficiaries (%)": "((After - Before)/Before)*100"
+            },
+            "Strengthen food assistance programs": {
+                "Households receiving food aid (#)": "Count of supported households",
+                "Food aid timeliness (%)": "(Delivered on time / Total distributions) * 100",
+                "Food quality compliance (%)": "(Compliant rations / Total rations) * 100",
+                "Beneficiary satisfaction (%)": "Feedback on adequacy and quality"
+            },
+            "Target vulnerable populations effectively": {
+                "Vulnerability index coverage (%)": "(Registered vulnerable / Total target) * 100",
+                "Female-headed household coverage (%)": "(Supported female-headed / Total supported) * 100",
+                "Child nutrition support (%)": "(Children covered / Total children) * 100",
+                "Support adequacy index": "Average sufficiency of aid"
+            },
+            "Enhance coordination with social welfare agencies": {
+                "Joint coordination meetings (#)": "Meetings held per year",
+                "Overlapping aid cases (%)": "(Duplicated beneficiaries / Total beneficiaries) * 100",
+                "Unified database coverage (%)": "(Integrated records / Total records) * 100",
+                "Agency satisfaction rate (%)": "Coordination rating from agencies"
+            },
+            "Promote financial inclusion through safety nets": {
+                "Beneficiaries with bank accounts (%)": "(Accounts opened / Total beneficiaries) * 100",
+                "Savings account activation (%)": "(Active accounts / Total accounts) * 100",
+                "Mobile wallet utilization (%)": "(Users / Total beneficiaries) * 100",
+                "Microinsurance uptake (%)": "(Insured beneficiaries / Total beneficiaries) * 100"
+            },
+            "Monitor social protection impacts on resilience": {
+                "Income stability improvement (%)": "((After - Before)/Before)*100",
+                "Poverty reduction rate (%)": "((Before poverty rate - After) / Before)*100",
+                "Shock recovery rate (%)": "Speed of recovery post-crisis",
+                "Household food consumption score": "Improvement in dietary adequacy"
+            }
+        },
+
+        "Nutrition & Food Security Programs": {
+            "Enhance access to nutritious food": {
+                "Households with adequate diet (%)": "(Adequate diet households / Total) * 100",
+                "Availability of fortified foods (%)": "(Fortified products / Total foods) * 100",
+                "Household food consumption score": "Aggregate nutrition indicator",
+                "Nutrient supply adequacy (%)": "(Available nutrients / Recommended levels) * 100"
+            },
+            "Strengthen nutrition-sensitive agriculture": {
+                "Nutrition-linked projects (%)": "(Projects with nutrition focus / Total) * 100",
+                "Biofortified crop adoption (%)": "(Biofortified area / Total cultivated) * 100",
+                "Diversified crop production index": "Measure of crop diversity for nutrition",
+                "Household dietary diversity score": "Average food group count"
+            },
+            "Improve maternal and child nutrition": {
+                "Stunting prevalence (%)": "(Stunted children / Total children) * 100",
+                "Exclusive breastfeeding rate (%)": "(Infants exclusively breastfed / Total infants) * 100",
+                "Micronutrient supplementation coverage (%)": "(Children supplemented / Total children) * 100",
+                "Nutrition education participation (%)": "(Mothers trained / Total mothers) * 100"
+            },
+            "Enhance school feeding and nutrition education": {
+                "School feeding coverage (%)": "(Beneficiary schools / Total schools) * 100",
+                "Local sourcing rate (%)": "(Local food sourced / Total food) * 100",
+                "Meal quality compliance (%)": "(Compliant meals / Total meals) * 100",
+                "Student nutrition awareness score": "Improvement in knowledge of nutrition"
+            },
+            "Strengthen food fortification programs": {
+                "Fortified food production (%)": "(Fortified output / Total production) * 100",
+                "Industry compliance rate (%)": "(Compliant producers / Total producers) * 100",
+                "Micronutrient availability increase (%)": "((After - Before)/Before)*100",
+                "Consumer awareness of fortification (%)": "(Aware population / Total population) * 100"
+            },
+            "Promote sustainable food systems": {
+                "Sustainable sourcing rate (%)": "(Sustainably sourced food / Total food) * 100",
+                "Food loss reduction (%)": "((Previous - Current loss)/Previous)*100",
+                "Sustainable diet adoption (%)": "(Households following sustainable diets / Total) * 100",
+                "Agroecology project share (%)": "(Agroecology projects / Total) * 100"
+            },
+            "Integrate food security monitoring systems": {
+                "Early warning updates (per year)": "Frequency of FSN bulletins",
+                "Food insecurity prevalence (%)": "(Insecure households / Total) * 100",
+                "Data collection coverage (%)": "(Surveyed regions / Total regions) * 100",
+                "Timeliness of reporting (%)": "(Reports on time / Total expected) * 100"
+            },
+            "Support national food security coordination": {
+                "Multi-agency coordination score": "Effectiveness of inter-ministerial coordination",
+                "Resource allocation efficiency (%)": "(Funds utilized / Funds allocated) * 100",
+                "Program harmonization index": "Extent of aligned donor/partner projects",
+                "National FSN policy implementation (%)": "(Implemented activities / Planned) * 100"
+            }
+        },
+
     },
 
     "Internal Process Perspective": {
+        "Research & Development Results": {
+            "Increase investment in agricultural R&D": {
+                "R&D expenditure ratio (%)": "(R&D spend / Total budget) * 100",
+                "Projects funded (#)": "Number of research projects supported",
+                "Innovation index": "Composite score for innovation output",
+                "Patents or technologies developed (#)": "Count of registered innovations"
+            },
+            "Enhance adoption of improved technologies": {
+                "Adoption rate (%)": "(Users of new tech / Targeted farmers) * 100",
+                "Yield increase (%)": "((After adoption - Before)/Before)*100",
+                "Training sessions on new tech (#)": "Number of awareness activities",
+                "Farmer satisfaction with new tech (%)": "Survey rating"
+            },
+            "Strengthen public-private R&D collaboration": {
+                "Joint research projects (#)": "Collaborative initiatives",
+                "Private investment share (%)": "(Private funds / Total R&D) * 100",
+                "Research partnership retention (%)": "(Retained / Total partners) * 100",
+                "Commercialized outputs (#)": "Research converted into market products"
+            },
+            "Promote climate-smart agricultural innovations": {
+                "CSA technologies tested (#)": "Count of tested solutions",
+                "CSA adoption rate (%)": "(CSA users / Total farmers) * 100",
+                "GHG reduction (%)": "((Old emissions - New) / Old) * 100",
+                "Yield under climate stress (%)": "(Output / Baseline yield) * 100"
+            },
+            "Improve research dissemination and extension linkage": {
+                "Research briefs shared (#)": "Number distributed",
+                "Extension adoption rate (%)": "(Adopted recommendations / Total shared) * 100",
+                "Research-extension feedback sessions (#)": "Meetings held",
+                "Knowledge uptake index": "Composite measure of practical adoption"
+            },
+            "Enhance data and evidence-based planning": {
+                "Data-driven policy coverage (%)": "(Policies using data / Total policies) * 100",
+                "Research citations in strategies (#)": "Number of references",
+                "Monitoring data timeliness (%)": "(On-time updates / Total required) * 100",
+                "Database completeness (%)": "(Updated records / Total datasets) * 100"
+            },
+            "Develop localized innovation hubs": {
+                "Innovation centers established (#)": "Count of operational hubs",
+                "Innovations transferred (#)": "Technologies moved to production",
+                "Farmer innovators supported (#)": "Farmers trained in innovation use",
+                "Community innovation rate (%)": "(Innovators / Total communities) * 100"
+            },
+            "Foster knowledge sharing and publication": {
+                "Research publications (#)": "Papers and reports released",
+                "Knowledge dissemination events (#)": "Workshops and expos held",
+                "Stakeholder participation (%)": "(Participants / Invited) * 100",
+                "Knowledge sharing satisfaction (%)": "Feedback survey result"
+            }
+        },
+
+        "Policy Frameworks & Regulation": {
+            "Strengthen agricultural policy implementation": {
+                "Policy adoption rate (%)": "(Adopted / Proposed) * 100",
+                "Implementation timeliness (%)": "(On-time actions / Total actions) * 100",
+                "Stakeholder compliance rate (%)": "(Compliant entities / Total) * 100",
+                "Policy impact index": "Composite effectiveness measure"
+            },
+            "Enhance regulatory oversight in agri-markets": {
+                "Inspections conducted (#)": "Market compliance checks",
+                "Non-compliance cases resolved (%)": "(Resolved / Reported) * 100",
+                "Product quality certification rate (%)": "(Certified / Total products) * 100",
+                "Enforcement action timeliness (%)": "(On-time / Total actions) * 100"
+            },
+            "Promote fair trade and pricing regulation": {
+                "Price monitoring coverage (%)": "(Markets monitored / Total markets) * 100",
+                "Farmgate-to-retail margin (%)": "(Retail - Farmgate)/Farmgate * 100",
+                "Price volatility index": "Standard deviation of monthly price changes",
+                "Complaints resolved (%)": "(Resolved / Filed) * 100"
+            },
+            "Enhance policy coordination across institutions": {
+                "Inter-agency meetings held (#)": "Coordination forums conducted",
+                "Joint programs implemented (#)": "Collaborative initiatives",
+                "Policy coherence index": "Assessment score on alignment",
+                "Duplication rate (%)": "(Overlaps / Total programs) * 100"
+            },
+            "Promote inclusive and participatory policymaking": {
+                "Stakeholder consultations (#)": "Meetings and feedback sessions",
+                "Stakeholder representation diversity (%)": "(Groups represented / Total invited) * 100",
+                "Public policy awareness (%)": "(Aware citizens / Total population) * 100",
+                "Policy satisfaction score": "Average stakeholder feedback rating"
+            },
+            "Simplify licensing and regulatory procedures": {
+                "Average approval time (days)": "Mean time for licensing",
+                "Digitalized services (%)": "(Online processes / Total services) * 100",
+                "Client satisfaction (%)": "Survey score on ease of use",
+                "Processing error rate (%)": "(Errors / Total processed) * 100"
+            },
+            "Enhance food safety and standards enforcement": {
+                "Inspected facilities (%)": "(Inspected / Total facilities) * 100",
+                "Compliance rate (%)": "(Compliant / Inspected) * 100",
+                "Product recall incidents (#)": "Number of unsafe product recalls",
+                "Testing coverage (%)": "(Tested samples / Total samples) * 100"
+            },
+            "Integrate environmental and climate policies": {
+                "Climate policy integration rate (%)": "(Climate-integrated / Total policies) * 100",
+                "Sustainability indicator tracking (%)": "(Tracked / Total indicators) * 100",
+                "Deforestation reduction rate (%)": "((Old - New)/Old)*100",
+                "Green investment ratio (%)": "(Green funds / Total investment) * 100"
+            }
+        },
+
         "Agricultural Production Excellence: Crops": {
             "Maximize Crop Yields": {
                 "Yield per hectare": "Total crop production / Total cultivated area",
@@ -853,6 +1384,57 @@ AGRICULTURE_PERSPECTIVE = {
                 "Disaster recovery capability": "Time to restore operations after disruption",
                 "Redundant system implementation": "Percentage of critical systems with backups",
                 "Supply chain resilience": "Ability to maintain supply during disruptions"
+            }
+        },
+
+        "Disaster Relief & Recovery Support": {
+            "Improve agricultural disaster preparedness": {
+                "Preparedness plan coverage (%)": "(Covered regions / Total regions) * 100",
+                "Training sessions on DRR (#)": "Number of training sessions conducted",
+                "Simulation exercises (#)": "Mock drills held annually",
+                "Response readiness score": "Composite emergency preparedness score"
+            },
+            "Enhance early warning and risk communication": {
+                "Early warning system coverage (%)": "(Regions with EWS / Total regions) * 100",
+                "Lead time before disaster (days)": "Average warning period",
+                "Information dissemination reach (%)": "(People informed / Total population) * 100",
+                "Forecast accuracy (%)": "(Accurate alerts / Total alerts) * 100"
+            },
+            "Provide timely disaster response assistance": {
+                "Response time (hours)": "Average time between alert and aid delivery",
+                "Relief coverage (%)": "(Households assisted / Affected households) * 100",
+                "Emergency supply adequacy (%)": "(Supplies delivered / Needed) * 100",
+                "Beneficiary satisfaction (%)": "Average satisfaction rating"
+            },
+            "Rehabilitate damaged agricultural infrastructure": {
+                "Infrastructure restored (%)": "(Repaired / Damaged) * 100",
+                "Rehabilitation completion time (days)": "Average project duration",
+                "Restoration investment ($)": "Total funds allocated",
+                "Rehabilitation quality score": "Assessment of restoration effectiveness"
+            },
+            "Support affected farmers’ recovery": {
+                "Compensation disbursed ($)": "Funds provided to affected farmers",
+                "Recovery program participation (%)": "(Participating farmers / Affected farmers) * 100",
+                "Crop replanting rate (%)": "(Replanted area / Affected area) * 100",
+                "Livestock restocking ratio (%)": "(Restocked animals / Lost animals) * 100"
+            },
+            "Promote climate risk insurance mechanisms": {
+                "Insurance coverage rate (%)": "(Insured farmers / Total farmers) * 100",
+                "Claim processing time (days)": "Average time to settle claims",
+                "Payout rate (%)": "(Claims paid / Claims filed) * 100",
+                "Insurance awareness score": "Farmer understanding of products"
+            },
+            "Integrate disaster risk reduction in planning": {
+                "Risk-informed plan coverage (%)": "(Plans integrating DRR / Total plans) * 100",
+                "Budget allocated to DRR (%)": "(DRR budget / Total budget) * 100",
+                "Hazard mapping coverage (%)": "(Mapped areas / Total regions) * 100",
+                "Policy integration index": "Extent of DRR embedded in policies"
+            },
+            "Monitor post-disaster recovery outcomes": {
+                "Recovery index": "Composite score measuring livelihood restoration",
+                "Household resilience index": "Recovery and coping capacity metric",
+                "Livelihood restoration rate (%)": "(Recovered households / Total affected) * 100",
+                "Time to full recovery (months)": "Average recovery period"
             }
         },
 

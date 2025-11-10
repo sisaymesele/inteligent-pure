@@ -1,4 +1,4 @@
-MINING_SECTOR = {
+MINING_PERSPECTIVE = {
     "Financial Perspective": {
         # -------------------- Revenue Excellence & Growth --------------------
         # -------------------- Revenue Growth & Diversification --------------------

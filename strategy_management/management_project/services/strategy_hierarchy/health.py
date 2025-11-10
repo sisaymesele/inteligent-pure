@@ -1,174 +1,254 @@
-HEALTH_SECTOR = {
+
+from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+
+
+HEALTH_PERSPECTIVE = {
     "Financial Perspective": {
         # ==================== HEALTHCARE  ====================
-        # ==================== PROFITABILITY ====================
-        "Health Profitability": {
-            "Maximize Net Healthcare Income": {
-                "Net operating margin (%)": "(Net hospital income / Total hospital revenue) * 100",
-                "Profit growth rate (%)": "(Current net profit - Previous year net profit) / Previous * 100",
-                "Return per patient ($/patient)": "Net income / Total patients treated",
-                "Care quality investment ratio (%)": "(Spending on patient care improvements / Total hospital expenditure) * 100"
-            },
-            "Enhance Clinical Service Margins": {
-                "Department gross margin (%)": "(Department revenue - Direct treatment costs) / Department revenue * 100",
-                "Specialty-specific margin improvement (%)": "Increase in profitability for underperforming clinical departments",
-                "Direct treatment cost efficiency (%)": "Reduction in cost per patient for medications, consumables, and staff time",
-                "Pricing effectiveness (%)": "Impact of procedure and service pricing adjustments on patient volume and revenue"
-            },
-            "Improve Hospital Operational Efficiency": {
-                "Administrative cost ratio (%)": "(Administrative costs / Total hospital expenses) * 100",
-                "Patient-to-clinical staff ratio": "Total patients / Total medical staff",
-                "Bed utilization rate (%)": "(Occupied bed days / Total available bed days) * 100",
-                "Break-even patient volume": "Minimum patients required to cover fixed hospital costs"
-            },
-            "Optimize Contribution Margins": {
-                "Average contribution margin per service (%)": "(Service revenue - Variable costs) / Service revenue * 100",
-                "Departmental profitability index": "Net financial contribution of each hospital department",
-                "Service mix optimization (%)": "Weighted margin across hospital services and specialties",
-                "Variable cost control efficiency (%)": "Reduction in consumables and treatment costs per patient"
-            }
-        },
+        # ---------------- Core Generic Financial Objectives ----------------
+        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
 
-        # ==================== REVENUE GROWTH ====================
-        "Health Revenue Growth": {
+        # ==================== 1. Healthcare Revenue Growth & Funding ====================
+        "Healthcare Revenue Growth & Funding": {
+            "Expand Healthcare Funding Sources": {
+                "Government health funding ($)": "Funding from national/state health departments",
+                "Insurance reimbursement revenue ($)": "Revenue from insurance claims and reimbursements",
+                "Grant funding for health programs ($)": "Funding from health-focused grants and donors",
+                "Private pay patient revenue ($)": "Revenue from self-paying patients"
+            },
             "Increase Patient Service Revenue": {
-                "Total hospital revenue growth (%)": "(Current revenue - Previous revenue) / Previous * 100",
-                "Revenue per patient ($/patient)": "Total revenue / Total patients treated",
-                "Patient retention revenue impact (%)": "Revenue from returning patients vs lost patients",
-                "Service utilization rate (%)": "(Treatments performed / Maximum treatment capacity) * 100"
+                "Outpatient visit revenue growth (%)": "(Current - Previous) / Previous * 100",
+                "Inpatient bed revenue ($)": "Revenue from hospitalized patients",
+                "Surgical procedure revenue ($)": "Income from surgical operations and procedures",
+                "Diagnostic service revenue ($)": "Revenue from lab tests, imaging, and diagnostics"
             },
-            "Expand Market & Service Offerings": {
-                "Market share (%)": "(Patients served / Total regional patient population) * 100",
-                "Revenue from specialized services ($)": "Income from high-demand procedures (e.g., cardiac surgery, oncology)",
-                "Revenue from telemedicine & outpatient services ($)": "Income from remote consultations and outpatient care",
-                "New patient acquisition rate (%)": "(New patients / Total hospital prospects) * 100"
+            "Diversify Specialized Service Lines": {
+                "Specialty clinic revenue ($)": "Income from specialized medical services",
+                "Telehealth service revenue ($)": "Revenue from virtual consultations and remote care",
+                "Chronic disease management revenue ($)": "Income from long-term condition management",
+                "Preventive care program revenue ($)": "Revenue from wellness and prevention services"
             },
-            "Accelerate New Service Revenue": {
-                "Revenue from new clinical services (%)": "(Revenue from new procedures / Total revenue) * 100",
-                "Time-to-break-even for new services (months)": "Months for new service revenue to cover development costs",
-                "R&D ROI on clinical innovation (%)": "(Revenue from new treatments / Innovation investment) * 100",
-                "Partnership revenue ($)": "Revenue from joint ventures, hospital networks, or insurance partnerships"
+            "Optimize Payer Mix & Reimbursement": {
+                "Medicare/Medicaid reimbursement rate (%)": "Collection rate from government payers",
+                "Private insurance collection rate (%)": "Collection rate from private insurers",
+                "Bad debt ratio (%)": "(Uncollectible revenue / Total revenue) * 100",
+                "Average reimbursement per case ($)": "Total reimbursements / Number of cases"
             },
-            "Diversify Revenue Streams": {
-                "Revenue diversity index": "1 - (Top 1 service revenue / Total revenue)",
-                "Revenue from preventive care & wellness programs ($)": "Income from screenings, vaccinations, wellness clinics",
-                "Revenue from diagnostics & lab services ($)": "Income from lab tests, imaging, and pathology",
-                "Revenue from other auxiliary healthcare services ($)": "Revenue from pharmacy, rehabilitation, or training services"
+            "Leverage Public-Private Partnerships": {
+                "PPP health project ratio (%)": "(PPP-funded health projects / Total projects) * 100",
+                "Corporate wellness partnership revenue ($)": "Income from corporate health programs",
+                "Pharmaceutical research funding ($)": "Funding from drug trials and research partnerships",
+                "Medical equipment partnership value ($)": "Value of equipment partnerships and leases"
+            },
+            "Enhance Grant & Research Funding": {
+                "Medical research grant success rate (%)": "(Grants awarded / Grants applied) * 100",
+                "Clinical trial revenue ($)": "Income from pharmaceutical and device trials",
+                "Research publication ROI": "Impact and value from research outputs",
+                "Grant utilization efficiency (%)": "(Funds utilized / Funds awarded) * 100"
             }
         },
 
-        # ==================== COST MANAGEMENT ====================
-        "Health Cost Management": {
-            "Administrative Cost Optimization": {
-                "Admin cost ratio (%)": "(Administrative costs / Total hospital expenses) * 100",
-                "Staff cost per employee ($)": "Total hospital staff cost / Total employees",
-                "Overhead reduction (%)": "(Previous overhead - Current) / Previous * 100",
-                "Procurement efficiency ($)": "Savings from bulk purchasing and supplier negotiation"
+        # ==================== 2. Healthcare Infrastructure & Asset Finance ====================
+        "Healthcare Infrastructure & Asset Finance": {
+            "Modernize Medical Facilities": {
+                "Hospital modernization investment ($)": "Capital spent on facility upgrades",
+                "Medical equipment upgrade ratio (%)": "(Upgraded equipment / Total equipment) * 100",
+                "Digital infrastructure investment ($)": "Spending on IT and digital systems",
+                "Facility expansion capacity (%)": "(Added capacity / Current capacity) * 100"
             },
-            "Clinical Cost Efficiency": {
-                "Treatment cost per patient ($)": "Total clinical costs / Total patients treated",
-                "Medical staff workload utilization (%)": "(Actual treatments delivered / Max capacity) * 100",
-                "Resource cost savings ($)": "Savings from shared medical equipment or supplies",
-                "Cost variance (%)": "(Planned clinical cost - Actual clinical cost) / Planned * 100"
+            "Optimize Medical Asset Utilization": {
+                "Medical equipment utilization rate (%)": "(Hours used / Available hours) * 100",
+                "Operating room utilization (%)": "(OR hours used / Total OR hours) * 100",
+                "Bed occupancy rate (%)": "(Occupied beds / Available beds) * 100",
+                "Imaging equipment throughput (patients/day)": "Patients served per equipment unit"
             },
-            "Operational Expense Control": {
-                "Facility cost per patient ($)": "Facility expenses / Patients treated",
-                "Energy cost reduction (%)": "(Previous energy cost - Current) / Previous * 100",
-                "Maintenance cost efficiency ($/unit)": "Maintenance cost per equipment or hospital area",
-                "Administrative process cost reduction (%)": "Efficiency improvement in hospital administrative processes"
+            "Enhance Healthcare Technology": {
+                "EMR/EHR system ROI (%)": "(Benefits - Cost) / Cost * 100",
+                "Telemedicine platform investment ($)": "Spending on remote care technology",
+                "Medical device technology index": "Score of technology advancement in medical devices",
+                "Digital health adoption rate (%)": "(Digital services used / Total services) * 100"
             },
-            "Optimize Auxiliary Services Costs": {
-                "Service cost ratio (%)": "(Direct service costs / Revenue from services) * 100",
-                "Labor cost per unit ($/unit)": "Labor cost / Auxiliary service unit delivered",
-                "Material cost efficiency ($)": "Reduction in consumable costs per patient",
-                "Cost variance reduction (%)": "Planned vs actual cost savings for auxiliary services"
+            "Preventive Maintenance & Equipment Lifecycle": {
+                "Medical equipment uptime (%)": "(Available hours / Total hours) * 100",
+                "Preventive maintenance compliance (%)": "(Equipment maintained / Total equipment) * 100",
+                "Equipment replacement cycle (years)": "Average lifespan of medical equipment",
+                "Maintenance cost per asset ($)": "Total maintenance spend / Number of assets"
+            },
+            "Improve Facility Efficiency": {
+                "Energy cost per bed ($)": "Total energy cost / Number of beds",
+                "Space utilization efficiency (%)": "(Utilized space / Total space) * 100",
+                "Patient flow optimization score": "Efficiency of patient movement through facilities",
+                "Infrastructure cost per patient ($)": "Facility costs / Number of patients served"
             }
         },
 
-        # ==================== RESOURCE UTILIZATION ====================
-        "Health Resource Utilization": {
-            "Optimize Facility & Equipment Use": {
-                "Bed occupancy rate (%)": "(Occupied bed days / Total available bed days) * 100",
-                "Facility space efficiency": "Patients treated per square meter of hospital space",
-                "Shift scheduling efficiency (%)": "Optimal output across shifts using the same resources",
-                "Energy cost per patient ($)": "Total energy cost / Patients treated"
+        # ==================== 3. Healthcare Profitability & Return ====================
+        "Healthcare Profitability & Return": {
+            "Improve Overall Healthcare Margins": {
+                "Net patient service margin (%)": "(Net patient revenue - Patient costs) / Revenue * 100",
+                "Operating margin (%)": "(Operating income / Total revenue) * 100",
+                "EBITDA margin (%)": "EBITDA / Total revenue * 100",
+                "Contribution margin per service line (%)": "(Revenue - Variable costs) / Revenue * 100"
             },
-            "Improve Clinical Productivity": {
-                "Revenue per clinician ($/clinician)": "Total revenue / Number of clinicians",
-                "Patient-to-clinician ratio": "Total patients / Clinical staff",
-                "Procedure completion rate (%)": "(Completed procedures / Planned procedures) * 100",
-                "Telemedicine efficiency ratio": "Cost per remote patient vs in-person patient"
+            "Enhance Clinical Service Profitability": {
+                "Surgical procedure profitability (%)": "(Procedure revenue - Costs) / Revenue * 100",
+                "Outpatient visit profit margin (%)": "(Visit revenue - Costs) / Revenue * 100",
+                "Diagnostic service ROI (%)": "(Revenue - Equipment cost) / Equipment cost * 100",
+                "Specialty clinic break-even time (months)": "Time for new clinics to become profitable"
             },
-            "Enhance Technology Efficiency": {
-                "Technology cost per patient ($)": "IT and medical tech investment / Total patients",
-                "Digital system utilization (%)": "(Active staff users / Total staff) * 100",
-                "IT support efficiency (# resolved tickets / IT staff)": "Tickets resolved per IT staff member",
-                "Automation ROI (%)": "Operational improvement / Automation investment"
+            "Optimize Resource Utilization": {
+                "Cost per patient day ($)": "Total costs / Patient days",
+                "Physician productivity (RVUs/provider)": "Relative Value Units per healthcare provider",
+                "Staffing cost efficiency (%)": "(Actual staffing cost / Budgeted) * 100",
+                "Supply cost per procedure ($)": "Medical supplies cost / Number of procedures"
             },
-            "Optimize Auxiliary Resource Use": {
-                "Service utilization rate (%)": "(Actual usage / Capacity) * 100",
-                "Facility operating efficiency": "Energy and maintenance cost per patient",
-                "Break-even service volume optimization": "Minimum patient or service volume to cover fixed costs",
-                "Variable cost control efficiency (%)": "Reduction in auxiliary service costs per patient"
+            "Maximize Payer Contract Performance": {
+                "Contractual allowance rate (%)": "(Contractual adjustments / Gross revenue) * 100",
+                "Denial rate (%)": "(Claims denied / Claims submitted) * 100",
+                "Collection rate (%)": "(Amount collected / Amount billed) * 100",
+                "Days in accounts receivable": "Average days to collect payments"
+            },
+            "Improve Ancillary Service Returns": {
+                "Pharmacy profit margin (%)": "(Pharmacy revenue - Costs) / Revenue * 100",
+                "Laboratory service ROI (%)": "(Lab revenue - Equipment cost) / Equipment cost * 100",
+                "Radiology department margin (%)": "(Radiology revenue - Costs) / Revenue * 100",
+                "Rehabilitation service profitability (%)": "(Therapy revenue - Costs) / Revenue * 100"
             }
         },
 
-        # ==================== ECONOMIC DEVELOPMENT & GDP CONTRIBUTION ====================
+        # ==================== 4. Healthcare Financial Risk Management ====================
+        "Healthcare Financial Risk Management": {
+            "Manage Clinical & Malpractice Risk": {
+                "Malpractice insurance cost ($)": "Total professional liability insurance costs",
+                "Claims settlement ratio (%)": "(Settled claims / Total claims) * 100",
+                "Risk management program effectiveness": "Score of risk mitigation program success",
+                "Patient safety incident cost ($)": "Financial impact of safety events"
+            },
+            "Mitigate Regulatory Compliance Risk": {
+                "HIPAA compliance audit score (%)": "Results of privacy and security audits",
+                "Medicare compliance rate (%)": "(Compliant billing / Total billing) * 100",
+                "Accreditation maintenance cost ($)": "Cost to maintain regulatory certifications",
+                "Regulatory penalty avoidance ($)": "Estimated savings from compliance"
+            },
+            "Address Healthcare Market Risks": {
+                "Market share volatility (%)": "Variation in patient volume and market position",
+                "Payer mix stability index": "Consistency of insurance payer distribution",
+                "Competitive pricing pressure index": "Impact of competitor pricing on margins",
+                "Service demand forecasting accuracy (%)": "(Actual demand / Forecasted demand) * 100"
+            },
+            "Manage Operational & Continuity Risks": {
+                "Business interruption insurance coverage (%)": "(Covered risks / Total risks) * 100",
+                "Disaster recovery readiness score": "Preparedness for emergency scenarios",
+                "Supply chain disruption cost ($)": "Financial impact of medical supply shortages",
+                "Staffing shortage impact ($)": "Cost of temporary staff and overtime"
+            }
+        },
+
+        # ==================== 5. Healthcare Cost Efficiency ====================
+        "Healthcare Cost Efficiency": {
+            "Optimize Clinical Operations Costs": {
+                "Cost per case ($)": "Total treatment cost / Number of cases",
+                "Medication cost per patient ($)": "Drug costs / Number of patients",
+                "Laboratory test cost efficiency (%)": "(Standard cost / Actual cost) * 100",
+                "Surgical supply utilization rate (%)": "(Supplies used / Supplies opened) * 100"
+            },
+            "Reduce Administrative Overhead": {
+                "Administrative cost ratio (%)": "(Admin costs / Total revenue) * 100",
+                "Billing and coding cost per claim ($)": "Revenue cycle costs / Number of claims",
+                "IT support cost per user ($)": "IT costs / Number of system users",
+                "Facility overhead per square foot ($)": "Overhead costs / Total facility space"
+            },
+            "Improve Staffing Efficiency": {
+                "Nursing hours per patient day": "Direct care hours / Patient days",
+                "Physician to support staff ratio": "Number of physicians / Support staff",
+                "Overtime cost percentage (%)": "(Overtime costs / Total labor costs) * 100",
+                "Employee turnover cost ($)": "Recruitment and training costs for replacements"
+            },
+            "Enhance Supply Chain Management": {
+                "Medical supply cost savings ($)": "Savings from group purchasing and negotiations",
+                "Inventory turnover ratio": "Cost of goods sold / Average inventory",
+                "Pharmaceutical waste reduction (%)": "(Reduced waste / Previous waste) * 100",
+                "Group purchasing organization savings ($)": "Savings from collective purchasing"
+            }
+        },
+
+        # ==================== 6. Long-term Healthcare Sustainability & Investment ====================
+        "Long-term Healthcare Sustainability & Investment": {
+            "Develop Strategic Service Lines": {
+                "Specialty service investment ROI (%)": "(Revenue - Investment) / Investment * 100",
+                "New service line adoption rate (%)": "(Successful new services / Total launched) * 100",
+                "Center of excellence development cost ($)": "Investment in specialized care centers",
+                "Market leadership position index": "Competitive ranking in key service areas"
+            },
+            "Invest in Healthcare Innovation": {
+                "Digital health technology ROI (%)": "(Efficiency gains - Cost) / Cost * 100",
+                "Telemedicine adoption ROI (%)": "(Revenue - Implementation cost) / Cost * 100",
+                "Clinical research investment ($)": "Funding for medical research and trials",
+                "Medical technology upgrade cycle (years)": "Average equipment refresh rate"
+            },
+            "Ensure Financial Sustainability": {
+                "Days cash on hand": "Cash reserves / Average daily expenses",
+                "Debt service coverage ratio": "Operating income / Debt payments",
+                "Capital expenditure ratio (%)": "(Capital spending / Depreciation) * 100",
+                "Reserve fund growth (%)": "(Current reserves - Previous) / Previous * 100"
+            },
+            "Build Community Health Partnerships": {
+                "Community health program investment ($)": "Funding for public health initiatives",
+                "Partnership revenue growth (%)": "(Current - Previous) / Previous * 100",
+                "Population health management ROI (%)": "(Health outcomes value / Program cost) * 100",
+                "Preventive care program impact ($)": "Reduction in acute care costs from prevention"
+            }
+        },
+
+        # ==================== 7. Healthcare Quality & Value-Based Finance ====================
+        "Healthcare Quality & Value-Based Finance": {
+            "Optimize Value-Based Care Performance": {
+                "Value-based payment revenue ($)": "Income from outcomes-based contracts",
+                "Quality incentive earnings ($)": "Bonuses from quality performance programs",
+                "Readmission reduction savings ($)": "Savings from reduced hospital readmissions",
+                "Patient outcome-based reimbursement (%)": "(Outcome-linked payments / Total revenue) * 100"
+            },
+            "Enhance Patient Experience Economics": {
+                "Patient satisfaction revenue impact ($)": "Revenue linked to patient experience scores",
+                "HCAHPS performance incentives ($)": "Earnings from patient survey performance",
+                "Retention rate revenue value ($)": "Revenue from patient loyalty and retention",
+                "Reputation-driven referral revenue ($)": "Income from word-of-mouth referrals"
+            },
+            "Improve Clinical Quality Finance": {
+                "Infection prevention savings ($)": "Cost avoidance from reduced healthcare infections",
+                "Medication error cost reduction ($)": "Savings from improved medication safety",
+                "Clinical pathway efficiency gains ($)": "Savings from standardized care protocols",
+                "Complication rate cost impact ($)": "Financial impact of reduced complications"
+            }
+        },
+
+        # ==================== 8. Health Economic Development ====================
         "Health Economic Development": {
-            "Increase GDP Contribution": {
-                "Healthcare GDP contribution (%)": "(Healthcare output / Regional GDP) * 100",
-                "Value-added per patient ($)": "GDP contribution / Patients treated",
-                "Growth in GDP contribution (%)": "(Current - Previous) / Previous * 100",
-                "Sectoral impact multiplier": "Indirect economic impact of healthcare spending"
+            "Strengthen Community Health Economics": {
+                "Local healthcare employment growth (%)": "Increase in healthcare jobs in the community",
+                "Community health expenditure ($)": "Total spending on public health programs",
+                "Local health investment projects (#)": "Number of funded community health initiatives",
+                "Healthcare SME support funding ($)": "Funding for small healthcare enterprises"
             },
-            "Promote Employment & Skills Development": {
-                "Total sector employment (#)": "Number of healthcare employees",
-                "Jobs created per $1M revenue": "Employment impact per revenue unit",
+            "Promote Workforce Development": {
+                "Healthcare training program graduates (#)": "Number of trained professionals completing programs",
                 "Staff retention rate (%)": "(Retained staff / Total staff) * 100",
-                "Skill gap reduction index": "Improvement in workforce readiness and clinical skills"
+                "Professional development investment ($)": "Spending on staff skills and training",
+                "Healthcare workforce productivity index": "Performance and efficiency measure for staff"
             },
-            "Increase Innovation & Technology Contribution": {
-                "Medical patents filed (#)": "Patents or medical device approvals",
-                "New clinical protocols implemented (#)": "Number of evidence-based practices adopted",
-                "R&D output per staff (#)": "Research outputs per staff member",
-                "Technology adoption rate (%)": "Percentage of new medical technologies adopted"
+            "Enhance Public Health Infrastructure": {
+                "New community clinics (#)": "Number of clinics opened in underserved areas",
+                "Health facility coverage (%)": "(Population served / Total population) * 100",
+                "Medical equipment provision ($)": "Funds spent on community medical equipment",
+                "Digital health access index": "Measure of population access to digital health services"
             },
-            "Enhance Community Health Impact": {
-                "Community health programs (#)": "Programs delivered to local population",
-                "Volunteer staff hours (#)": "Total volunteer hours in community",
-                "Local economic uplift ($)": "Income generated through community health initiatives",
-                "Community ROI (%)": "(Benefits / Cost of programs) * 100"
+            "Drive Health System Investment": {
+                "Public-private partnership projects (#)": "Number of PPP health initiatives",
+                "Health innovation grants ($)": "Funding for local health innovation projects",
+                "Preventive care outreach programs (#)": "Number of programs delivered",
+                "Population health ROI (%)": "(Health outcomes improvement / Investment) * 100"
             }
         },
-
-        # ==================== RISK MANAGEMENT ====================
-        "Health Finance Risk Management": {
-            "Enhance Patient Safety & Compliance": {
-                "Incident frequency rate (#/1000 patient-days)": "(Adverse events / Total patient days) * 1000",
-                "Regulatory compliance (%)": "(Inspections passed / Total inspections) * 100",
-                "Safety audit compliance (%)": "(Audits passed / Total safety audits) * 100",
-                "Emergency preparedness score": "Readiness score for disaster and emergency situations"
-            },
-            "Financial & Market Risk Control": {
-                "Market price volatility exposure": "Revenue impact due to cost fluctuations in supplies or services",
-                "Liquidity ratio": "Current assets / Current liabilities",
-                "Debt service coverage ratio": "Operating cash flow / Debt obligations",
-                "Insurance coverage adequacy (%)": "Insurance coverage relative to potential financial loss"
-            },
-            "Operational & Supply Chain Risk Management": {
-                "Equipment downtime (%)": "(Hours of downtime / Total equipment hours) * 100",
-                "Supply chain disruption rate (%)": "(Delayed or missed deliveries / Total shipments) * 100",
-                "Inventory adequacy ratio (%)": "(Inventory available / Service demand) * 100",
-                "Critical equipment redundancy (%)": "Availability of backup equipment"
-            },
-            "Reputation & Regulatory Risk": {
-                "Compliance audit score": "Score from regulatory inspections",
-                "Fines & penalties ($)": "Amount paid in regulatory fines",
-                "Patient complaint resolution (%)": "(Resolved complaints / Total complaints) * 100",
-                "CSR engagement index": "Community engagement and hospital reputation effectiveness"
-            },
-        }
-
     },
 
     "Patient & Community Perspective": {
