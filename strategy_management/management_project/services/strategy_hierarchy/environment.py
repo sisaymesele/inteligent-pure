@@ -247,7 +247,7 @@ ENVIRONMENT_PERSPECTIVE = {
         },
     },
 
-    "CUSTOMER_PERSPECTIVE": {
+    "Customer Perspective": {
 
         # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
         **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],

@@ -1,6 +1,6 @@
 
 
-GENERIC_INTERNAL_PROCESS_PERSPECTIVE_DATA = {
+GENERIC_INTERNAL_PROCESS_PERSPECTIVE = {
     "Internal Process Perspective": {
         "Operational Excellence & Quality": {
             "Reduce process cycle times": {

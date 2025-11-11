@@ -1,5 +1,5 @@
 
-GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE_DATA = {
+GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE = {
 
     "Learning & Growth Perspective": {
         "People & Culture Development": {

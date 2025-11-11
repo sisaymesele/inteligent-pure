@@ -1,66 +1,173 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+
 
 INDUSTRY_PERSPECTIVE = {
     "Financial Perspective": {
-        # Import generic financial KPIs
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
-        # -------------------- Industry Economic Development --------------------
+        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+
+        # ==================== 1. Industry Economic Development ====================
         "Industry Economic Development": {
-            "Enhance Manufacturing Output & Efficiency": {
-                "Production volume growth (%)": "(Current production - Previous production) / Previous production * 100",
-                "Production cost per unit ($)": "Total production cost / Units produced",
-                "Capacity utilization rate (%)": "(Actual output / Maximum capacity) * 100",
-                "Defect rate reduction (%)": "(Previous defects - Current defects) / Previous defects * 100"
+            "Promote Industrial Value Creation": {
+                "Value-added production growth (%)": "(Current value-added - Previous) / Previous * 100",
+                "Revenue from industrial activities ($)": "Total revenue from industrial operations",
+                "Industrial sector GDP contribution ($)": "Estimated GDP contribution",
+                "Industrial employment growth (#)": "Jobs created in industrial sector"
             },
-            "Promote Innovation & Technology Adoption": {
-                "New technologies implemented (#)": "Number of new production technologies deployed",
-                "R&D investment ($)": "Funds allocated to research & development",
-                "Automation adoption rate (%)": "(Automated production lines / Total lines) * 100",
-                "Process improvement savings ($)": "Cost reduction from efficiency improvements"
+            "Encourage Innovation & Entrepreneurship": {
+                "New industrial projects initiated (#)": "Number of new projects launched",
+                "Patents filed in industry (#)": "Number of patents filed",
+                "Prototypes developed (#)": "Number of prototypes created",
+                "Innovation adoption rate (%)": "Adopted innovations / Total innovations * 100"
             },
-            "Support SME Suppliers & Local Industry": {
-                "SME suppliers engaged (#)": "Number of local SMEs supplying raw materials or components",
-                "Procurement from local SMEs ($)": "Total spending on SMEs",
+            "Support SMEs & Local Suppliers": {
+                "SMEs supported (#)": "Number of SMEs receiving support",
                 "SME revenue growth (%)": "(Current SME revenue - Previous) / Previous * 100",
-                "SME satisfaction rate (%)": "Average satisfaction score from SME surveys"
+                "Local supplier engagement (#)": "Number of suppliers engaged",
+                "SME employment generation (#)": "Jobs created via SMEs"
             },
-            "Promote Workforce Development & Skills": {
-                "Employees trained (#)": "Total number of employees trained",
-                "Training completion rate (%)": "(Completed trainings / Total enrolled) * 100",
-                "Employee productivity improvement (%)": "Output per employee growth %", 
+            "Foster Skills & Workforce Development": {
+                "Workforce trained (#)": "Total trained personnel in industrial sector",
+                "Training completion rate (%)": "(Completed / Enrolled) * 100",
+                "Employee productivity improvement (%)": "Increase in output per worker",
                 "Workforce retention rate (%)": "(Employees retained / Total hired) * 100"
             },
-            "Encourage Sustainable & Green Manufacturing": {
-                "Energy efficiency improvement (%)": "Reduction in energy consumption per unit produced",
+            "Encourage Sustainability & Green Practices": {
+                "Energy efficiency improvement (%)": "Reduction in energy consumption per unit",
                 "Waste reduction (%)": "(Previous waste - Current) / Previous * 100",
-                "Recycling rate (%)": "(Recycled waste / Total waste) * 100",
-                "Green certified production lines (#)": "Number of certified sustainable lines"
+                "Recycling & reuse rate (%)": "(Recycled materials / Total waste) * 100",
+                "Sustainable initiatives implemented (#)": "Number of green projects implemented"
             },
             "Increase Economic Contribution & GDP": {
-                "Contribution to GDP ($)": "Estimated economic contribution from industrial activities",
-                "Export revenue ($)": "Revenue from products exported",
-                "Local supplier revenue growth ($)": "Revenue growth of local suppliers",
-                "Community engagement programs (#)": "Number of initiatives supporting local economy"
+                "Contribution to GDP ($)": "Estimated contribution of industry to national GDP",
+                "Export revenue ($)": "Revenue from exported goods/services",
+                "Local supplier revenue growth ($)": "Growth in revenues of local suppliers",
+                "Community economic programs (#)": "Number of initiatives supporting local economy"
             },
-            "Boost Profitability & Financial Sustainability": {
+            "Enhance Profitability & Financial Sustainability": {
                 "Revenue growth (%)": "(Current revenue - Previous) / Previous * 100",
-                "Cost reduction (%)": "(Previous cost - Current) / Previous * 100",
-                "Operating margin improvement (%)": "(Current margin - Previous margin) / Previous margin * 100",
+                "Cost optimization (%)": "(Previous cost - Current) / Previous * 100",
+                "Net profit growth (%)": "(Current net profit - Previous) / Previous * 100",
                 "Return on investment (%)": "(Net benefits / Total investment) * 100"
             },
-            "Ensure Safety & Regulatory Compliance": {
+            "Ensure Regulatory Compliance & Safety": {
+                "Compliance rate (%)": "(Compliant processes / Total processes) * 100",
                 "Safety incidents reduction (%)": "(Previous incidents - Current) / Previous * 100",
-                "Regulatory compliance rate (%)": "(Compliant processes / Total processes) * 100",
-                "Safety training programs conducted (#)": "Number of safety trainings implemented",
-                "Audit pass rate (%)": "(Projects passing audits / Total audited projects) * 100"
-            },
-            "Foster Export & Market Diversification": {
-                "New markets entered (#)": "Number of new domestic and international markets served",
-                "Export revenue growth (%)": "(Current export revenue - Previous) / Previous * 100",
-                "Product diversification (%)": "(Number of new products / Total products) * 100",
-                "Revenue from new markets ($)": "Revenue generated from new markets"
+                "Safety & compliance training (#)": "Number of trainings conducted",
+                "Audit pass rate (%)": "(Passed audits / Total audits) * 100"
             }
-        }
-    }
+        },
+
+        # ==================== 2. Industry Startup & Entrepreneurship Support ====================
+        "Industry Startup & Entrepreneurship Support": {
+            "Support Industrial Startups": {
+                "Startup funding support ($)": "Funding and grants for industrial startups",
+                "Active startups (#)": "Operational startups",
+                "Jobs created by startups (#)": "Employment generated by startups",
+                "Spin-off companies created (#)": "New companies spun from initiatives"
+            },
+            "Promote Innovation Commercialization": {
+                "Revenue from commercialized projects ($)": "Income from commercialized innovations",
+                "Patents registered (#)": "Number of patents filed",
+                "Prototypes commercialized (#)": "Prototypes successfully commercialized",
+                "Mentorship program participation (#)": "Number of startups with mentors"
+            },
+            "Encourage Investment & Venture Capital": {
+                "Investment in startups ($)": "Capital invested in industrial ventures",
+                "Incubator/accelerator programs (#)": "Programs supporting startups",
+                "Funding rounds completed (#)": "Investment rounds completed",
+                "Investor participation rate (%)": "Active investors / Total potential investors * 100"
+            },
+            "Strengthen Entrepreneurial Ecosystem": {
+                "Networking events (#)": "Industrial networking events conducted",
+                "Collaboration projects initiated (#)": "Projects started via partnerships",
+                "Awards for industrial innovation (#)": "Recognition for startups and projects",
+                "Partnership agreements (#)": "Public-private collaborations signed"
+            },
+            "Enhance Mentorship & Advisory Support": {
+                "Mentorship programs (#)": "Number of mentorship initiatives",
+                "Startups with mentors (#)": "Startups assigned mentors",
+                "Mentorship satisfaction score (1–5)": "Average rating",
+                "Advisor engagement rate (%)": "Active advisors / Total mentors * 100"
+            },
+            "Promote Knowledge Sharing & Collaboration": {
+                "Workshops & seminars (#)": "Knowledge sharing sessions conducted",
+                "Participants in workshops (#)": "Total attendees",
+                "Collaborative projects (#)": "Projects started from collaboration",
+                "Participant satisfaction score (1–5)": "Average rating"
+            },
+            "Support Regulatory & Policy Guidance": {
+                "Policy workshops conducted (#)": "Number of workshops for startups",
+                "Startups compliant with regulations (%)": "Compliant startups / Total startups * 100",
+                "Regulatory guidance materials (#)": "Guides, toolkits, manuals provided",
+                "Policy feedback adoption rate (%)": "Implemented feedback / Total feedback * 100"
+            },
+            "Promote Social & Gender Inclusion": {
+                "Women-led startups (#)": "Number of women-led startups",
+                "Inclusive startups (#)": "Startups supporting underrepresented groups",
+                "Inclusive training sessions (#)": "Number of targeted training sessions",
+                "Inclusion participation rate (%)": "Participants from underrepresented groups / Total participants * 100"
+            }
+        },
+
+        # ==================== 3. Industry Economic Growth ====================
+        "Industry Economic Growth": {
+            "Foster Domestic Market Growth": {
+                "Local market revenue ($)": "Revenue from domestic sales",
+                "Domestic market share (%)": "Market share of local industry",
+                "New domestic clients (#)": "Number of new clients",
+                "Revenue growth rate (%)": "(Current revenue - Previous) / Previous * 100"
+            },
+            "Promote Export-Oriented Growth": {
+                "Export revenue ($)": "Revenue from international markets",
+                "New export markets (#)": "Number of new countries exported to",
+                "Export volume growth (%)": "(Current export volume - Previous) / Previous * 100",
+                "Foreign client acquisition (#)": "Number of new foreign clients"
+            },
+            "Encourage Industrial R&D & Innovation": {
+                "R&D investment ($)": "Funds allocated to R&D",
+                "Patents filed (#)": "Number of patents generated",
+                "Prototypes developed (#)": "Number of prototypes developed",
+                "Innovation adoption rate (%)": "Adopted innovations / Total innovations * 100"
+            },
+            "Strengthen Workforce Productivity": {
+                "Employee productivity improvement (%)": "Increase in output per employee",
+                "Employees trained (#)": "Number of trained employees",
+                "Training completion rate (%)": "(Completed trainings / Total enrolled) * 100",
+                "Retention rate (%)": "(Employees retained / Total hired) * 100"
+            },
+            "Promote Sustainable Practices": {
+                "Energy efficiency improvement (%)": "Reduction in energy usage",
+                "Waste reduction (%)": "(Previous waste - Current) / Previous * 100",
+                "Recycling & reuse rate (%)": "(Recycled materials / Total waste) * 100",
+                "Sustainable initiatives implemented (#)": "Number of sustainability projects"
+            },
+            "Support SME Growth": {
+                "SME revenue growth (%)": "(Current SME revenue - Previous) / Previous * 100",
+                "SMEs supported (#)": "Number of SMEs assisted",
+                "Local procurement ($)": "Procurement from SMEs",
+                "SME employment growth (#)": "Jobs created in SME sector"
+            },
+            "Boost Industrial GDP": {
+                "Industrial GDP contribution ($)": "Contribution of industry to national GDP",
+                "Sector revenue growth ($)": "Revenue growth per sector",
+                "Industrial employment growth (#)": "Jobs created across sectors",
+                "Investment in industry ($)": "Capital invested in industrial growth"
+            },
+            "Enhance Competitiveness & Market Position": {
+                "Product quality improvement (%)": "Improvement in quality metrics",
+                "Market share growth (%)": "Increase in industrial market share",
+                "Cost competitiveness (%)": "Reduction in cost vs competitors",
+                "Brand recognition improvement (%)": "Improvement in brand perception"
+            }
+        },
+    },
+
+    "Customer Perspective": {
+
+        # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
+        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+
+    },
 }

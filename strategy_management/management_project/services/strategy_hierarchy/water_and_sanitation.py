@@ -1,110 +1,141 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
 
 WATER_AND_SANITATION_PERSPECTIVE = {
+    # ----------------------------- FINANCIAL PERSPECTIVE -----------------------------
     "Financial Perspective": {
-        # Import the generic financial KPIs
         **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
-        # -------------------- Revenue Growth & Diversification --------------------
-        "Revenue Growth & Diversification": {
-            "Maximize Utility Service Revenue": {
-                "Water Service Revenue Growth": "(Current Water Revenue - Previous Water Revenue) / Previous Water Revenue * 100",
-                "Energy Service Revenue Growth": "(Current Energy Revenue - Previous Energy Revenue) / Previous Energy Revenue * 100",
-                "Combined Utility Revenue Optimization": "Optimal Combined Revenue / Total Potential Revenue * 100",
-                "Service Tier Revenue Diversification": "Diversified Tier Revenue / Total Revenue * 100"
+        # -------------------- 1. Revenue Growth & Diversification --------------------
+        "Water Revenue Growth & Diversification": {
+            "Increase Water Sales Revenue": {
+                "Revenue growth rate (%)": "(Current - Previous) / Previous * 100",
+                "Average revenue per m³": "Total water revenue / Total volume sold",
+                "Customer collection efficiency (%)": "Revenue collected / Revenue billed * 100",
+                "Unbilled consumption ratio (%)": "Unbilled volume / Total production * 100"
             },
-            "Expand Renewable Energy Revenue": {
-                "Renewable Energy Revenue Growth": "(Current Renewable Revenue - Previous Renewable Revenue) / Previous Renewable Revenue * 100",
-                "Green Energy Premium Revenue": "Green Premium Revenue / Total Energy Revenue * 100",
-                "Carbon Credit Revenue Generation": "Carbon Credit Revenue / Total Revenue * 100",
-                "Renewable Certificate Sales Growth": "(Current REC Sales - Previous REC Sales) / Previous REC Sales * 100"
-            },
-            "Develop Water Reuse Revenue Streams": {
-                "Recycled Water Revenue Growth": "(Current Recycled Water Revenue - Previous) / Previous * 100",
-                "Industrial Water Reuse Contracts": "Industrial Reuse Revenue / Total Water Revenue * 100",
-                "Agricultural Reuse Program Revenue": "Agricultural Reuse Revenue / Total Water Revenue * 100",
-                "Graywater System Revenue Contribution": "Graywater Revenue / Total Water Revenue * 100"
-            },
-            "Enhance Energy Efficiency Services Revenue": {
-                "ESCO Revenue Growth": "(Current ESCO Revenue - Previous ESCO Revenue) / Previous ESCO Revenue * 100",
-                "Energy Audit Service Revenue": "Energy Audit Revenue / Total Service Revenue * 100",
-                "Efficiency Retrofit Project Revenue": "Retrofit Project Revenue / Total Revenue * 100",
-                "Demand Response Program Revenue": "Demand Response Revenue / Total Energy Revenue * 100"
-            },
-            "Diversify Infrastructure Services Revenue": {
-                "Infrastructure Consulting Revenue": "Consulting Revenue / Total Revenue * 100",
-                "Smart Grid Service Revenue Growth": "(Current Smart Grid Revenue - Previous) / Previous * 100",
-                "Water Infrastructure Management Revenue": "Infrastructure Management Revenue / Total Revenue * 100",
-                "Public-Private Partnership Revenue": "PPP Revenue / Total Revenue * 100"
+            "Expand Non-Tariff Revenue Streams": {
+                "Revenue from sanitation fees ($)": "Total collected from sanitation services",
+                "Revenue from industrial users ($)": "Income from commercial/industrial clients",
+                "Revenue from recycled water ($)": "Income from treated wastewater reuse",
+                "Revenue from consulting & laboratory services ($)": "Service-based income"
             }
         },
 
-
-         # -------------------- Asset Management & Investment --------------------
-        "Water Asset Management & Investment": {
-            "Improve Infrastructure Asset Performance": {
-                "Asset Utilization Rate": "Utilized Assets / Total Assets * 100",
-                "Infrastructure Reliability Index": "Reliable Infrastructure / Total Infrastructure * 100",
-                "Asset Condition Improvement": "(Current Condition Score - Previous Condition Score) / Previous Condition Score * 100",
-                "Critical Asset Performance": "Performing Critical Assets / Total Critical Assets * 100"
+        # -------------------- 2. Cost Efficiency & Resource Optimization --------------------
+        "Operational Cost Optimization": {
+            "Reduce Energy Cost per m³": {
+                "Energy cost per m³ ($)": "Total energy cost / Water volume produced",
+                "Energy efficiency improvement (%)": "(Baseline - Current) / Baseline * 100",
+                "Renewable energy use (%)": "Renewable energy consumption / Total * 100",
+                "Cost savings achieved ($)": "Difference in total O&M cost vs baseline"
             },
-            "Optimize Capital Investment Returns": {
-                "ROI on Infrastructure Projects": "Net Project Benefits / Project Costs * 100",
-                "Capital Budget Adherence": "Adhered Capital Budget / Total Capital Budget * 100",
-                "Project Delivery Efficiency": "Efficient Project Deliveries / Total Projects * 100",
-                "Infrastructure Investment Performance": "Performing Investments / Total Investments * 100"
-            },
-            "Enhance Renewable Energy Assets": {
-                "Renewable Asset Capacity Utilization": "Utilized Renewable Capacity / Total Renewable Capacity * 100",
-                "Solar Farm Performance Ratio": "Actual Output / Theoretical Output * 100",
-                "Wind Farm Capacity Factor": "Actual Output / Maximum Possible Output * 100",
-                "Hydroelectric Efficiency Improvement": "(Current Hydro Efficiency - Previous) / Previous * 100"
-            },
-            "Strengthen Water Infrastructure Assets": {
-                "Water Treatment Plant Efficiency": "Efficient Treatment Plants / Total Plants * 100",
-                "Pipeline Network Performance": "Performing Pipeline Network / Total Network * 100",
-                "Reservoir Storage Optimization": "Optimal Storage Utilization / Total Storage * 100",
-                "Pumping Station Reliability": "Reliable Pumping Stations / Total Stations * 100"
-            },
-            "Improve Grid and Network Assets": {
-                "Grid Reliability Improvement": "(Current Reliability - Previous Reliability) / Previous Reliability * 100",
-                "Transmission Line Performance": "Performing Transmission Lines / Total Lines * 100",
-                "Substation Asset Health": "Healthy Substations / Total Substations * 100",
-                "Distribution Network Efficiency": "Efficient Distribution Network / Total Network * 100"
+            "Improve Non-Revenue Water (NRW) Performance": {
+                "NRW (%)": "Volume lost / Total system input * 100",
+                "Pipe leak reduction (%)": "(Previous leaks - Current) / Previous * 100",
+                "Metering accuracy (%)": "Calibrated meters / Total meters * 100",
+                "Value of water losses ($)": "Volume lost * Average tariff"
             }
         },
 
-        # -------------------- Water & Sanitation Economic Development --------------------
+        # -------------------- 3. Financial Sustainability & Capital Utilization --------------------
+        "Financial Sustainability & Capital Utilization": {
+            "Improve Cost Recovery Ratio": {
+                "Operating cost recovery (%)": "Operating revenue / Operating cost * 100",
+                "Debt service coverage ratio": "Operating income / Debt obligations",
+                "Subsidy dependency (%)": "Government subsidy / Total income * 100",
+                "Tariff adjustment implementation (%)": "Tariff revisions executed / Planned * 100"
+            },
+            "Enhance Capital Project Efficiency": {
+                "Capital budget utilization (%)": "Spent / Allocated * 100",
+                "Project completion rate (%)": "Completed projects / Planned projects * 100",
+                "Return on infrastructure investment (%)": "Benefit / Cost * 100",
+                "Average project delay (days)": "Sum of project delays / Projects completed"
+            }
+        },
+
+        # -------------------- 4. Economic Development Impact --------------------
         "Water & Sanitation Economic Development": {
-            "Expand Access to Safe Water": {
-                "Population with improved water access (%)": "(Population with access / Total population) * 100",
-                "New water connections": "Number of new connections installed",
-                "Revenue from new connections ($)": "Revenue from newly connected households",
-                "Capital investment in access expansion ($)": "Funds invested in extending networks"
+            "Increase Access in Rural Areas": {
+                "New rural connections (#)": "Number of new rural households connected",
+                "Rural service coverage (%)": "Rural population served / Total rural population * 100",
+                "Investment in rural systems ($)": "Funds allocated to rural expansion",
+                "Employment created in rural projects (#)": "New jobs generated"
             },
-            "Improve Sanitation Coverage": {
-                "Population with improved sanitation (%)": "(Population with sanitation / Total population) * 100",
-                "New sanitation facilities installed": "Number of facilities constructed",
-                "Revenue from sanitation services ($)": "Revenue from sanitation services",
-                "Capital investment in sanitation infrastructure ($)": "Funds invested in sanitation expansion"
+            "Promote Public-Private Partnerships (PPP)": {
+                "PPP investment mobilized ($)": "Private investment in water/sanitation",
+                "Active PPP contracts (#)": "Current operational PPP projects",
+                "PPP project performance rating (%)": "Average evaluation score",
+                "Private sector contribution (%)": "Private funds / Total funds * 100"
+            }
+        }
+    },
+
+    # ----------------------------- CUSTOMER PERSPECTIVE -----------------------------
+    "Customer Perspective": {
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+
+        # -------------------- 1. Service Quality & Reliability --------------------
+        "Water Service Quality": {
+            "Ensure 24/7 Water Supply": {
+                "Continuity of supply (hours/day)": "Average supply duration",
+                "Customer interruption frequency": "Average service disruptions per customer/year",
+                "Service coverage (%)": "Population served / Total population * 100",
+                "Customer complaints on supply (%)": "Supply complaints / Total complaints * 100"
             },
-            "Enhance Service Reliability & Quality": {
-                "Service uptime (%)": "(Hours service available / Total hours) * 100",
-                "Water quality compliance (%)": "Samples passing regulatory standards / Total samples * 100",
-                "Customer complaints reduction (%)": "(Previous complaints - Current) / Previous * 100",
-                "Operational efficiency index": "Water delivered / Energy and cost used"
+            "Improve Water Quality Standards": {
+                "Compliance with national standards (%)": "Tests meeting standards / Total tests * 100",
+                "Water quality testing frequency": "Tests conducted per month",
+                "Customer satisfaction on water quality (%)": "Survey satisfaction score",
+                "Response time to water quality issues (hrs)": "Average time to address contamination"
+            }
+        },
+
+        # -------------------- 2. Sanitation Service & Hygiene Improvement --------------------
+        "Sanitation Service Delivery": {
+            "Expand Sanitation Coverage": {
+                "Sanitation service coverage (%)": "Population served / Total population * 100",
+                "New sanitation connections (#)": "Newly connected households",
+                "Wastewater treated (%)": "Volume treated / Volume collected * 100",
+                "Reuse of treated wastewater (%)": "Volume reused / Volume treated * 100"
             },
-            "Promote Sustainability & Environmental Protection": {
-                "Non-revenue water reduction (%)": "(Lost water / Total water produced) * 100",
-                "Energy efficiency in treatment plants (%)": "Energy consumed per m³ treated water",
-                "Renewable energy adoption (%)": "Energy from renewable sources / Total energy used * 100",
-                "Wastewater treated (%)": "Volume of wastewater treated / Total wastewater generated * 100"
+            "Promote Hygiene & Public Awareness": {
+                "Awareness campaigns conducted (#)": "Community hygiene programs per year",
+                "Community participation rate (%)": "Participants / Target population * 100",
+                "Schools with hygiene programs (%)": "Schools with WASH activities / Total schools * 100",
+                "Improvement in hygiene behavior (%)": "Pre vs post intervention change"
+            }
+        },
+
+        # -------------------- 3. Customer Engagement & Responsiveness --------------------
+        "Customer Engagement": {
+            "Improve Customer Feedback Mechanisms": {
+                "Complaints resolved on time (%)": "Resolved within SLA / Total complaints * 100",
+                "Average complaint resolution time (hrs)": "Sum of resolution times / Total complaints",
+                "Customer satisfaction index (%)": "Weighted survey score",
+                "Digital service usage (%)": "Online interactions / Total interactions * 100"
             },
-            "Contribute to Economic & Community Development": {
-                "Jobs created in water projects": "Number of new jobs generated by water initiatives",
-                "Local community engagement programs (#)": "Number of community programs implemented",
-                "GDP contribution from water projects ($)": "Estimated economic contribution from water infrastructure",
-                "Investment in public health initiatives ($)": "Funds allocated to hygiene and sanitation education"
+            "Enhance Transparency & Accountability": {
+                "Information disclosure compliance (%)": "Reports published / Required reports * 100",
+                "Public meetings conducted (#)": "Community consultation sessions per year",
+                "Citizen trust index (%)": "Public perception of integrity",
+                "Feedback incorporation rate (%)": "Suggestions implemented / Total received * 100"
+            }
+        },
+
+        # -------------------- 4. Environmental & Social Responsibility --------------------
+        "Environmental & Social Responsibility": {
+            "Promote Environmental Sustainability": {
+                "CO₂ emissions per m³": "Total CO₂ emissions / Water produced",
+                "Wastewater safely disposed (%)": "Volume safely disposed / Total wastewater * 100",
+                "Sludge reused or treated (%)": "Volume treated / Total generated * 100",
+                "Green initiatives implemented (#)": "Number of environmental initiatives"
+            },
+            "Enhance Community Social Impact": {
+                "Low-income households supported (%)": "Beneficiaries / Total customers * 100",
+                "Water affordability index": "Average tariff / Median household income",
+                "Community satisfaction level (%)": "Survey satisfaction rating",
+                "CSR investment in WASH ($)": "Funds allocated to social initiatives"
             }
         }
     }

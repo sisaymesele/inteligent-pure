@@ -1,4 +1,5 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
 
 HOSPITALITY_AND_TOURISM_PERSPECTIVE = {
     "Financial Perspective": {
@@ -113,82 +114,168 @@ HOSPITALITY_AND_TOURISM_PERSPECTIVE = {
             }
         },
 
-        # ==================== 4. Hospitality Financial Risk Management ====================
-        "Hospitality Financial Risk Management": {
-            "Manage Operational Risk": {
-                "Business interruption insurance coverage (%)": "Covered risks / Total risks * 100",
-                "Disaster recovery readiness score": "Preparedness for emergency scenarios",
-                "Supply chain disruption cost ($)": "Financial impact of supply shortages",
-                "Staffing shortage impact ($)": "Cost of temporary staff and overtime"
-            },
-            "Mitigate Regulatory & Compliance Risk": {
-                "Health & safety audit score (%)": "Compliance score from inspections",
-                "Licensing compliance rate (%)": "Compliant licenses / Total licenses * 100",
-                "Accreditation maintenance cost ($)": "Cost to maintain certifications",
-                "Regulatory penalty avoidance ($)": "Estimated savings from compliance"
-            },
-            "Address Market & Competition Risk": {
-                "Market share volatility (%)": "Variation in guest volume and market position",
-                "Competitive pricing pressure index": "Impact of competitor pricing on margins",
-                "Seasonality revenue variation (%)": "Revenue fluctuation across periods",
-                "Service demand forecasting accuracy (%)": "Actual demand / Forecasted demand * 100"
-            }
-        },
+        # =========================================================
+        # Hospitality & Tourism Customer Perspective
+        # =========================================================
+        "CUSTOMER_PERSPECTIVE": {
 
-        # ==================== 5. Hospitality Cost Efficiency ====================
-        "Hospitality Cost Efficiency": {
-            "Optimize Operations Costs": {
-                "Cost per guest ($)": "Total operational cost / Number of guests",
-                "Food & beverage cost per guest ($)": "Cost of F&B / Number of guests",
-                "Housekeeping cost per room ($)": "Cost / Number of rooms",
-                "Utility cost per guest ($)": "Utilities / Number of guests"
+            # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
+            **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+            "Customer Experience & Satisfaction": {
+                "Enhance overall guest satisfaction": {
+                    "Guest satisfaction score (1–5)": "Average survey rating",
+                    "Repeat guest rate (%)": "(Returning guests / Total guests) * 100",
+                    "Complaint resolution rate (%)": "(Resolved complaints / Total complaints) * 100",
+                    "Net Promoter Score (NPS)": "(Promoters - Detractors) / Total respondents * 100",
+                },
+                "Improve check-in and check-out efficiency": {
+                    "Average check-in time (minutes)": "Total time / Guests checked in",
+                    "Average check-out time (minutes)": "Total time / Guests checked out",
+                    "Self-service kiosk usage (%)": "(Guests using kiosk / Total guests) * 100",
+                    "Queue reduction (%)": "((Baseline wait - Current wait)/Baseline)*100",
+                },
+                "Enhance guest comfort and amenities": {
+                    "Room comfort satisfaction (%)": "(Satisfied / Total surveyed) * 100",
+                    "Amenity utilization rate (%)": "(Used amenities / Total amenities) * 100",
+                    "Room service satisfaction (%)": "(Satisfied / Total orders) * 100",
+                    "Average time to fulfill requests (minutes)": "Sum(time to fulfill) / Total requests",
+                },
+                "Provide personalized guest experiences": {
+                    "Personalized service utilization (%)": "(Guests receiving personalized service / Total guests) * 100",
+                    "Custom itinerary adoption rate (%)": "(Guests following custom itineraries / Total guests) * 100",
+                    "Guest preference satisfaction (%)": "(Satisfied / Total surveyed) * 100",
+                    "Loyalty program enrollment (%)": "(Enrolled guests / Total guests) * 100",
+                },
+                "Enhance food and beverage satisfaction": {
+                    "Dining satisfaction score (1–5)": "Average rating",
+                    "Meal delivery timeliness (%)": "(On-time deliveries / Total orders) * 100",
+                    "Menu variety rating (1–5)": "Average guest score",
+                    "Special dietary request fulfillment (%)": "(Requests fulfilled / Total requests) * 100",
+                },
+                "Improve guest feedback mechanisms": {
+                    "Feedback response rate (%)": "(Responded feedback / Total feedback) * 100",
+                    "Average time to address complaints (hours)": "Sum(time to resolve)/Total complaints",
+                    "Guest suggestion adoption rate (%)": "(Implemented suggestions / Total suggestions) * 100",
+                    "Post-stay survey completion rate (%)": "(Surveys completed / Total guests) * 100",
+                },
             },
-            "Reduce Administrative Overhead": {
-                "Administrative cost ratio (%)": "Admin costs / Total revenue * 100",
-                "IT support cost per user ($)": "IT costs / Number of system users",
-                "Billing and accounting cost ($)": "Revenue cycle costs",
-                "Facility overhead per square foot ($)": "Overhead costs / Total facility space"
-            },
-            "Improve Staffing Efficiency": {
-                "Staff hours per guest": "Total staff hours / Number of guests",
-                "Staff to guest ratio": "Number of staff / Guests",
-                "Overtime cost (%)": "Overtime / Total labor costs * 100",
-                "Employee turnover cost ($)": "Recruitment and training cost for replacements"
-            },
-            "Enhance Supply Chain Management": {
-                "Food cost savings ($)": "Savings from group purchasing",
-                "Inventory turnover ratio": "Cost of goods sold / Average inventory",
-                "Waste reduction (%)": "Reduced waste / Previous waste * 100",
-                "Supplier contract savings ($)": "Savings from negotiated contracts"
-            }
-        },
 
-        # ==================== 6. Long-term Hospitality Sustainability & Investment ====================
-        "Long-term Hospitality Sustainability & Investment": {
-            "Develop Strategic Service Lines": {
-                "F&B investment ROI (%)": "(Revenue - Investment) / Investment * 100",
-                "Room product adoption rate (%)": "New room offerings / Total launched * 100",
-                "Facility upgrade cost ($)": "Investment in facilities",
-                "Market leadership index": "Competitive ranking in key service areas"
+            "Service Accessibility & Convenience": {
+                "Increase online booking adoption": {
+                    "Online booking rate (%)": "(Online bookings / Total bookings) * 100",
+                    "Booking confirmation time (hours)": "Average time to confirm",
+                    "Mobile app usage rate (%)": "(Guests using app / Total guests) * 100",
+                    "Booking error rate (%)": "(Booking errors / Total bookings) * 100",
+                },
+                "Enhance transportation and transfer services": {
+                    "Shuttle utilization rate (%)": "(Guests using shuttle / Total guests) * 100",
+                    "Transfer punctuality (%)": "(On-time transfers / Total transfers) * 100",
+                    "Guest satisfaction with transfers (%)": "(Satisfied / Total surveyed) * 100",
+                    "Average transfer wait time (minutes)": "Sum(wait time) / Total transfers",
+                },
+                "Improve accessibility for special needs guests": {
+                    "Accessible room availability (%)": "(Accessible rooms / Total rooms) * 100",
+                    "Assistive service usage (%)": "(Guests using service / Total needing) * 100",
+                    "Special needs satisfaction (%)": "(Satisfied / Total surveyed) * 100",
+                    "Staff trained in accessibility (%)": "(Trained / Total staff) * 100",
+                },
+                "Increase information availability": {
+                    "Information desk utilization (%)": "(Guests assisted / Total guests) * 100",
+                    "Digital guide usage (%)": "(Guests using app / Total guests) * 100",
+                    "Guest satisfaction with information (%)": "(Satisfied / Total surveyed) * 100",
+                    "Multilingual support coverage (%)": "(Languages offered / Required languages) * 100",
+                },
+                "Enhance booking flexibility": {
+                    "Flexible cancellation rate (%)": "(Bookings using flexibility / Total bookings) * 100",
+                    "Booking modification success rate (%)": "(Successful modifications / Total requests) * 100",
+                    "Guest satisfaction with policies (%)": "(Satisfied / Total surveyed) * 100",
+                    "Refund processing time (hours)": "Average time to process refund",
+                },
+                "Support loyalty and rewards programs": {
+                    "Loyalty program participation (%)": "(Participants / Eligible guests) * 100",
+                    "Reward redemption rate (%)": "(Redeemed / Total rewards) * 100",
+                    "Guest satisfaction with rewards (%)": "(Satisfied / Total surveyed) * 100",
+                    "Repeat booking increase (%)": "((Repeat bookings current - Baseline)/Baseline)*100",
+                },
             },
-            "Invest in Innovation": {
-                "Digital hospitality technology ROI (%)": "(Efficiency gains - Cost) / Cost * 100",
-                "Booking platform adoption ROI (%)": "(Revenue - Implementation cost) / Cost * 100",
-                "Guest experience innovation investment ($)": "Funding for new services",
-                "Technology upgrade cycle (years)": "Average equipment refresh rate"
+
+            "Safety, Hygiene & Trust": {
+                "Enhance food safety standards": {
+                    "Hygiene inspection compliance (%)": "(Passed inspections / Total inspections) * 100",
+                    "Guest satisfaction with food hygiene (%)": "(Satisfied / Total surveyed) * 100",
+                    "Reported food safety incidents": "Number of incidents",
+                    "Staff trained in food safety (%)": "(Trained staff / Total staff) * 100",
+                },
+                "Improve facility cleanliness": {
+                    "Daily cleanliness audit compliance (%)": "(Compliant / Total areas) * 100",
+                    "Guest satisfaction with cleanliness (%)": "(Satisfied / Total surveyed) * 100",
+                    "Incident rate due to hygiene lapses": "Number of reported incidents",
+                    "Cleaning staff coverage (%)": "(Active staff / Required staff) * 100",
+                },
+                "Strengthen emergency preparedness": {
+                    "Emergency drill completion (%)": "(Drills conducted / Planned drills) * 100",
+                    "Staff trained in emergency response (%)": "(Trained staff / Total staff) * 100",
+                    "Guest awareness of emergency procedures (%)": "(Guests aware / Total guests) * 100",
+                    "Average response time to emergencies (minutes)": "Total response time / Number of events",
+                },
+                "Enhance cybersecurity and guest data protection": {
+                    "Guest data breach incidents": "Number of incidents",
+                    "Staff cybersecurity training (%)": "(Trained / Total staff) * 100",
+                    "System uptime (%)": "(Available hours / Total hours) * 100",
+                    "Guest satisfaction with digital security (%)": "(Satisfied / Total surveyed) * 100",
+                },
+                "Improve safety perception": {
+                    "Guest perception of safety score (1–5)": "Average rating",
+                    "Incident reporting rate (%)": "(Reported incidents / Total guests) * 100",
+                    "Resolution satisfaction (%)": "(Satisfied with resolution / Total complaints) * 100",
+                    "Safety signage compliance (%)": "(Compliant signs / Total required) * 100",
+                },
+                "Strengthen travel insurance and guarantees": {
+                    "Guest uptake of insurance (%)": "(Guests insured / Total guests) * 100",
+                    "Claims settlement success rate (%)": "(Successful claims / Total claims) * 100",
+                    "Guest satisfaction with coverage (%)": "(Satisfied / Total surveyed) * 100",
+                    "Insurance claim processing time (days)": "Average time to settle claim",
+                },
             },
-            "Ensure Financial Sustainability": {
-                "Days cash on hand": "Cash reserves / Average daily expenses",
-                "Debt service coverage ratio": "Operating income / Debt payments",
-                "Capital expenditure ratio (%)": "Capital spending / Depreciation * 100",
-                "Reserve fund growth (%)": "Current reserves - Previous / Previous * 100"
+
+            "Digital Access & Engagement": {
+                "Increase online check-in adoption": {
+                    "Online check-in rate (%)": "(Checked-in online / Total guests) * 100",
+                    "Mobile app adoption (%)": "(Guests using app / Total guests) * 100",
+                    "Average check-in time reduction (%)": "((Baseline - Current)/Baseline)*100",
+                    "Guest satisfaction with digital check-in (%)": "(Satisfied / Total surveyed) * 100",
+                },
+                "Improve Wi-Fi and connectivity services": {
+                    "Wi-Fi uptime (%)": "(Available hours / Total hours) * 100",
+                    "Guest satisfaction with Wi-Fi (%)": "(Satisfied / Total surveyed) * 100",
+                    "Bandwidth adequacy (%)": "(Sufficient bandwidth hours / Total hours) * 100",
+                    "Connectivity complaint rate (%)": "(Complaints / Total guests) * 100",
+                },
+                "Enhance digital guest engagement": {
+                    "App engagement rate (%)": "(Active app users / Total registered guests) * 100",
+                    "Digital concierge utilization (%)": "(Guests using digital concierge / Total guests) * 100",
+                    "Online service requests completed (%)": "(Requests completed / Total requests) * 100",
+                    "Guest satisfaction with digital services (%)": "(Satisfied / Total surveyed) * 100",
+                },
+                "Provide virtual tours and experiences": {
+                    "Virtual tour participation (%)": "(Participants / Total guests) * 100",
+                    "Feedback on virtual tours (1–5)": "Average rating",
+                    "Conversion rate from virtual tours (%)": "(Bookings / Virtual tour participants) * 100",
+                    "Repeat virtual engagement (%)": "(Repeat participants / Total virtual guests) * 100",
+                },
+                "Strengthen cybersecurity for digital bookings": {
+                    "Secure booking transaction rate (%)": "(Secure transactions / Total transactions) * 100",
+                    "System uptime (%)": "(Available hours / Total hours) * 100",
+                    "Data breach incidents": "Number of incidents",
+                    "Guest satisfaction with digital security (%)": "(Satisfied / Total surveyed) * 100",
+                },
+                "Leverage guest data analytics": {
+                    "Personalized offer adoption rate (%)": "(Guests using personalized offers / Total guests) * 100",
+                    "Guest retention increase (%)": "((Retention current - Baseline)/Baseline)*100",
+                    "Predictive satisfaction score accuracy (%)": "(Correct predictions / Total predictions) * 100",
+                    "Engagement growth rate (%)": "((Current - Previous)/Previous)*100",
+                },
             },
-            "Build Community & Partnerships": {
-                "Community program investment ($)": "Funding for community initiatives",
-                "Partnership revenue growth (%)": "Current - Previous / Previous * 100",
-                "Customer loyalty ROI (%)": "Value from loyalty programs / Cost",
-                "Sustainability program impact ($)": "Savings or revenue from sustainability efforts"
-            }
         }
     }
 }

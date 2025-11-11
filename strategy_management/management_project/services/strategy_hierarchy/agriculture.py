@@ -1,5 +1,10 @@
+
+
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import GENERIC_INTERNAL_PROCESS_PERSPECTIVE
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE
+
 
 AGRICULTURE_PERSPECTIVE = {
 
@@ -1033,693 +1038,574 @@ AGRICULTURE_PERSPECTIVE = {
     },
 
     "Internal Process Perspective": {
-        "Research & Development Results": {
-            "Increase investment in agricultural R&D": {
-                "R&D expenditure ratio (%)": "(R&D spend / Total budget) * 100",
-                "Projects funded (#)": "Number of research projects supported",
-                "Innovation index": "Composite score for innovation output",
-                "Patents or technologies developed (#)": "Count of registered innovations"
+
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE['Internal Process Perspective'],
+
+        # -------------------- 1. Soil Management --------------------
+        "Soil Management": {
+            "Enhance Soil Fertility": {
+                "Soil nutrient index": "Composite index of NPK levels",
+                "Organic matter content (%)": "Organic matter / Total soil mass * 100",
+                "Soil pH compliance (%)": "Plots within optimal pH range / Total plots * 100",
+                "Soil erosion reduction (%)": "(Baseline erosion - Current) / Baseline * 100"
             },
-            "Enhance adoption of improved technologies": {
-                "Adoption rate (%)": "(Users of new tech / Targeted farmers) * 100",
-                "Yield increase (%)": "((After adoption - Before)/Before)*100",
-                "Training sessions on new tech (#)": "Number of awareness activities",
-                "Farmer satisfaction with new tech (%)": "Survey rating"
+            "Optimize Soil Usage": {
+                "Crop rotation adherence (%)": "Plots rotated properly / Total plots * 100",
+                "Land productivity (kg/ha)": "Total yield / Area cultivated",
+                "Fallow land management (%)": "Fallow land properly managed / Total fallow land",
+                "Soil moisture utilization (%)": "Irrigation used / Soil water holding capacity * 100"
             },
-            "Strengthen public-private R&D collaboration": {
-                "Joint research projects (#)": "Collaborative initiatives",
-                "Private investment share (%)": "(Private funds / Total R&D) * 100",
-                "Research partnership retention (%)": "(Retained / Total partners) * 100",
-                "Commercialized outputs (#)": "Research converted into market products"
+            "Prevent Soil Degradation": {
+                "Soil compaction reduction (%)": "(Previous - Current) / Previous * 100",
+                "Erosion control structures implemented (#)": "Constructed / Planned",
+                "Soil salinity levels (%)": "Plots within acceptable salinity range / Total plots",
+                "Soil contamination incidents (#)": "Reported / Total area"
             },
-            "Promote climate-smart agricultural innovations": {
-                "CSA technologies tested (#)": "Count of tested solutions",
-                "CSA adoption rate (%)": "(CSA users / Total farmers) * 100",
-                "GHG reduction (%)": "((Old emissions - New) / Old) * 100",
-                "Yield under climate stress (%)": "(Output / Baseline yield) * 100"
+            "Promote Sustainable Soil Practices": {
+                "Use of organic fertilizers (%)": "Fields with organic fertilizer / Total fields * 100",
+                "Conservation tillage adoption (%)": "Fields with reduced tillage / Total fields * 100",
+                "Mulching coverage (%)": "Area mulched / Total area * 100",
+                "Composting rate (%)": "Compost applied / Total crop residues * 100"
             },
-            "Improve research dissemination and extension linkage": {
-                "Research briefs shared (#)": "Number distributed",
-                "Extension adoption rate (%)": "(Adopted recommendations / Total shared) * 100",
-                "Research-extension feedback sessions (#)": "Meetings held",
-                "Knowledge uptake index": "Composite measure of practical adoption"
+            "Soil Monitoring & Analytics": {
+                "Soil testing coverage (%)": "Tested plots / Total plots * 100",
+                "Frequency of monitoring (#)": "Monitoring events / Planned events",
+                "Data-driven soil interventions (%)": "Interventions based on soil data / Total interventions",
+                "Soil health improvement (%)": "(Current soil health - Baseline) / Baseline * 100"
             },
-            "Enhance data and evidence-based planning": {
-                "Data-driven policy coverage (%)": "(Policies using data / Total policies) * 100",
-                "Research citations in strategies (#)": "Number of references",
-                "Monitoring data timeliness (%)": "(On-time updates / Total required) * 100",
-                "Database completeness (%)": "(Updated records / Total datasets) * 100"
-            },
-            "Develop localized innovation hubs": {
-                "Innovation centers established (#)": "Count of operational hubs",
-                "Innovations transferred (#)": "Technologies moved to production",
-                "Farmer innovators supported (#)": "Farmers trained in innovation use",
-                "Community innovation rate (%)": "(Innovators / Total communities) * 100"
-            },
-            "Foster knowledge sharing and publication": {
-                "Research publications (#)": "Papers and reports released",
-                "Knowledge dissemination events (#)": "Workshops and expos held",
-                "Stakeholder participation (%)": "(Participants / Invited) * 100",
-                "Knowledge sharing satisfaction (%)": "Feedback survey result"
+            "Enhance Soil Water Retention": {
+                "Moisture retention (%)": "Retained water / Total applied * 100",
+                "Drought resilience index": "Composite measure of crop survival under low rainfall",
+                "Irrigation water savings (%)": "(Previous - Current water used) / Previous * 100",
+                "Rainwater harvesting adoption (%)": "Plots using harvested rainwater / Total plots * 100"
             }
         },
 
-        "Policy Frameworks & Regulation": {
-            "Strengthen agricultural policy implementation": {
-                "Policy adoption rate (%)": "(Adopted / Proposed) * 100",
-                "Implementation timeliness (%)": "(On-time actions / Total actions) * 100",
-                "Stakeholder compliance rate (%)": "(Compliant entities / Total) * 100",
-                "Policy impact index": "Composite effectiveness measure"
+        # -------------------- 2. Irrigation Management --------------------
+        "Irrigation Management": {
+            "Improve Water Use Efficiency": {
+                "Irrigation efficiency (%)": "Water delivered / Water required * 100",
+                "Crop water productivity (kg/m³)": "Yield / Water applied",
+                "Water loss reduction (%)": "(Previous losses - Current) / Previous * 100",
+                "Irrigation coverage (%)": "Irrigated area / Total arable area * 100"
             },
-            "Enhance regulatory oversight in agri-markets": {
-                "Inspections conducted (#)": "Market compliance checks",
-                "Non-compliance cases resolved (%)": "(Resolved / Reported) * 100",
-                "Product quality certification rate (%)": "(Certified / Total products) * 100",
-                "Enforcement action timeliness (%)": "(On-time / Total actions) * 100"
+            "Optimize Irrigation Scheduling": {
+                "Timely irrigation compliance (%)": "Irrigation events on schedule / Total events",
+                "Pump/equipment utilization (%)": "Operational hours / Total hours available",
+                "Reduction in water stress incidents (%)": "(Previous incidents - Current) / Previous * 100",
+                "Energy use per m³ of water (%)": "Energy consumed / Water delivered"
             },
-            "Promote fair trade and pricing regulation": {
-                "Price monitoring coverage (%)": "(Markets monitored / Total markets) * 100",
-                "Farmgate-to-retail margin (%)": "(Retail - Farmgate)/Farmgate * 100",
-                "Price volatility index": "Standard deviation of monthly price changes",
-                "Complaints resolved (%)": "(Resolved / Filed) * 100"
+            "Promote Efficient Irrigation Technology": {
+                "Drip irrigation adoption (%)": "Fields with drip / Total irrigated fields * 100",
+                "Sprinkler irrigation adoption (%)": "Fields with sprinklers / Total irrigated fields * 100",
+                "Irrigation automation coverage (%)": "Automated systems / Total irrigated fields * 100",
+                "Reduction in manual labor (%)": "(Previous - Current labor used) / Previous * 100"
             },
-            "Enhance policy coordination across institutions": {
-                "Inter-agency meetings held (#)": "Coordination forums conducted",
-                "Joint programs implemented (#)": "Collaborative initiatives",
-                "Policy coherence index": "Assessment score on alignment",
-                "Duplication rate (%)": "(Overlaps / Total programs) * 100"
+            "Enhance Water Storage & Distribution": {
+                "Reservoir efficiency (%)": "Water stored / Total capacity * 100",
+                "Canal network efficiency (%)": "Water delivered / Water released * 100",
+                "Pipeline leakage reduction (%)": "(Previous - Current leaks) / Previous * 100",
+                "Pump reliability (%)": "Operational pumps / Total pumps * 100"
             },
-            "Promote inclusive and participatory policymaking": {
-                "Stakeholder consultations (#)": "Meetings and feedback sessions",
-                "Stakeholder representation diversity (%)": "(Groups represented / Total invited) * 100",
-                "Public policy awareness (%)": "(Aware citizens / Total population) * 100",
-                "Policy satisfaction score": "Average stakeholder feedback rating"
+            "Monitor Water Quality": {
+                "Water contamination incidents (#)": "Reported / Total monitored",
+                "Compliance with water quality standards (%)": "Tests meeting standards / Total tests",
+                "Chemical usage monitoring (%)": "Monitored fields / Total fields * 100",
+                "Farmer awareness of water quality (%)": "Trained farmers / Total farmers * 100"
             },
-            "Simplify licensing and regulatory procedures": {
-                "Average approval time (days)": "Mean time for licensing",
-                "Digitalized services (%)": "(Online processes / Total services) * 100",
-                "Client satisfaction (%)": "Survey score on ease of use",
-                "Processing error rate (%)": "(Errors / Total processed) * 100"
-            },
-            "Enhance food safety and standards enforcement": {
-                "Inspected facilities (%)": "(Inspected / Total facilities) * 100",
-                "Compliance rate (%)": "(Compliant / Inspected) * 100",
-                "Product recall incidents (#)": "Number of unsafe product recalls",
-                "Testing coverage (%)": "(Tested samples / Total samples) * 100"
-            },
-            "Integrate environmental and climate policies": {
-                "Climate policy integration rate (%)": "(Climate-integrated / Total policies) * 100",
-                "Sustainability indicator tracking (%)": "(Tracked / Total indicators) * 100",
-                "Deforestation reduction rate (%)": "((Old - New)/Old)*100",
-                "Green investment ratio (%)": "(Green funds / Total investment) * 100"
+            "Promote Water-Saving Practices": {
+                "Mulching adoption (%)": "Area mulched / Total irrigated area * 100",
+                "Rainwater harvesting coverage (%)": "Harvesting structures / Total farms * 100",
+                "Soil moisture monitoring coverage (%)": "Monitored plots / Total plots * 100",
+                "Reduction in water wastage (%)": "(Previous - Current) / Previous * 100"
             }
         },
 
-        "Agricultural Production Excellence: Crops": {
-            "Maximize Crop Yields": {
-                "Yield per hectare": "Total crop production / Total cultivated area",
-                "Yield gap reduction": "((Potential yield - Actual yield) / Potential yield) * 100",
-                "Yield stability index": "Consistency of yields across seasons and plots",
-                "Target yield achievement rate": "(Fields achieving target yields / Total fields) * 100"
+        # -------------------- 3. Crop Management --------------------
+        "Crop Management": {
+            "Improve Crop Productivity": {
+                "Yield per hectare": "Total yield / Area cultivated",
+                "Crop survival rate (%)": "Survived seedlings / Total planted * 100",
+                "Fertilizer use efficiency (%)": "Crop output per unit fertilizer applied",
+                "Pest/disease incidence reduction (%)": "(Previous - Current) / Previous * 100"
             },
-            "Optimize Crop Management": {
-                "Timeliness of operations": "(Operations completed on schedule / Total operations) * 100",
-                "Crop rotation compliance": "(Area under proper rotation / Total area) * 100",
-                "Planting density optimization": "(Area with optimal density / Total area) * 100",
-                "Improved variety adoption": "(Area under improved varieties / Total area) * 100"
+            "Enhance Crop Quality": {
+                "Marketable crop proportion (%)": "Marketable produce / Total harvest * 100",
+                "Post-harvest loss reduction (%)": "(Previous - Current) / Previous * 100",
+                "Grain/fruit size compliance (%)": "Samples meeting standards / Total samples",
+                "Storage quality compliance (%)": "Stored produce meeting quality standards / Total stored"
             },
-            "Enhance Crop Health": {
-                "Pest and disease incidence": "(Affected area / Total area) * 100",
-                "Weed infestation level": "Weed density and coverage assessment",
-                "Crop stress index": "Remote sensing-based stress indicators",
-                "Pesticide application efficiency": "(Effective applications / Total applications) * 100"
+            "Optimize Planting & Seeding": {
+                "Timely planting rate (%)": "Planted on schedule / Total planned * 100",
+                "Seed quality compliance (%)": "Certified seeds / Total seeds used * 100",
+                "Optimal plant spacing adherence (%)": "Fields meeting spacing standards / Total fields",
+                "Germination success rate (%)": "Seedlings emerged / Seeds planted * 100"
             },
-            "Improve Seed & Planting Material Quality": {
-                "Germination rate": "(Germinated seeds / Total seeds planted) * 100",
-                "Seed purity percentage": "(Pure seed / Total seed lot) * 100",
-                "Certified seed adoption": "(Area under certified seed / Total area) * 100",
-                "Seedling survival rate": "(Survived seedlings / Total planted seedlings) * 100"
+            "Fertilizer & Nutrient Management": {
+                "Correct fertilizer application (%)": "Fields with recommended rates / Total fields",
+                "Soil nutrient balance achieved (%)": "Plots balanced / Total plots * 100",
+                "Fertilizer use reduction (%)": "(Previous - Current) / Previous * 100",
+                "Crop nutrient uptake efficiency (%)": "Nutrient absorbed / Nutrient applied * 100"
             },
-            "Optimize Harvesting Operations": {
-                "Harvesting efficiency": "Area harvested per day / Target area",
-                "Harvest quality preservation": "Percentage of quality maintained during harvest",
-                "Harvest timing optimization": "Days to optimal harvest window",
-                "Harvest labor productivity": "Output per harvest labor hour"
+            "Integrated Pest & Disease Management": {
+                "IPM adoption (%)": "Fields using IPM / Total fields * 100",
+                "Chemical pesticide reduction (%)": "(Previous - Current) / Previous * 100",
+                "Pest monitoring frequency (%)": "Inspections conducted / Planned inspections * 100",
+                "Crop protection success rate (%)": "Protected area / Total area * 100"
+            },
+            "Optimize Harvest Timing & Techniques": {
+                "Harvest readiness adherence (%)": "Harvested on optimal date / Total planned",
+                "Mechanized harvest utilization (%)": "Mechanized tools / Total tools available",
+                "Harvest losses reduction (%)": "(Previous - Current) / Previous * 100",
+                "Labor efficiency during harvest (kg/day)": "Yield per labor unit"
             }
         },
 
-        "Agricultural Production Excellence: Livestock": {
-            "Improve Livestock Productivity": {
-                "Milk yield per cow": "Total milk production / Number of milking animals",
-                "Feed conversion ratio": "Feed consumed / Live weight gain",
-                "Reproductive performance": "(Successful conceptions / Breeding attempts) * 100",
-                "Average daily gain": "Total weight gain / Number of days"
+        # -------------------- 4. Harvest Management --------------------
+        "Harvest Management": {
+            "Timely Harvesting": {
+                "Harvest schedule adherence (%)": "Harvest on planned dates / Total planned",
+                "Labor allocation efficiency (%)": "Assigned labor / Required labor * 100",
+                "Harvest machinery utilization (%)": "Used machinery / Total available",
+                "Yield losses due to delay (%)": "(Previous - Current) / Previous * 100"
             },
-            "Enhance Animal Health & Welfare": {
-                "Animal mortality rate": "(Deaths / Total animals) * 100",
-                "Disease incidence rate": "(Disease cases / Total animals) * 100",
-                "Veterinary cost per animal": "Total vet costs / Number of animals",
-                "Animal welfare assessment": "Score from welfare compliance audits"
+            "Mechanized Harvest Adoption": {
+                "Mechanized tools usage (%)": "Used tools / Total available",
+                "Efficiency gain (%)": "(Output mechanized - Output manual) / Output manual * 100",
+                "Reduction in manual labor (%)": "(Previous - Current labor used) / Previous * 100",
+                "Harvest speed (ha/day)": "Area harvested / Day"
             },
-            "Optimize Breeding & Genetics": {
-                "Conception rate": "(Successful conceptions / Breeding attempts) * 100",
-                "Genetic merit index": "Average breeding value of stock",
-                "Progeny performance": "Performance metrics of offspring",
-                "Artificial insemination usage": "(AI breeding / Total breeding) * 100"
+            "Post-Harvest Handling": {
+                "Storage loss reduction (%)": "(Previous - Current) / Previous * 100",
+                "Proper drying compliance (%)": "Produce dried per standard / Total harvested",
+                "Packaging quality compliance (%)": "Packaging meeting standards / Total packed",
+                "Cold storage utilization (%)": "Cold storage used / Total capacity"
             },
-            "Improve Feed & Forage Management": {
-                "Feed cost per unit production": "Total feed cost / Production output",
-                "Nutritional balance score": "Assessment of ration nutritional adequacy",
-                "Home-grown forage yield": "Forage production per hectare",
-                "Feed storage loss prevention": "Reduction in feed spoilage and waste"
+            "Transport Efficiency": {
+                "Timely transport (%)": "Crops delivered on schedule / Total harvest",
+                "Transport loss reduction (%)": "(Previous - Current) / Previous * 100",
+                "Fuel efficiency per ton (%)": "Fuel used / Ton delivered",
+                "Load optimization (%)": "Optimal vs actual loads transported"
             },
-            "Enhance Livestock Housing & Environment": {
-                "Housing facility adequacy": "Score from facility condition assessments",
-                "Environmental control effectiveness": "Maintenance of optimal temperature and humidity",
-                "Waste management efficiency": "Manure handling and utilization rate",
-                "Biosecurity implementation": "Compliance with biosecurity protocols"
+            "Market Readiness": {
+                "Market demand match (%)": "Supplied quantity matches demand / Total supply",
+                "Price realization (%)": "Actual price / Expected market price * 100",
+                "Quality grading compliance (%)": "Graded crops meeting standards / Total graded",
+                "Market distribution coverage (%)": "Markets served / Planned markets * 100"
+            },
+            "Labor Safety & Compliance": {
+                "Accidents during harvest (#)": "Reported accidents / Total harvest events",
+                "PPE usage compliance (%)": "Workers using PPE / Total workers * 100",
+                "Labor training coverage (%)": "Trained workers / Total workers * 100",
+                "Adherence to labor regulations (%)": "Compliance checks passed / Total checks"
             }
         },
 
-        "Resource Use Efficiency: Soil & Land": {
-            "Improve Soil Health": {
-                "Soil organic carbon level": "Percentage of organic carbon in soil",
-                "Soil erosion rate": "Tons of soil lost per hectare per year",
-                "Minimal soil disturbance area": "(Area under conservation tillage / Total area) * 100",
-                "Soil biological activity": "Microbial and earthworm activity indicators"
+        # -------------------- 5. Pest Management --------------------
+        "Pest Management": {
+            "Pest Monitoring & Surveillance": {
+                "Fields monitored (%)": "Monitored fields / Total fields * 100",
+                "Frequency of monitoring (#)": "Monitoring events / Planned events",
+                "Early pest detection rate (%)": "Pests detected early / Total detected",
+                "Farmer reporting compliance (%)": "Reports submitted / Total farms"
             },
-            "Enhance Nutrient Management": {
-                "Nutrient use efficiency": "Crop uptake / Nutrient applied",
-                "Soil nutrient balance": "Difference between inputs and outputs",
-                "Organic fertilizer application": "(Nutrients from organic sources / Total nutrients) * 100",
-                "Soil test-based recommendations": "(Area under tested recommendations / Total area) * 100"
+            "Integrated Pest Management (IPM)": {
+                "IPM adoption (%)": "Fields using IPM / Total fields * 100",
+                "Chemical pesticide reduction (%)": "(Previous - Current) / Previous * 100",
+                "Biological control adoption (%)": "Fields with bio-control / Total fields * 100",
+                "Success rate of pest control (%)": "Protected area / Total area * 100"
             },
-            "Optimize Land Utilization": {
-                "Cropping intensity index": "(Total cropped area / Net sown area) * 100",
-                "Cultivated land percentage": "(Cultivated area / Total farm area) * 100",
-                "Land use change tracking": "Monitoring of land use changes over time",
-                "Multi-story cropping adoption": "(Area under multi-story systems / Total area) * 100"
+            "Pesticide Use Optimization": {
+                "Correct dosage compliance (%)": "Fields compliant / Total fields * 100",
+                "Reduction in chemical use (%)": "(Previous - Current) / Previous * 100",
+                "Safe pesticide storage compliance (%)": "Properly stored / Total stored",
+                "Worker safety incidents (#)": "Accidents reported / Total applications"
             },
-            "Implement Soil Conservation": {
-                "Conservation tillage adoption": "(Area under conservation tillage / Total area) * 100",
-                "Cover crop adoption rate": "(Area with cover crops / Total area) * 100",
-                "Contour farming implementation": "(Area under contour farming / Total area) * 100",
-                "Windbreak establishment": "Length and effectiveness of windbreaks"
+            "Crop Damage Minimization": {
+                "Damage reduction (%)": "(Previous - Current) / Previous * 100",
+                "Affected area (%)": "Infested area / Total area * 100",
+                "Yield saved (%)": "Actual vs potential yield saved",
+                "Economic loss reduction (%)": "(Previous - Current) / Previous * 100"
             },
-            "Enhance Land Development": {
-                "Land reclamation success": "Percentage of degraded land restored",
-                "Terracing effectiveness": "Reduction in soil erosion from terraces",
-                "Land leveling precision": "Accuracy of land leveling operations",
-                "Drainage system efficiency": "Effectiveness of water drainage systems"
+            "Farmer Training & Awareness": {
+                "Farmers trained (#)": "Farmers trained / Total target",
+                "Training completion rate (%)": "Completed / Enrolled * 100",
+                "Farmer adoption of IPM (%)": "Adopters / Total trained * 100",
+                "Knowledge retention (%)": "Assessment score post-training"
+            },
+            "Pest Forecasting & Early Warning": {
+                "Forecast accuracy (%)": "Correct predictions / Total forecasts * 100",
+                "Time to alert (days)": "Average days from detection to alert",
+                "Preventive actions taken (%)": "Actions taken / Recommended actions * 100",
+                "Reduced outbreak frequency (%)": "(Previous - Current outbreaks) / Previous * 100"
             }
         },
 
-        "Resource Use Efficiency: Water & Irrigation": {
-            "Optimize Water Management": {
-                "Water use efficiency": "Crop yield / Total water used",
-                "Irrigation system efficiency": "(Water used by crops / Water applied) * 100",
-                "Water productivity": "Revenue generated / Water volume used",
-                "Efficient irrigation coverage": "(Area under efficient irrigation / Total irrigated area) * 100"
+        # -------------------- 6. Extension & Advisory --------------------
+        "Extension & Advisory": {
+            "Farmer Training Programs": {
+                "Training coverage (%)": "Farmers trained / Total target",
+                "Frequency of training (#)": "Events conducted / Planned events",
+                "Knowledge uptake (%)": "Assessment score improvement / Max score * 100",
+                "Adoption of practices (%)": "Farmers applying learned practices / Total trained"
             },
-            "Enhance Irrigation Scheduling": {
-                "Scientific scheduling adoption": "(Area under scientific scheduling / Total area) * 100",
-                "Deficit irrigation implementation": "Appropriate use of deficit irrigation strategies",
-                "Soil moisture sensor usage": "(Area monitored by sensors / Total area) * 100",
-                "ET-based scheduling": "(Area under ET-based scheduling / Total area) * 100"
+            "Field Advisory Services": {
+                "Visits per farmer (#)": "Visits conducted / Farmers reached",
+                "Response time to farmer queries (hrs)": "Average hours to respond",
+                "Problem resolution rate (%)": "Resolved queries / Total queries * 100",
+                "Advisory coverage (%)": "Farmers served / Total target * 100"
             },
-            "Improve Irrigation Infrastructure Performance": {
-                "System uniformity coefficient": "Measure of water application uniformity",
-                "Conveyance efficiency": "(Water delivered / Water diverted) * 100",
-                "Pumping plant efficiency": "Energy efficiency of pumping systems",
-                "Maintenance backlog": "Outstanding maintenance tasks and costs"
+            "Demonstration Plots": {
+                "Number of plots established (#)": "Plots established / Planned plots",
+                "Adoption of demonstrated techniques (%)": "Farmers applying demo practices / Total reached",
+                "Yield improvement on demo plots (%)": "(Demo yield - Control yield) / Control yield * 100",
+                "Farmer satisfaction (%)": "Survey score / Total responses * 100"
             },
-            "Develop Water Sources & Storage": {
-                "Rainwater harvesting capacity": "Volume of rainwater captured and stored",
-                "Groundwater recharge rate": "Rate of aquifer replenishment",
-                "Storage efficiency": "(Water available / Water stored) * 100",
-                "Water source diversification": "Number of different water sources utilized"
+            "Digital Advisory Tools": {
+                "Mobile app adoption (%)": "Farmers using app / Total target * 100",
+                "Information dissemination rate (%)": "Messages delivered / Total messages planned",
+                "Feedback incorporation (%)": "Suggestions implemented / Total received",
+                "Farmer engagement (%)": "Interactions / Total users * 100"
             },
-            "Enhance Water Quality Management": {
-                "Irrigation water quality": "Chemical and biological quality parameters",
-                "Drainage water treatment": "Percentage of drainage water treated",
-                "Salinity control effectiveness": "Maintenance of soil salinity levels",
-                "Water recycling rate": "Percentage of water reused in operations"
+            "Farmer Group Development": {
+                "Groups formed (#)": "Farmer groups established / Planned",
+                "Group meeting frequency (#)": "Meetings conducted / Planned meetings",
+                "Collective adoption rate (%)": "Farmers in groups adopting practices / Total farmers",
+                "Group productivity improvement (%)": "Average group yield increase (%)"
+            },
+            "Extension Staff Performance": {
+                "Staff coverage (%)": "Farmers served / Total assigned",
+                "Training completion rate (%)": "Staff completing training / Total staff * 100",
+                "Advisory quality rating (%)": "Survey rating / Max score * 100",
+                "Response time improvement (%)": "(Previous - Current) / Previous * 100"
             }
         },
 
-        "Supply Chain & Logistics Management": {
-            "Enhance Post-Harvest Management": {
-                "Post-harvest loss reduction": "((Previous losses - Current losses) / Previous losses) * 100",
-                "Storage facility efficiency": "(Properly stored produce / Total produce) * 100",
-                "Cold chain compliance": "(Maintained cold chain / Required cold chain) * 100",
-                "Processing efficiency improvement": "((Previous losses - Current losses) / Previous losses) * 100"
+        # -------------------- 7. Livestock Management --------------------
+        "Livestock Management": {
+            "Improve Animal Health": {
+                "Vaccination coverage (%)": "Animals vaccinated / Total livestock * 100",
+                "Disease incidence reduction (%)": "(Previous - Current) / Previous * 100",
+                "Mortality rate (%)": "Deaths / Total livestock * 100",
+                "Regular veterinary checkups (%)": "Checked / Total livestock * 100"
             },
-            "Strengthen Logistics & Transportation": {
-                "On-time delivery performance": "(On-time deliveries / Total deliveries) * 100",
-                "Transportation cost efficiency": "Cost per tonne-kilometer of transport",
-                "Vehicle utilization rate": "(Actual usage hours / Available hours) * 100",
-                "Fuel efficiency": "Distance traveled per unit of fuel"
+            "Optimize Feeding & Nutrition": {
+                "Feed conversion ratio": "Feed used / Weight gain",
+                "Nutritional balance compliance (%)": "Animals receiving balanced diet / Total livestock * 100",
+                "Feed cost per unit weight gain ($)": "Total feed cost / Weight gained",
+                "Supplement adoption (%)": "Animals receiving supplements / Total livestock * 100"
             },
-            "Optimize Inventory Management": {
-                "Inventory turnover ratio": "Cost of goods sold / Average inventory",
-                "Days of inventory on hand": "Average inventory / Daily cost of goods sold",
-                "Stock-out frequency": "Number of stock-out incidents per period",
-                "Obsolete inventory reduction": "Reduction in worthless inventory value"
+            "Breeding & Reproduction Management": {
+                "Artificial insemination success (%)": "Successful AI / Total inseminations * 100",
+                "Natural breeding efficiency (%)": "Pregnant animals / Total eligible",
+                "Birth rate (%)": "Offspring born / Total breeding animals * 100",
+                "Genetic improvement adoption (%)": "Improved breeds / Total animals * 100"
             },
-            "Improve Procurement Operations": {
-                "Input quality consistency": "Standard deviation of input quality measures",
-                "Supplier delivery reliability": "(On-time deliveries / Total deliveries) * 100",
-                "Procurement cycle time": "Time from requisition to delivery",
-                "Supplier relationship depth": "Number of strategic supplier partnerships"
+            "Housing & Welfare": {
+                "Adequate housing coverage (%)": "Livestock housed properly / Total livestock * 100",
+                "Animal welfare compliance (%)": "Checks passed / Total checks * 100",
+                "Disease-free housing (%)": "Clean housing / Total housing * 100",
+                "Mortality due to poor housing (%)": "Deaths / Total livestock * 100"
             },
-            "Enhance Warehouse Management": {
-                "Warehouse space utilization": "(Used space / Total available space) * 100",
-                "Order picking accuracy": "(Accurate picks / Total picks) * 100",
-                "Storage condition maintenance": "Compliance with storage requirements",
-                "Inventory accuracy rate": "(Accurate records / Total inventory items) * 100"
+            "Milk & Meat Productivity": {
+                "Milk yield per cow (L/day)": "Total milk / Number of cows",
+                "Meat yield per animal (kg)": "Total meat / Number of animals slaughtered",
+                "Product quality compliance (%)": "Products meeting standards / Total products",
+                "Processing efficiency (%)": "Yield vs input ratio"
+            },
+            "Livestock Record Management": {
+                "Record completeness (%)": "Animals recorded / Total livestock * 100",
+                "Timely data entry (%)": "Data entered on time / Total required",
+                "Traceability coverage (%)": "Animals traceable / Total livestock * 100",
+                "Farmer record usage (%)": "Farmers using records for management / Total farmers * 100"
             }
         },
 
-        "Technology & Innovation Adoption": {
-            "Implement Precision Agriculture": {
-                "Precision farming adoption": "(Area under precision practices / Total area) * 100",
-                "GPS guidance utilization": "(Operations using GPS / Total operations) * 100",
-                "Variable rate technology adoption": "(Inputs applied with VRT / Total inputs) * 100",
-                "Yield monitoring implementation": "(Area under yield monitoring / Total area) * 100"
+        # -------------------- 8. Horticulture --------------------
+        "Horticulture": {
+            "Improve Crop Variety Selection": {
+                "High-yield variety adoption (%)": "Varieties adopted / Total area * 100",
+                "Disease-resistant variety adoption (%)": "Varieties adopted / Total area * 100",
+                "Exotic variety introduction (#)": "New varieties introduced / Total planned",
+                "Variety performance compliance (%)": "Varieties meeting yield/quality standards / Total"
             },
-            "Adopt Digital Farming Solutions": {
-                "Farm management software usage": "(Farmers using software / Total farmers) * 100",
-                "IoT sensor deployment": "Number of sensors per unit area",
-                "Remote sensing utilization": "(Area monitored remotely / Total area) * 100",
-                "Automation level": "Percentage of operations automated"
+            "Enhance Greenhouse & Protected Cultivation": {
+                "Protected area coverage (%)": "Protected area / Total area * 100",
+                "Yield improvement (%)": "(Protected yield - Open field yield) / Open field yield * 100",
+                "Energy efficiency (%)": "(Previous - Current energy used) / Previous * 100",
+                "Labor productivity (%)": "Yield per labor unit"
             },
-            "Enhance Mechanization": {
-                "Mechanization level": "Percentage of operations mechanized",
-                "Equipment efficiency improvement": "((Previous efficiency - Current efficiency) / Previous efficiency) * 100",
-                "Custom hiring service utilization": "(Operations using custom hire / Total operations) * 100",
-                "Equipment availability": "(Available time / Total time) * 100"
+            "Optimize Fertilizer & Irrigation": {
+                "Fertilizer use efficiency (%)": "Yield per unit fertilizer",
+                "Irrigation water use efficiency (%)": "Yield / Water used",
+                "Nutrient deficiency incidents (#)": "Fields affected / Total fields",
+                "Fertilizer cost reduction (%)": "(Previous - Current) / Previous * 100"
             },
-            "Foster Production Innovation": {
-                "New technology adoption rate": "(Adopted technologies / Available technologies) * 100",
-                "Innovation implementation success": "(Successful innovations / Total innovations tried) * 100",
-                "Research collaboration effectiveness": "Number of successful research partnerships",
-                "Farmer-led innovation adoption": "Number of farmer-developed practices adopted"
+            "Pest & Disease Management": {
+                "IPM adoption (%)": "Protected area / Total area * 100",
+                "Chemical reduction (%)": "(Previous - Current) / Previous * 100",
+                "Disease monitoring frequency (#)": "Inspections conducted / Planned inspections",
+                "Yield loss due to pests (%)": "(Previous - Current) / Previous * 100"
             },
-            "Develop Agricultural Engineering Solutions": {
-                "Equipment customization rate": "Percentage of equipment adapted to local conditions",
-                "Process engineering improvements": "Number of optimized production processes",
-                "Infrastructure design efficiency": "Performance of designed agricultural structures",
-                "Technical problem-solving rate": "Success rate in addressing technical challenges"
+            "Post-Harvest Handling": {
+                "Storage loss reduction (%)": "(Previous - Current) / Previous * 100",
+                "Packaging compliance (%)": "Compliant packages / Total packages * 100",
+                "Cold chain maintenance (%)": "Maintained / Total harvested",
+                "Marketable yield (%)": "Market-ready produce / Total harvested"
+            },
+            "Extension & Advisory": {
+                "Farmer training coverage (%)": "Farmers trained / Total target",
+                "Demonstration plot adoption (%)": "Farmers adopting demo practices / Total reached",
+                "Knowledge retention (%)": "Assessment score improvement",
+                "Satisfaction rate (%)": "Survey score / Max score * 100"
             }
         },
 
-        "Quality Management & Control": {
-            "Implement Quality Control Processes": {
-                "In-process quality pass rate": "(Passed checks / Total checks) * 100",
-                "Final inspection acceptance": "(Accepted products / Total inspected) * 100",
-                "Non-conformance report rate": "Number of quality issues reported",
-                "Cost of quality": "Total prevention, appraisal, and failure costs"
+        # -------------------- 9. Forestry --------------------
+        "Forestry": {
+            "Tree Planting & Afforestation": {
+                "Trees planted (#)": "Planned vs planted trees",
+                "Survival rate (%)": "Survived trees / Total planted * 100",
+                "Area afforested (ha)": "Total area afforested",
+                "Community involvement (%)": "Participants / Target population * 100"
             },
-            "Standardize Operating Procedures": {
-                "SOP coverage rate": "(Processes with SOPs / Total processes) * 100",
-                "SOP training completion": "(Trained staff / Total staff) * 100",
-                "SOP adherence rate": "(Compliant operations / Total operations) * 100",
-                "SOP update frequency": "Regularity of procedure reviews and updates"
+            "Forest Protection & Fire Management": {
+                "Fire incidents (#)": "Reported fires / Total area",
+                "Fire control compliance (%)": "Fire checks passed / Total required",
+                "Illegal logging reduction (%)": "(Previous - Current) / Previous * 100",
+                "Patrolling coverage (%)": "Area patrolled / Total area * 100"
             },
-            "Enhance Process Control": {
-                "Process capability index": "Statistical measure of process performance",
-                "Control chart implementation": "Percentage of processes with statistical control",
-                "Variation reduction": "Decrease in process variability over time",
-                "Standard work development": "Extent of standardized work practices"
+            "Timber & Non-Timber Products Management": {
+                "Sustainable harvest compliance (%)": "Harvested sustainably / Total harvest",
+                "Product quality compliance (%)": "Products meeting standards / Total produced",
+                "Processing efficiency (%)": "Yield vs input ratio",
+                "Revenue from forest products ($)": "Total revenue collected"
+            },
+            "Biodiversity Conservation": {
+                "Endangered species protected (#)": "Protected / Total endangered",
+                "Habitat restoration coverage (%)": "Area restored / Planned area * 100",
+                "Invasive species control (%)": "Area managed / Total affected area * 100",
+                "Community awareness programs (#)": "Programs conducted / Planned"
+            },
+            "Carbon Sequestration & Climate Mitigation": {
+                "CO2 absorbed (tons)": "Estimated carbon captured",
+                "Forest cover change (%)": "Change vs baseline / Baseline * 100",
+                "Carbon credits earned (#)": "Credits registered / Total potential",
+                "Emission reduction from forest projects (%)": "Estimated reduction / Planned reduction * 100"
+            },
+            "Extension & Training": {
+                "Forestry training sessions (#)": "Sessions conducted / Planned",
+                "Farmer participation (%)": "Farmers attended / Target population * 100",
+                "Adoption of sustainable practices (%)": "Farmers applying training / Total reached",
+                "Satisfaction rate (%)": "Survey score / Max score * 100"
             }
         },
 
-        "Compliance & Risk Management": {
-            "Ensure Regulatory Compliance": {
-                "Regulatory non-compliances": "Number of compliance violations",
-                "Permit renewal timeliness": "(Renewed on time / Total permits) * 100",
-                "Environmental regulation adherence": "Score from environmental compliance audits",
-                "Labor law compliance": "Results from labor regulation inspections"
+        # -------------------- 10. Aquaculture --------------------
+        "Aquaculture": {
+            "Improve Fish Stock Management": {
+                "Stocking density compliance (%)": "Correct density / Total ponds * 100",
+                "Survival rate (%)": "Survived fish / Stocked fish * 100",
+                "Growth rate (g/day)": "Average daily weight gain",
+                "Feed conversion ratio": "Feed consumed / Weight gain"
             },
-            "Strengthen Biosecurity": {
-                "Biosecurity protocol adherence": "Score from biosecurity audits",
-                "Pest/disease outbreaks": "Number of disease incidents",
-                "Quarantine effectiveness": "Prevention of disease spread",
-                "Visitor logging compliance": "(Logged visits / Total visits) * 100"
+            "Optimize Water Quality": {
+                "Dissolved oxygen compliance (%)": "Ponds meeting DO standards / Total ponds",
+                "pH compliance (%)": "Ponds within optimal pH / Total ponds",
+                "Water temperature compliance (%)": "Ponds within temp range / Total ponds",
+                "Turbidity control (%)": "Ponds meeting turbidity standard / Total ponds"
             },
-            "Manage Climate & Environmental Risk": {
-                "Water stress index": "Assessment of water scarcity risk",
-                "Soil degradation rate": "Rate of soil quality decline",
-                "Biodiversity impact assessment": "Score from biodiversity evaluations",
-                "Climate vulnerability index": "Composite climate risk assessment"
+            "Disease & Health Management": {
+                "Disease incidence reduction (%)": "(Previous - Current) / Previous * 100",
+                "Mortality reduction (%)": "(Previous - Current) / Previous * 100",
+                "Vaccination coverage (%)": "Fish vaccinated / Total stock * 100",
+                "Early detection compliance (%)": "Inspected ponds / Total ponds * 100"
             },
-            "Implement Safety Management": {
-                "Safety incident rate": "Number of safety incidents per work hours",
-                "Safety training completion": "(Trained staff / Total staff) * 100",
-                "Emergency response readiness": "Score from emergency preparedness drills",
-                "Safety inspection compliance": "(Addressed findings / Total findings) * 100"
+            "Feed & Nutrition Management": {
+                "Feed efficiency (%)": "Weight gain / Feed consumed",
+                "Optimal feed usage (%)": "Feed applied / Recommended feed * 100",
+                "Cost per kg gain ($)": "Feed cost / Weight gain",
+                "Nutritional balance compliance (%)": "Ponds meeting diet requirement / Total ponds * 100"
             },
-            "Enhance Operational Continuity": {
-                "Business continuity planning": "Completeness of continuity plans",
-                "Disaster recovery capability": "Time to restore operations after disruption",
-                "Redundant system implementation": "Percentage of critical systems with backups",
-                "Supply chain resilience": "Ability to maintain supply during disruptions"
+            "Harvest & Market Readiness": {
+                "Harvest schedule adherence (%)": "Harvest on planned date / Total harvest",
+                "Yield per pond (kg)": "Total harvest / Pond area",
+                "Product quality compliance (%)": "Fish meeting market standards / Total harvest",
+                "Transport efficiency (%)": "On-time delivery / Total deliveries * 100"
+            },
+            "Extension & Advisory": {
+                "Farmer training coverage (%)": "Farmers trained / Target farmers * 100",
+                "Demonstration ponds (#)": "Ponds established / Planned",
+                "Adoption of improved practices (%)": "Farmers adopting demo practices / Total trained",
+                "Satisfaction rate (%)": "Survey score / Max score * 100"
             }
         },
 
-        "Disaster Relief & Recovery Support": {
-            "Improve agricultural disaster preparedness": {
-                "Preparedness plan coverage (%)": "(Covered regions / Total regions) * 100",
-                "Training sessions on DRR (#)": "Number of training sessions conducted",
-                "Simulation exercises (#)": "Mock drills held annually",
-                "Response readiness score": "Composite emergency preparedness score"
+        # -------------------- 11. Veterinary Services --------------------
+        "Veterinary Services": {
+            "Animal Health Monitoring": {
+                "Regular check-up coverage (%)": "Animals checked / Total livestock * 100",
+                "Disease incidence reduction (%)": "(Previous - Current) / Previous * 100",
+                "Vaccination compliance (%)": "Vaccinated animals / Total eligible * 100",
+                "Early detection rate (%)": "Diseases detected early / Total cases * 100"
             },
-            "Enhance early warning and risk communication": {
-                "Early warning system coverage (%)": "(Regions with EWS / Total regions) * 100",
-                "Lead time before disaster (days)": "Average warning period",
-                "Information dissemination reach (%)": "(People informed / Total population) * 100",
-                "Forecast accuracy (%)": "(Accurate alerts / Total alerts) * 100"
+            "Preventive Healthcare": {
+                "Vaccination coverage (%)": "Animals vaccinated / Total eligible * 100",
+                "Deworming frequency compliance (%)": "Animals treated / Planned schedule * 100",
+                "Parasite infestation reduction (%)": "(Previous - Current) / Previous * 100",
+                "Farmer adherence to preventive protocols (%)": "Farmers following guidelines / Total farmers * 100"
             },
-            "Provide timely disaster response assistance": {
-                "Response time (hours)": "Average time between alert and aid delivery",
-                "Relief coverage (%)": "(Households assisted / Affected households) * 100",
-                "Emergency supply adequacy (%)": "(Supplies delivered / Needed) * 100",
-                "Beneficiary satisfaction (%)": "Average satisfaction rating"
+            "Disease Control & Treatment": {
+                "Treatment success rate (%)": "Recovered animals / Total treated * 100",
+                "Timely intervention (%)": "Interventions done within recommended time / Total cases",
+                "Mortality reduction (%)": "(Previous - Current) / Previous * 100",
+                "Medication compliance (%)": "Correct dosage applied / Total treatments * 100"
             },
-            "Rehabilitate damaged agricultural infrastructure": {
-                "Infrastructure restored (%)": "(Repaired / Damaged) * 100",
-                "Rehabilitation completion time (days)": "Average project duration",
-                "Restoration investment ($)": "Total funds allocated",
-                "Rehabilitation quality score": "Assessment of restoration effectiveness"
+            "Livestock Nutrition & Health Management": {
+                "Balanced diet coverage (%)": "Animals receiving proper nutrition / Total livestock * 100",
+                "Growth rate improvement (%)": "(Current - Previous) / Previous * 100",
+                "Supplement adoption (%)": "Animals receiving supplements / Total livestock * 100",
+                "Feed-related disease reduction (%)": "(Previous - Current) / Previous * 100"
             },
-            "Support affected farmers’ recovery": {
-                "Compensation disbursed ($)": "Funds provided to affected farmers",
-                "Recovery program participation (%)": "(Participating farmers / Affected farmers) * 100",
-                "Crop replanting rate (%)": "(Replanted area / Affected area) * 100",
-                "Livestock restocking ratio (%)": "(Restocked animals / Lost animals) * 100"
+            "Emergency & Outbreak Response": {
+                "Response time to outbreak (hrs)": "Average time to respond",
+                "Affected area containment (%)": "Area contained / Total affected * 100",
+                "Emergency vaccination coverage (%)": "Animals vaccinated / Total exposed * 100",
+                "Mortality reduction during outbreak (%)": "(Previous - Current) / Previous * 100"
             },
-            "Promote climate risk insurance mechanisms": {
-                "Insurance coverage rate (%)": "(Insured farmers / Total farmers) * 100",
-                "Claim processing time (days)": "Average time to settle claims",
-                "Payout rate (%)": "(Claims paid / Claims filed) * 100",
-                "Insurance awareness score": "Farmer understanding of products"
-            },
-            "Integrate disaster risk reduction in planning": {
-                "Risk-informed plan coverage (%)": "(Plans integrating DRR / Total plans) * 100",
-                "Budget allocated to DRR (%)": "(DRR budget / Total budget) * 100",
-                "Hazard mapping coverage (%)": "(Mapped areas / Total regions) * 100",
-                "Policy integration index": "Extent of DRR embedded in policies"
-            },
-            "Monitor post-disaster recovery outcomes": {
-                "Recovery index": "Composite score measuring livelihood restoration",
-                "Household resilience index": "Recovery and coping capacity metric",
-                "Livelihood restoration rate (%)": "(Recovered households / Total affected) * 100",
-                "Time to full recovery (months)": "Average recovery period"
+            "Farmer Training & Advisory": {
+                "Training coverage (%)": "Farmers trained / Target farmers * 100",
+                "Adoption of veterinary practices (%)": "Farmers applying learned practices / Total trained",
+                "Satisfaction rate (%)": "Survey score / Max score * 100",
+                "Consultation frequency (#)": "Advice sessions conducted / Planned sessions"
             }
         },
 
-        "Infrastructure Development & Maintenance": {
-            "Optimize Farm Infrastructure": {
-                "Infrastructure condition index": "Overall assessment of facility conditions",
-                "Maintenance schedule compliance": "(Completed maintenance / Scheduled maintenance) * 100",
-                "Infrastructure utilization rate": "(Actual usage / Design capacity) * 100",
-                "Facility upgrade cycle": "Appropriateness of upgrade timing"
+        # 12. Post-Harvest & Storage Management
+        "Post-Harvest & Storage Management": {
+            "Cold Storage Utilization": {
+                "Storage capacity utilization (%)": "Used storage capacity / Total capacity * 100",
+                "Reduction in spoilage (%)": "(Previous losses - Current losses) / Previous losses * 100",
+                "Energy efficiency of storage systems (%)": "Energy used per ton stored / Baseline * 100",
+                "Temperature compliance rate (%)": "Hours within recommended temperature / Total hours * 100"
             },
-            "Develop Production Facilities": {
-                "Processing facility efficiency": "Output per facility operating hour",
-                "Storage capacity optimization": "Utilization rate of storage facilities",
-                "Packaging line performance": "Units packaged per hour",
-                "Facility layout effectiveness": "Efficiency of material flow in facilities"
+            "Storage Loss Reduction": {
+                "Post-harvest loss (%)": "Quantity lost / Total harvested * 100",
+                "Inventory rotation efficiency (%)": "Items rotated / Total items * 100",
+                "Packaging integrity (%)": "Intact packaging / Total packaging * 100",
+                "Storage handling errors (#)": "Number of handling mistakes per month"
             },
-            "Enhance Utility Systems": {
-                "Energy system reliability": "Uptime percentage of energy systems",
-                "Water system performance": "Efficiency of water distribution systems",
-                "Waste management effectiveness": "Percentage of waste properly managed",
-                "Utility cost control": "Cost per unit of utility services"
+            "Packaging & Handling Optimization": {
+                "Packaging material utilization efficiency (%)": "Used / Planned * 100",
+                "Reduction in damaged goods (%)": "(Previous damage - Current damage) / Previous damage * 100",
+                "Standardized packaging adoption (%)": "Standard packages used / Total packages * 100",
+                "Handling cost per ton ($)": "Total handling cost / Total tonnage handled"
+            },
+            "Transport to Market Timeliness": {
+                "On-time delivery (%)": "Deliveries on schedule / Total deliveries * 100",
+                "Average transit time (days)": "Total transit days / Number of shipments",
+                "Delivery delay incidents (#)": "Number of late shipments",
+                "Customer satisfaction with delivery (%)": "Survey score from customers"
+            },
+            "Inventory Management": {
+                "Inventory accuracy (%)": "Correct stock / Total stock * 100",
+                "Turnover rate (times/year)": "Total sales / Average inventory",
+                "Stockout frequency (#)": "Number of times inventory ran out",
+                "Obsolete stock reduction (%)": "(Previous obsolete - Current) / Previous * 100"
+            },
+            "Shelf-life Maximization": {
+                "Average product shelf-life (days)": "Measured shelf-life per batch",
+                "Reduction in expired products (%)": "(Previous expired - Current expired) / Previous * 100",
+                "Improved storage practices adoption (%)": "Correct practices / Total storage events * 100",
+                "Consumer complaints due to spoilage (#)": "Number of complaints related to quality"
             }
-        }
+        },
+
+        # 13. Agro-Processing & Value Addition
+        "Agro-Processing & Value Addition": {
+            "Processing Efficiency": {
+                "Throughput per hour (tons/hr)": "Processed quantity / Processing time",
+                "Equipment utilization rate (%)": "Actual usage / Available capacity * 100",
+                "Process downtime (hrs)": "Total downtime per period",
+                "Waste during processing (%)": "Wasted quantity / Total processed * 100"
+            },
+            "Quality Standards Compliance": {
+                "Products meeting standards (%)": "Conforming products / Total products * 100",
+                "Rejected product rate (%)": "Rejected quantity / Total quantity * 100",
+                "ISO / HACCP certification adherence (%)": "Compliant processes / Total processes * 100",
+                "Customer quality complaints (#)": "Number of quality-related complaints"
+            },
+            "Product Diversification": {
+                "New products launched (#)": "Count of new products introduced",
+                "Revenue from new products ($)": "Income from newly launched products",
+                "Share of total revenue from new products (%)": "Revenue from new products / Total revenue * 100",
+                "Market adoption rate (%)": "Customers using new products / Total customers * 100"
+            },
+            "Waste Reduction": {
+                "Reduction in process waste (%)": "(Previous waste - Current waste) / Previous waste * 100",
+                "Recycling / reusing rate (%)": "Quantity reused / Total waste * 100",
+                "Loss reduction in storage (%)": "(Previous loss - Current loss) / Previous loss * 100",
+                "Energy waste reduction (%)": "(Previous energy use - Current) / Previous * 100"
+            },
+            "Energy & Resource Efficiency": {
+                "Energy consumption per ton ($/ton)": "Total energy / Processed quantity",
+                "Water usage efficiency (m³/ton)": "Water used / Processed quantity",
+                "Labor productivity (tons/employee)": "Processed quantity / Number of employees",
+                "Input material utilization (%)": "Input used / Input required * 100"
+            },
+            "Marketable Product Yield": {
+                "Marketable yield (%)": "Good product / Total processed * 100",
+                "Loss during transport (%)": "Quantity lost / Total shipped * 100",
+                "Time to market (days)": "Average days from processing to market",
+                "Customer satisfaction with processed products (%)": "Survey score"
+            }
+        },
+
+        # 14. Climate & Environmental Risk Management
+        "Climate & Environmental Risk Management": {
+            "Drought & Flood Preparedness": {
+                "Irrigation buffer capacity (%)": "Available water reserve / Required reserve * 100",
+                "Emergency response drills (#)": "Number of preparedness drills conducted",
+                "Crop survival rate during drought (%)": "Survived crops / Total crops * 100",
+                "Damage mitigation cost efficiency ($)": "Cost saved vs expected damage"
+            },
+            "Soil & Water Conservation": {
+                "Erosion control implementation (%)": "Area with measures / Total area * 100",
+                "Water retention improvement (%)": "Post-project retention - baseline retention / baseline * 100",
+                "Farmer adoption of conservation practices (%)": "Adopting farmers / Total farmers * 100",
+                "Reduction in sediment runoff (%)": "(Previous - Current runoff) / Previous * 100"
+            },
+            "Climate-Resilient Crop Adoption": {
+                "Area under resilient crops (%)": "Resilient crop area / Total area * 100",
+                "Yield stability index": "Variance of yields vs baseline",
+                "Number of climate-resilient varieties introduced (#)": "Count of varieties",
+                "Farmer adoption rate (%)": "Farmers planting resilient varieties / Total farmers * 100"
+            },
+            "Pest & Disease Risk Mitigation": {
+                "Early warning system coverage (%)": "Area covered by monitoring / Total area * 100",
+                "Reduction in outbreak incidence (%)": "(Previous outbreaks - Current) / Previous * 100",
+                "Farmer training on risk mitigation (#)": "Number of trainings conducted",
+                "Crop loss reduction (%)": "(Previous loss - Current) / Previous * 100"
+            },
+            "Environmental Compliance": {
+                "Compliance with environmental laws (%)": "Audited compliant activities / Total activities * 100",
+                "Wastewater discharge standards met (%)": "Compliant discharges / Total discharges * 100",
+                "Chemical usage monitoring (%)": "Proper chemical use events / Total events * 100",
+                "Environmental audit score": "Average audit rating"
+            },
+            "Sustainability Program Implementation": {
+                "Green initiative projects (#)": "Number of environmental projects implemented",
+                "Carbon footprint reduction (%)": "(Baseline emissions - Current) / Baseline * 100",
+                "Renewable energy adoption (%)": "Energy from renewables / Total energy * 100",
+                "Stakeholder engagement in sustainability (#)": "Participants in sustainability programs"
+            }
+        },
+
     },
 
     "Learning & Growth Perspective": {
-        "Sustainable Resource Management": {
-            "Promote Biodiversity": {
-                "Crop and livestock variety count": "Number of different varieties maintained",
-                "Habitat conservation area": "(Conserved habitat / Total area) * 100",
-                "Pollinator habitat score": "Quality and quantity of pollinator habitats",
-                "Integrated Pest Management adoption": "(Area under IPM / Total area) * 100"
-            },
-            "Implement Circular Economy Practices": {
-                "Waste valorization rate": "(Waste converted to value / Total waste) * 100",
-                "Resource recycling efficiency": "(Recycled resources / Total resources) * 100",
-                "By-product utilization": "(Utilized by-products / Total by-products) * 100",
-                "Closed-loop systems": "Number of circular production systems"
-            },
-            "Conserve Water Resources": {
-                "Water footprint": "Total water consumed per unit output",
-                "Groundwater level trend": "Change in groundwater levels over time",
-                "Rainwater harvesting capacity": "Volume of rainwater captured annually",
-                "Drought-tolerant crop adoption": "(Area under drought-tolerant crops / Total area) * 100"
-            },
-            "Enhance Ecosystem Services": {
-                "Carbon sequestration rate": "Tonnes of carbon stored per hectare",
-                "Pollination service value": "Economic value of natural pollination",
-                "Soil formation rate": "Rate of natural soil development",
-                "Water purification effectiveness": "Quality of water leaving the farm"
-            }
-        },
 
-        "Climate Resilience & Adaptation": {
-            "Build Climate Resilience": {
-                "Climate-resilient practice adoption": "(Area under resilient practices / Total area) * 100",
-                "Climate-smart agriculture implementation": "Extent of climate-smart practices adoption",
-                "Crop diversification index": "Number of different crops grown",
-                "Climate-adaptive infrastructure": "Investment in climate-resilient structures"
-            },
-            "Implement Mitigation Strategies": {
-                "GHG emission reduction": "((Previous emissions - Current emissions) / Previous emissions) * 100",
-                "Carbon sequestration rate": "Amount of carbon stored in soils and biomass",
-                "Renewable energy adoption": "(Renewable energy used / Total energy) * 100",
-                "Methane reduction achievements": "Reduction in livestock methane emissions"
-            },
-            "Enhance Weather Risk Management": {
-                "Weather information service usage": "(Users of weather services / Total farmers) * 100",
-                "Weather insurance coverage": "(Insured production / Total production) * 100",
-                "Early warning system effectiveness": "Timeliness and accuracy of warnings",
-                "Disaster preparedness drills": "Frequency and quality of preparedness exercises"
-            },
-            "Develop Adaptive Capacity": {
-                "Climate adaptation planning": "Completeness of adaptation strategies",
-                "Resilient variety adoption": "(Area under climate-resilient varieties / Total area) * 100",
-                "Water storage capacity development": "Increase in water storage infrastructure",
-                "Alternative livelihood development": "Number of climate-resilient income sources"
-            }
-        },
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE['Learning & Growth Perspective'],
 
-        "Farmer & Employee Capacity Development": {
-            "Enhance Technical Skills": {
-                "Training hours per person": "Total training hours / Number of participants",
-                "Skills assessment pass rate": "(Passed assessments / Total assessments) * 100",
-                "Practice adoption rate": "(Adopted practices / Taught practices) * 100",
-                "Technical certifications": "Number of staff with professional certifications"
-            },
-            "Improve Digital Literacy": {
-                "Digital skills proficiency": "(Proficient users / Total users) * 100",
-                "Digital tool usage": "(Users of digital tools / Total staff) * 100",
-                "Mobile technology utilization": "(Mobile app users / Total farmers) * 100",
-                "E-learning completion": "(Completed courses / Enrolled courses) * 100"
-            },
-            "Strengthen Business Management": {
-                "Business plan development": "(Farms with business plans / Total farms) * 100",
-                "Financial record keeping": "(Farms maintaining records / Total farms) * 100",
-                "Marketing skills assessment": "Score from marketing capability evaluations",
-                "Strategic planning capability": "Assessment of planning and forecasting ability"
-            },
-            "Develop Irrigation Management Expertise": {
-                "Certified irrigation managers": "Number of staff with irrigation certifications",
-                "Modern irrigation training": "Hours of training on advanced irrigation methods",
-                "Water policy knowledge": "Understanding of water rights and regulations",
-                "Irrigation software proficiency": "Ability to use irrigation management software"
-            },
-            "Enhance Operational Skills": {
-                "Equipment operation certification": "Percentage of operators with formal certification",
-                "Maintenance skill level": "Score from maintenance competency assessments",
-                "Process operation efficiency": "Performance in standard operating procedures",
-                "Safety procedure compliance": "Adherence to safety protocols and procedures"
-            }
-        },
-
-        "Research & Innovation Ecosystem": {
-            "Strengthen Research Linkages": {
-                "Research collaborations": "Number of active research partnerships",
-                "Joint project funding": "Amount of co-funded research projects",
-                "Co-authored publications": "Number of joint research publications",
-                "Field trial success rate": "(Successful trials / Total trials) * 100"
-            },
-            "Enhance Technology Development": {
-                "New technologies developed": "Number of innovations created annually",
-                "R&D project completion": "(Completed projects / Total projects) * 100",
-                "Intellectual property generation": "Number of patents and IP assets",
-                "Technology readiness progression": "Advancement in technology maturity levels"
-            },
-            "Improve Knowledge Dissemination": {
-                "Field demonstrations conducted": "Number of demonstration events held",
-                "Farmer knowledge sharing": "Number of peer-to-peer learning events",
-                "Extension material reach": "Number of farmers receiving extension materials",
-                "Digital platform engagement": "Usage metrics of online knowledge platforms"
-            },
-            "Promote Research Utilization": {
-                "Research adoption rate": "(Adopted research findings / Total applicable findings) * 100",
-                "Technology transfer effectiveness": "(Successfully transferred technologies / Total technologies) * 100",
-                "Knowledge dissemination reach": "Extent of knowledge sharing to end-users",
-                "Research commercialization": "(Commercialized research / Total research) * 100"
-            },
-            "Foster Innovation Culture": {
-                "Innovation proposal rate": "Number of improvement suggestions per employee",
-                "Experiment implementation": "Number of controlled experiments conducted",
-                "Cross-functional innovation": "Percentage of innovations from team collaborations",
-                "Innovation recognition": "Number of innovations formally recognized"
-            }
-        },
-
-        "Organizational Culture & Structure": {
-            "Align Corporate Culture with Strategy": {
-                "Strategic goal understanding": "Employee comprehension of organizational objectives",
-                "Culture alignment score": "Results from cultural alignment assessments",
-                "Values recognition rate": "Frequency of values-based recognition",
-                "Cross-department collaboration": "Level of inter-departmental cooperation"
-            },
-            "Improve Communication & Teamwork": {
-                "Internal communication effectiveness": "Score from communication satisfaction surveys",
-                "Team performance metrics": "Performance indicators for team achievements",
-                "Meeting effectiveness rating": "Evaluation of meeting productivity and outcomes",
-                "Inter-departmental project success": "(Successful cross-team projects / Total projects) * 100"
-            },
-            "Enhance Organizational Agility": {
-                "Change implementation speed": "Time to implement organizational changes",
-                "Adaptation to market changes": "Speed of response to market shifts",
-                "Employee empowerment index": "Level of decision-making authority at all levels",
-                "Resource reallocation flexibility": "Ability to quickly redirect resources"
-            },
-            "Develop Organizational Learning": {
-                "Lessons learned implementation": "Percentage of lessons incorporated into practices",
-                "Best practice sharing": "Extent of sharing successful approaches",
-                "Continuous improvement culture": "Employee engagement in improvement activities",
-                "Knowledge retention rate": "Preservation of organizational knowledge"
-            }
-        },
-
-        "Social Inclusion & Community Development": {
-            "Promote Gender Equality": {
-                "Gender leadership ratio": "(Women in leadership / Total leadership) * 100",
-                "Gender pay equity": "Ratio of female to male compensation",
-                "Women's resource access": "(Women with equal access / Total women) * 100",
-                "Gender-sensitive training": "(Women in targeted programs / Total women) * 100"
-            },
-            "Enhance Youth Engagement": {
-                "Youth workforce percentage": "(Workers under 35 / Total workforce) * 100",
-                "Youth apprenticeship participation": "Number of youth in training programs",
-                "Succession plan readiness": "Preparation level for leadership transitions",
-                "Youth-led initiative support": "Number of youth-driven projects supported"
-            },
-            "Support Marginalized Groups": {
-                "Marginalized group inclusion": "Participation rates of underrepresented communities",
-                "Vulnerable group service access": "(Served vulnerable groups / Total vulnerable) * 100",
-                "Cultural sensitivity implementation": "Adaptation of programs for cultural relevance",
-                "Disability inclusion": "(Included persons with disabilities / Total with disabilities) * 100"
-            },
-            "Develop Citizen & Stakeholder Capabilities": {
-                "Stakeholder training programs": "Number of capacity building initiatives",
-                "Stakeholder development satisfaction": "Satisfaction scores from development programs",
-                "Local institutional capacity": "Improvement in community organization capabilities",
-                "Citizen planning participation": "Level of community involvement in agricultural planning"
-            },
-            "Enhance Community Development": {
-                "Local economic development": "Growth in local business opportunities",
-                "Community infrastructure improvement": "Investment in community facilities",
-                "Social cohesion index": "Measure of community unity and cooperation",
-                "Quality of life improvement": "Overall enhancement of community living standards"
-            }
-        },
-
-        "Technology & Digital Capability": {
-            "Enhance IT Infrastructure": {
-                "System uptime reliability": "Percentage of time systems are operational",
-                "Data security compliance": "Score from security audits and assessments",
-                "IT help desk performance": "Average resolution time for technical issues",
-                "IT infrastructure investment": "Level of spending on technology upgrades"
-            },
-            "Develop Data Analytics Capability": {
-                "Predictive analytics usage": "Extent of analytics in decision-making processes",
-                "Data quality score": "Assessment of data accuracy and completeness",
-                "Analytics training completion": "Number of staff trained in data analysis",
-                "Analytics project ROI": "Return on investment from data analytics initiatives"
-            },
-            "Improve Digital Connectivity": {
-                "Internet speed and reliability": "Network performance metrics",
-                "Mobile network coverage": "Percentage of area with reliable mobile service",
-                "Digital communication adoption": "Usage rate of digital communication tools",
-                "Rural broadband access": "Availability of high-speed internet in rural areas"
-            },
-            "Advance Agricultural Technology": {
-                "AgTech research investment": "Funding allocated to agricultural technology R&D",
-                "Technology integration success": "Effectiveness of integrating new technologies",
-                "Digital platform development": "Creation and enhancement of digital tools",
-                "Technology scalability": "Ability to scale technological solutions"
-            }
-        },
-
-        "Employee Engagement & Performance": {
-            "Increase Employee Engagement": {
-                "Engagement survey score": "Results from employee engagement assessments",
-                "Voluntary turnover rate": "(Voluntary departures / Total employees) * 100",
-                "Employee Net Promoter Score": "Willingness to recommend as a workplace",
-                "Absenteeism rate": "(Days absent / Total work days) * 100"
-            },
-            "Improve Performance Management": {
-                "Goal achievement rate": "(Achieved goals / Total goals) * 100",
-                "Performance review completion": "(Completed reviews / Total due reviews) * 100",
-                "Feedback frequency": "Regularity of performance feedback sessions",
-                "Development plan implementation": "(Implemented plans / Total plans) * 100"
-            },
-            "Strengthen Staff Retention": {
-                "Overall retention rate": "(Retained employees / Total employees) * 100",
-                "Top performer retention": "(Retained top performers / Total top performers) * 100",
-                "Exit satisfaction score": "Feedback from departing employees",
-                "Career development opportunities": "Number and quality of advancement paths"
-            },
-            "Build Knowledge Management Systems": {
-                "Knowledge documentation": "(Documented critical knowledge / Total critical knowledge) * 100",
-                "Knowledge repository usage": "Frequency and depth of system utilization",
-                "Lessons learned application": "Implementation rate of captured insights",
-                "Community of practice engagement": "Level of participation in knowledge sharing groups"
-            },
-            "Enhance Talent Development": {
-                "Succession planning coverage": "Percentage of key roles with identified successors",
-                "Leadership pipeline strength": "Quality and quantity of future leaders",
-                "Skill gap reduction": "Progress in addressing competency deficiencies",
-                "Professional development investment": "Resources allocated to employee growth"
-            }
-        },
-
-        "Leadership & Governance": {
-            "Develop Leadership Capacity": {
-                "Leadership competency assessment": "Score from leadership capability evaluations",
-                "Internal promotion rate": "(Internal promotions / Total promotions) * 100",
-                "Leadership training hours": "Training investment in leadership development",
-                "360-degree feedback scores": "Comprehensive leadership performance ratings"
-            },
-            "Strengthen Governance Systems": {
-                "Board effectiveness score": "Assessment of governance body performance",
-                "Policy compliance rate": "Adherence to organizational policies and procedures",
-                "Ethical conduct assessment": "Evaluation of ethical standards compliance",
-                "Stakeholder representation": "Inclusion of diverse stakeholder perspectives"
-            },
-            "Enhance Strategic Leadership": {
-                "Strategic vision clarity": "Understanding and alignment with organizational vision",
-                "Change leadership effectiveness": "Success in leading organizational transformations",
-                "Innovation leadership": "Support and promotion of innovative initiatives",
-                "Crisis management capability": "Effectiveness in handling emergency situations"
-            }
-        }
-    }
+    },
 }

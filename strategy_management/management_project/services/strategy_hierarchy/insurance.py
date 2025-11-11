@@ -1,5 +1,11 @@
+
+from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+
 INSURANCE_PERSPECTIVE = {
     "Financial Perspective": {
+
+        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
 
         "Insurance Revenue Growth & Diversification": {
             "Increase premium income from life insurance": {
@@ -359,5 +365,158 @@ INSURANCE_PERSPECTIVE = {
             }
 
         },
+    },
+
+    "Customer Perspective": {
+
+        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+
+        # ---------------- Policyholder Acquisition & Market Reach ----------------
+        "Policyholder Acquisition & Market Reach": {
+            "Target underserved populations": {
+                "Insurance penetration in underserved areas (%)": "Number of insured individuals in underserved areas / Total population in those areas * 100",
+                "New policyholders from underserved regions (#)": "Number of new policies sold in underserved regions",
+                "Premium revenue from new segments ($)": "Total premiums collected from newly targeted segments",
+                "Awareness of insurance products (%)": "Population aware of insurance offerings / Total target population * 100"
+            },
+            "Increase qualified lead generation": {
+                "Number of qualified leads per month": "Count of leads meeting qualification criteria per month",
+                "Lead generation cost per channel": "Total marketing spend per channel / Number of leads generated per channel",
+                "Lead-to-policy conversion rate (%)": "(Leads converted to policyholders / Total leads) * 100",
+                "Marketing qualified lead volume growth (%)": "((Current MQL volume - Previous MQL volume) / Previous MQL volume) * 100"
+            },
+            "Expand digital acquisition channels": {
+                "Online policy purchase rate (%)": "Number of policies purchased online / Total policies sold * 100",
+                "Digital marketing ROI (%)": "((Revenue from digital campaigns - Campaign cost) / Campaign cost) * 100",
+                "Website conversion rate (%)": "(Policies purchased online / Total website visitors) * 100",
+                "Click-through rate improvement (%)": "((Current CTR - Previous CTR) / Previous CTR) * 100"
+            }
+        },
+
+        # ---------------- Policyholder Satisfaction & Experience ----------------
+        "Policyholder Satisfaction & Experience": {
+            "Enhance claims handling": {
+                "Average claims processing time (days)": "Average days from claim submission to settlement",
+                "Claims resolution rate (%)": "Claims settled successfully / Total claims * 100",
+                "Customer satisfaction with claims (%)": "Surveyed satisfaction among policyholders who filed claims",
+                "Complaint escalation reduction (%)": "((Previous escalations - Current escalations) / Previous escalations) * 100"
+            },
+            "Improve digital insurance services": {
+                "Mobile app adoption rate (%)": "Users actively using the insurance mobile app / Total policyholders * 100",
+                "Digital claims submission success (%)": "Successful online claims / Total digital claims submitted * 100",
+                "Self-service adoption rate (%)": "Number of policyholders using self-service channels / Total policyholders * 100",
+                "Digital experience satisfaction (%)": "Surveyed satisfaction with digital platforms"
+            },
+            "Streamline policy onboarding": {
+                "Onboarding completion rate (%)": "New policyholders completing onboarding / Total new policyholders * 100",
+                "Time to first coverage (days)": "Average time from purchase to policy activation",
+                "New policyholder satisfaction score (%)": "Surveyed satisfaction of newly onboarded customers",
+                "Onboarding cost per policyholder ($)": "Total onboarding cost / Number of onboarded policyholders"
+            },
+            "Enhance customer communication": {
+                "Communication open rate (%)": "(Emails/messages opened / Total sent) * 100",
+                "Response rate to inquiries (%)": "(Responses delivered / Total inquiries) * 100",
+                "Customer engagement score": "Composite score based on interactions with policyholders",
+                "Timeliness of communication (%)": "Queries responded within target time / Total queries * 100"
+            }
+        },
+
+        # ---------------- Policyholder Loyalty & Retention ----------------
+        "Policyholder Loyalty & Retention": {
+            "Reduce policy lapse/churn": {
+                "Policy lapse rate (%)": "Lapsed policies / Total active policies * 100",
+                "Renewal rate (%)": "Renewed policies / Policies due for renewal * 100",
+                "Retention by product type (%)": "Retained policyholders per product / Total policyholders per product * 100",
+                "Customer lifetime value (CLV) growth ($)": "Current CLV - Previous CLV"
+            },
+            "Enhance loyalty programs": {
+                "Reward program participation (%)": "Enrolled policyholders / Total eligible policyholders * 100",
+                "Referral rate (%)": "New policies via referrals / Total policies * 100",
+                "Retention uplift from loyalty program (%)": "((Retention of participants - Retention of non-participants) / Retention of non-participants) * 100",
+                "Cross-product adoption (%)": "Policyholders holding multiple insurance products / Total policyholders * 100"
+            },
+            "Strengthen engagement & communication": {
+                "Active policyholder engagement rate (%)": "Engaged policyholders / Total policyholders * 100",
+                "Personalized communication adoption (%)": "Policyholders receiving personalized offers / Total policyholders * 100",
+                "Interaction frequency increase (%)": "((Current interactions - Previous interactions) / Previous interactions) * 100",
+                "Customer satisfaction with engagement (%)": "Surveyed satisfaction with engagement efforts"
+            }
+        },
+
+        # ---------------- Policyholder Value & Relationship Management ----------------
+        "Policyholder Value & Relationship Management": {
+            "Increase cross-selling / up-selling": {
+                "Uptake rate of complementary products (%)": "New products purchased by existing policyholders / Total eligible policyholders * 100",
+                "Revenue per policyholder ($)": "Total revenue from policyholder / Total policyholders",
+                "Account penetration depth (# of products per customer)": "Average number of products held per policyholder",
+                "Upsell conversion rate (%)": "(Successful upsell conversions / Eligible policyholders) * 100"
+            },
+            "Strengthen broker/agent relationships": {
+                "Broker satisfaction score (%)": "Surveyed satisfaction of brokers/agents",
+                "Number of active brokers (#)": "Total brokers actively selling policies",
+                "Premium contribution per broker ($)": "Total premiums sold per broker",
+                "Retention of distribution partners (%)": "(Partners retained / Total partners) * 100"
+            },
+            "Develop policyholder success programs": {
+                "Program completion rate (%)": "Completed initiatives / Total programs initiated * 100",
+                "Adoption rate of recommended actions (%)": "Policyholders applying program recommendations / Total participants * 100",
+                "Policyholder satisfaction with programs (%)": "Surveyed satisfaction of participants",
+                "Business outcomes achieved (%)": "Defined KPIs or outcomes met / Total outcomes planned * 100"
+            }
+        },
+
+        # ---------------- Policyholder Insights & Analytics ----------------
+        "Policyholder Insights & Analytics": {
+            "Enhance data collection for underwriting": {
+                "Complete policyholder profiles (%)": "Profiles with all required data fields / Total profiles * 100",
+                "Risk profiling accuracy (%)": "(Correct risk predictions / Total assessments) * 100",
+                "Real-time claims insights availability (%)": "Insights available in real-time / Total required insights * 100",
+                "Customer feedback utilization rate (%)": "Implemented suggestions / Total suggestions collected * 100"
+            },
+            "Leverage behavioral analytics": {
+                "Predictive claim risk accuracy (%)": "(Correct predictions / Total predictions) * 100",
+                "Personalized policy offer acceptance (%)": "Accepted personalized offers / Total offers * 100",
+                "Engagement via personalized communication (%)": "Policyholders responding to personalized outreach / Total contacted * 100",
+                "Analytics-driven policy adjustments (%)": "Policies updated based on analytics recommendations / Total applicable policies * 100"
+            },
+            "Enhance journey analytics": {
+                "Journey mapping completeness (%)": "Mapped policyholder journey stages / Total stages * 100",
+                "Drop-off point identification (%)": "Identified drop-offs / Total possible drop-offs * 100",
+                "Improvement in experience metrics (%)": "Change in key journey KPIs after optimization",
+                "Cross-channel visibility (%)": "Interactions visible across channels / Total interactions * 100"
+            }
+        },
+
+        # ---------------- Community & Social Impact ----------------
+        "Community & Social Impact": {
+            "Promote financial literacy & inclusion": {
+                "Participants in literacy programs (#)": "Number of participants in insurance or financial literacy programs",
+                "Awareness of insurance products (%)": "Population aware of insurance offerings",
+                "Policy adoption from literacy programs (%)": "New policies purchased by participants / Total participants * 100",
+                "Community satisfaction with initiatives (%)": "Survey-based satisfaction with literacy efforts"
+            },
+            "CSR & disaster mitigation": {
+                "Community projects supported (#)": "Number of CSR initiatives conducted",
+                "Relief provided during disasters ($)": "Financial or in-kind support delivered",
+                "Beneficiaries of CSR programs (#)": "Number of community members benefiting",
+                "Community trust index (%)": "Survey-based trust in organization/community support"
+            }
+        },
+
+        # ---------------- Regulatory & Stakeholder Engagement ----------------
+        "Regulatory & Stakeholder Engagement": {
+            "Ensure compliance & transparency": {
+                "Regulatory reporting accuracy (%)": "Correctly submitted reports / Total required reports * 100",
+                "Compliance audit pass rate (%)": "Successful audits / Total audits conducted * 100",
+                "Policyholder grievance resolution (%)": "Resolved grievances / Total received * 100",
+                "Stakeholder satisfaction with compliance (%)": "Survey-based satisfaction score"
+            },
+            "Strengthen stakeholder relationships": {
+                "Number of active stakeholders (#)": "Stakeholders engaged in insurance initiatives",
+                "Stakeholder engagement rate (%)": "Engaged stakeholders / Total stakeholders * 100",
+                "Satisfaction with engagement (%)": "Survey-based satisfaction of stakeholders",
+                "Net Promoter Score (NPS) for stakeholders": "Likelihood of stakeholders to recommend the organization"
+            }
+        }
     },
 }

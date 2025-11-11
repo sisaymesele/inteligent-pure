@@ -1,5 +1,3 @@
-
-
 GENERIC_CUSTOMER_PERSPECTIVE = {
     "Customer Perspective": {
         "Customer Acquisition & Market Reach": {
@@ -281,6 +279,216 @@ GENERIC_CUSTOMER_PERSPECTIVE = {
                 "Real-time customer insights availability": "(Available real-time insights / Total improvement_needed insights) * 100",
                 "Customer intelligence ROI": "((Benefits from intelligence - System cost) / System cost) * 100"
             }
-        }
-    }
+        },
+
+        "Reach, Access & Availability": {
+
+            "Expand coverage to target population": {
+                "Population coverage (%)": "Population served / Total target population * 100",
+                "Service points established (#)": "Number of service delivery points or outlets created",
+                "Coverage in underserved areas (%)": "Population served in underserved areas / Total underserved population * 100",
+                "Remote access rate (%)": "Users accessing services remotely / Total target population * 100"
+            },
+            "Improve accessibility of services": {
+                "Average distance or time to access service": "Average travel time or distance to access service",
+                "Accessibility for differently-abled (%)": "Accessible services / Total services * 100",
+                "Mobile or outreach units (#)": "Number of units deployed for outreach or mobile service",
+                "Request fulfillment rate (%)": "(Requests successfully fulfilled / Total requests) * 100"
+            },
+            "Ensure availability of essential resources": {
+                "Resource availability rate (%)": "Available resources / Total required resources * 100",
+                "Stockout frequency (#)": "Number of times essential resources are unavailable",
+                "Average replenishment time": "Average time to restock resources",
+                "Resource adequacy score": "Survey or quantitative measure of sufficiency of resources"
+            },
+            "Enhance multi-channel access": {
+                "Platform uptime (%)": "(Operational hours / Total hours) * 100",
+                "Physical facility accessibility score": "Survey-based accessibility measure",
+                "Digital adoption participation rate (%)": "Users trained or onboarded / Total target population * 100",
+                "Multi-channel service availability (%)": "(Services accessible via multiple channels / Total services) * 100"
+            },
+            "Increase awareness of services": {
+                "Campaign reach (%)": "(Population reached / Total target population) * 100",
+                "Information dissemination events (#)": "Number of outreach or awareness events conducted",
+                "Community engagement rate (%)": "(Participants in engagement activities / Total target population) * 100",
+                "Surveyed awareness improvement (%)": "Change in awareness level over time"
+            },
+            "Reduce barriers to service usage": {
+                "Average wait time or processing time": "Average time required to access service",
+                "Cost barrier reduction (%)": "Decrease in costs for accessing services / Previous cost * 100",
+                "Language or cultural accessibility (%)": "Services provided in multiple languages or culturally adapted / Total services * 100",
+                "Barrier complaint resolution rate (%)": "(Complaints resolved / Total complaints) * 100"
+            },
+            "Optimize resource allocation and efficiency": {
+                "Resource utilization rate (%)": "(Used resources / Total allocated resources) * 100",
+                "Service demand forecast accuracy (%)": "Accuracy of predicted vs actual demand",
+                "Operational efficiency improvement (%)": "Reduction in time/cost per service delivery",
+                "Resource redundancy reduction (%)": "Unused or idle resources / Total resources * 100"
+            },
+            "Promote equitable access and inclusion": {
+                "Equity index (%)": "Access for underserved or marginalized groups / Total target population * 100",
+                "Rural or remote reach (%)": "Population served in rural or remote areas / Total rural/remote population * 100",
+                "Low-income group coverage (%)": "Services accessed by low-income users / Total low-income population * 100",
+                "Gender or minority inclusion rate (%)": "Services accessible to all genders or minority groups / Total population * 100"
+            }
+        },
+
+        # ==================== 1. Citizens Focus Area ====================
+        "Citizens": {
+            "Enhance Access to Public Services": {
+                "Service coverage rate (%)": "Percentage of citizens with access to essential public services",
+                "Service utilization rate (%)": "Citizens actively using services / Total eligible citizens * 100",
+                "Average service delivery time (days)": "Time from request to delivery of service",
+                "Citizen satisfaction with service (%)": "Surveyed satisfaction level among citizens"
+            },
+            "Promote Civic Engagement": {
+                "Voter participation rate (%)": "Registered voters participating in elections / Total registered voters * 100",
+                "Participation in public consultations (#)": "Number of citizens attending forums, consultations, or town halls",
+                "Digital civic engagement rate (%)": "Citizens using digital platforms to participate / Total citizens * 100",
+                "Behavioral change from campaigns (%)": "Measure of adoption of promoted civic behaviors (e.g., recycling, vaccination)"
+            },
+            "Strengthen Citizen Awareness & Education": {
+                "Public awareness campaign reach (%)": "Target audience reached / Total target audience * 100",
+                "Knowledge improvement score": "Pre- and post-awareness campaign survey score difference",
+                "Behavior adoption rate (%)": "Percentage of citizens adopting desired behaviors after campaigns",
+                "Information accessibility score": "Ease of access to public information (survey-based)"
+            },
+            "Foster Social Inclusion & Equity": {
+                "Participation of underrepresented groups (%)": "Engaged citizens from marginalized groups / Total citizens * 100",
+                "Equitable service delivery index": "Measure of fairness in service distribution",
+                "Disparity reduction in key services (%)": "Reduction in access gap between groups",
+                "Citizen satisfaction with inclusivity (%)": "Surveyed satisfaction among marginalized populations"
+            },
+            "Improve Citizen Safety & Security": {
+                "Crime rate reduction (%)": "Change in reported crime incidents / Previous period * 100",
+                "Emergency response time (minutes)": "Average response time for emergency services",
+                "Perceived safety index": "Surveyed citizen perception of safety",
+                "Incidents resolved within standard timeframe (%)": "Resolved cases / Total reported cases * 100"
+            },
+            "Enhance Health & Well-being": {
+                "Vaccination coverage (%)": "Vaccinated population / Total eligible population * 100",
+                "Access to primary healthcare (%)": "Population with functional access to primary healthcare",
+                "Improvement in key health indicators (%)": "E.g., child mortality, malnutrition rates",
+                "Citizen satisfaction with healthcare (%)": "Survey-based satisfaction score"
+            },
+            "Promote Environmental Responsibility": {
+                "Recycling participation rate (%)": "Citizens participating in recycling programs / Total population * 100",
+                "Reduction in household waste (%)": "Decrease in waste generated per household",
+                "Green awareness score": "Surveyed knowledge of environmental initiatives",
+                "Behavioral change attributable to campaigns (%)": "Adoption of sustainable practices"
+            },
+            "Foster Civic Innovation & Feedback": {
+                "Citizen feedback submissions (#)": "Number of suggestions or complaints submitted",
+                "Response rate to feedback (%)": "Feedback addressed / Total feedback * 100",
+                "Citizen satisfaction with responsiveness (%)": "Surveyed satisfaction with issue resolution",
+                "Innovative citizen-led proposals (#)": "Number of initiatives proposed by citizens"
+            }
+        },
+
+        # ==================== 2. Community Focus Area ====================
+        "Community": {
+            "Promote Local Development": {
+                "Community project impact score": "Composite index of social, economic, and environmental outcomes",
+                "Local employment creation (#)": "Jobs generated through community initiatives",
+                "Local investment mobilized ($)": "Funding or investments attracted to community projects",
+                "Community satisfaction with development (%)": "Survey-based satisfaction among residents"
+            },
+            "Foster Social Cohesion": {
+                "Participation in community events (#)": "Number of attendees in social or cultural events",
+                "Neighborhood collaboration index": "Survey-based measure of trust and collaboration",
+                "Conflict resolution success rate (%)": "Disputes resolved / Total disputes reported * 100",
+                "Community engagement satisfaction (%)": "Survey score for engagement quality"
+            },
+            "Build Community Capacity": {
+                "Training sessions conducted (#)": "Skill-building or educational sessions delivered",
+                "Members trained (#)": "Number of community members participating in training",
+                "Skill adoption rate (%)": "Trained members applying skills in practice",
+                "Improvement in local outcomes (%)": "E.g., increase in literacy, employment, or health metrics"
+            },
+            "Encourage Community-led Initiatives": {
+                "Community-initiated project proposals (# per quarter)": "Leading indicator of engagement",
+                "Projects successfully implemented (#)": "Completed initiatives from community proposals",
+                "Funding mobilized for community projects ($)": "Financial resources raised",
+                "Community satisfaction with initiatives (%)": "Survey-based measurement of perceived value"
+            },
+            "Enhance Access to Community Services": {
+                "Service coverage rate (%)": "Communities with access to essential services / Total communities * 100",
+                "Participation rate in programs (%)": "Community members actively using services",
+                "Equitable service delivery index": "Fairness in service provision",
+                "Outcome improvements (%)": "Measured improvements from community programs"
+            },
+            "Strengthen Community Awareness": {
+                "Community awareness campaign reach (%)": "Percentage of community reached by campaigns",
+                "Knowledge improvement index": "Change in awareness or understanding",
+                "Behavior adoption rate (%)": "Community members adopting recommended actions",
+                "Engagement satisfaction (%)": "Surveyed satisfaction with outreach initiatives"
+            },
+            "Encourage Sustainable Practices": {
+                "Participation in environmental programs (#)": "Community members involved in sustainability programs",
+                "Reduction in community resource consumption (%)": "Decrease in energy, water, or waste",
+                "Sustainable practices adoption rate (%)": "Percentage implementing recommended practices",
+                "Community satisfaction with sustainability (%)": "Survey-based measurement of impact"
+            },
+            "Promote Equity & Inclusion in Communities": {
+                "Engagement of marginalized groups (%)": "Participation from underrepresented community members",
+                "Inclusive initiative score": "Composite index measuring inclusion in programs",
+                "Equity improvement (%)": "Reduction in disparities within communities",
+                "Community satisfaction with inclusivity (%)": "Surveyed perception of fairness"
+            }
+        },
+
+        # ==================== 3. Stakeholders Focus Area ====================
+        "Stakeholders": {
+            "Strengthen Stakeholder Engagement": {
+                "Number of active stakeholders (#)": "Stakeholders actively participating in programs",
+                "Engagement rate (%)": "Engaged stakeholders / Total stakeholders * 100",
+                "Satisfaction with engagement (%)": "Survey-based satisfaction score",
+                "Net Promoter Score (NPS) for stakeholders": "Likelihood to recommend or advocate for organization"
+            },
+            "Enhance Communication & Transparency": {
+                "Stakeholder communications delivered (#)": "Number of official communications",
+                "Response rate to inquiries (%)": "Inquiries responded / Total inquiries * 100",
+                "Clarity index": "Survey-based perception of clarity of communication",
+                "Transparency satisfaction (%)": "Survey-based satisfaction score on transparency"
+            },
+            "Promote Collaborative Partnerships": {
+                "Joint initiatives implemented (#)": "Collaborative programs or projects completed",
+                "Stakeholder contribution ($)": "Financial or in-kind contributions from stakeholders",
+                "Stakeholder satisfaction with collaboration (%)": "Survey-based satisfaction score",
+                "Sustainability of partnerships (%)": "Partnerships continuing beyond initial term"
+            },
+            "Support Policy & Decision-Making": {
+                "Stakeholder consultations conducted (#)": "Number of consultation sessions held",
+                "Policy feedback adoption rate (%)": "Implemented feedback / Total feedback received * 100",
+                "Influence on policy decisions (%)": "Share of recommendations adopted in policies",
+                "Stakeholder satisfaction with influence (%)": "Survey-based perception of policy impact"
+            },
+            "Enhance Capacity & Knowledge Sharing": {
+                "Training sessions conducted (#)": "Capacity-building sessions for stakeholders",
+                "Stakeholders trained (#)": "Number of stakeholders participating",
+                "Skill application rate (%)": "Percentage applying learned skills",
+                "Improvement in organizational outcomes (%)": "Impact of capacity-building on operations"
+            },
+            "Promote Long-term Relationships": {
+                "Stakeholder retention rate (%)": "Long-term relationships maintained",
+                "Repeat collaboration rate (%)": "Stakeholders engaging in multiple initiatives",
+                "Trust index": "Survey-based trust in organization",
+                "Advocacy or recommendation rate (%)": "Stakeholders recommending organization or initiatives"
+            },
+            "Encourage Innovation & Co-Creation": {
+                "Stakeholder ideas submitted (#)": "Number of innovative ideas proposed",
+                "Ideas implemented (#)": "Proportion of ideas adopted",
+                "Joint solution deployment (#)": "Number of co-created solutions implemented",
+                "Satisfaction with co-creation process (%)": "Survey-based satisfaction"
+            },
+            "Promote Equity & Inclusion Among Stakeholders": {
+                "Diverse stakeholder participation (%)": "Engagement of stakeholders from underrepresented groups",
+                "Inclusivity satisfaction (%)": "Survey score measuring inclusiveness",
+                "Equity index": "Measure of fair treatment in decision-making",
+                "Stakeholder-reported improvements (%)": "Perceived positive changes from inclusion initiatives"
+            }
+        },
+    },
+
+
 }

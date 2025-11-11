@@ -1,6 +1,13 @@
+
+from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
+from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+
+
 MINING_PERSPECTIVE = {
     "Financial Perspective": {
-        # -------------------- Revenue Excellence & Growth --------------------
+
+        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+
         # -------------------- Revenue Growth & Diversification --------------------
         "Mining Revenue Growth & Diversification": {
             "Increase revenue from core minerals": {
@@ -172,147 +179,269 @@ MINING_PERSPECTIVE = {
 
 
 "Customer Perspective": {
-    "Product Quality & Reliability": {
-        "Enhance Product Consistency": {
-            "Grade consistency achievement": "(Deliveries meeting grade specifications / Total deliveries) * 100",
-            "Quality specification compliance": "(Products meeting quality specs / Total products) * 100",
-            "Contamination control": "Reduction in product contamination incidents",
-            "Moisture content stability": "Consistency of moisture content in shipments"
+
+    **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+
+    # ------------------ 1. COMMUNITY & SOCIAL LICENSE ------------------
+        "Community & Social License": {
+            "Strengthen community trust and engagement": {
+                "Community satisfaction rate (%)": "(Satisfied respondents / Total surveyed) * 100",
+                "Community grievance resolution rate (%)": "(Resolved cases / Total cases) * 100",
+                "CSR investment ($)": "Total funds allocated to community projects",
+                "Local employment share (%)": "(Local employees / Total employees) * 100"
+            },
+            "Enhance local employment and skills development": {
+                "Local workforce ratio (%)": "(Local workers / Total workers) * 100",
+                "Training participation (#)": "Number of local trainees in mining programs",
+                "Skill certification attainment (%)": "(Certified trainees / Total trained) * 100",
+                "Post-training employment rate (%)": "(Employed trainees / Total trained) * 100"
+            },
+            "Promote equitable community benefit sharing": {
+                "Revenue shared with communities ($)": "Funds disbursed to community trusts or programs",
+                "Projects benefiting community (#)": "Community development initiatives completed",
+                "Community benefit satisfaction (%)": "Surveyed satisfaction with benefit distribution",
+                "Transparency disclosure rate (%)": "(Disclosed benefit reports / Total expected) * 100"
+            },
+            "Enhance corporate social responsibility performance": {
+                "CSR index score": "Composite index from social, education, and health investments",
+                "Volunteer hours (#)": "Total hours of staff volunteering",
+                "Impact projects completed (#)": "CSR projects achieving measurable outcomes",
+                "Community partnership programs (#)": "Collaborative initiatives with NGOs/local orgs"
+            },
+            "Foster environmental responsibility awareness": {
+                "Community awareness programs (#)": "Environmental education events held",
+                "Public environmental feedback score": "Average satisfaction with company’s green initiatives",
+                "Waste reduction campaigns (#)": "Community-led clean-up or recycling events",
+                "Air and water quality index (AQI/WQI)": "Measured environmental health indicators"
+            },
+            "Promote long-term community resilience": {
+                "Livelihood diversification index": "Proportion of households with multiple income sources",
+                "Household income growth (%)": "(Current average - Previous average) / Previous * 100",
+                "Community dependency ratio (%)": "(Mining-dependent households / Total households) * 100",
+                "Sustainability of local projects (%)": "(Active after 3 years / Total initiated) * 100"
+            },
+            "Improve local infrastructure support": {
+                "Community infrastructure projects (#)": "Schools, clinics, roads built/upgraded",
+                "Access to basic services (%)": "Households gaining new access to water/power",
+                "Infrastructure satisfaction score": "Community survey rating",
+                "Maintenance compliance rate (%)": "(Maintained projects / Total infrastructure) * 100"
+            },
+            "Ensure transparent community communication": {
+                "Public meetings held (#)": "Formal stakeholder consultations conducted",
+                "Information disclosure rate (%)": "(Published reports / Required reports) * 100",
+                "Feedback turnaround time (days)": "Average response time to inquiries",
+                "Trust index": "Survey-based composite of perceived transparency and fairness"
+            },
         },
-        "Improve Product Performance": {
-            "Metallurgical performance": "Customer rating of product metallurgical properties",
-            "Processing characteristics": "Customer assessment of processing behavior",
-            "End-use suitability": "Product performance in customer applications",
-            "Technical specification achievement": "(Products meeting technical specs / Total products) * 100"
+
+        # ------------------ 2. CITIZEN & NATIONAL BENEFIT ------------------
+        "Citizen & National Benefit": {
+            "Enhance contribution to national development": {
+                "GDP contribution ($)": "Mining sector’s contribution to national GDP",
+                "Local procurement ratio (%)": "(Local procurement / Total procurement) * 100",
+                "Export revenue ($)": "Annual export income from minerals",
+                "National employment share (%)": "(National employees / Total workforce) * 100"
+            },
+            "Promote fair and transparent resource management": {
+                "Transparency compliance rate (%)": "(Reports published / Required disclosures) * 100",
+                "Public disclosure score": "Evaluation of open data reporting",
+                "Corruption incidents reported (#)": "Verified cases of malpractice",
+                "Revenue reconciliation gap (%)": "(Reported vs actual payments difference / Total) * 100"
+            },
+            "Increase national beneficiation and value addition": {
+                "Value-added exports (%)": "(Processed minerals / Total exports) * 100",
+                "Local refining capacity utilization (%)": "(Actual / Installed capacity) * 100",
+                "Jobs in value-added industries (#)": "Employment created in downstream sectors",
+                "Technology transfer initiatives (#)": "Partnerships improving national capacity"
+            },
+            "Improve public perception of mining benefits": {
+                "Citizen trust index": "Survey-based trust score in mining operations",
+                "Media sentiment ratio (%)": "(Positive coverage / Total coverage) * 100",
+                "Public awareness campaigns (#)": "Educational outreach programs conducted",
+                "Perceived benefit distribution fairness (%)": "Survey-based fairness rating"
+            },
+            "Support local economic diversification": {
+                "Non-mining SMEs supported (#)": "Entrepreneurs assisted through funding or training",
+                "Local business survival rate (%)": "(Active SMEs / Total supported) * 100",
+                "Employment outside mining (%)": "(Non-mining jobs / Total regional employment) * 100",
+                "Microcredit disbursed ($)": "Funds extended to local entrepreneurs"
+            },
+            "Enhance citizen participation in resource governance": {
+                "Public consultations (#)": "National or regional engagement events",
+                "Citizen engagement index": "Composite score for inclusiveness",
+                "Public input incorporated (%)": "(Policy changes based on input / Total proposals) * 100",
+                "Satisfaction with participation (%)": "Citizen survey on engagement effectiveness"
+            },
+            "Ensure equitable taxation and royalty distribution": {
+                "Royalty payments to regions ($)": "Amount disbursed to local governments",
+                "Revenue transparency score": "Open data compliance indicator",
+                "Delayed transfers (%)": "(Late payments / Total payments) * 100",
+                "Beneficiary coverage (%)": "(Communities receiving shares / Total eligible) * 100"
+            },
+            "Promote long-term national resource sustainability": {
+                "Resource depletion rate (%)": "(Extracted reserves / Total reserves) * 100",
+                "Mine reclamation compliance (%)": "(Reclaimed sites / Closed sites) * 100",
+                "Investment in restoration ($)": "Funds allocated to ecological recovery",
+                "Public satisfaction with restoration (%)": "Citizen survey after site closure"
+            },
         },
-        "Enhance Customer Experience": {
-            "Customer satisfaction score": "Average rating from customer surveys",
-            "Technical support effectiveness": "Customer rating of technical assistance",
-            "Order customization capability": "Ability to meet custom product requirements",
-            "Documentation accuracy": "(Accurate documentation / Total shipments) * 100"
+
+        # ------------------ 3. INVESTOR & PARTNER RELATIONS ------------------
+        "Investor & Partner Relations": {
+            "Improve investor confidence and transparency": {
+                "Investor satisfaction rate (%)": "(Satisfied investors / Total investors) * 100",
+                "Financial disclosure compliance (%)": "(Reports published / Required) * 100",
+                "Timely reporting rate (%)": "(On-time reports / Total) * 100",
+                "Investor retention rate (%)": "(Returning investors / Total investors) * 100"
+            },
+            "Promote ESG (Environmental, Social, Governance) excellence": {
+                "ESG score": "External ESG performance rating",
+                "Sustainability reporting compliance (%)": "(Published reports / Required reports) * 100",
+                "ESG investment ratio (%)": "(Funds in ESG projects / Total investment) * 100",
+                "Stakeholder ESG satisfaction (%)": "Investor perception of ESG performance"
+            },
+            "Enhance joint venture collaboration": {
+                "Partnership satisfaction score": "Survey score from JV partners",
+                "Project milestones achieved on time (%)": "(Achieved / Planned milestones) * 100",
+                "Conflict incidents (#)": "Recorded partnership conflicts",
+                "Joint investment volume ($)": "Total capital deployed in joint ventures"
+            },
+            "Attract new investors and diversify funding sources": {
+                "New investors acquired (#)": "Investors entering in current year",
+                "Funding diversity index": "Ratio of funding types used",
+                "Capital inflow growth (%)": "(Current inflow - Previous) / Previous * 100",
+                "Investor conversion rate (%)": "(Interested / Actual investors) * 100"
+            },
+            "Strengthen investor communication and reporting": {
+                "Reports published on schedule (%)": "(Published on time / Total planned) * 100",
+                "Investor briefing sessions (#)": "Meetings or calls held with investors",
+                "Feedback response time (days)": "Average days to respond to investor inquiries",
+                "Transparency index score": "Third-party evaluation of disclosure"
+            },
+            "Improve credit and risk perception": {
+                "Credit rating score": "External or national rating agency score",
+                "Risk mitigation plans implemented (%)": "(Implemented / Total plans) * 100",
+                "Insurance coverage ratio (%)": "(Insured assets / Total assets) * 100",
+                "Investment default rate (%)": "(Defaults / Total projects) * 100"
+            },
+            "Increase shareholder value": {
+                "Dividend payout ratio (%)": "(Dividends / Net income) * 100",
+                "Return on equity (%)": "(Net income / Equity) * 100",
+                "Market valuation ($)": "Current valuation of firm",
+                "Earnings per share ($)": "Total earnings / Shares outstanding"
+            },
+            "Encourage long-term partnerships": {
+                "Partnership renewal rate (%)": "(Renewed partnerships / Total expiring) * 100",
+                "Partner Net Promoter Score (NPS)": "Average likelihood of partners recommending the firm",
+                "Collaborative innovation projects (#)": "Joint R&D or efficiency programs",
+                "Shared investment growth (%)": "(Partner investment current - previous) / previous * 100"
+            },
         },
-        "Strengthen Delivery Reliability": {
-            "On-time delivery rate": "(On-time deliveries / Total deliveries) * 100",
-            "Quantity accuracy": "(Accurate quantities delivered / Total deliveries) * 100",
-            "Shipping schedule adherence": "(Shipments on schedule / Total shipments) * 100",
-            "Supply consistency": "Reliability of continuous supply"
+
+        # ------------------ 4. GOVERNMENT & REGULATORY RELATIONS ------------------
+        "Government & Regulatory Relations": {
+            "Ensure full legal and regulatory compliance": {
+                "Regulatory compliance rate (%)": "(Compliant processes / Total inspected) * 100",
+                "Audit pass rate (%)": "(Audits passed / Total conducted) * 100",
+                "Licensing renewal success (%)": "(Renewed licenses / Total due) * 100",
+                "Violations reported (#)": "Number of compliance violations"
+            },
+            "Strengthen intergovernmental cooperation": {
+                "Policy dialogue sessions (#)": "Meetings held with government bodies",
+                "Joint initiatives implemented (#)": "Collaborative projects executed",
+                "Government satisfaction score": "Evaluation from counterpart agencies",
+                "Policy alignment index": "Degree of alignment with national mining strategy"
+            },
+            "Enhance public reporting and accountability": {
+                "Reports submitted on time (%)": "(On-time submissions / Total required) * 100",
+                "Audit findings resolved (%)": "(Resolved issues / Total findings) * 100",
+                "Transparency compliance (%)": "(Reports published / Expected reports) * 100",
+                "Regulatory rating score": "External assessment of compliance integrity"
+            },
+            "Improve responsiveness to government directives": {
+                "Response time to directives (days)": "Average time to comply",
+                "Implementation rate (%)": "(Implemented recommendations / Total received) * 100",
+                "Government communication frequency (#)": "Number of bilateral updates per quarter",
+                "Satisfaction with responsiveness (%)": "Survey-based rating from regulators"
+            },
+            "Promote good governance in the mining sector": {
+                "Governance index score": "Composite rating for governance performance",
+                "Anti-corruption policy adherence (%)": "(Compliant units / Total units) * 100",
+                "Ethics training completion (%)": "(Staff trained / Total staff) * 100",
+                "Reported ethical violations (#)": "Confirmed ethical breaches"
+            },
+            "Increase local government capacity building": {
+                "Local officials trained (#)": "Government representatives trained",
+                "Policy workshops conducted (#)": "Capacity-building sessions held",
+                "Adoption of mining best practices (%)": "(Local govs adopting best practices / Total) * 100",
+                "Satisfaction with training (%)": "Feedback from trained officials"
+            },
+            "Support policy innovation and reform": {
+                "Policy studies commissioned (#)": "Research projects initiated",
+                "Recommendations adopted (%)": "(Implemented / Proposed reforms) * 100",
+                "New policy frameworks supported (#)": "Developed or amended policies",
+                "Regulatory improvement index": "Independent score of regulatory enhancement"
+            },
+            "Foster inter-agency collaboration": {
+                "Collaborative programs (#)": "Inter-ministerial or agency programs",
+                "Joint reports published (#)": "Multi-agency publications",
+                "Coordinated inspections (%)": "(Joint inspections / Total inspections) * 100",
+                "Stakeholder alignment score": "Surveyed alignment across agencies"
+            },
         },
-        "Optimize Product Development": {
-            "New product development success": "(Successful new products / Total development projects) * 100",
-            "Customer-driven innovation": "Number of products developed from customer input",
-            "Application development support": "Effectiveness in supporting customer applications",
-            "Product improvement implementation": "Number of product enhancements based on feedback"
+
+        # ------------------ 5. SUPPLY CHAIN & CONTRACTORS ------------------
+        "Supply Chain & Contractors": {
+            "Promote local supplier participation": {
+                "Local supplier ratio (%)": "(Local suppliers / Total suppliers) * 100",
+                "Procurement from local vendors ($)": "Spend on domestic suppliers",
+                "Local content development projects (#)": "Programs for supplier capacity building",
+                "Supplier satisfaction score": "Survey feedback on partnership quality"
+            },
+            "Ensure supplier quality and reliability": {
+                "Supplier on-time delivery rate (%)": "(On-time deliveries / Total deliveries) * 100",
+                "Contract compliance rate (%)": "(Compliant suppliers / Total suppliers) * 100",
+                "Defective supplies rate (%)": "(Defective shipments / Total shipments) * 100",
+                "Approved supplier ratio (%)": "(Certified suppliers / Total suppliers) * 100"
+            },
+            "Enhance supplier capacity and training": {
+                "Suppliers trained (#)": "Number of contractors attending development sessions",
+                "Certification attainment rate (%)": "(Certified suppliers / Trained suppliers) * 100",
+                "Post-training improvement index": "Performance score improvement after training",
+                "Supplier innovation projects (#)": "Initiatives co-developed with suppliers"
+            },
+            "Encourage ethical sourcing": {
+                "Supplier code compliance (%)": "(Compliant suppliers / Total) * 100",
+                "Audited suppliers (#)": "Vendors audited for ethical standards",
+                "Non-compliance cases (#)": "Confirmed violations",
+                "Corrective actions implemented (%)": "(Completed actions / Total identified) * 100"
+            },
+            "Optimize procurement efficiency": {
+                "Procurement cycle time (days)": "Average time per purchase cycle",
+                "E-procurement adoption rate (%)": "(Digital transactions / Total) * 100",
+                "Cost savings achieved (%)": "(Baseline cost - Actual cost) / Baseline * 100",
+                "Process automation index": "Level of automation in procurement workflow"
+            },
+            "Promote supplier diversity and inclusion": {
+                "SME suppliers engaged (#)": "Small and medium suppliers under contract",
+                "Women-owned suppliers (%)": "(Women-owned suppliers / Total) * 100",
+                "Diverse supplier spend (%)": "(Spend on diverse suppliers / Total spend) * 100",
+                "Supplier diversity index": "Composite diversity performance score"
+            },
+            "Improve contractor performance management": {
+                "Contractor evaluation score": "Average performance rating",
+                "Contract renewal rate (%)": "(Renewed / Total expiring contracts) * 100",
+                "Penalty incidents (#)": "Number of contract breaches",
+                "Contract closure success rate (%)": "(Completed without issues / Total contracts) * 100"
+            },
+            "Enhance strategic supplier partnerships": {
+                "Long-term agreements signed (#)": "Strategic partnerships with key vendors",
+                "Joint development projects (#)": "Collaborations on innovation or sustainability",
+                "Supplier retention rate (%)": "(Returning suppliers / Total) * 100",
+                "Partnership growth index": "Supplier contribution growth over baseline"
+            },
         }
     },
-
-    "Supply Security & Accessibility": {
-        "Improve Supply Reliability": {
-            "Supply continuity achievement": "Months of uninterrupted supply",
-            "Inventory availability": "Percentage of time products are available from stock",
-            "Production planning reliability": "Adherence to production and delivery schedules",
-            "Emergency response capability": "Effectiveness in handling supply emergencies"
-        },
-        "Enhance Market Access": {
-            "Geographic coverage expansion": "Percentage increase in markets served",
-            "Distribution network effectiveness": "Efficiency of distribution to customers",
-            "Export capability development": "Ability to serve international markets",
-            "Logistics flexibility": "Adaptability to changing customer logistics needs"
-        },
-        "Strengthen Contract Security": {
-            "Contract fulfillment rate": "(Contracts fulfilled as agreed / Total contracts) * 100",
-            "Long-term supply assurance": "Percentage of customers with secured long-term supply",
-            "Volume flexibility": "Ability to adjust volumes to customer needs",
-            "Price stability provision": "Effectiveness of price stability mechanisms"
-        },
-        "Optimize Customer Access": {
-            "Digital platform utilization": "Percentage of transactions through digital channels",
-            "Customer portal effectiveness": "Customer usage and satisfaction with online portals",
-            "Ordering process efficiency": "Time and effort required for customer ordering",
-            "Information accessibility": "Ease of access to product and market information"
-        }
-    },
-
-    "Safety & Environmental Compliance": {
-        "Enhance Product Safety": {
-            "Product safety certification": "Maintenance of product safety certifications",
-            "Hazard communication effectiveness": "Quality of safety data sheets and labeling",
-            "Handling guidance quality": "Effectiveness of safe handling instructions",
-            "Regulatory compliance rate": "(Compliant products / Total products) * 100"
-        },
-        "Improve Environmental Performance": {
-            "Environmental product declarations": "Availability and quality of environmental data",
-            "Carbon footprint transparency": "Completeness of carbon footprint reporting",
-            "Sustainable sourcing verification": "Percentage of verified sustainable materials",
-            "Environmental compliance certification": "Maintenance of environmental certifications"
-        },
-        "Strengthen Responsible Sourcing": {
-            "Chain of custody certification": "Percentage of products with chain of custody verification",
-            "Conflict-free sourcing": "Compliance with conflict-free sourcing requirements",
-            "Community impact assessment": "Quality of community impact evaluations",
-            "Ethical sourcing verification": "Percentage of ethically verified materials"
-        },
-        "Enhance Transparency": {
-            "Product traceability": "Ability to trace products through supply chain",
-            "Environmental reporting quality": "Completeness of environmental performance reporting",
-            "Social responsibility disclosure": "Transparency of social impact reporting",
-            "Stakeholder engagement effectiveness": "Quality of stakeholder communication"
-        }
-    },
-
-    "Customer Relationship Management": {
-        "Increase Customer Loyalty": {
-            "Customer retention rate": "(Retained customers / Total customers) * 100",
-            "Net Promoter Score (NPS)": "Percentage of promoters minus percentage of detractors",
-            "Customer lifetime duration": "Average duration of customer relationships",
-            "Repeat business rate": "(Repeat customers / Total customers) * 100"
-        },
-        "Improve Customer Service": {
-            "Response time efficiency": "Average time to respond to customer inquiries",
-            "Technical support quality": "Customer rating of technical assistance",
-            "Account management effectiveness": "Quality of customer account management",
-            "Complaint resolution rate": "(Resolved complaints / Total complaints) * 100"
-        },
-        "Enhance Customer Insights": {
-            "Customer feedback utilization": "Percentage of feedback implemented in improvements",
-            "Market intelligence effectiveness": "Accuracy of customer demand forecasting",
-            "Customer needs anticipation": "Ability to predict and meet emerging customer needs",
-            "Segmentation strategy success": "Effectiveness of customer segmentation"
-        },
-        "Optimize Commercial Relationships": {
-            "Contract negotiation effectiveness": "Quality and fairness of contract terms",
-            "Pricing transparency": "Customer understanding of pricing structures",
-            "Value sharing mechanisms": "Effectiveness of value-sharing arrangements",
-            "Partnership development": "Depth of strategic customer partnerships"
-        }
-    },
-
-    "Stakeholder & Community Relations": {
-        "Strengthen Community Engagement": {
-            "Community investment ratio": "(Community investment / Total revenue) * 100",
-            "Local employment contribution": "(Local employees / Total employees) * 100",
-            "Community development projects": "Number and impact of community initiatives",
-            "Local procurement percentage": "(Local purchases / Total purchases) * 100"
-        },
-        "Manage Regulatory Relationships": {
-            "Permit compliance rate": "(Compliant operations / Total operations) * 100",
-            "Regulatory engagement effectiveness": "Quality of regulatory stakeholder relationships",
-            "Environmental approval efficiency": "Time and success rate of permit approvals",
-            "Policy advocacy success": "Effectiveness in influencing mining policies"
-        },
-        "Enhance Industry Collaboration": {
-            "Industry association participation": "Level of engagement in mining organizations",
-            "Standard development contribution": "Involvement in industry standards creation",
-            "Knowledge sharing initiatives": "Number of industry knowledge exchange activities",
-            "Collaborative research projects": "Participation in joint industry research"
-        },
-        "Develop Sustainable Impact": {
-            "Local economic development": "Contribution to local economic growth",
-            "Social license to operate": "Community acceptance and support levels",
-            "Indigenous engagement quality": "Effectiveness of indigenous community relations",
-            "Stakeholder trust index": "Composite measure of stakeholder confidence"
-        }
-    }
-},
 
 "Internal Process Perspective": {
     "Mining Operations Excellence": {
