@@ -52,17 +52,17 @@ def strategy_hierarchy_list(request):
     classification = strategies.first().organization_name.organization_classification
     if classification == 'profitable':
         perspectives_order = [
-            'Financial Perspective',
-            'Customer Perspective',
-            'Internal Process Perspective',
-            'Learning & Growth Perspective',
+            "Financial Perspective",
+            "Customer Perspective",
+            "Internal Process Perspective",
+            "Learning & Growth Perspective",
         ]
     else:
         perspectives_order = [
-            'Customer Perspective',
-            'Financial Perspective',
-            'Internal Process Perspective',
-            'Learning & Growth Perspective',
+            "Customer Perspective",
+            "Financial Perspective",
+            "Internal Process Perspective",
+            "Learning & Growth Perspective",
         ]
 
     # Annotate numeric order for custom perspective ordering
@@ -216,17 +216,17 @@ def strategy_map(request):
     # Set perspective order based on classification
     if classification == 'profitable':
         perspectives_order = [
-            'Financial Perspective',
-            'Customer Perspective',
-            'Internal Process Perspective',
-            'Learning & Growth Perspective',
+            "Financial Perspective",
+            "Customer Perspective",
+            "Internal Process Perspective",
+            "Learning & Growth Perspective",
         ]
     else:
         perspectives_order = [
-            'Customer Perspective',
-            'Financial Perspective',
-            'Internal Process Perspective',
-            'Learning & Growth Perspective',
+            "Customer Perspective",
+            "Financial Perspective",
+            "Internal Process Perspective",
+            "Learning & Growth Perspective",
         ]
 
     # Build strategy data

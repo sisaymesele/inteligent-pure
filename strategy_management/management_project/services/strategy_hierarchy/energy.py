@@ -1,10 +1,20 @@
+
+
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
+
+
 
 ENERGY_PERSPECTIVE = {
     # ---------------- FINANCIAL PERSPECTIVE ----------------
     "Financial Perspective": {
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
         "Economic Development & GDP Contribution of Energy": {
             "Increase Local Employment": {
@@ -48,7 +58,7 @@ ENERGY_PERSPECTIVE = {
 
     # ---------------- CUSTOMER PERSPECTIVE ----------------
     "Customer Perspective": {
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
 
         "Energy Access & Reliability": {
             "Expand electricity access to rural areas": {
@@ -204,6 +214,223 @@ ENERGY_PERSPECTIVE = {
                 "Projects completed (#)": "Total initiatives completed by clubs",
                 "Community satisfaction (%)": "Survey score of club impact"
             }
-        }
-    }
+        },
+    },
+
+    "Internal Process Perspective": {
+
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+
+        # -------------------- 1. Energy Generation & Supply Optimization --------------------
+        "Energy Generation & Supply Optimization": {
+            "Increase energy generation efficiency": {
+                "Plant efficiency (%)": "(Actual output / Theoretical output) * 100",
+                "Heat rate (kJ/kWh)": "Energy input / Output",
+                "Capacity utilization (%)": "(Actual generation / Installed capacity) * 100",
+                "Energy loss rate (%)": "(Lost energy / Generated energy) * 100"
+            },
+            "Enhance reliability of power supply": {
+                "System reliability index (SAIDI/SAIFI)": "Standard utility measure",
+                "Forced outage rate (%)": "(Forced outage hours / Total hours) * 100",
+                "Mean time to repair (hours)": "Total downtime / Incidents",
+                "Supply continuity rate (%)": "(Continuous supply hours / Total hours) * 100"
+            },
+            "Optimize fuel consumption": {
+                "Fuel efficiency (MJ/kWh)": "Fuel input / Energy output",
+                "Fuel cost per kWh": "Total fuel cost / Energy produced",
+                "Renewable fuel utilization (%)": "(Renewable fuel / Total fuel) * 100",
+                "Carbon intensity (kg CO₂/kWh)": "Emissions / Energy produced"
+            },
+            "Improve asset performance": {
+                "Equipment availability (%)": "(Available hours / Total hours) * 100",
+                "Maintenance backlog (%)": "(Pending tasks / Total tasks) * 100",
+                "Asset utilization index": "Composite utilization score",
+                "Downtime frequency (#)": "Number of downtime events"
+            },
+            "Strengthen operational planning & dispatch": {
+                "Forecast accuracy (%)": "(Accurate forecasts / Total forecasts) * 100",
+                "Load balancing efficiency (%)": "(Balanced load / Total load) * 100",
+                "Dispatch deviation (%)": "(Planned - Actual dispatch) / Planned * 100",
+                "Response time to grid fluctuations (s)": "Average response time"
+            },
+            "Enhance supply chain reliability": {
+                "Fuel delivery reliability (%)": "(On-time deliveries / Total deliveries) * 100",
+                "Inventory turnover ratio": "COGS / Average inventory",
+                "Spare parts availability (%)": "(Available / Required) * 100",
+                "Procurement cycle time (days)": "Average time to procure"
+            },
+            "Reduce technical and non-technical losses": {
+                "Transmission loss (%)": "(Energy lost / Energy sent out) * 100",
+                "Distribution loss (%)": "(Energy lost / Energy distributed) * 100",
+                "Non-technical loss (%)": "(Unbilled / Total distributed) * 100",
+                "Loss reduction initiative success (%)": "(Achieved / Planned) * 100"
+            },
+            "Enhance grid stability": {
+                "Frequency deviation (Hz)": "Average deviation from 50/60 Hz",
+                "Voltage fluctuation index": "Measured variance",
+                "Reactive power balance (%)": "(Optimal / Total system) * 100",
+                "Grid stability compliance (%)": "(Stable hours / Total hours) * 100"
+            },
+        },
+
+        # -------------------- 2. Renewable Energy & Sustainability --------------------
+        "Renewable Energy & Sustainability": {
+            "Increase renewable energy generation": {
+                "Renewable energy share (%)": "(Renewable output / Total output) * 100",
+                "Installed renewable capacity (MW)": "Sum of renewable assets",
+                "Renewable project completion rate (%)": "(Completed / Planned) * 100",
+                "CO₂ reduction from renewables (tons)": "Baseline - Actual emissions"
+            },
+            "Enhance sustainability initiatives": {
+                "Sustainability project implementation (%)": "(Implemented / Planned) * 100",
+                "Emission reduction (%)": "(Baseline - Current) / Baseline * 100",
+                "Energy efficiency improvement (%)": "(Baseline - Current) / Baseline * 100",
+                "Environmental compliance rate (%)": "(Compliant / Total facilities) * 100"
+            },
+            "Promote energy conservation programs": {
+                "Energy saved (MWh)": "Baseline - Actual consumption",
+                "Program participation rate (%)": "(Participants / Target group) * 100",
+                "Awareness campaign reach (%)": "(Reached / Target population) * 100",
+                "Cost savings achieved (%)": "(Savings / Target savings) * 100"
+            },
+            "Enhance carbon management": {
+                "Carbon intensity (kg CO₂/kWh)": "Emissions / Output",
+                "Carbon offset (%)": "(Offset / Emitted) * 100",
+                "Carbon credit utilization (%)": "(Used / Available credits) * 100",
+                "Net-zero compliance progress (%)": "(Achieved / Target) * 100"
+            },
+            "Develop green innovation & R&D": {
+                "R&D investment (% of revenue)": "R&D spend / Total revenue * 100",
+                "New green technology pilots (#)": "Number implemented",
+                "Technology adoption rate (%)": "(Adopted / Piloted) * 100",
+                "Patent registrations (#)": "New patents granted"
+            },
+            "Optimize renewable integration to grid": {
+                "Renewable curtailment rate (%)": "(Curtailment / Total renewable output) * 100",
+                "Grid readiness score": "Internal integration index",
+                "Smart grid compatibility (%)": "(Integrated / Total grid nodes) * 100",
+                "Balancing cost (USD/MWh)": "Total balancing cost / Energy dispatched"
+            },
+            "Promote circular economy in operations": {
+                "Recycled waste (%)": "(Recycled / Total waste) * 100",
+                "Water reuse rate (%)": "(Reused / Total water) * 100",
+                "Energy recovery rate (%)": "(Recovered / Wasted energy) * 100",
+                "Material recovery efficiency (%)": "(Recovered / Used materials) * 100"
+            },
+            "Ensure environmental compliance": {
+                "Audit compliance rate (%)": "(Compliant / Audited) * 100",
+                "Environmental incidents (#)": "Reported incidents",
+                "Permit renewal timeliness (%)": "(On-time renewals / Total) * 100",
+                "Corrective action closure rate (%)": "(Closed / Total issues) * 100"
+            },
+        },
+
+        # -------------------- 3. Safety, Maintenance & Reliability --------------------
+        "Safety, Maintenance & Reliability": {
+            "Ensure zero-incident operations": {
+                "Lost time injury frequency rate (LTIFR)": "Standard safety metric",
+                "Incident-free days (#)": "Number of days",
+                "Safety compliance rate (%)": "(Compliant / Total sites) * 100",
+                "Corrective action implementation (%)": "(Implemented / Identified) * 100"
+            },
+            "Strengthen preventive maintenance": {
+                "Preventive maintenance completion (%)": "(Completed / Planned) * 100",
+                "Maintenance cost variance (%)": "(Actual - Budgeted) / Budgeted * 100",
+                "Equipment downtime reduction (%)": "(Previous - Current) / Previous * 100",
+                "Maintenance schedule adherence (%)": "(On-time tasks / Total tasks) * 100"
+            },
+            "Enhance emergency response capability": {
+                "Emergency drill frequency (#/year)": "Count per year",
+                "Response time to incidents (minutes)": "Average response",
+                "Preparedness score": "Internal readiness index",
+                "Recovery time objective (hours)": "Average recovery period"
+            },
+            "Improve asset integrity management": {
+                "Integrity inspection coverage (%)": "(Inspected / Total assets) * 100",
+                "Defect rate (%)": "(Defects / Inspections) * 100",
+                "Condition-based maintenance adoption (%)": "(Adopted / Total assets) * 100",
+                "Failure recurrence rate (%)": "(Repeat failures / Total failures) * 100"
+            },
+            "Enhance safety culture": {
+                "Safety training participation (%)": "(Trained / Total staff) * 100",
+                "Behavior-based safety observations (#)": "Recorded observations",
+                "Near-miss reporting rate (%)": "(Reported / Expected) * 100",
+                "Safety leadership index": "Composite cultural measure"
+            },
+            "Monitor maintenance performance": {
+                "Maintenance backlog (%)": "(Pending tasks / Total tasks) * 100",
+                "Planned maintenance ratio (%)": "(Planned / Total maintenance) * 100",
+                "Mean time between failures (MTBF)": "Reliability metric",
+                "Maintenance productivity index": "Internal score"
+            },
+            "Implement predictive maintenance": {
+                "AI/IoT sensor coverage (%)": "(Sensor-enabled assets / Total assets) * 100",
+                "Prediction accuracy (%)": "(Accurate / Total predictions) * 100",
+                "Unplanned downtime reduction (%)": "(Previous - Current) / Previous * 100",
+                "Cost savings from prediction (%)": "(Saved / Total maintenance cost) * 100"
+            },
+            "Ensure contractor safety compliance": {
+                "Contractor compliance rate (%)": "(Compliant / Total contractors) * 100",
+                "Contractor incident rate (#)": "Incidents per 1,000 workers",
+                "Training completion rate (%)": "(Completed / Required) * 100",
+                "Audit pass rate (%)": "(Passed / Total audits) * 100"
+            },
+        },
+        # -------------------- 4. Smart Energy Operations --------------------
+        "Smart Energy Operations": {
+            "Optimize energy demand response": {
+                "Peak load reduction (%)": "(Reduced load / Total peak load) * 100",
+                "Demand response participation rate (%)": "(Participants / Eligible customers) * 100",
+                "Response time to demand events (minutes)": "Average response time",
+                "Energy cost savings from demand response (%)": "(Savings / Baseline cost) * 100"
+            },
+            "Enhance smart grid performance": {
+                "Grid automation coverage (%)": "(Automated nodes / Total nodes) * 100",
+                "Voltage deviation incidents (#)": "Number of deviations from nominal voltage",
+                "Frequency stability index": "Internal stability score",
+                "Power quality compliance (%)": "(Compliant measurements / Total measurements) * 100"
+            },
+            "Implement predictive maintenance for smart assets": {
+                "Predictive maintenance coverage (%)": "(Assets monitored / Total assets) * 100",
+                "Prediction accuracy (%)": "(Correct predictions / Total predictions) * 100",
+                "Unplanned downtime reduction (%)": "(Previous - Current) / Previous * 100",
+                "Maintenance cost savings (%)": "(Saved / Total maintenance cost) * 100"
+            },
+            "Improve energy storage & management": {
+                "Storage utilization (%)": "(Used capacity / Total capacity) * 100",
+                "Charge/discharge efficiency (%)": "(Energy delivered / Energy stored) * 100",
+                "Storage system availability (%)": "(Operational hours / Total hours) * 100",
+                "Cycle life utilization (%)": "(Used cycles / Expected cycles) * 100"
+            },
+            "Optimize renewable energy integration": {
+                "Renewable dispatch efficiency (%)": "(Dispatched / Available output) * 100",
+                "Curtailment reduction (%)": "(Previous - Current) / Previous * 100",
+                "Grid balancing cost savings (%)": "(Saved / Baseline cost) * 100",
+                "Renewable energy penetration (%)": "(Renewable generation / Total generation) * 100"
+            },
+            "Enhance real-time monitoring & analytics": {
+                "Monitoring coverage (%)": "(Monitored assets / Total assets) * 100",
+                "Data processing latency (s)": "Average time from data capture to analytics",
+                "Anomaly detection accuracy (%)": "(Correctly detected anomalies / Total anomalies) * 100",
+                "Operational decision support usage (%)": "(Decisions aided / Total decisions) * 100"
+            },
+            "Strengthen cyber & operational security": {
+                "Cybersecurity compliance (%)": "(Compliant systems / Total systems) * 100",
+                "Incident response time (minutes)": "Average time to detect and respond",
+                "Security breach attempts (#)": "Number of attempted breaches",
+                "Critical system uptime (%)": "(Operational time / Total time) * 100"
+            },
+            "Promote smart energy innovation & R&D": {
+                "New smart solutions implemented (#)": "Number of deployed solutions",
+                "R&D investment in smart tech (% of revenue)": "(Investment / Total revenue) * 100",
+                "Pilot project success rate (%)": "(Successful pilots / Total pilots) * 100",
+                "Technology adoption rate (%)": "(Adopted solutions / Total piloted) * 100"
+            }
+        },
+    },
+
+    "Learning & Growth Perspective": {
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+    },
+
 }

@@ -1,9 +1,15 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
 
 EDUCATION_PERSPECTIVE = {
     "Financial Perspective": {
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
         # ==================== 1. EDUCATION REVENUE GROWTH & DIVERSIFICATION ====================
         "Education Revenue Growth & Diversification": {
             "Increase Tuition and Fee Income": {
@@ -215,7 +221,7 @@ EDUCATION_PERSPECTIVE = {
     },
     "Customer Perspective": {
 
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
 
         "Access & Enrollment": {
             "Increase overall student enrollment": {
@@ -667,5 +673,585 @@ EDUCATION_PERSPECTIVE = {
                 "Learning outcome improvement (%)": "Average improvement"
             }
         },
+    },
+
+    "Internal Process Perspective": {
+
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+
+        # -------------------- Curriculum Development & Design --------------------
+        "Curriculum Development & Design": {
+            "Ensure curriculum relevance": {
+                "Curriculum alignment with national standards (%)": "(Aligned courses / Total courses) * 100",
+                "Stakeholder satisfaction (%)": "(Satisfied / Total surveyed) * 100",
+                "Periodic curriculum review (times/year)": "Number of reviews conducted",
+                "Emerging trends integration (%)": "(Integrated trends / Total courses) * 100"
+            },
+            "Innovate course content": {
+                "New course development (%)": "(New courses / Total courses) * 100",
+                "Interdisciplinary course adoption (%)": "(Adopted / Total courses) * 100",
+                "Student feedback incorporation (%)": "(Feedback applied / Total feedback) * 100",
+                "Content update cycle (days)": "Average days per update"
+            },
+            "Ensure accreditation readiness": {
+                "Accreditation compliance (%)": "(Compliant programs / Total programs) * 100",
+                "Documentation completeness (%)": "(Complete docs / Total docs) * 100",
+                "Audit pass rate (%)": "(Passed / Total audits) * 100",
+                "Accreditation cycle adherence (%)": "(On-time / Planned cycles) * 100"
+            },
+            "Enhance program learning outcomes": {
+                "Program outcome achievement (%)": "(Achieved / Target) * 100",
+                "Graduate competency index": "Weighted index",
+                "Course learning outcome alignment (%)": "(Aligned / Total courses) * 100",
+                "Periodic outcome assessment (times/year)": "Number of assessments"
+            },
+            "Strengthen faculty input in curriculum": {
+                "Faculty participation rate (%)": "(Participating / Total faculty) * 100",
+                "Faculty satisfaction (%)": "(Satisfied / Total faculty) * 100",
+                "Curriculum proposal adoption (%)": "(Adopted / Proposed) * 100",
+                "Faculty feedback cycle adherence (%)": "(On-time / Planned feedback cycles) * 100"
+            },
+            "Integrate technology in curriculum": {
+                "Digital content utilization (%)": "(Used / Total courses) * 100",
+                "E-learning module adoption (%)": "(Adopted / Total modules) * 100",
+                "Faculty tech training completion (%)": "(Completed / Total faculty) * 100",
+                "Student tech engagement index": "Weighted engagement measure"
+            },
+            "Promote interdisciplinary learning": {
+                "Interdisciplinary programs (%)": "(Programs / Total programs) * 100",
+                "Student enrollment in interdisciplinary courses (%)": "(Enrolled / Eligible) * 100",
+                "Faculty collaboration rate (%)": "(Collaborative projects / Total projects) * 100",
+                "Outcome assessment effectiveness (%)": "(Achieved / Target) * 100"
+            },
+            "Continuous curriculum improvement": {
+                "Feedback implementation rate (%)": "(Implemented / Total feedback) * 100",
+                "Curriculum review frequency (times/year)": "Number of reviews conducted",
+                "Course update effectiveness (%)": "(Improved / Total courses) * 100",
+                "Stakeholder satisfaction (%)": "(Satisfied / Total surveyed) * 100"
+            }
+        },
+
+        # -------------------- Instructional & Teaching Effectiveness --------------------
+        "Instructional & Teaching Effectiveness": {
+            "Enhance teaching quality": {
+                "Class observation score": "Average observation rating",
+                "Student feedback score": "Survey rating",
+                "Teaching plan adherence (%)": "(Adhered / Total sessions) * 100",
+                "Faculty development participation (%)": "(Participated / Total faculty) * 100"
+            },
+            "Promote active learning": {
+                "Active learning session adoption (%)": "(Adopted / Total sessions) * 100",
+                "Student engagement score": "Weighted score",
+                "Interactive material utilization (%)": "(Used / Total materials) * 100",
+                "Learning outcome improvement (%)": "(Post - Pre assessment) / Pre * 100"
+            },
+            "Improve assessment methods": {
+                "Diverse assessment adoption (%)": "(Adopted / Total courses) * 100",
+                "Assessment reliability (%)": "(Reliable / Total assessments) * 100",
+                "Formative assessment coverage (%)": "(Covered / Total courses) * 100",
+                "Feedback timeliness (days)": "Average days to provide feedback"
+            },
+            "Faculty performance development": {
+                "Faculty training completion (%)": "(Completed / Total faculty) * 100",
+                "Mentorship program participation (%)": "(Participated / Total faculty) * 100",
+                "Performance improvement (%)": "(Post - Pre performance) / Pre * 100",
+                "Peer review score": "Average rating"
+            },
+            "Support innovative pedagogy": {
+                "Project-based learning adoption (%)": "(Adopted / Total courses) * 100",
+                "Flipped classroom adoption (%)": "(Adopted / Total courses) * 100",
+                "Faculty innovation score": "Survey/assessment rating",
+                "Student outcome improvement (%)": "(Post - Pre assessment) / Pre * 100"
+            },
+            "Ensure teaching compliance & standards": {
+                "Compliance with academic policies (%)": "(Compliant / Total sessions) * 100",
+                "Audit coverage (%)": "(Audited / Total faculty) * 100",
+                "Lesson plan accuracy (%)": "(Correct / Total plans) * 100",
+                "Ethics & integrity incidents (#)": "Number of incidents"
+            },
+            "Enhance teaching technology use": {
+                "LMS adoption (%)": "(Courses using LMS / Total courses) * 100",
+                "Faculty digital competency (%)": "(Competent / Total faculty) * 100",
+                "Digital content usage (%)": "(Used / Total courses) * 100",
+                "Online class effectiveness score": "Weighted student survey"
+            },
+            "Improve student feedback loop": {
+                "Feedback collection rate (%)": "(Collected / Total classes) * 100",
+                "Feedback response rate (%)": "(Responded / Total feedback) * 100",
+                "Action implementation rate (%)": "(Implemented / Total feedback) * 100",
+                "Student satisfaction score": "Survey rating"
+            }
+        },
+
+        # -------------------- Student Support & Engagement --------------------
+        "Student Support & Engagement": {
+            "Enhance academic advising": {
+                "Advisor-to-student ratio": "Average number of students per advisor",
+                "Advising session completion (%)": "(Completed / Scheduled) * 100",
+                "Student satisfaction score": "Survey rating",
+                "Follow-up adherence (%)": "(Followed-up / Total sessions) * 100"
+            },
+            "Improve counseling services": {
+                "Counseling session completion (%)": "(Completed / Scheduled) * 100",
+                "Student mental health score": "Survey/assessment rating",
+                "Response time to requests (hours)": "Average hours",
+                "Service utilization rate (%)": "(Used / Total eligible) * 100"
+            },
+            "Enhance extracurricular engagement": {
+                "Program participation rate (%)": "(Participated / Total students) * 100",
+                "Event attendance rate (%)": "(Attended / Total events) * 100",
+                "Student satisfaction score": "Survey rating",
+                "Activity diversity index": "Weighted diversity score"
+            },
+            "Promote student retention": {
+                "Retention rate (%)": "(Retained / Total enrolled) * 100",
+                "Dropout rate (%)": "(Dropped / Total enrolled) * 100",
+                "At-risk student identification (%)": "(Identified / Total students) * 100",
+                "Intervention effectiveness (%)": "(Improved / Total interventions) * 100"
+            },
+            "Support student career readiness": {
+                "Internship placement rate (%)": "(Placed / Eligible students) * 100",
+                "Career counseling completion (%)": "(Completed / Total students) * 100",
+                "Employer satisfaction score": "Survey rating",
+                "Job placement rate (%)": "(Placed / Graduates) * 100"
+            },
+            "Monitor student satisfaction": {
+                "Survey completion rate (%)": "(Completed / Total students) * 100",
+                "Overall satisfaction score": "Survey rating",
+                "Complaint resolution rate (%)": "(Resolved / Total complaints) * 100",
+                "Response time to complaints (days)": "Average days"
+            },
+            "Enhance student feedback integration": {
+                "Feedback collection coverage (%)": "(Collected / Total programs) * 100",
+                "Actionable feedback implementation (%)": "(Implemented / Total feedback) * 100",
+                "Communication effectiveness score": "Survey rating",
+                "Follow-up timeliness (days)": "Average days"
+            },
+            "Promote inclusive education": {
+                "Participation of students with special needs (%)": "(Enrolled / Eligible) * 100",
+                "Accessibility compliance (%)": "(Compliant facilities / Total) * 100",
+                "Diversity & inclusion training (%)": "(Trained / Total staff) * 100",
+                "Student satisfaction with inclusivity": "Survey rating"
+            }
+        },
+
+        # -------------------- Academic Research & Innovation --------------------
+        "Academic Research & Innovation": {
+            "Increase research output": {
+                "Research publication count (#)": "Number of peer-reviewed papers per year",
+                "Research productivity per faculty": "Publications / Faculty",
+                "Citation index": "Average citations per publication",
+                "External collaboration ratio (%)": "(Collaborative / Total research) * 100"
+            },
+            "Enhance research funding & grants": {
+                "Grant success rate (%)": "(Approved / Applied) * 100",
+                "Total research funding ($)": "Sum of approved grants",
+                "Funding diversification index": "Weighted diversity of funding sources",
+                "Proposal submission timeliness (%)": "(On time / Total proposals) * 100"
+            },
+            "Strengthen interdisciplinary research": {
+                "Interdisciplinary projects (%)": "(Cross-department projects / Total projects) * 100",
+                "Joint publication ratio (%)": "(Joint papers / Total papers) * 100",
+                "Inter-faculty collaboration score": "Survey or index rating",
+                "Project success rate (%)": "(Completed / Total projects) * 100"
+            },
+            "Promote innovation & patents": {
+                "Patent applications (#)": "Number filed annually",
+                "Patents granted (%)": "(Granted / Filed) * 100",
+                "Commercialized research (%)": "(Commercialized / Total research) * 100",
+                "Innovation recognition awards (#)": "Number received per year"
+            },
+            "Improve research infrastructure": {
+                "Lab utilization rate (%)": "(Used time / Available time) * 100",
+                "Equipment uptime (%)": "(Operational hours / Total hours) * 100",
+                "Facility compliance rate (%)": "(Compliant / Total labs) * 100",
+                "Research space adequacy (%)": "(Available / Required) * 100"
+            },
+            "Enhance postgraduate research support": {
+                "Graduate research completion rate (%)": "(Completed / Total enrolled) * 100",
+                "Average completion time (months)": "Mean duration per thesis",
+                "Supervision quality score": "Survey rating",
+                "Postgraduate satisfaction (%)": "(Satisfied / Total surveyed) * 100"
+            },
+            "Encourage publication ethics & integrity": {
+                "Research misconduct cases (#)": "Detected per year",
+                "Ethics training completion (%)": "(Completed / Total researchers) * 100",
+                "Plagiarism-free submission rate (%)": "(Compliant / Total submissions) * 100",
+                "Ethical review compliance (%)": "(Reviewed / Total proposals) * 100"
+            },
+            "Foster community-based research": {
+                "Community project count (#)": "Projects involving local communities",
+                "Societal impact index": "Weighted impact score",
+                "Stakeholder engagement rate (%)": "(Engaged / Total stakeholders) * 100",
+                "Research visibility index": "Public outreach score"
+            }
+        },
+
+        # -------------------- Faculty Development & Performance --------------------
+        "Faculty Development & Performance": {
+            "Enhance faculty competency": {
+                "Training participation rate (%)": "(Participated / Total faculty) * 100",
+                "Certification completion rate (%)": "(Certified / Total trained) * 100",
+                "Faculty competency index": "Weighted rating",
+                "Post-training performance improvement (%)": "(Post - Pre) / Pre * 100"
+            },
+            "Promote academic qualification advancement": {
+                "Faculty pursuing higher studies (%)": "(Enrolled / Total faculty) * 100",
+                "Doctorate completion rate (%)": "(Completed / Total enrolled) * 100",
+                "Promotion eligibility rate (%)": "(Eligible / Total faculty) * 100",
+                "Funding support utilization (%)": "(Utilized / Total available) * 100"
+            },
+            "Strengthen teaching evaluation system": {
+                "Evaluation coverage (%)": "(Evaluated / Total faculty) * 100",
+                "Feedback incorporation rate (%)": "(Implemented / Total feedback) * 100",
+                "Performance improvement (%)": "(Post - Pre evaluation) / Pre * 100",
+                "Evaluation timeliness (%)": "(On-time / Total evaluations) * 100"
+            },
+            "Encourage faculty research engagement": {
+                "Research participation rate (%)": "(Participated / Total faculty) * 100",
+                "Publications per faculty": "Total publications / Faculty count",
+                "Grant applications submitted (#)": "Number submitted annually",
+                "Cross-disciplinary participation (%)": "(Collaborative / Total research) * 100"
+            },
+            "Recognize & reward faculty excellence": {
+                "Awards received (#)": "Number per year",
+                "Performance bonus distribution rate (%)": "(Received / Eligible) * 100",
+                "Faculty satisfaction score": "Survey rating",
+                "Recognition event participation (%)": "(Participated / Total faculty) * 100"
+            },
+            "Improve faculty workload balance": {
+                "Average teaching load (hours/week)": "Mean hours",
+                "Workload variance (%)": "(Max - Min) / Mean * 100",
+                "Research time allocation (%)": "(Research hours / Total hours) * 100",
+                "Burnout rate (%)": "(Reported / Total faculty) * 100"
+            },
+            "Enhance mentorship & peer support": {
+                "Mentorship pairings (#)": "Number of active mentorships",
+                "Peer observation sessions (#)": "Sessions per semester",
+                "Feedback utilization rate (%)": "(Implemented / Total feedback) * 100",
+                "Mentee satisfaction score": "Survey rating"
+            },
+            "Promote faculty digital skills": {
+                "Digital competency completion (%)": "(Completed / Total faculty) * 100",
+                "Online teaching readiness index": "Self-assessed readiness score",
+                "LMS utilization rate (%)": "(Used / Total courses) * 100",
+                "Digital content creation rate (%)": "(Created / Total faculty) * 100"
+            }
+        },
+
+        # -------------------- Academic Administration & Governance --------------------
+        "Academic Administration & Governance": {
+            "Strengthen institutional governance": {
+                "Policy compliance rate (%)": "(Compliant / Total policies) * 100",
+                "Board meeting timeliness (%)": "(On-time / Total meetings) * 100",
+                "Strategic plan implementation rate (%)": "(Implemented / Total planned) * 100",
+                "Audit finding closure rate (%)": "(Closed / Total findings) * 100"
+            },
+            "Improve decision-making transparency": {
+                "Public disclosure compliance (%)": "(Disclosed / Required) * 100",
+                "Meeting documentation completeness (%)": "(Complete / Total) * 100",
+                "Stakeholder participation rate (%)": "(Involved / Total stakeholders) * 100",
+                "Transparency rating": "External audit score"
+            },
+            "Enhance academic record management": {
+                "Record accuracy (%)": "(Accurate / Total records) * 100",
+                "Digitization coverage (%)": "(Digitized / Total records) * 100",
+                "Data retrieval time (minutes)": "Average minutes per record",
+                "Data loss incidents (#)": "Reported per year"
+            },
+            "Ensure policy compliance": {
+                "Policy adherence (%)": "(Compliant / Total processes) * 100",
+                "Non-compliance incidents (#)": "Reported per quarter",
+                "Policy update frequency (times/year)": "Number of updates",
+                "Regulatory audit success rate (%)": "(Passed / Total audits) * 100"
+            },
+            "Promote participatory governance": {
+                "Committee participation rate (%)": "(Active members / Total) * 100",
+                "Student representation (%)": "(Student seats filled / Total available) * 100",
+                "Feedback implementation (%)": "(Implemented / Total feedback) * 100",
+                "Meeting attendance rate (%)": "(Attended / Scheduled) * 100"
+            },
+            "Streamline administrative efficiency": {
+                "Process cycle time (days)": "Average days per process",
+                "Automation adoption (%)": "(Automated / Total processes) * 100",
+                "Error rate (%)": "(Errors / Total processes) * 100",
+                "Staff productivity index": "Internal measure"
+            },
+            "Enhance internal communication": {
+                "Message delivery timeliness (%)": "(On-time / Total messages) * 100",
+                "Communication satisfaction (%)": "(Satisfied / Total surveyed) * 100",
+                "Information accuracy (%)": "(Accurate / Total communications) * 100",
+                "Response rate (%)": "(Responded / Total messages) * 100"
+            },
+            "Monitor governance performance": {
+                "Governance KPI achievement (%)": "(Achieved / Planned) * 100",
+                "Audit compliance (%)": "(Compliant / Total audits) * 100",
+                "Stakeholder trust index": "Survey score",
+                "Board review frequency (times/year)": "Total board meetings"
+            }
+        },
+        # ================================================
+        # ================================================
+        "Library & Learning Resources": {
+            "Enhance accessibility of learning materials": {
+                "Library access rate (%)": "(Active users / Total students) * 100",
+                "Online resource access frequency (#)": "Average logins per user per month",
+                "Resource borrowing turnaround (days)": "Average days between borrow and return",
+                "Collection utilization rate (%)": "(Borrowed items / Total collection) * 100",
+            },
+            "Improve digital library systems": {
+                "System uptime (%)": "(Operational time / Total time) * 100",
+                "Digital access success rate (%)": "(Successful logins / Total logins) * 100",
+                "Content upload timeliness (%)": "(Uploaded on schedule / Total uploads) * 100",
+                "Metadata accuracy (%)": "(Correct entries / Total entries) * 100",
+            },
+            "Expand and update learning collections": {
+                "New acquisitions growth (%)": "(Current - Previous) / Previous * 100",
+                "Outdated material replacement (%)": "(Replaced / Total outdated) * 100",
+                "Open access content (%)": "(Free-access materials / Total resources) * 100",
+                "Curriculum alignment rate (%)": "(Aligned materials / Total resources) * 100",
+            },
+            "Improve user support & reference services": {
+                "User satisfaction score": "Survey-based rating",
+                "Inquiry response time (hours)": "Average response time",
+                "Resolved user issues (%)": "(Resolved / Total queries) * 100",
+                "Training participation (%)": "(Attendees / Total invited) * 100",
+            },
+            "Increase library learning integration": {
+                "Course-linked resource usage (%)": "(Course-related resources used / Total) * 100",
+                "Faculty collaboration rate (%)": "(Collaborative faculty / Total faculty) * 100",
+                "Library orientation coverage (%)": "(Trained students / Total students) * 100",
+                "Learning session satisfaction score": "Post-session survey rating",
+            },
+            "Enhance research support services": {
+                "Citation support requests handled (#)": "Number processed",
+                "Plagiarism check coverage (%)": "(Checked papers / Total papers) * 100",
+                "Research database usage (%)": "(Active users / Eligible researchers) * 100",
+                "Data repository upload compliance (%)": "(Uploaded / Total required) * 100",
+            },
+            "Optimize resource allocation": {
+                "Resource utilization efficiency (%)": "(Used / Available) * 100",
+                "Space occupancy rate (%)": "(Used spaces / Total spaces) * 100",
+                "Budget variance (%)": "(Actual - Planned) / Planned * 100",
+                "Maintenance compliance (%)": "(Completed / Scheduled) * 100",
+            },
+            "Strengthen library performance monitoring": {
+                "Library KPI review frequency (#)": "Reviews per year",
+                "Service audit compliance (%)": "(Audited services / Total services) * 100",
+                "Feedback response rate (%)": "(Responded / Total feedback) * 100",
+                "Performance improvement plan completion (%)": "(Completed / Planned) * 100",
+            },
+        },
+
+        # ================================================
+        "Online Program Management": {
+            "Ensure online course quality": {
+                "Course review compliance (%)": "(Reviewed / Total courses) * 100",
+                "Student satisfaction (%)": "(Positive feedback / Total feedback) * 100",
+                "Course error rate (%)": "(Errors / Total modules) * 100",
+                "Accreditation alignment (%)": "(Compliant courses / Total courses) * 100",
+            },
+            "Improve digital platform stability": {
+                "System uptime (%)": "(Operational time / Total time) * 100",
+                "Average downtime (hours)": "Total downtime / Incidents",
+                "Incident resolution rate (%)": "(Resolved / Total incidents) * 100",
+                "Platform response time (seconds)": "Average page load time",
+            },
+            "Enhance online learning engagement": {
+                "Active participation rate (%)": "(Active learners / Total enrolled) * 100",
+                "Assignment submission rate (%)": "(Submitted / Assigned) * 100",
+                "Forum participation index": "(Posts + replies) / Total students",
+                "Video engagement time (minutes)": "Average viewing time per learner",
+            },
+            "Strengthen instructor readiness for e-learning": {
+                "Training completion (%)": "(Trained instructors / Total) * 100",
+                "Course design competency score": "Rubric-based rating",
+                "Instructor satisfaction (%)": "(Satisfied / Total instructors) * 100",
+                "Tech-support usage rate (%)": "(Requests / Total instructors) * 100",
+            },
+            "Expand online program reach": {
+                "Enrollment growth (%)": "(Current - Previous) / Previous * 100",
+                "International enrollment share (%)": "(Foreign / Total students) * 100",
+                "Partnership-based program count (#)": "Number of collaborations",
+                "New market penetration (%)": "(New region students / Total new regions) * 100",
+            },
+            "Ensure academic integrity online": {
+                "Plagiarism detection rate (%)": "(Detected / Total submissions) * 100",
+                "Identity verification compliance (%)": "(Verified / Total participants) * 100",
+                "Exam proctoring coverage (%)": "(Proctored exams / Total exams) * 100",
+                "Integrity violation incidents (#)": "Recorded cases",
+            },
+            "Improve online student support services": {
+                "Average response time (hours)": "Time to resolve tickets",
+                "Resolution satisfaction (%)": "(Satisfied / Total responses) * 100",
+                "Online advising session completion (%)": "(Completed / Scheduled) * 100",
+                "Chatbot accuracy (%)": "(Correct responses / Total queries) * 100",
+            },
+            "Monitor online program performance": {
+                "Program completion rate (%)": "(Graduated / Enrolled) * 100",
+                "Dropout rate (%)": "(Dropped / Enrolled) * 100",
+                "Learner outcome achievement (%)": "(Achieved / Targeted outcomes) * 100",
+                "KPI review frequency (#)": "Reviews per year",
+            },
+        },
+        # -------------------- Technology & E-Learning Infrastructure --------------------
+        "Technology & E-Learning Infrastructure": {
+            "Enhance ICT infrastructure reliability": {
+                "System uptime (%)": "(Operational hours / Total hours) * 100",
+                "Incident response time (minutes)": "Average resolution time",
+                "Network coverage rate (%)": "(Covered areas / Total) * 100",
+                "Infrastructure satisfaction score": "Survey rating"
+            },
+            "Promote e-learning adoption": {
+                "Online course adoption (%)": "(Online / Total courses) * 100",
+                "LMS usage rate (%)": "(Users active / Total users) * 100",
+                "Digital material access (%)": "(Accessed / Available) * 100",
+                "Student satisfaction with e-learning": "Survey rating"
+            },
+            "Ensure cybersecurity & data privacy": {
+                "Cybersecurity incident rate (#)": "Detected per quarter",
+                "Data breach prevention rate (%)": "(Prevented / Attempted) * 100",
+                "Policy compliance (%)": "(Compliant / Total systems) * 100",
+                "Staff cybersecurity training completion (%)": "(Completed / Total staff) * 100"
+            },
+            "Optimize IT service delivery": {
+                "IT ticket resolution time (hours)": "Average time to resolve",
+                "User satisfaction rate (%)": "(Satisfied / Total users) * 100",
+                "Service availability (%)": "(Available / Total planned time) * 100",
+                "Process automation ratio (%)": "(Automated / Total processes) * 100"
+            },
+            "Enhance digital learning resources": {
+                "E-resource usage (%)": "(Accessed / Available) * 100",
+                "Digital content growth rate (%)": "(Current - Previous) / Previous * 100",
+                "Content accuracy rate (%)": "(Accurate / Total materials) * 100",
+                "Student feedback score": "Average rating"
+            },
+            "Promote innovation in teaching technology": {
+                "Smart classroom adoption (%)": "(Installed / Total rooms) * 100",
+                "AR/VR course integration (%)": "(Integrated / Total courses) * 100",
+                "Faculty training completion (%)": "(Completed / Total faculty) * 100",
+                "Technology satisfaction index": "Survey score"
+            },
+            "Improve digital literacy": {
+                "Student digital competency (%)": "(Competent / Total students) * 100",
+                "Faculty digital competency (%)": "(Competent / Total faculty) * 100",
+                "ICT workshop participation (%)": "(Attended / Total invited) * 100",
+                "Skill improvement index": "Pre vs Post test"
+            },
+            "Ensure system integration & interoperability": {
+                "Integrated systems (%)": "(Integrated / Total systems) * 100",
+                "Data sync success rate (%)": "(Successful / Total syncs) * 100",
+                "API uptime (%)": "(Operational hours / Total hours) * 100",
+                "Error resolution rate (%)": "(Resolved / Total errors) * 100"
+            }
+        },
+
+        # -------------------- Quality Assurance & Accreditation --------------------
+        "Quality Assurance & Accreditation": {
+            "Strengthen quality assurance systems": {
+                "Internal audit completion rate (%)": "(Completed / Planned) * 100",
+                "Corrective action implementation (%)": "(Implemented / Recommended) * 100",
+                "Quality audit score": "Average internal audit rating",
+                "Audit non-compliance rate (%)": "(Findings / Total audits) * 100"
+            },
+            "Ensure continuous quality improvement": {
+                "Process improvement initiatives (#)": "Number initiated per year",
+                "Improvement success rate (%)": "(Implemented / Total initiatives) * 100",
+                "Stakeholder satisfaction improvement (%)": "(Current - Previous) / Previous * 100",
+                "Quality review frequency (#)": "Number per semester"
+            },
+            "Achieve accreditation compliance": {
+                "Accreditation coverage (%)": "(Accredited / Total programs) * 100",
+                "Accreditation renewal timeliness (%)": "(On-time / Total) * 100",
+                "Compliance audit success rate (%)": "(Passed / Total audits) * 100",
+                "Documentation completeness (%)": "(Complete / Required documents) * 100"
+            },
+            "Standardize academic processes": {
+                "Process documentation rate (%)": "(Documented / Total processes) * 100",
+                "Process deviation rate (%)": "(Deviations / Total executions) * 100",
+                "Policy adherence rate (%)": "(Compliant / Total policies) * 100",
+                "Process improvement cycle time (days)": "Average completion time"
+            },
+            "Enhance program review mechanisms": {
+                "Program review completion rate (%)": "(Reviewed / Planned) * 100",
+                "Program improvement implementation (%)": "(Implemented / Recommended) * 100",
+                "Curriculum revision timeliness (%)": "(On-time / Total revisions) * 100",
+                "Stakeholder feedback incorporation (%)": "(Incorporated / Total feedback) * 100"
+            },
+            "Promote evidence-based decision-making": {
+                "Data-driven decisions (%)": "(Based on data / Total decisions) * 100",
+                "KPI monitoring compliance (%)": "(Tracked / Planned KPIs) * 100",
+                "Performance dashboard update frequency (#)": "Updates per quarter",
+                "Decision accuracy index": "Post-evaluation rating"
+            },
+            "Improve benchmarking practices": {
+                "Benchmark coverage (%)": "(Benchmarked areas / Total areas) * 100",
+                "Gap reduction rate (%)": "(Previous gap - Current gap) / Previous gap * 100",
+                "External comparison success index": "Relative performance rating",
+                "Peer institution collaboration rate (%)": "(Collaborations / Total benchmarks) * 100"
+            },
+            "Cultivate a culture of quality": {
+                "Quality awareness training (%)": "(Trained / Total staff) * 100",
+                "Quality participation rate (%)": "(Participants / Total employees) * 100",
+                "Quality improvement suggestions (#)": "Ideas submitted per year",
+                "Quality satisfaction index": "Survey rating"
+            }
+        },
+
+        # -------------------- Campus Operations & Safety --------------------
+        "Campus Operations & Safety": {
+            "Ensure campus safety": {
+                "Safety incident rate (#)": "Incidents per 1,000 people",
+                "Emergency response time (minutes)": "Average time to respond",
+                "Safety inspection compliance (%)": "(Compliant / Total inspections) * 100",
+                "Safety awareness training completion (%)": "(Completed / Total staff & students) * 100"
+            },
+            "Enhance facility management": {
+                "Facility maintenance timeliness (%)": "(On-time / Total requests) * 100",
+                "Facility utilization rate (%)": "(Used / Available) * 100",
+                "Repair backlog reduction (%)": "(Previous backlog - Current) / Previous * 100",
+                "Infrastructure satisfaction index": "Survey rating"
+            },
+            "Promote environmental sustainability": {
+                "Energy consumption reduction (%)": "(Previous - Current) / Previous * 100",
+                "Water usage efficiency (%)": "Output / Water used",
+                "Waste recycling rate (%)": "(Recycled / Total waste) * 100",
+                "Green certification compliance (%)": "(Compliant / Required) * 100"
+            },
+            "Improve transportation & mobility": {
+                "Transport punctuality rate (%)": "(On-time / Total trips) * 100",
+                "Vehicle utilization rate (%)": "(Used / Total vehicles) * 100",
+                "Fuel efficiency (km/l)": "Average efficiency of campus vehicles",
+                "Transport satisfaction index": "Survey rating"
+            },
+            "Optimize energy management": {
+                "Energy efficiency index": "Output per kWh",
+                "Renewable energy usage (%)": "(Renewable / Total energy) * 100",
+                "Power outage frequency (#)": "Per month",
+                "Energy cost savings (%)": "(Previous - Current) / Previous * 100"
+            },
+            "Strengthen health & safety standards": {
+                "Health compliance audit score": "Inspection score",
+                "Medical incident response time (minutes)": "Average response time",
+                "Emergency preparedness (%)": "(Prepared / Total departments) * 100",
+                "First-aid coverage (%)": "(Stations / Total buildings) * 100"
+            },
+            "Improve facility accessibility": {
+                "Accessibility compliance (%)": "(Compliant facilities / Total) * 100",
+                "Assistive technology coverage (%)": "(Available / Required) * 100",
+                "Accessible route coverage (%)": "(Accessible / Total routes) * 100",
+                "Accessibility satisfaction index": "Survey rating"
+            },
+            "Maintain campus aesthetics": {
+                "Landscape maintenance completion rate (%)": "(Completed / Planned) * 100",
+                "Cleanliness satisfaction index": "Survey score",
+                "Waste collection timeliness (%)": "(On-time / Total collections) * 100",
+                "Facility condition index": "Average inspection rating"
+            }
+        },
+    },
+
+    "Learning & Growth Perspective": {
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
     },
 }

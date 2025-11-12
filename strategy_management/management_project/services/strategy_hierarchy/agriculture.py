@@ -1,15 +1,17 @@
 
-
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import GENERIC_INTERNAL_PROCESS_PERSPECTIVE
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE
-
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
 
 AGRICULTURE_PERSPECTIVE = {
 
     "Financial Perspective": {
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
         # ==================== CROP ENTERPRISE FINANCE ====================
         "Crop Revenue Growth & Diversification": {
             "Enhance Crop Revenue Performance": {
@@ -271,6 +273,84 @@ AGRICULTURE_PERSPECTIVE = {
             }
         },
 
+        # ==================== HORTICULTURE FINANCIAL PERSPECTIVE ====================
+
+        "Horticulture Revenue Growth & Diversification": {
+            "Enhance Horticulture Revenue Performance": {
+                "Total horticulture revenue growth (%)": "(Current revenue - Previous) / Previous * 100",
+                "Revenue per hectare ($/ha)": "Total revenue / Cultivated area",
+                "Seasonal revenue growth rate (%)": "Revenue change across growing seasons",
+                "Revenue per farm growth (%)": "(Current revenue per farm - Previous) / Previous * 100"
+            },
+            "Strengthen Market Share & Horticulture Positioning": {
+                "Market share in key horticultural products (%)": "(Production / Total market supply) * 100",
+                "Revenue in premium horticultural crops ($)": "Income from selected high-value crops (e.g., fruits, vegetables, flowers)",
+                "Geographic expansion revenue ($)": "Revenue from new regions or export markets",
+                "Contracted supply revenue ($)": "Revenue from contract farming or supply agreements"
+            },
+            "Accelerate New Horticultural Product Revenue": {
+                "Revenue from processed horticultural products (%)": "(Processed product sales / Total revenue) * 100",
+                "R&D ROI from new variety development (%)": "(Revenue from improved varieties / R&D investment) * 100",
+                "Time-to-revenue for new crop varieties (months)": "Time from planting to market sales for new varieties",
+                "Adoption rate of improved cultivation practices (%)": "(Farms using improved technologies / Total farms) * 100"
+            },
+            "Diversify Horticulture Revenue Streams": {
+                "Revenue diversity index": "1 - (Top 3 crop revenue / Total revenue)",
+                "Revenue from value-added horticultural products ($)": "Income from processed or packaged produce",
+                "Revenue from floriculture and ornamental crops ($)": "Income from flowers and ornamental plants",
+                "Revenue from ancillary services ($)": "Revenue from agri-tourism, consultancy, or training services"
+            }
+        },
+
+        "Horticulture Profitability Optimization": {
+            "Maximize Net Horticultural Income": {
+                "Net profit margin (%)": "(Net income / Total revenue) * 100",
+                "Profit growth rate (%)": "(Current profit - Previous) / Previous * 100",
+                "Return per hectare ($/ha)": "Net profit per cultivated hectare",
+                "Earnings quality index": "Stability and sustainability of horticultural earnings"
+            },
+            "Enhance Gross Margin Performance": {
+                "Gross margin (%)": "(Revenue - Direct costs) / Revenue * 100",
+                "Crop-specific margin improvement (%)": "Margin increase for least profitable crops",
+                "Direct input cost efficiency (%)": "Reduction in seed, fertilizer, irrigation, and labor costs",
+                "Pricing strategy effectiveness": "Impact of price adjustments on gross margin"
+            },
+            "Improve Operating Profitability": {
+                "Operating profit margin (%)": "(Operating income / Revenue) * 100",
+                "Operating leverage ratio": "Revenue growth vs. operating cost growth",
+                "Profitability by crop type": "Profit contribution by crop category (e.g., vegetables, fruits, flowers)",
+                "Break-even production reduction": "Reduction in production volume needed to break even"
+            },
+            "Optimize Contribution Margins": {
+                "Average contribution margin (%)": "(Revenue - Variable costs) / Revenue * 100",
+                "Farm group profitability index": "Profit contribution by producer groups or cooperatives",
+                "Crop mix margin optimization (%)": "Weighted margin performance across crop portfolio",
+                "Variable cost control efficiency (%)": "Reduction in direct cultivation and harvesting costs"
+            }
+        },
+
+        # ==================== HORTICULTURE ENTERPRISE FINANCE ====================
+        "Horticulture Enterprise Finance": {
+            "Maximize Horticultural Revenue Performance": {
+                "Revenue per hectare ($/ha)": "Total horticultural revenue divided by cultivated area",
+                "Yield revenue efficiency (%)": "(Actual revenue / Potential yield revenue) * 100",
+                "High-value crop revenue share (%)": "(Revenue from high-value crops / Total revenue) * 100",
+                "Horticultural product premium capture (%)": "((Premium crop price - Standard price) / Standard price) * 100"
+            },
+            "Optimize Horticultural Input Cost Management": {
+                "Fertilizer cost efficiency ($/ha)": "Total fertilizer costs divided by cultivated area",
+                "Water use cost efficiency ($/m³)": "Total irrigation cost divided by total water used",
+                "Pest & disease management cost efficiency ($/ha)": "Protection costs divided by cultivated area",
+                "Seedling cost per hectare ($/ha)": "Seedling and planting costs divided by cultivated area"
+            },
+            "Improve Horticultural Profitability": {
+                "Gross margin per hectare ($/ha)": "(Horticultural revenue - Direct costs) / Cultivated area",
+                "Break-even yield (tons/ha)": "Total horticultural costs divided by market price per ton",
+                "Return on horticultural investment (ROI %)": "(Net horticultural profit / Total horticultural investment) * 100",
+                "Cost of production per ton ($/ton)": "Total production cost divided by total yield"
+            }
+        },
+
         "Agricultural Economic Development": {
 
             "Increase agriculture contribution to GDP": {
@@ -417,7 +497,7 @@ AGRICULTURE_PERSPECTIVE = {
 
     "Customer Perspective": {
 
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
         # -------------------- Food Security & Nutrition --------------------
         "Food Security & Nutrition": {
             "Enhance Household Food Security": {
@@ -1039,7 +1119,7 @@ AGRICULTURE_PERSPECTIVE = {
 
     "Internal Process Perspective": {
 
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE['Internal Process Perspective'],
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
 
         # -------------------- 1. Soil Management --------------------
         "Soil Management": {
@@ -1605,7 +1685,7 @@ AGRICULTURE_PERSPECTIVE = {
 
     "Learning & Growth Perspective": {
 
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE['Learning & Growth Perspective'],
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
 
     },
 }

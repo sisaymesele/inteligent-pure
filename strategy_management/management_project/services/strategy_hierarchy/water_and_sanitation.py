@@ -1,5 +1,13 @@
+
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
+
 
 WATER_AND_SANITATION_PERSPECTIVE = {
     # ----------------------------- FINANCIAL PERSPECTIVE -----------------------------
@@ -137,6 +145,12 @@ WATER_AND_SANITATION_PERSPECTIVE = {
                 "Community satisfaction level (%)": "Survey satisfaction rating",
                 "CSR investment in WASH ($)": "Funds allocated to social initiatives"
             }
-        }
-    }
+        },
+    },
+    "Internal Process Perspective": {
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+    },
+    "Learning & Growth Perspective": {
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+    },
 }

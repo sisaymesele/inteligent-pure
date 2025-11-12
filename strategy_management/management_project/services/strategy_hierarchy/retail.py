@@ -1,5 +1,11 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
 
 RETAIL_PERSPECTIVE = {
     # -------------------- Financial Perspective --------------------
@@ -33,8 +39,6 @@ RETAIL_PERSPECTIVE = {
                 "SME satisfaction rate (%)": "Average satisfaction score from SME surveys"
             }
         },
-
-
 
         # Trade & Export Development
         "International Trade & Export Development": {
@@ -129,8 +133,8 @@ RETAIL_PERSPECTIVE = {
 
     # -------------------- Customer Perspective --------------------
     "Customer Perspective": {
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
-# Consumer Protection & Product Standards
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        # Consumer Protection & Product Standards
         "Consumer Protection & Product Standards": {
             "Ensure product safety & compliance": {
                 "Products meeting safety standards (%)": "Compliant products / Total products * 100",
@@ -213,5 +217,12 @@ RETAIL_PERSPECTIVE = {
                 "Growth in online transactions (%)": "(Current - Previous) / Previous * 100"
             }
         },
-    }
+    },
+
+    "Internal Process Perspective": {
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+    },
+    "Learning & Growth Perspective": {
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+    },
 }

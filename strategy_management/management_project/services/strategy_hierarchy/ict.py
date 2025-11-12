@@ -4,9 +4,9 @@ from management_project.services.strategy_hierarchy.customer_perspective import 
 ICT_PERSPECTIVE = {
     "Financial Perspective": {
 
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
-          # ==================== 1. Startup & Entrepreneurship Support ====================
+        # ==================== 1. Startup & Entrepreneurship Support ====================
         "Startup & Entrepreneurship Support": {
 
             "Support ICT startups and new ventures": {
@@ -233,7 +233,7 @@ ICT_PERSPECTIVE = {
     "Customer Perspective": {
 
         # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
         # =========================================================
         # 1. Digital Citizen Service Access / Digital Service Access
         # =========================================================
@@ -503,7 +503,7 @@ ICT_PERSPECTIVE = {
         },
 
         # =========================================================
-        # 5. Security and Privacy / Security, Privacy, and Trust
+        # Security and Privacy / Security, Privacy, and Trust
         # =========================================================
         "Security, Privacy, and Trust": {
             "Enhance data protection": {
@@ -555,6 +555,661 @@ ICT_PERSPECTIVE = {
                 "Incident reporting response time (hours)": "Average time to respond",
                 "Compliance audit frequency": "Number of audits per year",
             },
+        },
+
+         # -------------------- Telecom-specific Customer Focus --------------------
+        "Telecom Service & Network Access": {
+            "Increase Network Coverage": {
+                "Network coverage area (%)": "Covered geographic area / Total target area * 100",
+                "Population coverage (%)": "Population with network access / Total population * 100",
+                "New tower deployment (#)": "Number of new towers or base stations installed",
+                "Network accessibility complaints (#)": "Number of complaints about access issues"
+            },
+            "Enhance Service Quality & Reliability": {
+                "Call drop rate (%)": "Dropped calls / Total calls * 100",
+                "Network uptime (%)": "Time network is operational / Total time * 100",
+                "Average data speed (Mbps)": "Measured throughput for customers",
+                "Service issue resolution time (hrs)": "Average hours to resolve service issues"
+            },
+            "Promote Digital Services Adoption": {
+                "Digital app users (#)": "Number of active users on telecom app",
+                "Online self-service transactions (#)": "Transactions performed via app or portal",
+                "Digital service satisfaction (%)": "Survey score of digital users",
+                "Growth in mobile data usage (%)": "(Current - Previous period) / Previous * 100"
+            },
+            "Ensure Accessibility for All Customer Segments": {
+                "Coverage in rural areas (%)": "Rural population with access / Total rural population * 100",
+                "Affordable service plan adoption (%)": "Subscribers using low-cost plans / Total subscribers * 100",
+                "Customer inclusion programs (#)": "Programs targeting underserved communities",
+                "Customer complaints resolved (%)": "Resolved complaints / Total complaints * 100"
+            }
+        },
+    },
+
+    "Internal Process Perspective": {
+
+        # -------------------- Software Development & Deployment --------------------
+        "Software Development & Deployment": {
+
+            "Enhance Agile Delivery Performance": {
+                "Sprint completion rate (%)": "(Completed sprints / Planned sprints) * 100",
+                "Feature delivery accuracy (%)": "(Delivered features / Planned features) * 100",
+                "Average bug resolution time (hours)": "Total time to resolve / Number of bugs",
+                "Code review compliance (%)": "(Reviewed commits / Total commits) * 100"
+            },
+
+            "Strengthen Release & Deployment Management": {
+                "Successful release rate (%)": "(Successful releases / Total releases) * 100",
+                "Rollback frequency (#)": "Number of rollbacks within release cycles",
+                "Release readiness checklist completion (%)": "(Completed checklists / Total releases) * 100",
+                "Deployment automation coverage (%)": "(Automated deployments / Total deployments) * 100"
+            },
+
+            "Improve Software Quality Assurance": {
+                "Test coverage (%)": "(Executed test cases / Total planned test cases) * 100",
+                "Defect detection efficiency (%)": "(Defects found pre-release / Total defects) * 100",
+                "Regression testing completion rate (%)": "(Completed regression tests / Planned) * 100",
+                "Open defect backlog (#)": "Number of unresolved defects at sprint end"
+            },
+
+            "Strengthen Documentation & Knowledge Management": {
+                "Documentation completeness (%)": "(Completed documents / Total required documents) * 100",
+                "Knowledge base update frequency (per month)": "Number of updates per month",
+                "Team knowledge competency score": "Average internal training or assessment score",
+                "Documentation review compliance (%)": "(Reviewed documents / Total documents) * 100"
+            },
+
+            "Optimize Backlog & Prioritization Management": {
+                "Priority adherence rate (%)": "(Tasks delivered as per priority / Total tasks) * 100",
+                "Stakeholder request turnaround time (days)": "Average time to process stakeholder change requests",
+                "Backlog reduction rate (%)": "(Reduced items / Planned reduction) * 100",
+                "Cross-functional coordination score": "Qualitative score from retrospectives or surveys"
+            },
+
+            "Ensure Secure Development Lifecycle (SDLC)": {
+                "Security audit completion rate (%)": "(Completed audits / Planned audits) * 100",
+                "Average vulnerability patch time (hours)": "Average time to patch after detection",
+                "Secure coding compliance (%)": "(Compliant modules / Total reviewed modules) * 100",
+                "Security incident detection rate (%)": "(Detected incidents / Total incidents) * 100"
+            },
+        },
+
+        # -------------------- IT Infrastructure Management --------------------
+        "IT Infrastructure Management": {
+            "Optimize Compute & Server Operations": {
+                "Server availability (%)": "(Uptime / Total monitored time) * 100",
+                "Virtualization efficiency ratio": "VM-to-host consolidation ratio",
+                "Workload performance score": "Application response time and throughput",
+                "Automated provisioning rate (%)": "(Automated deployments / Total deployments) * 100"
+            },
+
+            "Enhance Network Performance & Reliability": {
+                "Network uptime (%)": "(Available time / Total time) * 100",
+                "Bandwidth utilization efficiency (%)": "(Used capacity / Total capacity) * 100",
+                "Latency compliance rate (%)": "(Within thresholds / Total measurements) * 100",
+                "Network incident resolution time (minutes)": "Mean time to repair network issues"
+            },
+
+            "Strengthen Data Center & Facilities Management": {
+                "Power usage effectiveness (PUE)": "Total facility power / IT equipment power",
+                "Infrastructure capacity headroom (%)": "(Available capacity / Total capacity) * 100",
+                "Preventive maintenance compliance (%)": "(Completed maintenance / Scheduled) * 100",
+                "Energy efficiency improvement (%)": "Year-over-year power consumption reduction"
+            },
+
+            "Advance Storage & Data Management": {
+                "Storage utilization rate (%)": "(Used storage / Provisioned storage) * 100",
+                "Data protection coverage (%)": "(Protected data / Total critical data) * 100",
+                "Storage performance score": "IOPS and throughput against benchmarks",
+                "Data tiering efficiency (%)": "(Optimally tiered data / Total data) * 100"
+            },
+
+            "Improve Cloud & Hybrid Infrastructure": {
+                "Cloud resource optimization (%)": "(Right-sized resources / Total resources) * 100",
+                "Multi-cloud management efficiency": "Cross-platform operational consistency",
+                "Cloud cost per workload ($)": "Total cloud spend / Number of workloads",
+                "Hybrid connectivity reliability (%)": "(Available connections / Total connections) * 100"
+            },
+
+            "Strengthen Backup & Disaster Recovery": {
+                "Backup success rate (%)": "(Successful backups / Total backups) * 100",
+                "Recovery time objective achievement (%)": "(Met RTO / Total recovery tests) * 100",
+                "Recovery point objective compliance (%)": "(Met RPO / Total backup cycles) * 100",
+                "Disaster recovery test success rate (%)": "(Successful tests / Total tests) * 100"
+            },
+
+            "Optimize Capacity Planning & Scalability": {
+                "Capacity forecast accuracy (%)": "(Actual usage / Forecasted usage) * 100",
+                "Resource provisioning time (hours)": "Average time from request to availability",
+                "Scalability readiness score": "Ability to handle 50% workload increase",
+                "Infrastructure elasticity efficiency": "Dynamic scaling response and cost"
+            },
+
+            "Enhance Infrastructure Security & Compliance": {
+                "Security patch compliance rate (%)": "(Patched systems / Total systems) * 100",
+                "Configuration management adherence (%)": "(Compliant configurations / Total) * 100",
+                "Access control effectiveness (%)": "(Properly controlled access / Total access points) * 100",
+                "Compliance audit success rate (%)": "(Passed audits / Total audits) * 100"
+            },
+
+            "Improve Automation & Orchestration": {
+                "Infrastructure as code adoption (%)": "(Managed as code / Total infrastructure) * 100",
+                "Orchestration workflow success rate (%)": "(Successful workflows / Total executed) * 100",
+                "Manual intervention rate (%)": "(Manual tasks / Total operations) * 100",
+                "Self-service provisioning usage (%)": "(Self-service requests / Total requests) * 100"
+            },
+
+            "Ensure Monitoring & Performance Management": {
+                "Monitoring coverage (%)": "(Monitored components / Total infrastructure) * 100",
+                "Performance SLA compliance (%)": "(Met performance targets / Total SLAs) * 100",
+                "Alert accuracy rate (%)": "(Valid alerts / Total alerts) * 100",
+                "Infrastructure health index": "Composite score of all system health metrics"
+            },
+        },
+        # -------------------- Cybersecurity & Risk Management --------------------
+        "Cybersecurity & Risk Management": {
+            "Enhance Threat Detection & Intelligence": {
+                "Mean time to detect (MTTD)": "Average time from threat emergence to detection",
+                "Threat detection accuracy (%)": "(True positives / Total alerts) * 100",
+                "Security monitoring coverage (%)": "(Monitored assets / Total critical assets) * 100",
+                "Threat intelligence utilization": "Integration and action on external threat feeds"
+            },
+
+            "Strengthen Vulnerability Management": {
+                "Vulnerability remediation rate (%)": "(Remediated vulnerabilities / Total identified) * 100",
+                "Patch compliance rate (%)": "(Patched systems / Total systems) * 100",
+                "Critical vulnerability exposure time (days)": "Average time critical vulns remain unpatched",
+                "Vulnerability assessment coverage (%)": "(Assessed systems / Total inventory) * 100"
+            },
+
+            "Optimize Identity & Access Management": {
+                "Privileged access compliance (%)": "(Compliant privileged accounts / Total) * 100",
+                "Access review completion rate (%)": "(Reviewed access rights / Total required) * 100",
+                "Multi-factor authentication coverage (%)": "(MFA-protected systems / Total systems) * 100",
+                "Orphaned account rate (%)": "(Orphaned accounts / Total accounts) * 100"
+            },
+
+            "Improve Incident Response & Recovery": {
+                "Mean time to respond (MTTR)": "Average time from detection to containment",
+                "Incident containment effectiveness (%)": "(Contained incidents / Total incidents) * 100",
+                "Recovery time objective achievement (%)": "(Met RTO / Total incidents) * 100",
+                "Post-incident improvement implementation (%)": "(Implemented improvements / Total recommendations) * 100"
+            },
+
+            "Advance Security Governance & Compliance": {
+                "Policy compliance rate (%)": "(Compliant controls / Total controls) * 100",
+                "Security framework adoption (%)": "(Implemented controls / Total framework) * 100",
+                "Audit finding remediation rate (%)": "(Remediated findings / Total findings) * 100",
+                "Regulatory requirement coverage (%)": "(Addressed requirements / Total applicable) * 100"
+            },
+
+            "Strengthen Data Protection & Privacy": {
+                "Data classification coverage (%)": "(Classified data / Total sensitive data) * 100",
+                "Encryption compliance rate (%)": "(Encrypted data / Total sensitive data) * 100",
+                "Data breach prevention effectiveness": "Reduction in data exposure incidents",
+                "Privacy regulation adherence (%)": "(Compliant processes / Total processes) * 100"
+            },
+
+            "Enhance Security Architecture & Controls": {
+                "Security control effectiveness (%)": "(Effective controls / Total implemented) * 100",
+                "Zero trust implementation progress (%)": "(Implemented components / Total architecture) * 100",
+                "Network segmentation compliance (%)": "(Segmented networks / Total required) * 100",
+                "Security technology utilization (%)": "(Utilized capabilities / Total available) * 100"
+            },
+
+            "Improve Third-Party Risk Management": {
+                "Vendor security assessment rate (%)": "(Assessed vendors / Total critical vendors) * 100",
+                "Third-party risk mitigation (%)": "(Mitigated risks / Total identified) * 100",
+                "Supply chain security compliance (%)": "(Compliant partners / Total partners) * 100",
+                "Contract security adherence (%)": "(Compliant contracts / Total contracts) * 100"
+            },
+
+            "Advance Security Awareness & Culture": {
+                "Security training completion rate (%)": "(Trained employees / Total employees) * 100",
+                "Phishing simulation success rate (%)": "(Reported phishing tests / Total tests) * 100",
+                "Security policy awareness (%)": "(Aware employees / Total employees) * 100",
+                "Security incident reporting rate": "Employee-reported security concerns per month"
+            },
+
+            "Optimize Cyber Risk quantification & Reporting": {
+                "Risk assessment coverage (%)": "(Assessed risks / Total risk landscape) * 100",
+                "Risk treatment effectiveness (%)": "(Treated risks / Total accepted risks) * 100",
+                "Cyber risk quantification accuracy": "Financial impact estimation vs actual",
+                "Stakeholder risk awareness score": "Executive and board understanding level"
+            },
+        },
+
+        # -------------------- IT Service Management --------------------
+        "IT Service Management": {
+            "Optimize Service Desk & Incident Management": {
+                "First contact resolution rate (%)": "(Resolved first contact / Total incidents) * 100",
+                "Mean time to resolve (MTTR)": "Total resolution time / Number of incidents",
+                "SLA compliance rate (%)": "(Incidents within SLA / Total incidents) * 100",
+                "Customer satisfaction score (CSAT)": "Post-resolution survey ratings (1-5 scale)"
+            },
+
+            "Enhance Change & Release Management": {
+                "Change success rate (%)": "(Successful changes / Total changes) * 100",
+                "Emergency change rate (%)": "(Emergency changes / Total changes) * 100",
+                "Change implementation time (hours)": "Average approval to implementation time",
+                "Release rollback rate (%)": "(Rolled back releases / Total releases) * 100"
+            },
+
+            "Strengthen Problem & Root Cause Management": {
+                "Problem resolution rate (%)": "(Resolved problems / Total identified) * 100",
+                "Recurring incident reduction (%)": "((Previous - Current recurring incidents) / Previous) * 100",
+                "Mean time to problem resolution": "Total resolution time / Number of problems",
+                "Known error database utilization (%)": "(Used KEDB entries / Total entries) * 100"
+            },
+
+            "Improve Service Request Fulfillment": {
+                "Request fulfillment rate (%)": "(Fulfilled requests / Total requests) * 100",
+                "Average fulfillment time (hours)": "Total fulfillment time / Number of requests",
+                "Standard service catalog usage (%)": "(Catalog requests / Total requests) * 100",
+                "Automated fulfillment rate (%)": "(Automated requests / Total automatable) * 100"
+            },
+
+            "Advance Service Level Management": {
+                "SLA achievement rate (%)": "(Met SLAs / Total SLAs) * 100",
+                "Service availability (%)": "(Available time / Total monitored time) * 100",
+                "Service quality index": "Composite performance across multiple metrics",
+                "OLA underpinning contract compliance (%)": "(Compliant OLAs / Total OLAs) * 100"
+            },
+
+            "Optimize Configuration Management": {
+                "CMDB accuracy rate (%)": "(Accurate CIs / Total CIs) * 100",
+                "Configuration item completeness (%)": "(Documented CIs / Total infrastructure) * 100",
+                "Change impact assessment accuracy (%)": "(Accurate assessments / Total assessments) * 100",
+                "CMDB update latency (hours)": "Average time from change to CMDB update"
+            },
+
+            "Enhance Knowledge Management": {
+                "Knowledge base usage rate (%)": "(KB searches / Total support interactions) * 100",
+                "Self-service resolution rate (%)": "(KB-resolved issues / Total KB attempts) * 100",
+                "Article quality score": "User ratings and effectiveness metrics",
+                "Knowledge sharing adoption (%)": "(Contributing staff / Total support staff) * 100"
+            },
+
+            "Strengthen Continual Service Improvement": {
+                "Process improvement initiatives (#)": "Number of CSI initiatives implemented",
+                "Service improvement success rate (%)": "(Successful improvements / Total initiatives) * 100",
+                "Cost per ticket reduction (%)": "((Previous - Current cost) / Previous) * 100",
+                "Customer experience improvement": "Year-over-year satisfaction score increase"
+            },
+
+            "Manage Service Catalog & Portfolio": {
+                "Service catalog currency (%)": "(Updated services / Total services) * 100",
+                "Service utilization rate (%)": "(Used services / Available services) * 100",
+                "New service adoption rate (%)": "(Adopted services / Total launched) * 100",
+                "Service retirement compliance (%)": "(Properly retired / Total scheduled) * 100"
+            },
+
+            "Ensure Financial Management for IT Services": {
+                "IT cost transparency (%)": "(Tracked costs / Total IT spend) * 100",
+                "Cost per service unit ($)": "Total service cost / Service units delivered",
+                "Budget variance rate (%)": "((Actual - Budget) / Budget) * 100",
+                "Value for money index": "Business value delivered per IT dollar spent"
+            },
+        },
+
+        # -------------------- Data & Analytics Operations --------------------
+        "Data & Analytics Operations": {
+            "Optimize data collection and accuracy": {
+                "Data entry accuracy (%)": "(Accurate entries / Total entries) * 100",
+                "Data completeness (%)": "(Completed fields / Total required fields) * 100",
+                "Validation check pass rate (%)": "(Passed checks / Total checks) * 100",
+                "Data entry efficiency (records/hour)": "Average records processed per hour"
+            },
+            "Strengthen data processing and ETL pipelines": {
+                "ETL job success rate (%)": "(Successful jobs / Total jobs) * 100",
+                "Data transformation accuracy (%)": "(Correctly transformed records / Total records) * 100",
+                "ETL runtime efficiency (hours)": "Average runtime per job",
+                "Error resolution time (hours)": "Average time to resolve ETL errors"
+            },
+            "Enhance analytics model development": {
+                "Model validation completion (%)": "(Completed validations / Planned validations) * 100",
+                "Model accuracy (%)": "(Correct predictions / Total test cases) * 100",
+                "Version control adherence (%)": "(Updates properly tracked / Total updates) * 100",
+                "Review cycle completion (%)": "(Completed / Planned) * 100"
+            },
+            "Improve report generation and quality": {
+                "Report accuracy (%)": "(Accurate reports / Total reports) * 100",
+                "Report timeliness (%)": "(On-time reports / Total reports) * 100",
+                "Approval process adherence (%)": "(Followed / Total reports) * 100",
+                "Distribution compliance (%)": "(Distributed correctly / Planned distribution) * 100"
+            },
+            "Enhance data governance and compliance": {
+                "Policy compliance (%)": "(Compliant checks / Total checks) * 100",
+                "Metadata management completion (%)": "(Completed / Planned) * 100",
+                "Audit trail completeness (%)": "(Complete actions / Total actions) * 100",
+                "Access review adherence (%)": "(Followed / Planned reviews) * 100"
+            },
+            "Ensure data security and protection": {
+                "Access violation incidents (#)": "Number of unauthorized access attempts",
+                "Encryption compliance (%)": "(Encrypted datasets / Total datasets) * 100",
+                "Backup validation rate (%)": "(Validated backups / Total backups) * 100",
+                "Breach detection and response time (hours)": "Average time to detect and respond"
+            },
+        },
+
+        # -------------------- Network & Connectivity Management --------------------
+        "Network & Connectivity Management": {
+            "Enhance network uptime and reliability": {
+                "Network availability (%)": "(Available time / Total time) * 100",
+                "Mean time to repair (hours)": "Average time to resolve network outages",
+                "Network incident frequency (#)": "Logged network incidents internally",
+                "SLA compliance (%)": "(Met SLAs / Total agreements) * 100"
+            },
+            "Optimize bandwidth utilization": {
+                "Bandwidth usage efficiency (%)": "(Used bandwidth / Total allocated) * 100",
+                "Peak utilization alert frequency (#)": "Number of threshold breaches",
+                "Network congestion incidents (#)": "Logged internally",
+                "Capacity forecast accuracy (%)": "(Actual usage / Forecasted usage) * 100"
+            },
+            "Strengthen network security and resilience": {
+                "Firewall compliance (%)": "(Compliant rules / Total rules) * 100",
+                "Intrusion detection effectiveness (%)": "(Detected threats / Total simulated threats) * 100",
+                "Vulnerability remediation rate (%)": "(Remediated / Identified vulnerabilities) * 100",
+                "Network patch application adherence (%)": "(Applied / Required patches) * 100"
+            },
+            "Improve network monitoring and analytics": {
+                "KPI tracking adherence (%)": "(Tracked / Planned KPIs) * 100",
+                "Incident detection time (minutes)": "Average time to detect network issues",
+                "Network performance index": "Composite internal performance score",
+                "Trend and anomaly analysis completion (%)": "(Completed / Planned analyses) * 100"
+            },
+            "Enhance network troubleshooting and problem resolution": {
+                "Average resolution time (hours)": "Average time per network incident",
+                "Escalation handling efficiency (%)": "(Handled / Total escalations) * 100",
+                "Recurring issue detection rate (%)": "(Recurring issues / Total incidents) * 100",
+                "Root cause analysis completion (%)": "(Completed / Planned analyses) * 100"
+            },
+            "Ensure network compliance, documentation, and governance": {
+                "Audit completion (%)": "(Completed / Planned internal audits) * 100",
+                "Regulatory compliance (%)": "(Compliant / Total applicable regulations) * 100",
+                "Documentation completeness (%)": "(Complete / Total required documentation) * 100",
+                "Corrective action closure rate (%)": "(Closed / Total identified issues) * 100"
+            },
+        },
+
+        # -------------------- 10. System Administration & Operations --------------------
+        "System Administration & Operations": {
+            "Improve system availability & uptime": {
+                "Server uptime (%)": "(Available / Total time) * 100",
+                "Mean time to repair (hours)": "Average resolution",
+                "System downtime incidents (#)": "Logged internally",
+                "Internal SLA compliance (%)": "(Met / Total agreements) * 100"
+            },
+            "Optimize system performance": {
+                "CPU utilization (%)": "(Used / Total capacity) * 100",
+                "Memory usage efficiency (%)": "(Used / Total capacity) * 100",
+                "Disk I/O efficiency (%)": "(Optimized / Total operations) * 100",
+                "System response time (ms)": "Average measured internally"
+            },
+            "Enhance patch management & updates": {
+                "Patch deployment success rate (%)": "(Applied / Total patches) * 100",
+                "Patch compliance (%)": "(Compliant / Total systems) * 100",
+                "Patch vulnerability remediation time (hours)": "Average internal",
+                "Rollback incident rate (#)": "Logged internally"
+            },
+            "Strengthen user & access management": {
+                "User access review completion (%)": "(Reviewed / Total users) * 100",
+                "Unauthorized access attempts (#)": "Logged internally",
+                "Role assignment accuracy (%)": "(Correct / Total roles) * 100",
+                "Policy compliance (%)": "(Compliant / Total checks) * 100"
+            },
+            "Improve incident & problem management": {
+                "Incident resolution time (hours)": "Average internal",
+                "Recurring issue rate (%)": "(Recurrent / Total issues) * 100",
+                "Problem resolution time (hours)": "Average internal",
+                "Root cause analysis adherence (%)": "(Followed / Total incidents) * 100"
+            },
+            "Ensure compliance & documentation readiness": {
+                "Internal audit completion (%)": "(Completed / Planned) * 100",
+                "Policy adherence (%)": "(Compliant / Total checks) * 100",
+                "Corrective action closure (%)": "(Closed / Total issues) * 100",
+                "Documentation completeness (%)": "(Complete / Total required) * 100"
+            }
+        },
+
+        # -------------------- 11. E-Government Services & Operations --------------------
+        "E-Government Services & Operations": {
+            "Enhance citizen service delivery": {
+                "Service uptime (%)": "(Available / Total time) * 100",
+                "Request resolution time (hours)": "Average internal",
+                "Service SLA compliance (%)": "(Met / Total requests) * 100",
+                "Citizen satisfaction score": "Internal survey or rating"
+            },
+            "Optimize digital service platforms": {
+                "Platform response time (ms)": "Average internal",
+                "Platform availability (%)": "(Available / Total time) * 100",
+                "Error rate (%)": "(Detected errors / Total transactions) * 100",
+                "Transaction processing accuracy (%)": "(Correct / Total)"
+            },
+            "Strengthen data privacy & security": {
+                "Data breach incidents (#)": "Logged internally",
+                "Encryption compliance (%)": "(Compliant / Total datasets) * 100",
+                "Access audit completion (%)": "(Completed / Planned) * 100",
+                "Incident resolution time (hours)": "Average internal"
+            },
+            "Improve internal process automation": {
+                "Process automation coverage (%)": "(Automated / Total processes) * 100",
+                "Automation success rate (%)": "(Successful / Total attempts) * 100",
+                "Manual intervention rate (%)": "(Manual / Total processes) * 100",
+                "Process cycle time reduction (%)": "(Baseline - Current) / Baseline * 100"
+            },
+            "Enhance internal monitoring & analytics": {
+                "KPI tracking compliance (%)": "(Tracked / Planned) * 100",
+                "Reporting timeliness (%)": "(On-time / Total reports) * 100",
+                "Deviation detection rate (%)": "(Detected / Total incidents) * 100",
+                "Internal audit completion (%)": "(Completed / Planned) * 100"
+            },
+            "Ensure regulatory & compliance adherence": {
+                "Legal & regulatory compliance (%)": "(Compliant / Total requirements) * 100",
+                "Policy review completion (%)": "(Reviewed / Planned) * 100",
+                "Corrective action closure (%)": "(Closed / Total issues) * 100",
+                "Documentation completeness (%)": "(Complete / Total required) * 100"
+            }
+        },
+
+        # -------------------- 12. Digital Infrastructure & Cloud Management --------------------
+        "Digital Infrastructure & Cloud Management": {
+            "Optimize cloud resource utilization": {
+                "Cloud resource usage (%)": "(Used / Allocated) * 100",
+                "Idle resource rate (%)": "(Idle / Total allocated) * 100",
+                "Cost efficiency (%)": "(Budgeted vs Actual) * 100",
+                "Provisioning time (hours)": "Average internal"
+            },
+            "Enhance cloud service availability": {
+                "Service uptime (%)": "(Available / Total time) * 100",
+                "Incident resolution time (hours)": "Average internal",
+                "SLA compliance (%)": "(Met / Total agreements) * 100",
+                "Cloud downtime incidents (#)": "Logged internally"
+            },
+            "Strengthen cloud security & compliance": {
+                "Vulnerability remediation (%)": "(Fixed / Identified) * 100",
+                "Access control compliance (%)": "(Compliant / Total accounts) * 100",
+                "Data encryption adherence (%)": "(Compliant / Total datasets) * 100",
+                "Audit completion (%)": "(Completed / Planned) * 100"
+            },
+            "Improve cloud monitoring & analytics": {
+                "KPI tracking completion (%)": "(Tracked / Planned) * 100",
+                "Performance monitoring compliance (%)": "(Monitored / Total metrics) * 100",
+                "Alert response time (hours)": "Average internal",
+                "Trend analysis completion (%)": "(Completed / Planned) * 100"
+            },
+            "Optimize backup & disaster recovery": {
+                "Backup completion rate (%)": "(Completed / Planned) * 100",
+                "Recovery time objective (RTO) compliance (%)": "(Met / Total tests) * 100",
+                "Recovery point objective (RPO) compliance (%)": "(Met / Total tests) * 100",
+                "Restore accuracy (%)": "(Accurate / Total attempts) * 100"
+            },
+            "Ensure documentation & audit readiness": {
+                "Internal audit completion (%)": "(Completed / Planned) * 100",
+                "Regulatory adherence (%)": "(Compliant / Total checks) * 100",
+                "Corrective action closure (%)": "(Closed / Total issues) * 100",
+                "Documentation completeness (%)": "(Complete / Total required) * 100"
+            }
+        },
+
+        # -------------------- 13. Digital Platforms & Services --------------------
+        "Digital Platforms & Services": {
+            "Enhance platform operations": {
+                "Uptime (%)": "(Available / Total time) * 100",
+                "Incident resolution time (hours)": "Average internal",
+                "User request handling (%)": "(Handled / Total requests) * 100",
+                "SLA compliance (%)": "(Met / Total agreements) * 100"
+            },
+            "Improve platform development": {
+                "Feature implementation accuracy (%)": "(Implemented / Planned) * 100",
+                "Code review compliance (%)": "(Reviewed / Total commits) * 100",
+                "Sprint adherence (%)": "(Completed / Planned) * 100",
+                "Backlog reduction rate (%)": "(Reduced / Planned) * 100"
+            },
+            "Strengthen platform security": {
+                "Vulnerability patching rate (%)": "(Applied / Identified) * 100",
+                "Access control audit completion (%)": "(Completed / Planned) * 100",
+                "Security incident resolution time (hours)": "Average internal",
+                "Internal security standard compliance (%)": "(Compliant / Total checks) * 100"
+            },
+            "Optimize content & data management": {
+                "Data accuracy (%)": "(Accurate / Total entries) * 100",
+                "Data completeness (%)": "(Completed / Total required) * 100",
+                "ETL success rate (%)": "(Successful / Total jobs) * 100",
+                "Report accuracy (%)": "(Accurate / Total reports) * 100"
+            },
+            "Enhance monitoring & analytics": {
+                "KPI tracking compliance (%)": "(Tracked / Planned) * 100",
+                "Report timeliness (%)": "(On-time / Total reports) * 100",
+                "Deviation detection (%)": "(Detected / Total deviations) * 100",
+                "Corrective action implementation (%)": "(Implemented / Planned) * 100"
+            },
+            "Ensure audit & compliance readiness": {
+                "Audit completion (%)": "(Completed / Planned) * 100",
+                "Policy adherence (%)": "(Compliant / Total checks) * 100",
+                "Corrective action closure (%)": "(Closed / Total issues) * 100",
+                "Documentation completeness (%)": "(Complete / Total required) * 100"
+            }
+        },
+
+        # -------------------- 14. Emerging Technologies --------------------
+        "Emerging Technologies": {
+            "Enhance R&D workflow": {
+                "Project proposal completion (%)": "(Completed / Planned) * 100",
+                "Idea review adherence (%)": "(Followed / Total ideas) * 100",
+                "Prototyping completion (%)": "(Completed / Planned) * 100",
+                "Resource allocation accuracy (%)": "(Allocated / Planned) * 100"
+            },
+            "Optimize technology evaluation": {
+                "POC success rate (%)": "(Successful / Total POCs) * 100",
+                "Tech assessment completion (%)": "(Completed / Planned) * 100",
+                "Adoption readiness (%)": "(Assessed / Planned) * 100",
+                "Evaluation report accuracy (%)": "(Accurate / Total reports) * 100"
+            },
+            "Strengthen innovation governance": {
+                "IP documentation completeness (%)": "(Complete / Total required) * 100",
+                "Patent filing compliance (%)": "(Filed / Planned) * 100",
+                "Audit adherence (%)": "(Compliant / Total audits) * 100",
+                "Protection incident rate (#)": "Logged internally"
+            },
+            "Manage pilot testing": {
+                "Test completion (%)": "(Completed / Planned) * 100",
+                "Defect detection rate (%)": "(Detected / Planned) * 100",
+                "Iteration adherence (%)": "(Followed / Planned) * 100",
+                "Corrective action implementation (%)": "(Implemented / Planned) * 100"
+            },
+            "Improve tech adoption": {
+                "Stakeholder readiness (%)": "(Completed / Planned) * 100",
+                "Integration success (%)": "(Successful / Planned) * 100",
+                "User acceptance testing completion (%)": "(Completed / Planned) * 100",
+                "Feedback integration (%)": "(Implemented / Planned) * 100"
+            },
+            "Ensure compliance & security": {
+                "Regulatory adherence (%)": "(Compliant / Total checks) * 100",
+                "Cybersecurity compliance (%)": "(Compliant / Total assessments) * 100",
+                "Documentation completeness (%)": "(Complete / Total required) * 100",
+                "Audit closure (%)": "(Closed / Planned) * 100"
+            }
+        },
+
+        # -------------------- 15. Telecommunications --------------------
+        "Telecommunications": {
+            "Enhance network service quality": {
+                "Network availability (%)": "(Available / Total time) * 100",
+                "Incident resolution time (hours)": "Average internal",
+                "Customer SLA compliance (%)": "(Met / Total agreements) * 100",
+                "Downtime incidents (#)": "Logged internally"
+            },
+            "Optimize telecom infrastructure": {
+                "Bandwidth utilization (%)": "(Used / Total allocated) * 100",
+                "Equipment uptime (%)": "(Operational / Total equipment) * 100",
+                "Maintenance adherence (%)": "(On-time / Planned) * 100",
+                "Capacity forecast accuracy (%)": "(Actual vs planned usage)"
+            },
+            "Strengthen security & compliance": {
+                "Vulnerability remediation (%)": "(Fixed / Identified) * 100",
+                "Access control compliance (%)": "(Compliant / Total accounts) * 100",
+                "Regulatory adherence (%)": "(Compliant / Total checks) * 100",
+                "Audit completion (%)": "(Completed / Planned) * 100"
+            },
+            "Improve service monitoring & analytics": {
+                "KPI tracking compliance (%)": "(Tracked / Planned) * 100",
+                "Alert response time (hours)": "Average internal",
+                "Trend analysis completion (%)": "(Completed / Planned) * 100",
+                "Deviation detection (%)": "(Detected / Total deviations) * 100"
+            },
+            "Enhance customer support operations": {
+                "Ticket resolution time (hours)": "Average internal",
+                "SLA compliance (%)": "(Met / Total requests) * 100",
+                "Backlog reduction (%)": "(Reduced / Planned) * 100",
+                "Satisfaction score": "Internal survey"
+            },
+            "Ensure documentation & process compliance": {
+                "Internal documentation completeness (%)": "(Complete / Total required) * 100",
+                "Process adherence (%)": "(Followed / Total planned) * 100",
+                "Corrective action closure (%)": "(Closed / Total issues) * 100",
+                "Audit readiness (%)": "(Completed / Planned) * 100"
+            }
+        },
+
+        # -------------------- 16. Cybersecurity --------------------
+        "Cybersecurity": {
+            "Enhance threat detection & response": {
+                "Incident detection rate (%)": "(Detected / Total simulated threats) * 100",
+                "Average response time (minutes)": "Internal measurement",
+                "Alert triage compliance (%)": "(Followed / Total alerts) * 100",
+                "Threat classification accuracy (%)": "(Correct / Total threats) * 100"
+            },
+            "Strengthen vulnerability management": {
+                "Vulnerability remediation (%)": "(Fixed / Identified) * 100",
+                "Patch deployment adherence (%)": "(Applied / Planned) * 100",
+                "Critical issue closure time (hours)": "Average internal",
+                "Risk assessment completion (%)": "(Completed / Planned) * 100"
+            },
+            "Optimize access control & identity management": {
+                "User access review (%)": "(Reviewed / Total users) * 100",
+                "Unauthorized access attempts (#)": "Logged internally",
+                "Role assignment accuracy (%)": "(Correct / Total roles) * 100",
+                "Policy compliance (%)": "(Compliant / Total checks) * 100"
+            },
+            "Improve incident response & recovery": {
+                "Incident resolution time (hours)": "Average internal",
+                "Post-incident review completion (%)": "(Completed / Planned) * 100",
+                "Root cause analysis adherence (%)": "(Followed / Total incidents) * 100",
+                "Mitigation implementation (%)": "(Implemented / Planned) * 100"
+            },
+            "Enhance risk monitoring & analytics": {
+                "Risk review completion (%)": "(Completed / Planned) * 100",
+                "Risk mitigation follow-up (%)": "(Followed / Planned) * 100",
+                "Risk register update frequency": "Times per month",
+                "Key risk indicator compliance (%)": "(Monitored / Total indicators) * 100"
+            },
+            "Ensure cybersecurity awareness & training": {
+                "Training completion (%)": "(Completed / Required) * 100",
+                "Phishing drill pass rate (%)": "(Passed / Total staff) * 100",
+                "Policy acknowledgment (%)": "(Acknowledged / Total staff) * 100",
+                "Behavior audit compliance (%)": "(Compliant / Audited activities) * 100"
+            }
         },
     },
 }

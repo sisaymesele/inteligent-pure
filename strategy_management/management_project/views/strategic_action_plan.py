@@ -69,7 +69,7 @@ def strategic_action_plan_list(request, cycle_slug):
     strategic_action_plans = StrategicActionPlan.objects.filter(
         strategic_cycle=strategy_by_cycle,
         organization_name=request.user.organization_name
-    ).order_by('-start_date', 'end_date')
+    ).order_by("-strategic_cycle__start_date", "strategic_cycle__end_date")
 
     # Search query
     search_query = request.GET.get('search', '').strip()

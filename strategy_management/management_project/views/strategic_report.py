@@ -74,7 +74,7 @@ def strategic_report_list(request, cycle_slug):
     reports = StrategicReport.objects.filter(
         action_plan__strategic_cycle=strategy_by_cycle,
         organization_name=request.user.organization_name
-    ).select_related("action_plan").order_by("-start_date", "end_date")
+    ).select_related("action_plan").order_by("-action_plan__strategic_cycle__start_date", "action_plan__strategic_cycle__end_date")
 
     # Search query
     search_query = request.GET.get("search", "").strip()

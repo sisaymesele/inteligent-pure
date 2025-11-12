@@ -1,11 +1,14 @@
-
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import \
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import \
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE
 
 INSURANCE_PERSPECTIVE = {
     "Financial Perspective": {
 
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
         "Insurance Revenue Growth & Diversification": {
             "Increase premium income from life insurance": {
@@ -363,13 +366,12 @@ INSURANCE_PERSPECTIVE = {
                 "Liquidity coverage ratio (LCR %)": "(High-quality liquid assets / Net cash outflows over 30 days) * 100",
                 "Fund deployment efficiency (%)": "(Funds invested or deployed / Total available funds) * 100"
             }
-
         },
     },
 
     "Customer Perspective": {
 
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
 
         # ---------------- Policyholder Acquisition & Market Reach ----------------
         "Policyholder Acquisition & Market Reach": {
@@ -518,5 +520,340 @@ INSURANCE_PERSPECTIVE = {
                 "Net Promoter Score (NPS) for stakeholders": "Likelihood of stakeholders to recommend the organization"
             }
         }
+    },
+
+    "Internal_Process_Perspective": {
+
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+
+        # -------------------- Actuarial (Pricing & Risk Analysis) --------------------
+
+        "Pricing Accuracy & Risk Modeling": {
+            "Ensure premium adequacy": {
+                "Premium adequacy (%)": "(Calculated premium / Required premium) * 100",
+                "Rate review frequency (times/year)": "Number of reviews conducted",
+                "Deviation from target (%)": "(Target - Actual) / Target * 100",
+                "Pricing exception rate (%)": "(Exceptions / Total cases) * 100"
+            },
+            "Improve predictive model accuracy": {
+                "Model prediction accuracy (%)": "(Correct predictions / Total cases) * 100",
+                "Back-testing coverage (%)": "(Tested / Total models) * 100",
+                "Model error rate (%)": "(Errors / Total predictions) * 100",
+                "Scenario testing completion (%)": "(Completed / Planned scenarios) * 100"
+            },
+            "Enhance portfolio risk diversification": {
+                "Diversified risk ratio (%)": "(Diversified risks / Total portfolio) * 100",
+                "Sector exposure compliance (%)": "(Compliant exposures / Total sectors) * 100",
+                "Concentration risk index": "Weighted exposure across sectors",
+                "Risk-adjusted exposure ratio (%)": "(Adjusted / Total portfolio) * 100"
+            },
+            "Strengthen reserve adequacy": {
+                "Reserve coverage (%)": "(Adequate reserves / Required reserves) * 100",
+                "Reserve review cycle (days)": "Average days to review reserves",
+                "Reserve estimation error (%)": "(Estimated - Actual) / Actual * 100",
+                "Compliance with regulatory reserve standards (%)": "(Compliant / Total reserves) * 100"
+            },
+            "Improve data quality & completeness": {
+                "Data completeness (%)": "(Complete datasets / Total datasets) * 100",
+                "Data validation error rate (%)": "(Invalid records / Total records) * 100",
+                "Data timeliness (%)": "(Updated on time / Total datasets) * 100",
+                "Data processing turnaround (days)": "Average processing time"
+            },
+            "Enhance risk monitoring & reporting": {
+                "Risk report coverage (%)": "(Reports generated / Total required) * 100",
+                "Report accuracy (%)": "(Accurate reports / Total reports) * 100",
+                "Timeliness of reporting (%)": "(Reports on time / Total reports) * 100",
+                "Stakeholder feedback score": "Survey rating"
+            }
+        },
+
+        # --------------------Underwriting (Risk Selection & Approval) --------------------
+        "Underwriting (Risk Selection & Approval)": {
+            "Standardize risk assessment process": {
+                "Assessment process adherence (%)": "(Compliant assessments / Total) * 100",
+                "Average assessment time (days)": "Average days per assessment",
+                "Assessment error rate (%)": "(Errors / Total assessments) * 100",
+                "Review completion rate (%)": "(Completed reviews / Total reviews) * 100"
+            },
+            "Enhance policy approval accuracy": {
+                "Approval accuracy (%)": "(Correct approvals / Total approvals) * 100",
+                "Rework rate (%)": "(Re-assessments / Total policies) * 100",
+                "Compliance with underwriting guidelines (%)": "(Compliant / Total approvals) * 100",
+                "Underwriting exception rate (%)": "(Exceptions / Total policies) * 100"
+            },
+            "Reduce underwriting cycle time": {
+                "Average approval turnaround (days)": "Average days from submission to approval",
+                "Policy backlog reduction (%)": "(Previous backlog - Current) / Previous * 100",
+                "Time-to-first-decision (days)": "Average days to initial decision",
+                "Process bottleneck incidents (#)": "Number of bottlenecks identified"
+            },
+            "Strengthen risk classification & scoring": {
+                "Risk classification accuracy (%)": "(Correct classifications / Total policies) * 100",
+                "Scoring model compliance (%)": "(Compliant / Total models) * 100",
+                "High-risk detection rate (%)": "(High-risk identified / Total high-risk cases) * 100",
+                "Risk reassessment frequency (times/year)": "Number of reassessments"
+            },
+            "Improve document & data management": {
+                "Document completeness (%)": "(Complete files / Total files) * 100",
+                "Data entry accuracy (%)": "(Accurate entries / Total entries) * 100",
+                "Document retrieval time (minutes)": "Average minutes to retrieve",
+                "Digital records adoption (%)": "(Digital records / Total policies) * 100"
+            },
+            "Monitor underwriting compliance & audit": {
+                "Internal audit coverage (%)": "(Audited policies / Total policies) * 100",
+                "Audit finding closure rate (%)": "(Closed findings / Total findings) * 100",
+                "Regulatory compliance (%)": "(Compliant policies / Total policies) * 100",
+                "Exception reporting timeliness (%)": "(Reported on time / Total exceptions) * 100"
+            },
+        },
+
+        # -------------------- Sales & Distribution (Selling Policies) --------------------
+        "Sales & Distribution (Selling Policies)": {
+            "Streamline policy issuance process": {
+                "Policy issuance time (days)": "Average days from application to issuance",
+                "Process compliance (%)": "(Compliant processes / Total sales) * 100",
+                "Error rate (%)": "(Incorrect issuances / Total policies) * 100",
+                "Digital sales adoption (%)": "(Digital channels used / Total sales) * 100"
+            },
+            "Enhance agent performance management": {
+                "Agent compliance rate (%)": "(Compliant agents / Total agents) * 100",
+                "Training completion (%)": "(Trained / Total agents) * 100",
+                "Sales process adherence (%)": "(Adhered / Total sales) * 100",
+                "Client feedback score": "Survey rating"
+            },
+            "Improve customer onboarding experience": {
+                "Onboarding completion time (days)": "Average days per new client",
+                "Customer satisfaction score": "Survey rating",
+                "Documentation error rate (%)": "(Errors / Total new policies) * 100",
+                "Digital onboarding adoption (%)": "(Digital onboarding / Total new policies) * 100"
+            },
+            "Monitor sales compliance & ethics": {
+                "Regulatory compliance (%)": "(Compliant sales / Total sales) * 100",
+                "Sales audit coverage (%)": "(Audited / Total sales) * 100",
+                "Ethical violation incidents (#)": "Number of violations",
+                "Remediation closure rate (%)": "(Closed / Total violations) * 100"
+            },
+            "Enhance channel management & coverage": {
+                "Channel utilization (%)": "(Active channels / Total channels) * 100",
+                "Policy distribution coverage (%)": "(Covered regions / Total regions) * 100",
+                "Channel performance index": "Weighted performance score",
+                "Inactive channel reduction (%)": "(Previous - Current) / Previous * 100"
+            },
+            "Improve lead management & conversion": {
+                "Lead response time (hours)": "Average hours to respond",
+                "Lead conversion rate (%)": "(Converted / Total leads) * 100",
+                "Lead qualification accuracy (%)": "(Correctly qualified / Total leads) * 100",
+                "Follow-up completion rate (%)": "(Completed follow-ups / Total leads) * 100"
+            },
+        },
+
+        # -------------------- Policyholder Services (Customer Service & Policy Management) --------------------
+        "Policyholder Services": {
+            "Ensure timely policy updates": {
+                "Update cycle time (days)": "Average days to update policies",
+                "Process compliance (%)": "(Compliant updates / Total updates) * 100",
+                "Error rate (%)": "(Incorrect updates / Total updates) * 100",
+                "Customer satisfaction score": "Survey rating"
+            },
+            "Improve policyholder data management": {
+                "Data accuracy (%)": "(Accurate records / Total records) * 100",
+                "Data completeness (%)": "(Complete records / Total records) * 100",
+                "Data timeliness (%)": "(Updated on time / Total records) * 100",
+                "Data access speed (seconds)": "Average retrieval time"
+            },
+            "Enhance customer inquiry handling": {
+                "Inquiry response time (hours)": "Average time to respond",
+                "Inquiry resolution rate (%)": "(Resolved / Total inquiries) * 100",
+                "Escalation rate (%)": "(Escalated / Total inquiries) * 100",
+                "Customer satisfaction score": "Survey rating"
+            },
+            "Streamline policy renewal process": {
+                "Renewal processing time (days)": "Average days",
+                "Renewal completion rate (%)": "(Completed / Total due) * 100",
+                "Policy lapse rate (%)": "(Lapsed / Total policies) * 100",
+                "Process compliance (%)": "(Compliant renewals / Total renewals) * 100"
+            },
+            "Monitor service compliance & quality": {
+                "Regulatory compliance (%)": "(Compliant processes / Total processes) * 100",
+                "Internal audit coverage (%)": "(Audited / Total processes) * 100",
+                "Customer complaints rate (%)": "(Complaints / Total clients) * 100",
+                "Complaint resolution timeliness (%)": "(Resolved on time / Total complaints) * 100"
+            },
+            "Enhance self-service & digital adoption": {
+                "Digital platform usage (%)": "(Active users / Total clients) * 100",
+                "Self-service completion rate (%)": "(Completed / Total attempts) * 100",
+                "Customer satisfaction score": "Survey rating",
+                "Error rate (%)": "(Errors / Total digital interactions) * 100"
+            },
+        },
+
+        # -------------------- Claims (Handling and Paying Claims) --------------------
+
+        "Claims Processing Efficiency": {
+            "Reduce claim processing time": {
+                "Average claim processing time (days)": "Average days per claim",
+                "Process compliance (%)": "(Compliant claims / Total claims) * 100",
+                "Error rate (%)": "(Incorrect claims / Total claims) * 100",
+                "Claims backlog reduction (%)": "(Previous - Current) / Previous * 100"
+            },
+            "Improve claim assessment accuracy": {
+                "Assessment accuracy (%)": "(Correct assessments / Total claims) * 100",
+                "Reassessment rate (%)": "(Reassessed / Total claims) * 100",
+                "Fraud detection rate (%)": "(Detected fraud / Total claims) * 100",
+                "High-risk claim identification (%)": "(High-risk identified / Total claims) * 100"
+            },
+            "Enhance customer communication & transparency": {
+                "Customer satisfaction score": "Survey rating",
+                "Inquiry response time (hours)": "Average time",
+                "Claim status update frequency (#)": "Number of updates per claim",
+                "Escalation handling time (days)": "Average days to resolve escalations"
+            },
+            "Monitor compliance & audit in claims": {
+                "Regulatory compliance (%)": "(Compliant claims / Total claims) * 100",
+                "Audit coverage (%)": "(Audited claims / Total claims) * 100",
+                "Internal policy adherence (%)": "(Compliant / Total claims) * 100",
+                "Exception reporting timeliness (%)": "(Reported on time / Total exceptions) * 100"
+            },
+            "Optimize resource allocation in claims": {
+                "Staff productivity": "Claims processed per staff",
+                "Resource utilization (%)": "(Used resources / Total allocated) * 100",
+                "Process automation adoption (%)": "(Automated processes / Total processes) * 100",
+                "Cost-efficiency index": "Internal measure of operational efficiency"
+            },
+            "Strengthen fraud prevention & detection": {
+                "Fraud detection effectiveness (%)": "(Detected / Total attempts) * 100",
+                "Suspicious claim reporting timeliness (%)": "(Reported on time / Total detected)",
+                "Investigations closed (%)": "(Closed / Total investigations) * 100",
+                "Claims rework due to fraud (%)": "(Reworked / Total claims) * 100"
+            }
+        },
+
+        # -------------------- Finance & Investments (Managing Money & Investments) --------------------
+
+        "Investment & Fund Management": {
+            "Ensure regulatory compliance in investments": {
+                "Compliance coverage (%)": "(Compliant portfolios / Total portfolios) * 100",
+                "Audit coverage (%)": "(Audited / Total portfolios) * 100",
+                "Reporting timeliness (%)": "(Submitted on time / Total reports) * 100",
+                "Exception resolution rate (%)": "(Resolved / Total exceptions) * 100"
+            },
+            "Monitor portfolio risk & diversification": {
+                "Portfolio diversification index": "Weighted diversification score",
+                "Risk-adjusted exposure (%)": "(Adjusted exposure / Total portfolio) * 100",
+                "High-risk exposure identification (%)": "(Identified / Total exposures) * 100",
+                "Rebalancing cycle compliance (%)": "(On time / Planned rebalances) * 100"
+            },
+            "Enhance fund performance monitoring": {
+                "Target benchmark adherence (%)": "(Achieved / Planned) * 100",
+                "Performance review frequency (times/year)": "Number of reviews",
+                "Variance from target (%)": "(Target - Actual) / Target * 100",
+                "Exception handling timeliness (%)": "(Resolved / Total exceptions) * 100"
+            },
+            "Optimize cash & liquidity management": {
+                "Liquidity coverage ratio (%)": "High-quality liquid assets / Net outflows * 100",
+                "Cash position accuracy (%)": "(Accurate / Total days) * 100",
+                "Cash forecast timeliness (%)": "(Submitted on time / Total forecasts) * 100",
+                "Compliance with cash policy (%)": "(Compliant / Total periods) * 100"
+            },
+            "Improve process efficiency in finance operations": {
+                "Cycle time reduction (%)": "(Previous - Current) / Previous * 100",
+                "Process automation adoption (%)": "(Automated / Total processes) * 100",
+                "Error reduction rate (%)": "(Previous errors - Current) / Previous * 100",
+                "Staff productivity index": "Internal measure"
+            },
+            "Strengthen financial risk management": {
+                "Risk assessment coverage (%)": "(Covered / Total portfolios) * 100",
+                "Stress test compliance (%)": "(Compliant / Total tests) * 100",
+                "Emerging risk monitoring (%)": "(Monitored / Total identified) * 100",
+                "Mitigation plan implementation (%)": "(Implemented / Total planned) * 100"
+            },
+        },
+
+        # -------------------- Fraud Prevention & Investigation --------------------
+
+        "Fraud Detection & Risk Mitigation": {
+            "Enhance fraud detection capabilities": {
+                "Fraud cases detected (%)": "(Detected / Total claims) * 100",
+                "False positive rate (%)": "(Incorrectly flagged / Total flagged) * 100",
+                "Detection time (days)": "Average days from fraud occurrence to detection",
+                "High-risk case coverage (%)": "(High-risk cases analyzed / Total high-risk cases) * 100"
+            },
+            "Strengthen internal investigation processes": {
+                "Investigation completion rate (%)": "(Completed / Initiated) * 100",
+                "Average investigation time (days)": "Average days to complete",
+                "Investigation accuracy (%)": "(Accurate conclusions / Total investigations) * 100",
+                "Case backlog reduction (%)": "(Previous - Current) / Previous * 100"
+            },
+            "Monitor fraud prevention compliance": {
+                "Policy adherence (%)": "(Compliant / Total policies) * 100",
+                "Audit coverage (%)": "(Audited / Total units) * 100",
+                "Regulatory reporting timeliness (%)": "(Reported on time / Total reports) * 100",
+                "Exception handling rate (%)": "(Resolved / Total exceptions) * 100"
+            },
+            "Enhance analytics & early warning systems": {
+                "Predictive model accuracy (%)": "(Correct predictions / Total cases) * 100",
+                "Model coverage (%)": "(Covered policies / Total policies) * 100",
+                "Suspicious activity alerts (#)": "Number of alerts generated",
+                "Follow-up completion rate (%)": "(Completed / Total alerts) * 100"
+            },
+            "Train & empower staff in fraud awareness": {
+                "Training completion (%)": "(Completed / Total staff) * 100",
+                "Staff detection rate (%)": "(Fraud cases identified by staff / Total cases) * 100",
+                "Knowledge retention score": "Test scores post-training",
+                "Incident reporting compliance (%)": "(Reported / Total incidents) * 100"
+            },
+            "Strengthen collaboration with external partners": {
+                "Information sharing rate (%)": "(Shared / Required) * 100",
+                "Joint investigation coverage (%)": "(Covered / Planned cases) * 100",
+                "External audit compliance (%)": "(Compliant / Total audits) * 100",
+                "Resolution of cross-partner cases (%)": "(Resolved / Total cross-partner cases) * 100"
+            }
+        },
+        # -------------------- Reinsurance / Partner Management --------------------
+
+        "Reinsurance Strategy & Optimization": {
+            "Optimize reinsurance coverage": {
+                "Coverage adequacy (%)": "(Reinsured / Total exposure) * 100",
+                "Retention ratio (%)": "(Retained risk / Total risk) * 100",
+                "Reinsurance cost efficiency (%)": "(Budgeted cost / Actual cost) * 100",
+                "Reinsurance compliance (%)": "(Compliant contracts / Total contracts) * 100"
+            },
+            "Strengthen partner relationships": {
+                "Partner satisfaction score": "Survey rating",
+                "Contract renewal rate (%)": "(Renewed / Total contracts) * 100",
+                "Partner performance index": "Weighted score across KPIs",
+                "Timely communication rate (%)": "(Communicated on time / Total interactions) * 100"
+            },
+            "Monitor counterparty risk": {
+                "Counterparty risk coverage (%)": "(Monitored / Total counterparties) * 100",
+                "Default risk incidents (#)": "Number of defaults detected",
+                "Risk mitigation action rate (%)": "(Actions taken / Total identified risks) * 100",
+                "Exposure compliance (%)": "(Compliant / Total exposures) * 100"
+            },
+            "Enhance reinsurance contract management": {
+                "Contract review timeliness (%)": "(Reviewed on time / Total contracts) * 100",
+                "Contract accuracy (%)": "(Accurate / Total contracts) * 100",
+                "Dispute resolution rate (%)": "(Resolved / Total disputes) * 100",
+                "Documentation completeness (%)": "(Complete / Total contracts) * 100"
+            },
+            "Improve process efficiency in partner management": {
+                "Process automation adoption (%)": "(Automated / Total processes) * 100",
+                "Partner onboarding time (days)": "Average time",
+                "Process error rate (%)": "(Errors / Total processes) * 100",
+                "Staff productivity index": "Internal rating"
+            },
+            "Strengthen reporting & analytics for partners": {
+                "Report accuracy (%)": "(Accurate / Total reports) * 100",
+                "Report timeliness (%)": "(On time / Total reports) * 100",
+                "Analytics coverage (%)": "(Partners analyzed / Total partners) * 100",
+                "Actionable insight rate (%)": "(Insights applied / Total insights) * 100"
+            },
+        },
+    },
+
+    "Learning & Growth Perspective": {
+
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+
     },
 }

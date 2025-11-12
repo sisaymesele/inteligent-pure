@@ -1,5 +1,3 @@
-
-
 GENERIC_INTERNAL_PROCESS_PERSPECTIVE = {
     "Internal Process Perspective": {
         "Operational Excellence & Quality": {
@@ -220,7 +218,118 @@ GENERIC_INTERNAL_PROCESS_PERSPECTIVE = {
                 "Carbon footprint reduction percentage": "((Previous emissions - Current) / Previous) * 100",
                 "Social responsibility program impact": "Weighted impact score of social programs",
                 "Governance compliance score": "Weighted governance compliance metrics"
+            },
+        },
+        # -------------------- Procurement & Vendor Management --------------------
+        "Procurement & Vendor Management": {
+            "Enhance supplier selection process": {
+                "Internal supplier evaluation completion (%)": "(Completed / Planned) * 100",
+                "Internal vendor onboarding time (days)": "Average internal",
+                "Internal compliance with contract standards (%)": "(Compliant / Total vendors) * 100",
+                "Internal vendor performance score": "Average internal"
+            },
+            "Improve purchase order management": {
+                "PO processing time (days)": "Internal average",
+                "Internal PO accuracy (%)": "(Correct / Total POs) * 100",
+                "Internal approval adherence (%)": "(Followed / Total POs) * 100",
+                "Internal duplicate PO detection (#)": "Logged internally"
+            },
+            "Strengthen contract management": {
+                "Internal contract renewal adherence (%)": "(On-time / Total contracts) * 100",
+                "Internal risk compliance (%)": "(Compliant / Total contracts) * 100",
+                "Internal contract review completion (%)": "(Completed / Planned) * 100",
+                "Internal clause adherence (%)": "(Followed / Total clauses) * 100"
+            },
+            "Manage vendor performance monitoring": {
+                "Internal delivery timeliness (%)": "(On-time / Total deliveries) * 100",
+                "Internal service level compliance (%)": "(Compliant / Total checks) * 100",
+                "Internal corrective action implementation (%)": "(Implemented / Planned) * 100",
+                "Internal performance reporting (%)": "(Reported / Planned) * 100"
+            },
+            "Optimize procurement cost management": {
+                "Internal cost variance (%)": "(Budgeted - Actual) / Budgeted * 100",
+                "Internal expense approval compliance (%)": "(Compliant / Total approvals) * 100",
+                "Internal cost-saving initiative completion (%)": "(Implemented / Planned) * 100",
+                "Internal budget reconciliation (%)": "(Reconciled / Total accounts) * 100"
+            },
+            "Ensure compliance & audit readiness": {
+                "Internal procurement audit completion (%)": "(Completed / Planned) * 100",
+                "Internal regulatory compliance (%)": "(Compliant / Total checks) * 100",
+                "Internal corrective action closure (%)": "(Closed / Total issues) * 100",
+                "Internal documentation completeness (%)": "(Complete / Total required) * 100"
             }
-        }
-    }
+        },
+        # -------------------- Project & Portfolio Management --------------------
+        "Project & Portfolio Management": {
+            "Optimize Strategic Project Alignment": {
+                "Strategic alignment score (%)": "(Aligned projects / Total portfolio) * 100",
+                "Business case approval rate (%)": "(Approved cases / Total submitted) * 100",
+                "Value realization tracking (%)": "(Tracked benefits / Total expected) * 100",
+                "Portfolio balance index": "Risk-innovation-strategy mix assessment"
+            },
+
+            "Enhance Project Planning Precision": {
+                "Planning accuracy rate (%)": "(Accurate plans / Total projects) * 100",
+                "Requirements completeness (%)": "(Defined requirements / Total needed) * 100",
+                "Stakeholder alignment score": "Pre-project stakeholder consensus rating",
+                "Baseline establishment time (days)": "Average time to finalize project baselines"
+            },
+
+            "Improve Execution & Delivery Performance": {
+                "Schedule performance index (SPI)": "Earned value / Planned value",
+                "Cost performance index (CPI)": "Earned value / Actual cost",
+                "Quality gate pass rate (%)": "(Passed gates / Total gates) * 100",
+                "Deliverable acceptance rate (%)": "(Accepted deliverables / Total submitted) * 100"
+            },
+
+            "Strengthen Monitoring & Control Effectiveness": {
+                "KPI tracking compliance (%)": "(Tracked metrics / Total defined) * 100",
+                "Variance detection rate (%)": "(Detected variances / Total occurrences) * 100",
+                "Reporting timeliness (%)": "(On-time reports / Total required) * 100",
+                "Corrective action success rate (%)": "(Successful actions / Total implemented) * 100"
+            },
+
+            "Optimize Resource Management Efficiency": {
+                "Resource utilization rate (%)": "(Billable hours / Total available) * 100",
+                "Allocation accuracy (%)": "(Optimal allocations / Total allocations) * 100",
+                "Skill gap coverage (%)": "(Addressed gaps / Total identified) * 100",
+                "Team productivity index": "Output per resource unit measurement"
+            },
+
+            "Advance Risk & Issue Management": {
+                "Risk identification rate (%)": "(Identified risks / Total existing) * 100",
+                "Mitigation effectiveness (%)": "(Successful mitigations / Total implemented) * 100",
+                "Issue resolution time (days)": "Average time from identification to closure",
+                "Contingency utilization efficiency (%)": "(Appropriate use / Total allocated) * 100"
+            },
+
+            "Enhance Stakeholder Engagement": {
+                "Stakeholder satisfaction score": "Survey-based satisfaction rating (1-5)",
+                "Communication plan adherence (%)": "(Executed communications / Planned) * 100",
+                "Expectation alignment rate (%)": "(Aligned expectations / Total stakeholders) * 100",
+                "Change adoption rate (%)": "(Adopted changes / Total implemented) * 100"
+            },
+
+            "Ensure Quality & Compliance Excellence": {
+                "Quality audit pass rate (%)": "(Passed audits / Total conducted) * 100",
+                "Compliance adherence rate (%)": "(Compliant projects / Total portfolio) * 100",
+                "Defect prevention effectiveness (%)": "(Prevented defects / Total potential) * 100",
+                "Process standardization level": "Methodology consistency across projects"
+            },
+
+            "Improve Financial Management": {
+                "Budget variance rate (%)": "((Actual - Budget) / Budget) * 100",
+                "ROI achievement rate (%)": "(Actual ROI / Target ROI) * 100",
+                "Cost forecasting accuracy (%)": "(Actual costs / Forecasted costs) * 100",
+                "Value delivery index": "Business benefits vs. investment ratio"
+            },
+
+            "Strengthen Project Closure & Knowledge Transfer": {
+                "Project closure time (days)": "Average time from completion to formal closure",
+                "Lessons learned implementation (%)": "(Implemented lessons / Total identified) * 100",
+                "Knowledge transfer completeness (%)": "(Transferred knowledge / Total required) * 100",
+                "Post-implementation review rate (%)": "(Conducted reviews / Total projects) * 100"
+            }
+        },
+    },
 }

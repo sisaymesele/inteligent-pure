@@ -1,11 +1,17 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
 
 HEALTH_PERSPECTIVE = {
     "Financial Perspective": {
         # ==================== HEALTHCARE  ====================
         # ---------------- Core Generic Financial Objectives ----------------
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
         # ==================== 1. Healthcare Revenue Growth & Funding ====================
         "Healthcare Revenue Growth & Funding": {
@@ -250,10 +256,10 @@ HEALTH_PERSPECTIVE = {
         },
     },
 
-    " CUSTOMER_PERSPECTIVE": {
+    " Customer Perspective": {
 
         # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
         # =========================================================
         # Access to Care
         # =========================================================
@@ -672,5 +678,503 @@ HEALTH_PERSPECTIVE = {
                 "Awareness campaign effectiveness (%)": "(Respondents aware / Total reached) * 100",
             },
         },
-    }
+    },
+
+    "Internal Process Perspective": {
+
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+
+        # -------------------- 1. Clinical Services --------------------
+        "Clinical Services": {
+            "Manage patient admission": {
+                "Reduce registration errors": "(Errors / Total registrations) * 100",
+                "Improve registration speed": "Average registration time (min)",
+                "Ensure documentation completeness": "(Complete / Total admissions) * 100",
+                "Strengthen compliance to admission protocols": "(Compliant / Total admissions) * 100"
+            },
+            "Optimize outpatient management": {
+                "Improve consultation efficiency": "Average consultation duration (min)",
+                "Ensure adherence to treatment plans": "(Implemented / Planned treatments) * 100",
+                "Strengthen follow-up process": "(Follow-ups executed / Planned) * 100",
+                "Enhance workflow compliance": "(Compliant / Total workflows) * 100"
+            },
+            "Manage inpatient processes": {
+                "Optimize bed utilization": "(Occupied beds / Total beds) * 100",
+                "Reduce readmission rates": "(Readmissions / Total discharges) * 100",
+                "Ensure care plan adherence": "(Completed / Planned care plans) * 100",
+                "Improve length of stay efficiency": "Average length of stay (days)"
+            },
+            "Strengthen emergency care": {
+                "Reduce triage response time": "Time from arrival to triage",
+                "Ensure stabilization protocol adherence": "(Compliant / Critical cases) * 100",
+                "Improve emergency intervention compliance": "(Compliant interventions / Total interventions) * 100",
+                "Enhance critical incident response": "Average response time (min)"
+            },
+            "Manage surgical services": {
+                "Improve operating room utilization": "(Hours used / Available hours) * 100",
+                "Strengthen surgical checklist compliance": "(Completed / Total surgeries) * 100",
+                "Ensure post-operative care adherence": "(Compliant / Total surgeries) * 100",
+                "Optimize surgery scheduling": "(On-time surgeries / Total scheduled) * 100"
+            },
+            "Optimize nursing services": {
+                "Strengthen care plan adherence": "(Implemented / Planned care plans) * 100",
+                "Improve medication administration compliance": "(Correct doses / Total doses) * 100",
+                "Enhance shift handover accuracy": "(Accurate handovers / Total handovers) * 100",
+                "Ensure staff skill competency": "(Competent / Total staff) * 100"
+            },
+            "Manage specialized services": {
+                "Ensure clinical guideline compliance": "(Compliant / Total cases) * 100",
+                "Optimize referral management": "(Completed referrals / Planned referrals) * 100",
+                "Enhance multidisciplinary coordination": "(Coordinated / Total complex cases) * 100",
+                "Strengthen procedure execution": "(Compliant procedures / Total procedures) * 100"
+            },
+            "Manage maternal and child health": {
+                "Improve antenatal protocol adherence": "(Completed / Planned) * 100",
+                "Ensure safe delivery compliance": "(Compliant / Total deliveries) * 100",
+                "Strengthen postnatal care processes": "(Completed / Planned) * 100",
+                "Manage maternal and neonatal risks": "(Risks identified and managed / Total risks) * 100"
+            },
+            "Strengthen rehabilitation services": {
+                "Improve treatment plan adherence": "(Completed sessions / Prescribed sessions) * 100",
+                "Optimize therapy equipment use": "(Used / Available hours) * 100",
+                "Enhance functional improvement measurement": "Patient functional improvement",
+                "Ensure therapy schedule compliance": "(On-time sessions / Total planned) * 100"
+            },
+            "Manage chronic disease operations": {
+                "Strengthen monitoring adherence": "(Compliant monitoring / Total patients) * 100",
+                "Ensure medication review compliance": "(Completed reviews / Total patients) * 100",
+                "Implement intervention plans": "(Implemented / Planned) * 100",
+                "Improve clinical outcomes": "Composite clinical improvement score"
+            },
+            "Manage pain and palliative care": {
+                "Improve pain assessment adherence": "(Completed assessments / Total patients) * 100",
+                "Strengthen analgesic protocol compliance": "(Compliant dosing / Total doses) * 100",
+                "Ensure symptom monitoring": "(Monitored / Total patients) * 100",
+                "Optimize care coordination": "(Coordinated interventions / Planned interventions) * 100"
+            },
+            "Strengthen infection prevention": {
+                "Improve hand hygiene compliance": "(Compliant actions / Total opportunities) * 100",
+                "Ensure isolation protocol adherence": "(Compliant / Required cases) * 100",
+                "Strengthen sterilization processes": "(Compliant / Required procedures) * 100",
+                "Manage outbreak response": "(Responded / Detected events) * 100"
+            },
+            "Optimize discharge processes": {
+                "Improve documentation completeness": "(Completed / Total discharges) * 100",
+                "Strengthen follow-up process": "(Completed / Planned) * 100",
+                "Implement readmission prevention measures": "(Implemented / Planned) * 100",
+                "Enhance continuity of care": "(Coordinated cases / Total discharges) * 100"
+            },
+            "Manage clinical records": {
+                "Ensure record completeness": "(Completed / Required) * 100",
+                "Improve timeliness of documentation": "(On-time / Total records) * 100",
+                "Strengthen data accuracy": "(Error-free / Total records) * 100",
+                "Ensure audit compliance": "Internal audit evaluation"
+            },
+            "Strengthen patient safety": {
+                "Manage adverse events": "(Reported / Expected) * 100",
+                "Ensure safety protocol adherence": "(Compliant / Required cases) * 100",
+                "Reduce medication errors": "(Errors prevented / Total doses) * 100",
+                "Enhance staff safety training": "(Trained / Total staff) * 100"
+            },
+            "Enhance clinical audit": {
+                "Complete audits on schedule": "(Completed / Planned audits) * 100",
+                "Ensure guideline adherence": "(Compliant / Total cases) * 100",
+                "Implement process improvements": "(Implemented / Planned) * 100",
+                "Strengthen outcome improvement": "Measured improvement after interventions"
+            },
+            "Optimize resource utilization": {
+                "Improve bed turnover efficiency": "Discharges / Average bed count",
+                "Strengthen staff allocation": "(Worked hours / Scheduled hours) * 100",
+                "Enhance equipment utilization": "(Used / Available hours) * 100",
+                "Optimize consumable costs": "Actual cost / Standard cost per patient"
+            },
+            "Strengthen interdisciplinary coordination": {
+                "Conduct multidisciplinary meetings": "(Held / Planned meetings) * 100",
+                "Integrate care plans": "(Integrated / Total complex cases) * 100",
+                "Follow-up on referrals": "(Completed / Total referrals) * 100",
+                "Enhance clinical outcomes": "Composite score"
+            }
+        },
+
+        # -------------------- 2. Diagnostic & Support Services --------------------
+        "Diagnostic & Support Services": {
+            "Manage laboratory operations": {
+                "Improve test accuracy": "(Correct tests / Total tests) * 100",
+                "Strengthen turnaround time": "Average hours from sample to result",
+                "Ensure equipment calibration": "(Calibrated / Required) * 100",
+                "Enhance process adherence": "(Compliant procedures / Total procedures) * 100"
+            },
+            "Optimize radiology services": {
+                "Strengthen image quality": "(Compliant / Total images) * 100",
+                "Improve report turnaround": "Average hours from scan to report",
+                "Reduce repeat scans": "(Reduced repeats / Total scans) * 100",
+                "Ensure workflow adherence": "(Compliant / Total workflows) * 100"
+            },
+            "Manage pharmacy operations": {
+                "Strengthen dispensing accuracy": "(Correct doses / Total prescriptions) * 100",
+                "Ensure inventory process compliance": "(Compliant / Total inventory actions) * 100",
+                "Improve stock management": "(Managed / Total critical items) * 100",
+                "Enhance medication review": "(Reviewed / Total patients) * 100"
+            },
+            "Manage blood bank": {
+                "Ensure blood availability": "(Available / Required units) * 100",
+                "Strengthen cross-match accuracy": "(Accurate / Total requests) * 100",
+                "Improve transfusion protocol compliance": "(Compliant / Total transfusions) * 100",
+                "Reduce emergency transfusion response time": "Average time in min"
+            },
+            "Strengthen infection prevention support": {
+                "Enhance sterilization adherence": "(Compliant / Required procedures) * 100",
+                "Improve hand hygiene compliance": "(Compliant actions / Total opportunities) * 100",
+                "Ensure IPC protocol implementation": "(Implemented / Planned actions) * 100",
+                "Strengthen outbreak response": "(Executed / Detected outbreaks) * 100"
+            },
+            "Optimize medical equipment management": {
+                "Improve equipment uptime": "(Operational / Total hours) * 100",
+                "Strengthen preventive maintenance": "(Completed / Planned) * 100",
+                "Reduce breakdown incidents": "(Reduced incidents / Previous period) * 100",
+                "Enhance utilization efficiency": "(Used / Available hours) * 100"
+            },
+            "Manage supply chain": {
+                "Ensure inventory accuracy": "(Accurate / Total items) * 100",
+                "Strengthen procurement compliance": "(On-time / Total procurements) * 100",
+                "Optimize stock replenishment": "(Replenished / Required items) * 100",
+                "Control cost variance": "(Actual - Budget) / Budget * 100"
+            },
+            "Enhance diagnostic reporting": {
+                "Improve report accuracy": "(Error-free / Total reports) * 100",
+                "Strengthen reporting timeliness": "(On-time / Total reports) * 100",
+                "Ensure process compliance": "(Compliant / Total steps) * 100",
+                "Optimize clinician access to data": "(Accessed / Required) * 100"
+            },
+            "Strengthen workflow standardization": {
+                "Ensure SOP adherence": "(Compliant / Total steps) * 100",
+                "Implement process optimization": "(Implemented / Planned) * 100",
+                "Reduce errors": "(Reduced errors / Previous period) * 100",
+                "Ensure audit compliance": "(Compliant / Total checks) * 100"
+            },
+            "Optimize test scheduling": {
+                "Improve scheduling adherence": "(Scheduled / Planned) * 100",
+                "Prioritize critical tests": "(Processed on time / High-priority) * 100",
+                "Ensure sample handling compliance": "(Compliant / Total samples) * 100",
+                "Strengthen turnaround efficiency": "Improvement % vs previous period"
+            },
+            "Manage clinical support coordination": {
+                "Ensure request fulfillment": "(Completed / Total requests) * 100",
+                "Strengthen response time": "Average hours",
+                "Enhance process adherence": "(Compliant / Total processes) * 100",
+                "Optimize workflow integration": "(Integrated / Total required processes) * 100"
+            },
+            "Strengthen quality assurance": {
+                "Ensure internal QC compliance": "(Passed QC / Total tests) * 100",
+                "Strengthen proficiency testing": "External lab rating",
+                "Reduce error trends": "(Reduction / Previous period) * 100",
+                "Implement corrective actions": "(Implemented / Required) * 100"
+            },
+            "Optimize laboratory throughput": {
+                "Improve throughput rate": "(Processed / Capacity) * 100",
+                "Enhance turnaround efficiency": "Improvement vs baseline",
+                "Strengthen equipment utilization": "(Used / Available hours) * 100",
+                "Balance staff workload": "(Balanced shifts / Total shifts) * 100"
+            },
+            "Enhance consumable management": {
+                "Ensure reagent accuracy": "(Accurate / Total items) * 100",
+                "Strengthen procurement compliance": "(Compliant / Total procurements) * 100",
+                "Reduce expiry losses": "(Monitored / Total reagents) * 100",
+                "Minimize waste": "(Reduced / Baseline period) * 100"
+            },
+            "Manage staff competency": {
+                "Strengthen staff training": "(Trained / Total staff) * 100",
+                "Enhance protocol knowledge": "(Compliant / Total steps) * 100",
+                "Ensure continuing education participation": "(Participated / Required staff) * 100",
+                "Optimize audit performance": "Internal audit compliance"
+            },
+            "Strengthen interdepartmental support": {
+                "Ensure request completion": "(Completed / Total requests) * 100",
+                "Optimize response time": "Average time",
+                "Enhance communication compliance": "(Compliant / Total required communications) * 100",
+                "Integrate processes": "Internal operational integration index"
+            },
+            "Implement corrective processes": {
+                "Identify issues promptly": "(Identified / Expected issues) * 100",
+                "Complete action plans": "(Completed / Planned) * 100",
+                "Apply process improvements": "(Implemented / Planned improvements) * 100",
+                "Verify follow-up": "(Verified / Total actions) * 100"
+            },
+            "Optimize resource allocation": {
+                "Ensure staff allocation": "(Allocated / Required staff) * 100",
+                "Enhance equipment utilization": "(Optimized / Available) * 100",
+                "Improve consumable efficiency": "(Used efficiently / Total used) * 100",
+                "Reduce process cycle time": "(Reduced vs baseline) * 100"
+            }
+        },
+
+        # -------------------- 3. Public Health Services --------------------
+        "Public Health Services": {
+            "Manage disease surveillance": {
+                "Strengthen case detection": "(Detected cases / Expected cases) * 100",
+                "Improve data reporting": "(Reported / Total cases) * 100",
+                "Optimize data analysis": "(Completed analyses / Total datasets) * 100",
+                "Ensure timely alert dissemination": "(Alerts sent / Planned alerts) * 100"
+            },
+            "Strengthen epidemiological investigations": {
+                "Ensure protocol adherence": "(Compliant / Total investigations) * 100",
+                "Improve outbreak response time": "Average hours to respond",
+                "Manage data quality": "(Accurate / Total entries) * 100",
+                "Enhance field coordination": "(Coordinated / Total investigations) * 100"
+            },
+            "Manage immunization programs": {
+                "Ensure vaccine stock management": "(Available / Required doses) * 100",
+                "Strengthen cold chain processes": "(Compliant / Total units) * 100",
+                "Optimize vaccination scheduling": "(On-time / Planned sessions) * 100",
+                "Enhance data recording accuracy": "(Accurate / Total records) * 100"
+            },
+            "Strengthen preventive health programs": {
+                "Implement health promotion activities": "(Implemented / Planned) * 100",
+                "Manage risk factor monitoring": "(Monitored / Planned) * 100",
+                "Enhance intervention adherence": "(Implemented / Planned) * 100",
+                "Optimize program reporting": "(Completed / Planned reports) * 100"
+            },
+            "Manage environmental health operations": {
+                "Ensure inspection compliance": "(Compliant / Planned inspections) * 100",
+                "Strengthen hazard mitigation": "(Mitigated / Identified hazards) * 100",
+                "Manage waste regulation adherence": "(Compliant / Required actions) * 100",
+                "Optimize follow-up inspections": "(Completed / Planned follow-ups) * 100"
+            },
+            "Strengthen occupational health management": {
+                "Ensure workplace hazard assessments": "(Assessed / Required) * 100",
+                "Manage risk controls": "(Implemented / Required) * 100",
+                "Enhance staff safety adherence": "(Compliant / Total staff) * 100",
+                "Optimize incident response": "(Responded / Total incidents) * 100"
+            },
+            "Manage nutrition and food safety": {
+                "Strengthen inspection compliance": "(Compliant / Planned inspections) * 100",
+                "Ensure food quality testing": "(Tested / Required samples) * 100",
+                "Optimize reporting processes": "(Completed / Planned reports) * 100",
+                "Enhance corrective action implementation": "(Implemented / Required actions) * 100"
+            },
+            "Strengthen disaster and emergency preparedness": {
+                "Manage emergency plans": "(Developed / Required plans) * 100",
+                "Conduct drills": "(Completed / Planned drills) * 100",
+                "Ensure equipment readiness": "(Ready / Required equipment) * 100",
+                "Optimize staff readiness": "(Trained / Required staff) * 100"
+            },
+            "Manage vector control programs": {
+                "Ensure intervention adherence": "(Implemented / Planned interventions) * 100",
+                "Strengthen data collection": "(Collected / Planned datasets) * 100",
+                "Optimize resource deployment": "(Allocated / Planned resources) * 100",
+                "Enhance response coordination": "(Coordinated / Required responses) * 100"
+            },
+            "Manage health risk assessments": {
+                "Conduct routine assessments": "(Completed / Planned) * 100",
+                "Ensure mitigation plan execution": "(Implemented / Planned actions) * 100",
+                "Optimize reporting accuracy": "(Accurate / Total reports) * 100",
+                "Strengthen stakeholder communication": "(Communicated / Required stakeholders) * 100"
+            },
+            "Strengthen occupational health surveillance": {
+                "Manage hazard reporting": "(Reported / Total expected) * 100",
+                "Ensure protocol compliance": "(Compliant / Required cases) * 100",
+                "Optimize intervention execution": "(Implemented / Planned interventions) * 100",
+                "Enhance follow-up adherence": "(Followed-up / Required cases) * 100"
+            },
+            "Manage community health interventions": {
+                "Strengthen program implementation": "(Implemented / Planned programs) * 100",
+                "Ensure process compliance": "(Compliant / Total steps) * 100",
+                "Optimize coordination": "(Coordinated / Required teams) * 100",
+                "Enhance monitoring": "(Monitored / Planned activities) * 100"
+            },
+            "Strengthen disease prevention campaigns": {
+                "Manage campaign planning": "(Completed / Planned campaigns) * 100",
+                "Ensure execution adherence": "(Implemented / Planned actions) * 100",
+                "Optimize outcome measurement": "(Measured / Planned metrics) * 100",
+                "Enhance reporting efficiency": "(Reported / Planned) * 100"
+            },
+            "Manage health education programs": {
+                "Strengthen material development": "(Developed / Planned materials) * 100",
+                "Ensure delivery compliance": "(Delivered / Planned sessions) * 100",
+                "Optimize participant engagement": "(Engaged / Expected participants) * 100",
+                "Enhance feedback incorporation": "(Incorporated / Total feedback) * 100"
+            },
+            "Strengthen surveillance data management": {
+                "Ensure timely data entry": "(Entered / Expected datasets) * 100",
+                "Improve data validation": "(Validated / Total datasets) * 100",
+                "Enhance reporting timeliness": "(Reported / Required) * 100",
+                "Optimize analysis utilization": "(Used / Required reports) * 100"
+            },
+            "Manage vaccination cold chain": {
+                "Ensure temperature monitoring": "(Monitored / Total units) * 100",
+                "Strengthen protocol compliance": "(Compliant / Total checks) * 100",
+                "Optimize maintenance schedules": "(Maintained / Planned units) * 100",
+                "Enhance corrective action execution": "(Implemented / Planned) * 100"
+            },
+            "Strengthen outbreak investigation processes": {
+                "Manage investigation initiation": "(Initiated / Required) * 100",
+                "Ensure procedure adherence": "(Compliant / Total cases) * 100",
+                "Optimize resource allocation": "(Allocated / Planned) * 100",
+                "Enhance reporting accuracy": "(Accurate / Total reports) * 100"
+            },
+            "Manage preventive intervention monitoring": {
+                "Strengthen implementation tracking": "(Tracked / Planned interventions) * 100",
+                "Ensure compliance with SOPs": "(Compliant / Total steps) * 100",
+                "Optimize performance measurement": "(Measured / Planned) * 100",
+                "Enhance corrective actions": "(Implemented / Required) * 100"
+            }
+        },
+
+        # -------------------- 4. Infrastructure & Facility Management --------------------
+        "Infrastructure & Facility Management": {
+            "Manage facility maintenance": {
+                "Strengthen preventive maintenance": "(Completed / Planned tasks) * 100",
+                "Ensure equipment operational readiness": "(Operational / Total equipment) * 100",
+                "Optimize maintenance scheduling": "(On-time / Planned) * 100",
+                "Reduce breakdown incidents": "(Reduced / Previous period) * 100"
+            },
+            "Ensure biomedical equipment functionality": {
+                "Optimize utilization": "(Used / Available hours) * 100",
+                "Strengthen calibration compliance": "(Calibrated / Required) * 100",
+                "Manage equipment repairs": "(Completed / Reported) * 100",
+                "Enhance monitoring adherence": "(Monitored / Required) * 100"
+            },
+            "Manage medical waste processes": {
+                "Strengthen segregation adherence": "(Compliant / Total waste streams) * 100",
+                "Ensure safe disposal": "(Disposed / Required) * 100",
+                "Optimize handling procedures": "(Compliant / Planned steps) * 100",
+                "Enhance regulatory compliance": "(Compliant / Required audits) * 100"
+            },
+            "Optimize utility systems": {
+                "Strengthen monitoring": "(Monitored / Required systems) * 100",
+                "Ensure uninterrupted supply": "(Operational hours / Total hours) * 100",
+                "Manage emergency response": "(Responded / Planned incidents) * 100",
+                "Enhance efficiency": "Energy efficiency index"
+            },
+            "Manage transport services": {
+                "Strengthen ambulance readiness": "(Ready / Total ambulances) * 100",
+                "Ensure route adherence": "(Compliant / Planned trips) * 100",
+                "Optimize dispatch efficiency": "(Dispatched / Requested trips) * 100",
+                "Enhance vehicle maintenance": "(Maintained / Planned vehicles) * 100"
+            },
+            "Ensure safety and security": {
+                "Strengthen access control": "(Compliant / Required points) * 100",
+                "Manage incident response": "(Responded / Total incidents) * 100",
+                "Enhance staff training": "(Trained / Required staff) * 100",
+                "Optimize risk mitigation": "(Mitigated / Identified risks) * 100"
+            },
+            "Optimize facility planning": {
+                "Manage space allocation": "(Allocated / Planned areas) * 100",
+                "Strengthen utilization": "(Used / Available) * 100",
+                "Ensure workflow efficiency": "(Efficient / Total areas) * 100",
+                "Enhance infrastructure upgrades": "(Upgraded / Planned projects) * 100"
+            },
+            "Strengthen preventive safety processes": {
+                "Ensure fire safety compliance": "(Compliant / Required areas) * 100",
+                "Manage emergency drills": "(Conducted / Planned) * 100",
+                "Optimize hazard mitigation": "(Mitigated / Identified hazards) * 100",
+                "Enhance safety inspections": "(Inspected / Planned areas) * 100"
+            },
+            "Enhance energy & utilities management": {
+                "Monitor energy usage": "kWh per month",
+                "Optimize water consumption": "Liters per patient/day",
+                "Strengthen utility fault response": "(Responded / Detected faults) * 100",
+                "Ensure sustainable operations": "(Implemented / Planned sustainability actions) * 100"
+            },
+            "Manage facility audit processes": {
+                "Strengthen audit compliance": "(Compliant / Planned audits) * 100",
+                "Ensure corrective action implementation": "(Implemented / Planned) * 100",
+                "Optimize reporting": "(Completed / Planned reports) * 100",
+                "Enhance risk identification": "(Identified / Expected risks) * 100"
+            },
+            "Optimize construction & renovation management": {
+                "Ensure project completion": "(Completed / Planned projects) * 100",
+                "Strengthen contractor compliance": "(Compliant / Total contractors) * 100",
+                "Manage timeline adherence": "(On-time / Total projects) * 100",
+                "Enhance budget control": "(Actual / Planned budget) * 100"
+            },
+            "Strengthen facility lifecycle management": {
+                "Manage asset inventory": "(Recorded / Total assets) * 100",
+                "Ensure maintenance scheduling": "(Completed / Planned) * 100",
+                "Optimize asset replacement": "(Replaced / Planned) * 100",
+                "Enhance lifecycle tracking": "(Tracked / Total assets) * 100"
+            }
+        },
+
+        # -------------------- 5. Health Information & Digital Systems --------------------
+        "Health Information & Digital Systems": {
+            "Manage EMR/EHR processes": {
+                "Strengthen documentation completeness": "(Complete / Total records) * 100",
+                "Ensure timeliness of entries": "(On-time / Total records) * 100",
+                "Enhance data accuracy": "(Error-free / Total records) * 100",
+                "Optimize user compliance": "(Compliant / Total users) * 100"
+            },
+            "Optimize telehealth services": {
+                "Manage consultation workflow": "(Completed / Scheduled) * 100",
+                "Strengthen data entry adherence": "(Compliant / Total sessions) * 100",
+                "Enhance scheduling efficiency": "(On-time / Total appointments) * 100",
+                "Ensure reporting accuracy": "(Accurate / Total reports) * 100"
+            },
+            "Manage data analytics processes": {
+                "Strengthen data extraction": "(Extracted / Planned datasets) * 100",
+                "Ensure data cleaning adherence": "(Compliant / Total datasets) * 100",
+                "Optimize report generation": "(Completed / Planned reports) * 100",
+                "Enhance decision support": "(Used / Required reports) * 100"
+            },
+            "Ensure HIS system change management": {
+                "Manage update requests": "(Processed / Total requests) * 100",
+                "Strengthen testing compliance": "(Tested / Planned updates) * 100",
+                "Optimize deployment efficiency": "(Deployed / Planned updates) * 100",
+                "Enhance user training": "(Trained / Required users) * 100"
+            },
+            "Manage cybersecurity processes": {
+                "Strengthen access control": "(Compliant / Required points) * 100",
+                "Monitor system threats": "(Detected / Expected threats) * 100",
+                "Ensure incident response": "(Responded / Total incidents) * 100",
+                "Optimize security compliance": "(Compliant / Total audits) * 100"
+            },
+            "Optimize interoperability": {
+                "Ensure system integration": "(Integrated / Planned systems) * 100",
+                "Strengthen data exchange compliance": "(Compliant / Total transactions) * 100",
+                "Manage interface errors": "(Resolved / Total errors) * 100",
+                "Enhance operational efficiency": "(Improvement / Baseline)"
+            },
+            "Manage digital training & support": {
+                "Strengthen staff training": "(Trained / Total staff) * 100",
+                "Ensure helpdesk response": "(Resolved / Total tickets) * 100",
+                "Optimize knowledgebase usage": "(Accessed / Total staff) * 100",
+                "Enhance system adoption": "(Adopted / Total users) * 100"
+            },
+            "Enhance data quality management": {
+                "Manage data validation": "(Validated / Total datasets) * 100",
+                "Strengthen correction processes": "(Corrected / Detected errors) * 100",
+                "Ensure audit compliance": "(Compliant / Total checks) * 100",
+                "Optimize reporting accuracy": "(Accurate / Total reports) * 100"
+            },
+            "Optimize health IT infrastructure": {
+                "Ensure uptime": "(Operational hours / Total hours) * 100",
+                "Strengthen maintenance processes": "(Completed / Planned maintenance) * 100",
+                "Manage resource allocation": "(Allocated / Planned) * 100",
+                "Enhance scalability": "(Implemented / Planned upgrades) * 100"
+            },
+            "Strengthen decision support systems": {
+                "Optimize dashboard updates": "(Updated / Planned) * 100",
+                "Ensure data accuracy": "(Accurate / Total reports) * 100",
+                "Manage alerts and notifications": "(Resolved / Total alerts) * 100",
+                "Enhance analytical outputs": "(Used / Total outputs) * 100"
+            },
+            "Manage digital compliance": {
+                "Ensure policy adherence": "(Compliant / Total checks) * 100",
+                "Strengthen audit processes": "(Completed / Planned audits) * 100",
+                "Optimize documentation": "(Accurate / Total records) * 100",
+                "Enhance corrective actions": "(Implemented / Required) * 100"
+            },
+            "Optimize digital workflow": {
+                "Strengthen process standardization": "(Compliant / Total workflows) * 100",
+                "Ensure system efficiency": "(Efficient / Total steps) * 100",
+                "Manage bottleneck resolution": "(Resolved / Total detected) * 100",
+                "Enhance workflow compliance": "(Compliant / Total steps) * 100"
+            }
+        },
+    },
+
+    "Learning & Growth Perspective": {
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+    },
+
 }

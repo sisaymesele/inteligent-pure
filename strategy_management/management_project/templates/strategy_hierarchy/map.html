@@ -99,15 +99,15 @@
                                 <!-- Perspective Title Section -->
                                 <div class="perspective-title">
                                     <div class="perspective-header
-                                      {% if perspective.name == 'Financial Perspective' %}financial
-                                      {% elif perspective.name == 'Customer Perspective' %}customer
-                                      {% elif perspective.name == 'Internal Process Perspective' %}internal
+                                      {% if perspective.name == "Financial Perspective" %}financial
+                                      {% elif perspective.name == "Customer Perspective" %}customer
+                                      {% elif perspective.name == "Internal Process Perspective" %}internal
                                       {% else %}learning{% endif %}">
                                         <div class="perspective-icon">
                                             <i class="fas
-                                              {% if perspective.name == 'Financial Perspective' %}fa-chart-line
-                                              {% elif perspective.name == 'Customer Perspective' %}fa-users
-                                              {% elif perspective.name == 'Internal Process Perspective' %}fa-cogs
+                                              {% if perspective.name == "Financial Perspective" %}fa-chart-line
+                                              {% elif perspective.name == "Customer Perspective" %}fa-users
+                                              {% elif perspective.name == "Internal Process Perspective" %}fa-cogs
                                               {% else %}fa-brain{% endif %}"></i>
                                         </div>
                                         <div class="perspective-name">{{ perspective.name }}</div>
@@ -151,15 +151,15 @@
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-header bg-white py-3
-                    {% if perspective.name == 'Financial Perspective' %}border-primary
-                    {% elif perspective.name == 'Customer Perspective' %}border-success
-                    {% elif perspective.name == 'Internal Process Perspective' %}border-warning
+                    {% if perspective.name == "Financial Perspective" %}border-primary
+                    {% elif perspective.name == "Customer Perspective" %}border-success
+                    {% elif perspective.name == "Internal Process Perspective" %}border-warning
                     {% else %}border-danger{% endif %}">
                     <h6 class="card-title mb-0 d-flex align-items-center">
                         <i class="fas
-                            {% if perspective.name == 'Financial Perspective' %}fa-chart-line text-primary
-                            {% elif perspective.name == 'Customer Perspective' %}fa-users text-success
-                            {% elif perspective.name == 'Internal Process Perspective' %}fa-cogs text-warning
+                            {% if perspective.name == "Financial Perspective" %}fa-chart-line text-primary
+                            {% elif perspective.name == "Customer Perspective" %}fa-users text-success
+                            {% elif perspective.name == "Internal Process Perspective" %}fa-cogs text-warning
                             {% else %}fa-brain text-danger{% endif %} me-2"></i>
                         {{ perspective.name }}
                         <span class="badge bg-light text-dark ms-auto">{{ perspective.objectives|length }}</span>

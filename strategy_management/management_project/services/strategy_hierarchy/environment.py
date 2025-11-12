@@ -1,10 +1,19 @@
+
+
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
+
 
 ENVIRONMENT_PERSPECTIVE = {
     "Financial Perspective": {
         # Core generic financial objectives
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
         # ==================== 1. Environmental Revenue Growth & Funding ====================
         "Environmental Revenue Growth & Funding": {
@@ -250,7 +259,7 @@ ENVIRONMENT_PERSPECTIVE = {
     "Customer Perspective": {
 
         # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
 
         # ---------------- ENERGY SECTOR SPECIFIC ----------------
 
@@ -446,9 +455,258 @@ ENVIRONMENT_PERSPECTIVE = {
                 "People reached (#)": "Community members impacted",
                 "Impact score": "Composite measure of resilience improvement",
                 "Satisfaction (%)": "Survey on community resilience awareness"
+            },
+        },
+
+    },
+
+    "Internal Process Perspective": {
+
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+
+        # -------------------- 1. Environmental Compliance & Governance --------------------
+        "Environmental Compliance & Governance": {
+            "Ensure regulatory compliance": {
+                "Compliance coverage (%)": "(Compliant processes / Total processes) * 100",
+                "Audit pass rate (%)": "(Passed audits / Total audits) * 100",
+                "Reporting timeliness (%)": "(Reports submitted on time / Total reports) * 100",
+                "Non-compliance incidents (#)": "Number of violations"
+            },
+            "Maintain permits & certifications": {
+                "Permit renewal timeliness (%)": "(On-time renewals / Total permits) * 100",
+                "Certification coverage (%)": "(Certified units / Total units) * 100",
+                "Audit follow-up closure rate (%)": "(Closed / Total findings) * 100",
+                "Non-conformance reports (#)": "Number of issues reported"
+            },
+            "Strengthen environmental risk management": {
+                "Risk assessment coverage (%)": "(Assessed units / Total units) * 100",
+                "Incident occurrence rate (#)": "Number of incidents",
+                "Mitigation plan implementation (%)": "(Implemented / Planned) * 100",
+                "Risk reporting accuracy (%)": "(Accurate reports / Total reports) * 100"
+            },
+            "Enhance legal & policy compliance": {
+                "Monitoring frequency (#)": "Scheduled checks per year",
+                "Corrective action timeliness (%)": "(Completed on time / Total actions) * 100",
+                "Compliance breach reduction (%)": "(Previous - Current breaches) / Previous * 100",
+                "Internal audit coverage (%)": "(Audited / Total units) * 100"
+            },
+            "Manage environmental liabilities": {
+                "Liability resolution rate (%)": "(Resolved / Total cases) * 100",
+                "Financial exposure reduction (%)": "(Previous - Current exposure) / Previous * 100",
+                "Legal claim frequency (#)": "Number of claims",
+                "Insurance compliance (%)": "(Compliant / Total policies) * 100"
+            },
+            "Promote compliance awareness": {
+                "Training completion (%)": "(Trained / Total staff) * 100",
+                "Awareness assessment score": "Average score on knowledge tests",
+                "Policy acknowledgement rate (%)": "(Acknowledged / Total staff) * 100",
+                "Feedback resolution rate (%)": "(Resolved / Total feedbacks) * 100"
+            }
+        },
+
+        # -------------------- 2. Resource Efficiency & Waste Management --------------------
+        "Resource Efficiency & Waste Management": {
+            "Optimize energy consumption": {
+                "Energy efficiency improvement (%)": "(Previous - Current consumption) / Previous * 100",
+                "Renewable energy utilization (%)": "(Renewable used / Total energy) * 100",
+                "Energy cost reduction (%)": "(Previous - Current cost) / Previous * 100",
+                "Energy audit coverage (%)": "(Audited units / Total units) * 100"
+            },
+            "Reduce water usage & improve recycling": {
+                "Water usage reduction (%)": "(Baseline - Current consumption) / Baseline * 100",
+                "Water recycling rate (%)": "(Reused / Total water) * 100",
+                "Process water efficiency (%)": "(Optimized / Total processes) * 100",
+                "Leakage detection coverage (%)": "(Detected leaks / Total infrastructure) * 100"
+            },
+            "Minimize waste generation": {
+                "Waste reduction rate (%)": "(Previous - Current) / Previous * 100",
+                "Hazardous waste disposal compliance (%)": "(Compliant / Total hazardous waste) * 100",
+                "Recycling rate (%)": "(Recycled / Total waste) * 100",
+                "Waste audit coverage (%)": "(Audited / Total units) * 100"
+            },
+            "Enhance circular economy initiatives": {
+                "Materials reused (%)": "(Reused / Total materials) * 100",
+                "Process recycling adoption (%)": "(Adopted / Total processes) * 100",
+                "Revenue from recycled materials (%)": "(Revenue / Total potential revenue) * 100",
+                "Project completion rate (%)": "(Completed / Planned projects) * 100"
+            },
+            "Improve supply chain sustainability": {
+                "Supplier environmental compliance (%)": "(Compliant suppliers / Total suppliers) * 100",
+                "Sustainable sourcing adoption (%)": "(Adopted / Total sourcing) * 100",
+                "Carbon footprint reduction (%)": "(Baseline - Current footprint) / Baseline * 100",
+                "Supplier audit coverage (%)": "(Audited / Total suppliers) * 100"
+            },
+            "Optimize resource allocation & tracking": {
+                "Resource utilization rate (%)": "(Used / Allocated) * 100",
+                "Inventory turnover ratio": "COGS / Average inventory",
+                "Tracking accuracy (%)": "(Accurate / Total records) * 100",
+                "Process efficiency improvement (%)": "(Previous - Current cycle time) / Previous * 100"
+            }
+        },
+
+        # -------------------- 3. Environmental Innovation & Sustainability --------------------
+        "Environmental Innovation & Sustainability": {
+            "Develop green technologies": {
+                "R&D investment (% of revenue)": "R&D spend / Total revenue * 100",
+                "New sustainable solutions implemented (#)": "Number of projects",
+                "Patent registrations (#)": "Number of patents granted",
+                "Technology adoption rate (%)": "(Adopted / Piloted) * 100"
+            },
+            "Enhance biodiversity & ecosystem protection": {
+                "Protected area coverage (%)": "(Protected land / Total land) * 100",
+                "Species conservation rate (%)": "(Conserved species / Total targeted species) * 100",
+                "Habitat restoration success (%)": "(Restored / Planned areas) * 100",
+                "Environmental monitoring frequency (#)": "Number of checks per year"
+            },
+            "Promote climate change adaptation": {
+                "Adaptation project completion (%)": "(Completed / Planned projects) * 100",
+                "Community resilience index": "Internal score",
+                "Vulnerability reduction (%)": "(Previous - Current vulnerability) / Previous * 100",
+                "Climate risk assessment coverage (%)": "(Assessed / Total areas) * 100"
+            },
+            "Enhance environmental awareness & training": {
+                "Staff training completion (%)": "(Completed / Total staff) * 100",
+                "Community outreach sessions (#)": "Number of sessions",
+                "Awareness survey score": "Average score",
+                "Participation rate (%)": "(Participants / Target group) * 100"
+            },
+            "Implement sustainable procurement": {
+                "Green procurement adoption (%)": "(Adopted / Total procurement) * 100",
+                "Supplier sustainability score": "Weighted average across suppliers",
+                "Procurement audit coverage (%)": "(Audited / Total procurement activities) * 100",
+                "Sustainable contract ratio (%)": "(Contracts with sustainability clauses / Total contracts) * 100"
+            },
+            "Monitor environmental performance": {
+                "KPI coverage (%)": "(Tracked / Total relevant KPIs) * 100",
+                "Data accuracy (%)": "(Accurate / Total data points) * 100",
+                "Performance trend improvement (%)": "(Previous - Current) / Previous * 100",
+                "Reporting timeliness (%)": "(Submitted on time / Total reports) * 100"
+            }
+        },
+
+        # -------------------- 4. Smart Environmental Operations --------------------
+        "Smart Environmental Operations": {
+            "Implement digital monitoring systems": {
+                "Sensor coverage (%)": "(Covered areas / Total areas) * 100",
+                "Data collection accuracy (%)": "(Accurate / Total readings) * 100",
+                "Real-time monitoring adoption (%)": "(Adopted / Total sites) * 100",
+                "Alert response time (minutes)": "Average response time"
+            },
+            "Enhance predictive analytics": {
+                "Prediction accuracy (%)": "(Accurate / Total predictions) * 100",
+                "Anomaly detection rate (%)": "(Detected anomalies / Total anomalies) * 100",
+                "Forecast coverage (%)": "(Forecasted / Total parameters) * 100",
+                "Decision support utilization (%)": "(Decisions supported / Total decisions) * 100"
+            },
+            "Optimize automated environmental controls": {
+                "Automation adoption (%)": "(Automated / Total processes) * 100",
+                "Energy saving from automation (%)": "(Saved / Total energy used) * 100",
+                "Process error reduction (%)": "(Previous - Current errors) / Previous * 100",
+                "System uptime (%)": "(Operational / Total hours) * 100"
+            },
+            "Integrate IoT & smart devices": {
+                "IoT device coverage (%)": "(Deployed / Total assets) * 100",
+                "Device uptime (%)": "(Operational / Total devices) * 100",
+                "Data transmission reliability (%)": "(Successful / Total transmissions) * 100",
+                "Maintenance prediction accuracy (%)": "(Accurate predictions / Total predictions) * 100"
+            },
+            "Enhance reporting & dashboards": {
+                "Real-time dashboard coverage (%)": "(Covered metrics / Total metrics) * 100",
+                "Report accuracy (%)": "(Accurate / Total reports) * 100",
+                "Insights applied (%)": "(Implemented recommendations / Total insights) * 100",
+                "Report delivery timeliness (%)": "(Delivered on time / Total reports) * 100"
+            },
+            "Promote digital collaboration": {
+                "Collaboration tool adoption (%)": "(Active users / Total staff) * 100",
+                "Inter-department data sharing (%)": "(Shared / Total relevant data) * 100",
+                "Joint project completion rate (%)": "(Completed / Planned) * 100",
+                "Feedback resolution rate (%)": "(Resolved / Total feedbacks) * 100"
+            }
+        },
+
+        # -------------------- 5. Emergency Preparedness & Safety --------------------
+        "Emergency Preparedness & Safety": {
+            "Develop disaster response plans": {
+                "Plan coverage (%)": "(Covered sites / Total sites) * 100",
+                "Response drill completion (%)": "(Completed / Planned drills) * 100",
+                "Plan update frequency (#)": "Times updated per year",
+                "Staff awareness score": "Average score on drills"
+            },
+            "Enhance incident management": {
+                "Incident response time (minutes)": "Average response time",
+                "Incident resolution rate (%)": "(Resolved / Total incidents) * 100",
+                "Critical incident reporting accuracy (%)": "(Accurate / Total incidents) * 100",
+                "Follow-up closure rate (%)": "(Closed / Total follow-ups) * 100"
+            },
+            "Ensure occupational safety": {
+                "Lost time injury frequency rate (LTIFR)": "Standard metric",
+                "Safety training completion (%)": "(Trained / Total staff) * 100",
+                "Near-miss reporting rate (%)": "(Reported / Expected) * 100",
+                "Safety audit coverage (%)": "(Audited / Total units) * 100"
+            },
+            "Strengthen environmental hazard control": {
+                "Hazard identification coverage (%)": "(Identified / Total sites) * 100",
+                "Mitigation plan implementation (%)": "(Implemented / Planned) * 100",
+                "Hazard recurrence reduction (%)": "(Previous - Current) / Previous * 100",
+                "Safety equipment availability (%)": "(Available / Required) * 100"
+            },
+            "Improve emergency communication systems": {
+                "Alert system coverage (%)": "(Covered / Total sites) * 100",
+                "Notification timeliness (%)": "(Delivered on time / Total alerts) * 100",
+                "System uptime (%)": "(Operational / Total hours) * 100",
+                "Staff response compliance (%)": "(Compliant / Total staff) * 100"
+            },
+            "Conduct regular safety audits": {
+                "Audit completion rate (%)": "(Completed / Planned) * 100",
+                "Findings closure rate (%)": "(Closed / Total findings) * 100",
+                "Compliance improvement (%)": "(Previous - Current non-compliance) / Previous * 100",
+                "Audit accuracy (%)": "(Accurate / Total audits) * 100"
+            }
+        },
+
+        # -------------------- 6. Community Engagement & Sustainability Programs --------------------
+        "Community Engagement & Sustainability Programs": {
+            "Promote environmental education": {
+                "Training sessions (#)": "Number conducted",
+                "Participant satisfaction score": "Average survey rating",
+                "Community reach (%)": "(Reached / Target population) * 100",
+                "Knowledge retention score": "Post-training assessment"
+            },
+            "Support local sustainability projects": {
+                "Project completion rate (%)": "(Completed / Planned) * 100",
+                "Community participation rate (%)": "(Participants / Target group) * 100",
+                "Environmental impact score": "Internal index",
+                "Funding utilization efficiency (%)": "(Used / Allocated funds) * 100"
+            },
+            "Enhance stakeholder partnerships": {
+                "Partnership agreements (#)": "Signed agreements",
+                "Joint initiative completion (%)": "(Completed / Planned) * 100",
+                "Shared resources utilization (%)": "(Utilized / Available) * 100",
+                "Partner satisfaction score": "Survey rating"
+            },
+            "Promote awareness campaigns": {
+                "Campaign reach (%)": "(Reached / Target population) * 100",
+                "Engagement rate (%)": "(Interacted / Reached) * 100",
+                "Feedback collection rate (%)": "(Collected / Total participants) * 100",
+                "Impact assessment score": "Internal measurement"
+            },
+            "Encourage volunteer participation": {
+                "Volunteer participation rate (%)": "(Active volunteers / Target group) * 100",
+                "Hours contributed (#)": "Total hours volunteered",
+                "Project support impact (%)": "(Achieved / Target) * 100",
+                "Volunteer retention rate (%)": "(Retained / Total volunteers) * 100"
+            },
+            "Monitor community program performance": {
+                "KPI tracking coverage (%)": "(Tracked / Total KPIs) * 100",
+                "Program completion rate (%)": "(Completed / Planned) * 100",
+                "Outcome achievement (%)": "(Achieved / Target) * 100",
+                "Reporting timeliness (%)": "(Submitted on time / Total reports) * 100"
             }
         }
+    },
 
-    }
+    "Learning & Growth Perspective": {
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+    },
 
 }

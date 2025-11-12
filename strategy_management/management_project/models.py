@@ -48,7 +48,6 @@ class OrganizationalProfile(models.Model):
         ('real_estate', 'Real Estate'),
         ('road', 'Road'),
         ('retail', 'Retail'),
-        ('telecommunication', 'Telecommunication'),
         ('transport_and_logistics', 'Transport and Logistics'),
         ('water_and_sanitation', 'Water and Sanitation'),
         ('other', 'Other')

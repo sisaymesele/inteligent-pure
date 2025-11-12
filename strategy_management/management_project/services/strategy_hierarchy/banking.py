@@ -1,11 +1,17 @@
 
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
 
 BANKING_PERSPECTIVE = {
     "Financial Perspective": {
 
-        **GENERIC_FINANCE_PERSPECTIVE['Financial Perspective'],
+        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
 
         "Banking Revenue Growth & Diversification": {
             "Increase net interest income through loan portfolio expansion": {
@@ -67,7 +73,31 @@ BANKING_PERSPECTIVE = {
                 "Number of fintech partnerships": "Active fintech partners in period",
                 "Revenue share from fintech (%)": "Revenue from fintech partnerships / Total revenue * 100",
                 "Partner retention rate (%)": "(Partners retained / Total partners) * 100"
-            }
+            },
+            "Core & Retail Banking Revenue": {
+                "Average balance per account ($)": "Total deposits / Number of accounts",
+                "Deposit growth rate (%)": "(Current deposits - Previous deposits) / Previous deposits * 100",
+                "Loan revenue per product ($)": "Total loan revenue / Number of loan products",
+                "Revenue per transaction ($)": "Total transaction revenue / Number of transactions"
+            },
+
+            "Commercial & Corporate Banking Revenue": {
+                "Commercial loan revenue ($)": "Total revenue from business loans",
+                "Cash management revenue ($)": "Fees from treasury and cash management services",
+                "Overdraft revenue ($)": "Revenue from business overdraft facilities",
+                "M&A advisory revenue ($)": "Fees from mergers and acquisitions advisory"
+            },
+            "Investment & Capital Markets Revenue": {
+                "Revenue per deal ($)": "Total revenue from IB deals / Number of deals",
+                "Underwriting revenue ($)": "Fees from debt/equity underwriting",
+                "Trading P&L ($)": "Net profit/loss from proprietary trading",
+                "Structured products revenue ($)": "Revenue from customized financial products"
+            },
+            "Private Banking & Wealth Management": {
+                "Revenue per private client ($)": "Total private banking revenue / Number of private clients",
+                "Alternative investments revenue ($)": "Revenue from alternative investments",
+                "Assets under management growth ($)": "Period-over-period AUM growth"
+            },
         },
 
         "Banking Cost Management": {
@@ -212,6 +242,47 @@ BANKING_PERSPECTIVE = {
                 "Net interest margin (%)": "Net interest income / Average earning assets * 100",
                 "Interest spread (%)": "Average lending rate - Average deposit rate"
             },
+            "Lending & Deposit Products": {
+                "Net interest margin by product (%)": "(Interest income - Interest expense) / Earning assets * 100",
+                "Loan product contribution margin (%)": "(Loan revenue - Direct costs) / Loan revenue * 100",
+                "Credit card profitability index": "Revenue per card / Cost to service per card"
+            },
+            "Fee-Based Services": {
+                "Advisory service margin (%)": "(Advisory fees - Service delivery cost) / Advisory fees * 100",
+                "Transaction service profitability ($)": "Net revenue per transaction type",
+                "Cash management service ROI (%)": "Revenue from cash management / Platform investment"
+            },
+            "Investment & Trading Products": {
+                "Wealth management fee efficiency": "Revenue from AUM / Cost to manage AUM",
+                "Trading desk profitability ($)": "P&L per trading desk / Capital allocated",
+                "Structured product margin (%)": "(Product revenue - Hedging costs) / Product revenue * 100"
+            },
+
+            "Banking Profitability & Financial Sustainability": {
+                "Overall bank ROE (%)": "Net income / Total equity",
+                "Total bank revenue growth (%)": "(Current total revenue - Previous) / Previous * 100",
+                "Revenue diversification index": "1 - (Largest business line revenue / Total revenue)",
+                "Cost-to-income ratio (%)": "Total operating expenses / Total operating income"
+            },
+
+            "Retail Banking Profitability": {
+                "Retail net interest margin (%)": "Retail NII / Retail earning assets",
+                "Retail revenue per product ($)": "Total retail revenue / Number of retail products",
+                "Retail cost-to-income ratio (%)": "Retail expenses / Retail revenue",
+                "Credit card profitability index": "Card revenue / Card servicing cost"
+            },
+
+            "Corporate Banking Profitability": {
+                "Corporate loan yield (%)": "Corporate interest income / Corporate loans",
+                "Cash management service margin (%)": "(Cash management fees - Direct costs) / Fees",
+                "Corporate banking ROA (%)": "Corporate net income / Corporate assets"
+            },
+
+            "Investment Banking Profitability": {
+                "Revenue per deal ($)": "Total IB revenue / Number of deals",
+                "Underwriting margin (%)": "(Underwriting fees - Syndication costs) / Fees",
+                "Trading desk P&L ($)": "Net profit per trading desk"
+            },
         },
 
         "Banking Treasury & Investment Portfolio Management": {
@@ -238,6 +309,21 @@ BANKING_PERSPECTIVE = {
                 "Green bonds purchased": "Total value of green bonds purchased",
                 "Sustainable yield (%)": "(Income from ESG assets / ESG assets) * 100",
                 "ESG compliance score": "Internal ESG compliance rating index"
+            },
+            "Treasury Revenue Generation": {
+                "Treasury revenue ($)": "Net interest + Trading income from treasury",
+                "Liquidity portfolio yield (%)": "Income from liquid assets / Average liquid assets * 100",
+                "Funds transfer pricing contribution ($)": "Net contribution from internal funds pricing"
+            },
+            "Capital Allocation Efficiency": {
+                "Return on risk-weighted assets (%)": "Net income / Risk-weighted assets * 100",
+                "Business line capital efficiency ($)": "Revenue per unit of allocated capital",
+                "Economic value added (EVA) ($)": "Net operating profit after tax - (Capital * Cost of capital)"
+            },
+            "Balance Sheet Optimization": {
+                "Net interest margin (%)": "(Interest income - Interest expense) / Earning assets * 100",
+                "Cost of funds optimization (%)": "Average interest rate paid on deposits and borrowings",
+                "Asset-liability management gap ($)": "Interest rate sensitivity of net interest income"
             }
         },
 
@@ -287,573 +373,429 @@ BANKING_PERSPECTIVE = {
         },
     },
 
-    "Insurance Revenue Growth & Diversification": {
-        "Increase premium income from life insurance": {
-            "Life insurance premium growth (%)": "(Current life premiums - Previous) / Previous * 100",
-            "Average life premium per policy ($)": "Total life premiums / Number of life policies",
-            "New life policy contribution (%)": "Revenue from new policies / Total life premiums * 100",
-            "Number of life policies issued": "Total life policies issued in period"
-        },
-        "Increase premium income from health insurance": {
-            "Health insurance premium growth (%)": "(Current health premiums - Previous) / Previous * 100",
-            "Average health premium per policy ($)": "Total health premiums / Number of health policies",
-            "New health policy contribution (%)": "Revenue from new policies / Total health premiums * 100",
-            "Number of health policies issued": "Total health policies issued"
-        },
-        "Increase premium income from property and casualty insurance": {
-            "Property & casualty premium growth (%)": "(Current P&C premiums - Previous) / Previous * 100",
-            "Average P&C premium per policy ($)": "Total P&C premiums / Number of P&C policies",
-            "New P&C policy contribution (%)": "Revenue from new policies / Total P&C premiums * 100",
-            "Number of P&C policies issued": "Total P&C policies issued"
-        },
-        "Grow fee income from bancassurance channels": {
-            "Bancassurance revenue ($)": "Revenue from bank-distributed policies",
-            "Bancassurance revenue growth (%)": "(Current - Previous) / Previous * 100",
-            "Number of bancassurance policies sold": "Total policies via bancassurance",
-            "Fee income as % of total revenue": "Bancassurance fees / Total revenue * 100"
-        },
-        "Expand corporate insurance revenue": {
-            "Corporate premium revenue ($)": "Total premiums from corporate policies",
-            "Corporate premium growth (%)": "(Current - Previous) / Previous * 100",
-            "Average premium per corporate policy ($)": "Corporate premiums / Number of corporate policies",
-            "Corporate revenue share (%)": "Corporate premiums / Total premiums * 100"
-        },
-        "Increase digital sales revenue": {
-            "Digital revenue share (%)": "Revenue from digital channels / Total revenue * 100",
-            "Digital policies sold (#)": "Number of policies sold via digital channels",
-            "Digital customer adoption (%)": "(Active digital users / Total customers) * 100",
-            "Revenue per digital customer ($)": "Revenue from digital channels / Digital customers"
-        },
-        "Develop niche insurance products (e.g., microinsurance)": {
-            "Niche product revenue ($)": "Revenue from niche products",
-            "Number of niche policies sold (#)": "Total niche policies sold",
-            "Niche product growth (%)": "(Current - Previous) / Previous * 100",
-            "Niche revenue share (%)": "Revenue from niche products / Total revenue * 100"
-        },
-        "Capture new customer segments (youth, SMEs, rural)": {
-            "Revenue from new segments ($)": "Revenue from targeted segments",
-            "Customer acquisition rate (%)": "(New segment customers / Total segment population) * 100",
-            "Segment policy count (#)": "Number of policies in target segments",
-            "Revenue growth from segments (%)": "(Current - Previous) / Previous * 100"
-        }
-    },
-
-    "Insurance Cost Efficiency & Operational Optimization": {
-        "Reduce claims processing costs": {
-            "Claims processing cost per policy ($)": "Total claims cost / Number of claims",
-            "Average claims processing time (days)": "Total processing days / Number of claims",
-            "Automation ratio (%)": "(Automated claims / Total claims) * 100",
-            "Claims error rate (%)": "(Errors / Total claims) * 100"
-        },
-        "Reduce administrative expenses": {
-            "Administrative expense ratio (%)": "Admin expenses / Total revenue * 100",
-            "Admin expense growth (%)": "(Current - Previous) / Previous * 100",
-            "Cost per policy issued ($)": "Admin expenses / Total policies",
-            "Overhead cost ratio (%)": "Admin expenses / Operating expenses * 100"
-        },
-        "Optimize underwriting efficiency": {
-            "Underwriting cost per policy ($)": "Total underwriting expenses / Policies underwritten",
-            "Average underwriting time (hours)": "Total underwriting hours / Number of policies",
-            "Underwriting accuracy (%)": "(Correctly assessed policies / Total policies) * 100",
-            "Policies processed per underwriter": "Total policies / Number of underwriters"
-        },
-        "Streamline policy issuance processes": {
-            "Average policy issuance time (hours)": "Total issuance time / Policies issued",
-            "Issuance cost per policy ($)": "Total issuance expenses / Policies issued",
-            "Policies issued per staff": "Total policies / Number of staff",
-            "Automated issuance ratio (%)": "(Automated issuances / Total policies) * 100"
-        },
-        "Automate customer service workflows": {
-            "Customer service automation (%)": "(Automated workflows / Total workflows) * 100",
-            "Average response time (hours)": "Total response time / Number of requests",
-            "Customer satisfaction (%)": "Satisfied customers / Total surveyed * 100",
-            "Cost savings from automation ($)": "Previous cost - Current cost after automation"
-        },
-        "Automate policy management processes": {
-            "Policy management automation (%)": "(Automated processes / Total processes) * 100",
-            "Cost savings per policy ($)": "Savings from automation / Number of policies",
-            "Error reduction rate (%)": "(Previous errors - Current errors) / Previous * 100",
-            "Average processing time per policy (hours)": "Total processing time / Number of policies"
-        },
-        "Automate claims management processes": {
-            "Claims management automation (%)": "(Automated claims / Total claims) * 100",
-            "Claims processing cost savings ($)": "Previous cost - Current cost after automation",
-            "Average claims resolution time (days)": "Total resolution time / Number of claims",
-            "Claims error reduction (%)": "(Previous errors - Current errors) / Previous * 100"
-        },
-        "Improve staff productivity per policy issued": {
-            "Policies issued per employee": "Total policies / Total employees",
-            "Revenue per employee ($)": "Total revenue / Total employees",
-            "Profit per employee ($)": "Net profit / Total employees",
-            "Staff cost per policy ($)": "Total staff cost / Total policies"
-        }
-    },
-
-    "Insurance Profitability & Return Optimization": {
-        "Improve underwriting profitability for all product lines": {
-            "Underwriting profit ($)": "Premiums - Claims - Underwriting expenses",
-            "Underwriting margin (%)": "Underwriting profit / Premiums * 100",
-            "Profit per product line ($)": "Profit by line of business",
-            "Combined ratio (%)": "(Claims + Expenses) / Premiums * 100"
-        },
-        "Optimize investment income from collected premiums": {
-            "Investment yield (%)": "Investment income / Average invested premiums * 100",
-            "Investment income growth (%)": "(Current - Previous) / Previous * 100",
-            "Net investment return ($)": "Investment income - Investment expenses",
-            "Return per premium dollar ($)": "Net investment return / Total premiums collected"
-        },
-        "Improve combined ratio": {
-            "Combined ratio (%)": "(Claims + Expenses) / Premiums * 100",
-            "Loss ratio (%)": "Claims / Premiums * 100",
-            "Expense ratio (%)": "Expenses / Premiums * 100",
-            "Combined ratio improvement (%)": "(Previous - Current) / Previous * 100"
-        },
-        "Improve loss ratio": {
-            "Loss ratio (%)": "Claims / Premiums * 100",
-            "Loss ratio improvement (%)": "(Previous - Current) / Previous * 100",
-            "Average claim per policy ($)": "Total claims / Number of policies",
-            "High-loss policy count (#)": "Policies with above-average claims"
-        },
-        "Increase net profit margin": {
-            "Net profit margin (%)": "Net income / Total revenue * 100",
-            "Profit growth (%)": "(Current - Previous) / Previous * 100",
-            "Profit per policy ($)": "Net profit / Total policies",
-            "ROE (%)": "Net income / Shareholders equity * 100"
-        },
-        "Reduce operational cost-to-income ratio": {
-            "Cost-to-income ratio (%)": "Operating expenses / Operating income * 100",
-            "Operational cost reduction (%)": "(Previous expenses - Current) / Previous * 100",
-            "Expense per policy ($)": "Operating expenses / Total policies",
-            "Overhead cost ratio (%)": "Admin expenses / Total operating expenses * 100"
-        },
-        "Maximize return on equity (ROE)": {
-            "ROE (%)": "Net income / Shareholders equity * 100",
-            "Profit after tax ($)": "Net income after tax",
-            "Shareholder value added (%)": "(Net profit - Cost of equity) / Shareholders' equity * 100",
-            "ROE growth (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Maximize return on assets (ROA)": {
-            "ROA (%)": "Net income / Total assets * 100",
-            "Income-to-assets ratio (%)": "Operating income / Total assets * 100",
-            "Asset turnover ratio": "Revenue / Total assets",
-            "Net profit to assets (%)": "Net profit / Total assets * 100"
-        }
-    },
-
-    "Investment & Portfolio Management": {
-        "Optimize overall investment portfolio yield": {
-            "Portfolio yield (%)": "Investment income / Total investments * 100",
-            "Investment income growth (%)": "(Current - Previous) / Previous * 100",
-            "Return per investment dollar ($)": "Net investment return / Total investments",
-            "Portfolio diversification index": "Weighted score of investment across asset classes"
-        },
-        "Diversify investments across bonds and fixed income": {
-            "Bond allocation (%)": "Total bonds / Total investment portfolio * 100",
-            "Fixed income yield (%)": "Interest from bonds & fixed income / Total investment * 100",
-            "Portfolio risk-adjusted return (%)": "Return / Volatility measure",
-            "Bond portfolio growth (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Diversify investments across equities": {
-            "Equity allocation (%)": "Total equities / Total investment portfolio * 100",
-            "Equity portfolio return (%)": "Equity gains / Total equities * 100",
-            "Equity risk-adjusted return (%)": "Equity return / Equity volatility * 100",
-            "Equity portfolio growth (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Diversify alternative investments (real estate, private equity)": {
-            "Alternative investment allocation (%)": "Total alternative investments / Total portfolio * 100",
-            "Alternative investment yield (%)": "Income from alternatives / Total alternatives * 100",
-            "Portfolio risk-adjusted return (%)": "Return / Volatility measure",
-            "Growth in alternative assets (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Strengthen liquidity management": {
-            "Liquid assets to total assets (%)": "Liquid assets / Total assets * 100",
-            "Cash conversion from premiums (%)": "Cash collected / Premiums billed * 100",
-            "Liquidity buffer coverage (%)": "Available liquid assets / Required liquidity * 100",
-            "Short-term investment ratio (%)": "Short-term investments / Total investments * 100"
-        },
-        "Improve asset-liability matching (ALM)": {
-            "ALM gap (days)": "Weighted average asset maturity - liability maturity",
-            "Repricing gap (%)": "Rate-sensitive assets - Rate-sensitive liabilities / Total assets * 100",
-            "Maturity mismatch ratio (%)": "Assets maturing within 1 year / Liabilities due within 1 year * 100",
-            "ALM compliance rate (%)": "ALM strategy adherence / Total requirements * 100"
-        },
-        "Minimize investment losses using risk-adjusted strategies": {
-            "Risk-adjusted return (%)": "Portfolio return / Portfolio risk",
-            "Value at Risk (VaR $)": "Maximum expected loss over period at confidence level",
-            "Investment loss ratio (%)": "Losses / Total investments * 100",
-            "Portfolio loss events (#)": "Number of negative investment events"
-        },
-        "Increase ESG-compliant investment share": {
-            "ESG investment ratio (%)": "ESG-compliant assets / Total portfolio * 100",
-            "Green bonds purchased ($)": "Total green bonds bought",
-            "Sustainable yield (%)": "Return from ESG assets / ESG assets * 100",
-            "ESG compliance score": "Internal ESG compliance rating index"
-        }
-    },
-
-    "Risk Management & Solvency": {
-        "Maintain regulatory solvency ratio": {
-            "Solvency ratio (%)": "Available capital / Required capital * 100",
-            "Regulatory compliance rate (%)": "Compliant measures / Total requirements * 100",
-            "Solvency trend (%)": "(Current - Previous) / Previous * 100",
-            "Capital adequacy coverage (%)": "Available capital / Minimum regulatory capital * 100"
-        },
-        "Maintain capital adequacy ratio (CAR)": {
-            "CAR (%)": "Total capital / Risk-weighted assets * 100",
-            "Tier 1 capital ratio (%)": "Tier 1 capital / Risk-weighted assets * 100",
-            "Tier 2 capital ratio (%)": "Tier 2 capital / Risk-weighted assets * 100",
-            "CAR buffer above minimum (%)": "(CAR - Minimum requirement) / Minimum requirement * 100"
-        },
-        "Accurately manage claims reserves": {
-            "Claims reserve adequacy (%)": "Reserves / Expected claims * 100",
-            "Reserve growth rate (%)": "(Current - Previous) / Previous * 100",
-            "Reserve error rate (%)": "(Under/over reserved policies / Total policies) * 100",
-            "Claims reserve utilization (%)": "Claims paid / Claims reserves * 100"
-        },
-        "Accurately manage policy provisioning": {
-            "Policy provisioning ratio (%)": "Provisioned amount / Required provision * 100",
-            "Provision adequacy (%)": "Provisioned policies / Total policies needing provision * 100",
-            "Provision error rate (%)": "(Incorrectly provisioned policies / Total policies) * 100",
-            "Provision growth rate (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Reduce exposure to high-risk policies": {
-            "High-risk policy ratio (%)": "High-risk policies / Total policies * 100",
-            "Premium concentration ratio (%)": "Top 10 policies / Total premiums * 100",
-            "Risk-adjusted revenue ($)": "Revenue weighted by policy risk",
-            "Policy default probability (%)": "Expected default policies / Total policies * 100"
-        },
-        "Strengthen reinsurance coverage": {
-            "Reinsurance coverage ratio (%)": "Reinsured policies / Total policies * 100",
-            "Claims ceded to reinsurer ($)": "Claims paid via reinsurance",
-            "Reinsurance cost ratio (%)": "Reinsurance premiums / Total premiums * 100",
-            "Reinsurance risk transfer (%)": "Claims exposure transferred / Total claims exposure * 100"
-        },
-        "Implement predictive models for claim spikes": {
-            "Predictive model accuracy (%)": "(Correctly predicted claims / Total predictions) * 100",
-            "Claims spike detection rate (%)": "(Detected spikes / Total spikes) * 100",
-            "Response time to spikes (hours)": "Average time to mitigate spike",
-            "False positive rate (%)": "(False alerts / Total alerts) * 100"
-        },
-        "Reduce portfolio concentration risk": {
-            "Portfolio concentration ratio (%)": "(Top 10 policies / Total policies) * 100",
-            "Sectoral exposure ratio (%)": "Exposure to single sector / Total portfolio * 100",
-            "Geographical concentration (%)": "Revenue from top region / Total revenue * 100",
-            "Diversification index": "Weighted diversification score across policies"
-        }
-    },
-
-    "Liquidity & Cash Flow Management": {
-        "Maintain liquidity for timely claim settlements": {
-            "Liquidity coverage ratio (LCR %)": "Liquid assets / Net cash outflows over 30 days * 100",
-            "Cash available for claims ($)": "Total liquid cash for immediate claims",
-            "Claims settlement timeliness (%)": "Claims paid on-time / Total claims * 100",
-            "Liquidity gap (%)": "(Cash available - Required cash) / Required cash * 100"
-        },
-        "Improve premium collection efficiency": {
-            "Collection ratio (%)": "Premiums collected / Premiums due * 100",
-            "Average collection time (days)": "Total days to collect / Number of policies",
-            "Past due premium ratio (%)": "Past due premiums / Total premiums * 100",
-            "Collection growth rate (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Forecast cash flow for operational needs": {
-            "Cash flow forecast accuracy (%)": "(Actual cash - Forecast) / Forecast * 100",
-            "Operating cash balance ($)": "Cash available for operations",
-            "Cash flow variance ($)": "Actual cash inflows - Forecasted inflows",
-            "Forecast coverage ratio (%)": "Forecasted cash / Total operating requirements * 100"
-        },
-        "Balance short-term and long-term liabilities": {
-            "Short-term liability coverage (%)": "Current assets / Short-term liabilities * 100",
-            "Long-term debt ratio (%)": "Long-term debt / Total assets * 100",
-            "Debt-to-equity ratio": "Total liabilities / Equity",
-            "Liability maturity matching (%)": "Aligned assets to liabilities / Total liabilities * 100"
-        },
-        "Maintain contingency funds for unexpected claims": {
-            "Contingency fund ratio (%)": "Contingency fund / Total expected claims * 100",
-            "Contingency fund growth (%)": "(Current - Previous) / Previous * 100",
-            "Contingency fund utilization (%)": "Used funds / Total contingency * 100",
-            "Contingency coverage ratio (%)": "Available contingency / Required contingency * 100"
-        },
-        "Reduce idle cash and excess reserves": {
-            "Idle cash ratio (%)": "Idle cash / Total cash * 100",
-            "Excess reserve ratio (%)": "Excess reserves / Required reserves * 100",
-            "Cash optimization ($)": "Amount released from idle/excess cash",
-            "Reserve utilization efficiency (%)": "Reserves used / Total reserves * 100"
-        },
-        "Improve cash conversion from premiums": {
-            "Cash conversion cycle (days)": "Days from premium billed to cash received",
-            "Cash conversion efficiency (%)": "Actual cash collected / Potential cash * 100",
-            "Average receivable days": "Total days of accounts receivable / Number of policies",
-            "Premium-to-cash ratio (%)": "Cash received / Premiums billed * 100"
-        },
-        "Strengthen regulatory liquidity buffers": {
-            "Regulatory liquidity ratio (%)": "Required buffer / Total liquid assets * 100",
-            "Buffer compliance rate (%)": "Compliant periods / Total periods * 100",
-            "Liquidity buffer growth (%)": "(Current - Previous) / Previous * 100",
-            "Buffer adequacy (%)": "Available buffer / Required buffer * 100"
-        }
-    },
-
-    "Financial Innovation & Digital Revenue": {
-        "Launch new insurance products for emerging markets": {
-            "New product revenue ($)": "Revenue from newly launched products",
-            "New product adoption rate (%)": "(New product users / Total target users) * 100",
-            "Number of new policies issued (#)": "Total policies issued for new products",
-            "Revenue growth from new products (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Expand digital policy sales": {
-            "Digital policy revenue ($)": "Revenue from digital sales",
-            "Digital adoption rate (%)": "(Active digital users / Total customers) * 100",
-            "Digital policies sold (#)": "Number of policies sold via digital channels",
-            "Digital revenue growth (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Increase online policy renewals": {
-            "Online renewal ratio (%)": "Policies renewed online / Total renewals * 100",
-            "Renewal rate growth (%)": "(Current - Previous) / Previous * 100",
-            "Customer retention via digital (%)": "Retained customers renewing online / Total customers * 100",
-            "Revenue from renewals ($)": "Revenue generated from online renewals"
-        },
-        "Integrate InsurTech partnerships": {
-            "Revenue from InsurTech ($)": "Revenue via InsurTech partners",
-            "Partnership adoption rate (%)": "(Customers using InsurTech / Total customers) * 100",
-            "Number of active partnerships (#)": "Active InsurTech partners",
-            "Revenue growth from partnerships (%)": "(Current - Previous) / Previous * 100"
-        },
-        "Enable online claims submission": {
-            "Online claims ratio (%)": "Claims submitted online / Total claims * 100",
-            "Average claims processing time (days)": "Total processing days / Number of online claims",
-            "Customer satisfaction (%)": "Satisfied online claimants / Total surveyed * 100",
-            "Cost per online claim ($)": "Operating cost / Number of online claims"
-        },
-        "Use analytics for pricing optimization": {
-            "Pricing accuracy (%)": "(Optimal priced policies / Total policies) * 100",
-            "Revenue per policy ($)": "Revenue from optimized pricing / Total policies",
-            "Premium growth (%)": "(Current - Previous) / Previous * 100",
-            "Price adjustment effectiveness (%)": "(Revenue increase from pricing / Total revenue) * 100"
-        },
-        "Personalize insurance offerings for customer segments": {
-            "Personalization adoption (%)": "Customers receiving personalized offerings / Total customers * 100",
-            "Revenue from personalized products ($)": "Revenue from personalized policies",
-            "Customer engagement rate (%)": "Engaged customers / Total customers * 100",
-            "Retention rate (%)": "(Retained customers / Target segment customers) * 100"
-        },
-        "Introduce subscription or usage-based insurance models": {
-            "Revenue from subscription/usage models ($)": "Revenue from these models",
-            "Number of subscription policies (#)": "Total subscription policies issued",
-            "Customer adoption rate (%)": "(Customers subscribed / Eligible customers) * 100",
-            "Revenue growth from new models (%)": "(Current - Previous) / Previous * 100"
-        }
-    },
-
-    "Insurance Regulatory Compliance & Financial Integrity": {
-        "Ensure compliance with local insurance regulations": {
-            "Regulatory compliance rate (%)": "(Compliant checks / Total checks) * 100",
-            "Number of regulatory breaches (#)": "Total non-compliance incidents",
-            "Compliance audit score": "Score from internal/external audits",
-            "Regulatory fines ($)": "Total fines paid for non-compliance"
-        },
-        "Ensure compliance with IFRS accounting standards": {
-            "IFRS compliance rate (%)": "(Compliant financial statements / Total statements) * 100",
-            "Accounting errors detected (#)": "Number of IFRS errors",
-            "Audit adjustments ($)": "Adjustments required after audit",
-            "Financial reporting accuracy (%)": "(Accurate reports / Total reports) * 100"
-        },
-        "Maintain accurate financial reporting": {
-            "Financial reporting error rate (%)": "(Errors detected / Total reports) * 100",
-            "Timely report submission (%)": "(Reports submitted on time / Total reports) * 100",
-            "Variance between actual & reported ($)": "Actual results - Reported results",
-            "Number of adjustments made (#)": "Total adjustments required"
-        },
-        "Strengthen internal audit processes": {
-            "Audit coverage (%)": "(Processes audited / Total processes) * 100",
-            "Audit findings resolved (%)": "(Resolved findings / Total findings) * 100",
-            "Audit frequency (#)": "Number of audits per year",
-            "Internal control effectiveness (%)": "Effective controls / Total controls * 100"
-        },
-        "Strengthen corporate governance": {
-            "Governance compliance (%)": "(Compliant measures / Total measures) * 100",
-            "Board meeting attendance (%)": "Attended meetings / Total meetings * 100",
-            "Policy implementation rate (%)": "(Implemented policies / Total policies) * 100",
-            "Stakeholder satisfaction score": "Surveyed satisfaction index"
-        },
-        "Implement anti-fraud measures": {
-            "Fraud detection rate (%)": "(Detected fraud cases / Total fraud attempts) * 100",
-            "Fraud losses ($)": "Total losses due to fraud",
-            "Fraud prevention coverage (%)": "(Policies monitored / Total policies) * 100",
-            "Fraud investigation success rate (%)": "(Resolved fraud cases / Detected cases) * 100"
-        },
-        "Implement AML and KYC controls": {
-            "AML/KYC compliance rate (%)": "(Compliant accounts / Total accounts) * 100",
-            "Suspicious transaction detection (#)": "Number of suspicious cases detected",
-            "Customer verification coverage (%)": "(Verified accounts / Total accounts) * 100",
-            "Regulatory reporting accuracy (%)": "(Accurate AML/KYC reports / Total reports) * 100"
-        },
-        "Enhance cybersecurity and data protection": {
-            "Security incident rate (#)": "Number of cybersecurity incidents",
-            "Data breach prevention (%)": "(Breaches prevented / Total attempts) * 100",
-            "System uptime (%)": "(Operational time / Total scheduled time) * 100",
-            "Compliance with data protection regulations (%)": "(Compliant measures / Total measures) * 100"
-        }
-    },
-
-    "Insurance Resource Utilization": {
-
-        "Enhance Staff Productivity": {
-            "Policies issued per employee (#)": "Total policies issued / Total staff",
-            "Revenue per employee ($)": "Total insurance revenue / Total staff",
-            "Claims processed per employee (#)": "Total claims handled / Total staff",
-            "Customer service efficiency (%)": "(Policies or claims processed without escalation / Total processed) * 100"
-        },
-
-        "Optimize Branch & Agent Network": {
-            "Revenue per branch/agency ($)": "Total revenue / Number of branches or agencies",
-            "Profit per branch/agency ($)": "Net profit / Number of branches or agencies",
-            "Policies sold per branch/agency (#)": "Total policies sold / Number of branches or agencies",
-            "Customer per branch/agency (#)": "Active customers / Number of branches or agencies"
-        },
-
-        "Improve Claims & Policy Management Efficiency": {
-            "Average claims processing time (days)": "Total processing days / Number of claims",
-            "Average policy issuance time (days)": "Total time for policy issuance / Number of policies",
-            "Claims error rate (%)": "(Incorrectly processed claims / Total claims) * 100",
-            "Policy amendment error rate (%)": "(Errors in policy updates / Total policy updates) * 100"
-        },
-
-        "Enhance Digital Channel Efficiency": {
-            "Digital policy sales ratio (%)": "(Digital policies / Total policies) * 100",
-            "Online claims submission ratio (%)": "(Claims submitted online / Total claims) * 100",
-            "Cost per digital transaction ($)": "Digital channel operating cost / Number of digital transactions",
-            "Mobile & online adoption rate (%)": "(Active digital users / Total customers) * 100"
-        },
-
-        "Optimize IT & Technology Resources": {
-            "IT cost per transaction ($)": "Total IT operating cost / Total transactions or policies",
-            "System uptime (%)": "(System availability time / Total scheduled time) * 100",
-            "Automation ratio (%)": "(Automated transactions / Total transactions) * 100",
-            "Tech ROI (%)": "(Revenue or savings from IT initiatives / IT investment) * 100"
-        },
-
-        "Optimize Physical & Facility Resources": {
-            "Energy cost per branch/agency ($)": "Total energy expense / Number of branches or agencies",
-            "Facility utilization rate (%)": "(Used branch/office space / Total available space) * 100",
-            "Paper usage per policy (#)": "Total paper used / Number of policies processed",
-            "Maintenance cost per branch/agency ($)": "Facility maintenance expense / Number of branches or agencies"
-        },
-
-        "Improve Capital & Fund Utilization": {
-            "Return on Assets (ROA %)": "(Net income / Total assets) * 100",
-            "Return on Equity (ROE %)": "(Net income / Shareholders' equity) * 100",
-            "Liquidity coverage ratio (LCR %)": "(High-quality liquid assets / Net cash outflows over 30 days) * 100",
-            "Fund deployment efficiency (%)": "(Funds invested or deployed / Total available funds) * 100"
-        }
-
-    },
-
-    "Insurance Finance Performance": {
-        "Profit / Profitability": {
-            "Maximize Underwriting Profitability": {
-                "Underwriting profit margin (%)": "(Premiums - Claims - Expenses) / Premiums * 100",
-                "Loss ratio (%)": "Claims / Premiums * 100",
-                "Expense ratio (%)": "Operating expenses / Premiums * 100",
-                "Combined ratio (%)": "Loss ratio + Expense ratio"
-            },
-            "Maximize Return on Equity (ROE)": {
-                "ROE (%)": "Net income / Shareholders' equity * 100",
-                "ROE growth (%)": "(Current ROE - Previous ROE) / Previous ROE * 100",
-                "Profit per equity ($)": "Net income / Shareholders' equity",
-                "Equity utilization ratio (%)": "Total assets / Shareholders' equity"
-            },
-            "Increase Retention & Renewal Profitability": {
-                "Policy retention rate (%)": "Renewed policies / Total policies * 100",
-                "Renewal contribution to profit (%)": "Profit from renewed policies / Total profit * 100",
-                "Churn reduction rate (%)": "Decrease in policy cancellations",
-                "Profit per retained policy ($)": "Profit from retained policies / Number of retained policies"
-            },
-            "Optimize Product Portfolio Profitability": {
-                "Profit per insurance product ($)": "Profit by product line",
-                "Top product contribution (%)": "Revenue from top 3 products / Total revenue * 100",
-                "Product margin mix (%)": "Weighted profitability across products",
-                "Loss ratio by product (%)": "Claims / Premiums per product"
-            }
-        },
-        "Revenue / Growth": {
-            "Maximize Premium Income": {
-                "Total premium growth (%)": "(Current premiums - Previous) / Previous * 100",
-                "Premium per policy ($)": "Total premiums / Number of policies",
-                "New policy premium contribution (%)": "Revenue from new policies / Total premiums * 100",
-                "Renewal premium ratio (%)": "Renewed premiums / Total premiums * 100"
-            },
-            "Optimize Investment Income": {
-                "Investment income ($)": "Revenue from investment portfolio",
-                "Investment yield (%)": "Investment income / Average invested assets * 100",
-                "Portfolio growth rate (%)": "(Current portfolio value - Previous) / Previous * 100",
-                "ROI (%)": "Net investment income / Investment cost * 100"
-            },
-            "Enhance Channel Profitability": {
-                "Agency channel profit ($)": "Net profit from agency channel",
-                "Direct sales channel profit ($)": "Net profit from direct sales",
-                "Broker channel contribution (%)": "Revenue from brokers / Total revenue * 100",
-                "Channel cost-to-income ratio (%)": "Operating costs per channel / Revenue per channel * 100"
-            },
-            "Boost Market Share & Revenue Growth": {
-                "Market share (%)": "Policies / Total market policies * 100",
-                "New customer acquisition rate (%)": "New policyholders / Total policyholders * 100",
-                "Revenue growth per product (%)": "Revenue increase per product line",
-                "Policyholder growth (%)": "Total policyholders / Previous period * 100"
-            }
-        },
-        "Cost / Efficiency": {
-            "Control Operational Expenses": {
-                "Expense ratio (%)": "Operating expenses / Total premiums * 100",
-                "Expense growth rate (%)": "(Current expenses - Previous) / Previous * 100",
-                "Operational efficiency ratio (%)": "Premium income / Operating expenses",
-                "Cost per policy ($)": "Operating expenses / Number of policies"
-            },
-            "Maximize Non-Underwriting Income": {
-                "Fee & service income ($)": "Revenue from advisory, administration, and fees",
-                "Growth in non-underwriting income (%)": "(Current - Previous) / Previous * 100",
-                "Non-underwriting income ratio (%)": "Non-underwriting income / Total revenue * 100",
-                "Income per policyholder ($)": "Revenue from services / Number of policyholders"
-            },
-            "Strengthen Reinsurance Profitability": {
-                "Reinsurance cost ratio (%)": "Reinsurance premiums paid / Total premiums * 100",
-                "Reinsurance recoveries ($)": "Amount recovered from reinsurers",
-                "Net retained premium ($)": "Premiums retained after reinsurance",
-                "Reinsurance profit contribution (%)": "Profit from reinsured policies / Total profit * 100"
-            },
-            "Enhance Underwriting Risk Management": {
-                "Exposure per line of business ($)": "Sum insured / Policy count per line",
-                "Concentration risk ratio (%)": "Largest exposures / Total portfolio",
-                "Reinsurance coverage ratio (%)": "Reinsured premiums / Total premiums",
-                "Claims volatility index": "Standard deviation of claims / Average claims"
-            }
-        },
-        "Risk / Capital / Solvency": {
-            "Optimize Risk-Adjusted Profitability": {
-                "RAROC (%)": "Risk-adjusted return on capital",
-                "Risk-weighted premium income ($)": "Premiums / Risk-adjusted factor",
-                "Expected loss ratio (%)": "Expected claims / Total premiums * 100",
-                "Solvency ratio (%)": "Available capital / Required capital * 100"
-            },
-            "Improve Liquidity Management": {
-                "Liquid asset ratio (%)": "Liquid assets / Total liabilities * 100",
-                "Cash reserve adequacy (%)": "Cash reserves / Total claims obligations",
-                "Liquidity coverage ratio (%)": "High-quality liquid assets / Net cash outflows",
-                "Cash flow stability index": "Variance in monthly inflows/outflows"
-            }
-        },
-        "Economic / Development Impact": {
-            "Support Economic Development": {
-                "SME insurance penetration (%)": "SME policies / Total SMEs",
-                "Microinsurance coverage (%)": "Microinsurance policies / Target population",
-                "Social impact policies (#)": "Policies for education, health, agriculture",
-                "Community risk mitigation ($)": "Sum insured for community projects"
-            }
-        }
-    },
-
     "Customer Perspective": {
 
-        **GENERIC_CUSTOMER_PERSPECTIVE['Customer Perspective'],
-    }
+        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+    },
 
+    "Internal_Process_Perspective": {
+
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+
+        # -------------------- 1. Core Banking Functions --------------------
+        "Core Banking Functions": {
+            "Optimize Deposit Management": {
+                "Deposit accuracy rate (%)": "(Accurate deposit entries / Total deposits) * 100",
+                "New accounts processed (#)": "Number of new accounts opened",
+                "Deposit retention process compliance (%)": "(Compliant retention / Total deposits) * 100",
+                "Average processing time per account (days)": "Average time to open or maintain accounts"
+            },
+            "Enhance Loan Management": {
+                "Loan application processing time (days)": "Average time to process loan applications",
+                "Loan documentation completeness (%)": "(Complete docs / Total loans) * 100",
+                "Loan approval accuracy (%)": "(Correct approvals / Total approvals) * 100",
+                "Loan review compliance (%)": "(Compliant reviews / Total reviews) * 100"
+            },
+            "Improve Payments & Settlements": {
+                "Transaction success rate (%)": "(Successful / Total) * 100",
+                "Average settlement time (minutes)": "Time to settle transactions",
+                "Payment exception rate (%)": "(Exceptions / Total transactions) * 100",
+                "Process standard adherence (%)": "(Transactions following standard / Total) * 100"
+            },
+            "Optimize Account Management": {
+                "Account error rate (%)": "(Errors / Total accounts) * 100",
+                "Average account lifecycle time (days)": "Time from opening to closure",
+                "Process compliance score": "Survey/assessment of process adherence",
+                "Account activity ratio (%)": "(Active accounts / Total accounts) * 100"
+            },
+            "Enhance Core Banking IT Systems": {
+                "System uptime (%)": "Operational hours / Total hours * 100",
+                "Transaction processing speed": "Average time per transaction",
+                "System incident rate (#)": "Number of system failures",
+                "IT support resolution time (hours)": "Average resolution time"
+            },
+            "Improve Compliance in Core Operations": {
+                "Regulatory compliance (%)": "Compliant operations / Total operations * 100",
+                "Audit finding reduction (%)": "(Baseline findings - Current findings) / Baseline findings * 100",
+                "Fraud detection effectiveness (%)": "(Detected fraud / Total fraud incidents) * 100",
+                "Customer grievance resolution (%)": "(Resolved / Total complaints) * 100"
+            }
+        },
+
+        # -------------------- 2. Retail Banking --------------------
+        "Retail Banking": {
+            "Optimize Personal Loan Operations": {
+                "Loan processing accuracy (%)": "(Correctly processed loans / Total loans) * 100",
+                "Approval turnaround time (days)": "Average days to approve",
+                "Documentation completeness (%)": "(Complete docs / Total loans) * 100",
+                "Compliance with lending policies (%)": "(Compliant loans / Total loans) * 100"
+            },
+            "Optimize Savings & Deposit Operations": {
+                "New account processing time (days)": "Average time to open accounts",
+                "Deposit management accuracy (%)": "(Correct entries / Total deposits) * 100",
+                "Deposit retention compliance (%)": "(Compliant retention / Total deposits) * 100",
+                "Customer process satisfaction": "Survey rating"
+            },
+            "Enhance Mortgage Processing": {
+                "Mortgage application processing time (days)": "Average days to process",
+                "Documentation completeness (%)": "(Complete docs / Total mortgages) * 100",
+                "Approval accuracy (%)": "(Correct approvals / Total approvals) * 100",
+                "Process compliance (%)": "(Compliant processes / Total processes) * 100"
+            },
+            "Streamline Investment Product Processes": {
+                "Product adoption compliance (%)": "(Products processed as per standards / Total products) * 100",
+                "Process error rate (%)": "(Errors / Total products) * 100",
+                "Customer process satisfaction": "Survey rating",
+                "Product renewal process efficiency (%)": "(Renewed on time / Total products) * 100"
+            },
+            "Enhance Customer Experience Processes": {
+                "Branch service compliance (%)": "(Compliant service processes / Total services) * 100",
+                "Digital adoption process efficiency (%)": "(Completed digital processes / Total digital requests) * 100",
+                "Call center resolution time (minutes)": "Average time per call",
+                "Complaint resolution rate (%)": "(Resolved / Total complaints) * 100"
+            }
+        },
+
+        # -------------------- 3. Business / Commercial Banking --------------------
+        "Business / Commercial Banking": {
+            "SME Loan Operations": {
+                "Loan processing time (days)": "Average days to process",
+                "Documentation completeness (%)": "(Complete docs / Total loans) * 100",
+                "Approval accuracy (%)": "(Correct approvals / Total approvals) * 100",
+                "Policy compliance (%)": "(Compliant loans / Total loans) * 100"
+            },
+            "Business Account & Cash Management Processes": {
+                "New business account processing time (days)": "Average time",
+                "Cash management process adoption (%)": "(Businesses following processes / Total clients) * 100",
+                "Process error rate (%)": "(Errors / Total processes) * 100",
+                "Customer process satisfaction": "Survey rating"
+            },
+            "Trade Finance Processes": {
+                "Application processing time (days)": "Average time",
+                "Documentation compliance (%)": "(Complete docs / Total applications) * 100",
+                "Process error rate (%)": "(Errors / Total transactions) * 100",
+                "Compliance adherence (%)": "(Compliant processes / Total processes) * 100"
+            },
+            "Business Credit Operations": {
+                "Overdraft approval accuracy (%)": "(Correct approvals / Total approvals) * 100",
+                "Process turnaround time (days)": "Average days to complete",
+                "Default monitoring compliance (%)": "(Monitored / Total overdrafts) * 100",
+                "Customer process satisfaction": "Survey rating"
+            },
+            "Risk Management Processes": {
+                "Credit assessment accuracy (%)": "(Correct assessments / Total assessments) * 100",
+                "Fraud detection (%)": "(Detected / Total fraud attempts) * 100",
+                "Compliance rate (%)": "(Compliant operations / Total operations) * 100",
+                "Portfolio process performance index": "Weighted performance of operational processes"
+            },
+            "Operational Efficiency Processes": {
+                "Process cost per transaction ($)": "Total process cost / Total transactions",
+                "Staff productivity": "Transactions handled per staff",
+                "Turnaround time reduction (%)": "(Previous - Current) / Previous * 100",
+                "Automation adoption (%)": "(Automated processes / Total processes) * 100"
+            }
+        },
+
+        # -------------------- 4. Corporate Banking --------------------
+        "Corporate Banking": {
+            "Corporate Lending Processes": {
+                "Loan processing accuracy (%)": "(Correct approvals / Total approvals) * 100",
+                "Documentation completeness (%)": "(Complete docs / Total loans) * 100",
+                "Application turnaround time (days)": "Average days per application",
+                "Syndication process success (%)": "(Compliant syndications / Total syndications) * 100"
+            },
+            "Treasury & Cash Management Processes": {
+                "Process adoption rate (%)": "(Clients following processes / Total clients) * 100",
+                "Process error rate (%)": "(Errors / Total processes) * 100",
+                "Liquidity management compliance (%)": "(Compliant processes / Total) * 100",
+                "Transaction accuracy rate (%)": "(Correct transactions / Total transactions) * 100"
+            },
+            "Advisory & Deal Processes": {
+                "Documentation completeness (%)": "(Complete docs / Total advisory cases) * 100",
+                "Compliance with advisory standards (%)": "(Compliant cases / Total cases) * 100",
+                "Process turnaround time (days)": "Average days per advisory",
+                "Client satisfaction with process": "Survey rating"
+            },
+            "Risk Assessment Processes": {
+                "Default monitoring compliance (%)": "(Monitored / Total loans) * 100",
+                "Fraud detection effectiveness (%)": "(Detected fraud / Total incidents) * 100",
+                "Process compliance rate (%)": "(Compliant operations / Total operations) * 100",
+                "Portfolio operational performance": "Weighted performance of processes"
+            },
+            "Operational Efficiency": {
+                "Process time per transaction (days)": "Average time",
+                "Error rate (%)": "(Errors / Total transactions) * 100",
+                "Staff productivity": "Transactions handled per staff",
+                "Automation adoption (%)": "(Automated processes / Total processes) * 100"
+            }
+        },
+
+        # -------------------- 5. Investment Banking --------------------
+        "Investment Banking": {
+            "Capital Markets Operations": {
+                "Deal processing accuracy (%)": "(Correctly processed deals / Total deals) * 100",
+                "Process adherence (%)": "(Deals processed per standards / Total deals) * 100",
+                "Average deal processing time (days)": "Average days per deal",
+                "Compliance adherence (%)": "(Compliant deals / Total deals) * 100"
+            },
+            "Mergers & Acquisitions Processes": {
+                "Documentation completeness (%)": "(Complete docs / Total deals) * 100",
+                "Process turnaround time (days)": "Average time per mandate",
+                "Client process satisfaction": "Survey rating",
+                "Compliance adherence (%)": "(Compliant / Total deals) * 100"
+            },
+            "Underwriting Operations": {
+                "Underwriting accuracy (%)": "(Correct underwriting / Total underwriting) * 100",
+                "Process error rate (%)": "(Errors / Total underwriting) * 100",
+                "Turnaround time (days)": "Average days per underwriting",
+                "Compliance adherence (%)": "(Compliant / Total underwriting) * 100"
+            },
+            "Structured Products & Proprietary Trading": {
+                "Process adoption rate (%)": "(Processes followed / Total trades) * 100",
+                "Error rate (%)": "(Errors / Total trades) * 100",
+                "Client process satisfaction": "Survey rating",
+                "Risk management compliance (%)": "(Compliant trades / Total trades) * 100"
+            },
+            "Deal Origination Processes": {
+                "New mandate processing time (days)": "Average days",
+                "Process compliance (%)": "(Compliant / Total mandates) * 100",
+                "Client process satisfaction": "Survey rating",
+                "Workflow adherence (%)": "(Steps followed / Total steps) * 100"
+            },
+            "Risk & Compliance in Investment Banking": {
+                "Compliance incident rate (#)": "Reported / Total operations",
+                "Regulatory adherence (%)": "Compliant operations / Total operations * 100",
+                "Audit finding reduction (%)": "(Previous - Current) / Previous * 100",
+                "Fraud detection effectiveness (%)": "(Detected fraud / Total fraud incidents) * 100"
+            }
+        },
+
+        # -------------------- 6. Private Banking / Wealth Management --------------------
+        "Private Banking / Wealth Management": {
+            "Wealth Planning Processes": {
+                "Plans implemented on time (%)": "(Implemented / Total plans) * 100",
+                "Plan documentation completeness (%)": "(Complete docs / Total plans) * 100",
+                "Client process satisfaction": "Survey rating",
+                "Plan review compliance (%)": "(Reviewed / Total plans) * 100"
+            },
+            "Investment Advisory & Portfolio Management": {
+                "Portfolio review compliance (%)": "(Reviewed portfolios / Total portfolios) * 100",
+                "Process error rate (%)": "(Errors / Total advisory activities) * 100",
+                "Turnaround time per advisory (days)": "Average time",
+                "Client process satisfaction": "Survey rating"
+            },
+            "Estate & Tax Planning": {
+                "Documentation completeness (%)": "(Complete docs / Total plans) * 100",
+                "Process adherence (%)": "(Compliant / Total plans) * 100",
+                "Review turnaround time (days)": "Average days",
+                "Client process satisfaction": "Survey rating"
+            },
+            "Alternative Investments & Family Office Services": {
+                "Process compliance (%)": "(Compliant / Total services) * 100",
+                "Error rate (%)": "(Errors / Total services) * 100",
+                "Review turnaround time (days)": "Average days",
+                "Client satisfaction with process": "Survey rating"
+            },
+            "Client Acquisition Processes": {
+                "New client onboarding time (days)": "Average time",
+                "Process adherence (%)": "(Compliant / Total onboarding) * 100",
+                "Client satisfaction with process": "Survey rating",
+                "Referral process compliance (%)": "(Compliant referrals / Total referrals) * 100"
+            },
+            "Compliance & Risk Management Processes": {
+                "Regulatory compliance (%)": "(Compliant operations / Total operations) * 100",
+                "AML/KYC process coverage (%)": "(Verified clients / Total clients) * 100",
+                "Audit finding reduction (%)": "(Previous - Current) / Previous * 100",
+                "Fraud detection effectiveness (%)": "(Detected / Total fraud incidents) * 100"
+            }
+        },
+
+        # -------------------- 7. Transaction Banking --------------------
+        "Transaction Banking": {
+            "Payment & Collection Services": {
+                "Transaction success rate (%)": "(Successful / Total) * 100",
+                "Average processing time (hours)": "Average hours per transaction",
+                "Process error rate (%)": "(Failed / Total transactions) * 100",
+                "Client process satisfaction": "Survey rating"
+            },
+            "Trade Finance Processes": {
+                "Application processing time (days)": "Average time",
+                "Documentation completeness (%)": "(Complete docs / Total applications) * 100",
+                "Error rate (%)": "(Errors / Total transactions) * 100",
+                "Compliance adherence (%)": "(Compliant / Total transactions) * 100"
+            },
+            "Cash Management & Liquidity Processes": {
+                "Process adoption rate (%)": "(Clients following processes / Total clients) * 100",
+                "Process error rate (%)": "(Errors / Total operations) * 100",
+                "Liquidity process compliance (%)": "(Compliant / Total transactions) * 100",
+                "Client satisfaction with process": "Survey rating"
+            },
+            "Foreign Exchange & Hedging Processes": {
+                "Process adherence (%)": "(Compliant FX processes / Total transactions) * 100",
+                "Error rate (%)": "(Errors / Total FX transactions) * 100",
+                "Client process satisfaction": "Survey rating",
+                "Compliance adherence (%)": "(Compliant / Total transactions) * 100"
+            },
+            "Supply Chain Finance Processes": {
+                "Process turnaround time (days)": "Average time",
+                "Process compliance (%)": "(Compliant / Total financing) * 100",
+                "Default monitoring compliance (%)": "(Monitored / Total financed) * 100",
+                "Error rate (%)": "(Errors / Total transactions) * 100"
+            },
+            "Operational Efficiency": {
+                "Process error rate (%)": "(Errors / Total transactions) * 100",
+                "Automation adoption (%)": "(Automated / Total processes) * 100",
+                "Staff productivity": "Transactions handled per staff",
+                "Process turnaround time reduction (%)": "(Previous - Current) / Previous * 100"
+            }
+        },
+
+        # -------------------- 8. Risk & Compliance --------------------
+        "Risk & Compliance": {
+            "Credit Risk Management": {
+                "Non-performing loan monitoring (%)": "(NPLs monitored / Total NPLs) * 100",
+                "Loan review compliance (%)": "(Compliant reviews / Total loans) * 100",
+                "Portfolio risk diversification index": "Diversification of risk across sectors",
+                "Approval cycle time (days)": "Average days to approve"
+            },
+            "Market Risk Management": {
+                "Risk exposure monitoring coverage (%)": "(Monitored positions / Total positions) * 100",
+                "Market loss incidents (#)": "Number exceeding internal limits",
+                "Stress test compliance (%)": "(Compliant / Total stress tests) * 100",
+                "Mitigation plan implementation (%)": "(Implemented / Total planned) * 100"
+            },
+            "Operational Risk Management": {
+                "Operational loss events (#)": "Number of process failures",
+                "Process failure rate (%)": "(Failed processes / Total processes) * 100",
+                "Risk control assessment coverage (%)": "(Reviewed / Total processes) * 100",
+                "Incident resolution time (days)": "Average days to resolve"
+            },
+            "Compliance & Regulatory Affairs": {
+                "Regulatory compliance (%)": "(Compliant operations / Total operations) * 100",
+                "Audit findings (#)": "Number of audit findings",
+                "Reporting accuracy (%)": "(Accurate / Total reports) * 100",
+                "Timely submissions (%)": "(Submitted on time / Total required) * 100"
+            },
+            "Internal Audit": {
+                "Audit coverage (%)": "(Audited units / Total units) * 100",
+                "Findings closure rate (%)": "(Closed / Total findings) * 100",
+                "Recommendations implemented (%)": "(Implemented / Total recommendations) * 100",
+                "Audit cycle time (days)": "Average days per audit"
+            },
+            "Fraud & Financial Crime Prevention": {
+                "Process compliance coverage (%)": "(Verified processes / Total processes) * 100",
+                "Fraud detection effectiveness (%)": "(Detected / Total incidents) * 100",
+                "Suspicious transaction reporting timeliness (%)": "(On-time reports / Total reports) * 100",
+                "Number of incidents (#)": "Total reported incidents"
+            }
+        },
+
+        # -------------------- 9. Operations & Technology --------------------
+        "Operations & Technology": {
+            "IT & Digital Platforms": {
+                "System uptime (%)": "(Operational hours / Total hours) * 100",
+                "Digital process adoption (%)": "(Completed digital processes / Total) * 100",
+                "Incident response time (hours)": "Average time to resolve",
+                "IT project delivery on-time (%)": "(On-time / Total projects) * 100"
+            },
+            "Cybersecurity & Threat Management": {
+                "Security incidents (#)": "Number of reported incidents",
+                "Mean time to detect/respond (hours)": "Average response time",
+                "Compliance coverage (%)": "(Compliant systems / Total systems) * 100",
+                "Phishing test pass rate (%)": "(Users passed / Total users) * 100"
+            },
+            "Payment Processing Systems": {
+                "Transaction success rate (%)": "(Successful / Total) * 100",
+                "Average processing time (seconds)": "Average time per transaction",
+                "Process error rate (%)": "(Failed / Total transactions) * 100",
+                "Process compliance (%)": "(Compliant transactions / Total) * 100"
+            },
+            "Loan Operations & Processing": {
+                "Processing time (days)": "Average time per loan",
+                "Approval accuracy (%)": "(Correct approvals / Total approvals) * 100",
+                "Documentation completeness (%)": "(Complete / Total loans) * 100",
+                "Customer satisfaction with process": "Survey rating"
+            },
+            "Branch Operations": {
+                "Transaction efficiency (%)": "(Completed / Total requests) * 100",
+                "Customer wait time (minutes)": "Average wait",
+                "Staff productivity": "Transactions handled per staff",
+                "Process compliance (%)": "(Compliant / Total transactions) * 100"
+            },
+            "Operational Cost Management": {
+                "Cost per transaction ($)": "Total operational cost / Total transactions",
+                "Process standardization (%)": "(Standardized processes / Total processes) * 100",
+                "Automation adoption (%)": "(Automated processes / Total processes) * 100",
+                "Efficiency gain (%)": "(Previous cost - Current cost) / Previous cost * 100"
+            }
+        },
+
+        # -------------------- 10. Service Excellence & Customer Support --------------------
+        "Service Excellence & Customer Support": {
+            "Call Center Operations": {
+                "First-call resolution (%)": "(Resolved first call / Total calls) * 100",
+                "Average handling time (minutes)": "Average call duration",
+                "Call abandonment rate (%)": "(Abandoned / Total calls) * 100",
+                "Customer satisfaction score": "Survey rating"
+            },
+            "Branch Service Excellence": {
+                "Process compliance (%)": "(Compliant / Total branch operations) * 100",
+                "Transaction error rate (%)": "(Errors / Total transactions) * 100",
+                "Average service time (minutes)": "Average minutes per customer",
+                "Customer satisfaction score": "Survey rating"
+            },
+            "Digital Support & Chatbots": {
+                "Resolution rate (%)": "(Resolved / Total digital requests) * 100",
+                "Average response time (minutes)": "Average minutes to respond",
+                "Process compliance (%)": "(Compliant processes / Total requests) * 100",
+                "Customer satisfaction score": "Survey rating"
+            },
+            "Complaint Management": {
+                "Average resolution time (days)": "Average days to resolve",
+                "Resolution compliance (%)": "(Compliant resolution / Total complaints) * 100",
+                "Repeat complaint rate (%)": "(Repeat complaints / Total complaints) * 100",
+                "Customer satisfaction with complaint process": "Survey rating"
+            }
+        },
+
+        # -------------------- 11. Innovation & Continuous Improvement --------------------
+        "Innovation & Continuous Improvement": {
+            "Process Reengineering": {
+                "Processes redesigned (#)": "Number of redesigned processes",
+                "Efficiency gain (%)": "(Previous cost/time - Current) / Previous * 100",
+                "Error rate reduction (%)": "(Previous errors - Current errors) / Previous * 100",
+                "Compliance adherence (%)": "(Compliant redesigned processes / Total redesigned) * 100"
+            },
+            "Automation & Robotics": {
+                "Automated processes (#)": "Number of automated processes",
+                "Error reduction (%)": "(Previous errors - Current errors) / Previous * 100",
+                "Processing time reduction (%)": "(Previous time - Current time) / Previous * 100",
+                "Operational cost reduction (%)": "(Previous cost - Current cost) / Previous * 100"
+            },
+            "Digital Transformation": {
+                "Digital adoption rate (%)": "(Digital processes used / Total processes) * 100",
+                "Customer digital satisfaction": "Survey rating",
+                "Process efficiency improvement (%)": "(Previous time - Current time) / Previous * 100",
+                "Innovation implementation rate (%)": "(Implemented innovations / Total planned) * 100"
+            },
+            "Knowledge Management & Training": {
+                "Staff trained (#)": "Number of staff trained",
+                "Process adherence improvement (%)": "(Post-training compliance - Pre-training compliance) / Pre * 100",
+                "Training coverage (%)": "(Trained staff / Total staff) * 100",
+                "Knowledge reuse rate (%)": "(Reused knowledge assets / Total assets) * 100"
+            },
+            "Continuous Improvement Initiatives": {
+                "Improvement projects (#)": "Number of improvement initiatives",
+                "Project success rate (%)": "(Successful projects / Total projects) * 100",
+                "Efficiency gain (%)": "(Previous cost/time - Current) / Previous * 100",
+                "Stakeholder satisfaction (%)": "Survey rating"
+            }
+        }
+    },
+
+    "Learning & Growth Perspective": {
+
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+
+    },
 }

@@ -14,7 +14,6 @@ from management_project.services.strategy_hierarchy.mining import MINING_PERSPEC
 from management_project.services.strategy_hierarchy.professional_service import PROFESSIONAL_SERVICE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.real_estate import REAL_ESTATE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.retail import RETAIL_PERSPECTIVE
-from management_project.services.strategy_hierarchy.telecommunication import TELECOMMUNICATION_PERSPECTIVE
 from management_project.services.strategy_hierarchy.transport_and_logistics import TRANSPORT_AND_LOGISTICS_PERSPECTIVE
 from management_project.services.strategy_hierarchy.water_and_sanitation import WATER_AND_SANITATION_PERSPECTIVE
 
@@ -39,7 +38,6 @@ class StrategyHierarchyChoiceService:
         "professional_service": PROFESSIONAL_SERVICE_PERSPECTIVE,
         "real_estate": REAL_ESTATE_PERSPECTIVE,
         "retail": RETAIL_PERSPECTIVE,
-        "telecommunication": TELECOMMUNICATION_PERSPECTIVE,
         "transport_and_logistics": TRANSPORT_AND_LOGISTICS_PERSPECTIVE,
         "water_and_sanitation": WATER_AND_SANITATION_PERSPECTIVE,
         "default": DEFAULT_SECTOR
