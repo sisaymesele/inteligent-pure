@@ -7,7 +7,8 @@ from management_project.models import (
 )
 from management_project.services.vision import VisionService
 from management_project.services.mission import MissionService
-from .services.swot import SwotChoicesService
+# from .services.swot import SwotChoicesService
+from management_project.services.swot.core import SwotHierarchyChoiceService
 # from management_project.services.strategy_hierarchy import StrategyService
 from .services.strategy_hierarchy.core import StrategyHierarchyChoiceService
 from .services.values import ValuesService
@@ -226,171 +227,98 @@ class ValuesForm(forms.ModelForm):
 class SwotAnalysisForm(forms.ModelForm):
     class Meta:
         model = SwotAnalysis
-        fields = [
-            'swot_type', 'swot_pillar', 'swot_factor',
-            'priority', 'impact', 'likelihood', 'description'
-        ]
+        fields = ['swot_type', 'swot_pillar', 'swot_factor', 'description', 'priority', 'impact', 'likelihood']
         widgets = {
             'swot_type': forms.Select(attrs={'class': 'form-control'}),
             'swot_pillar': forms.Select(attrs={'class': 'form-control'}),
             'swot_factor': forms.Select(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={
+                'rows': 3,
+                'class': 'form-control',
+                'placeholder': 'Enter description for this SWOT factor...'
+            }),
             'priority': forms.Select(attrs={'class': 'form-control'}),
             'impact': forms.Select(attrs={'class': 'form-control'}),
             'likelihood': forms.Select(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
-        swot_type = self.data.get('swot_type') or getattr(self.instance, 'swot_type', None)
-        pillar = self.data.get('swot_pillar') or getattr(self.instance, 'swot_pillar', None)
 
-        # Level 1: SWOT Type
-        self.fields['swot_type'].choices = [('', '--- Select SWOT Type ---')] + SwotChoicesService.get_swot_type_choices()
+        service = SwotHierarchyChoiceService()
 
-        # Level 2: Pillar
+        # Get sector
+        sector = self._get_sector()
+
+        # Get current values - prioritize instance data for initial display
+        swot_type = getattr(self.instance, 'swot_type', None)
+        pillar = getattr(self.instance, 'swot_pillar', None)
+        factor = getattr(self.instance, 'swot_factor', None)
+
+        # For POST requests, use POST data; for GET requests, use instance data
+        if self.data:  # This is a POST request (HTMX or form submission)
+            swot_type = self.data.get('swot_type') or swot_type
+            pillar = self.data.get('swot_pillar') or pillar
+            factor = self.data.get('swot_factor') or factor
+
+        # Populate swot_type choices based on sector
+        swot_types = service.get_swot_types(sector)
+        self.fields['swot_type'].choices = [('', '--- Select SWOT Type ---')] + swot_types
+
+        # Populate pillar choices if swot_type is selected
         if swot_type:
-            self.fields['swot_pillar'].choices = [('', '--- Select Pillar ---')] + SwotChoicesService.get_pillar_choices(swot_type)
-            self.fields['swot_pillar'].widget.attrs.pop('disabled', None)
+            pillars = service.get_pillars(sector, swot_type)
+            self.fields['swot_pillar'].choices = [('', '--- Select Pillar ---')] + pillars
         else:
-            self.fields['swot_pillar'].choices = [('', '--- Select Type First ---')]
-            self.fields['swot_pillar'].widget.attrs['disabled'] = True
+            self.fields['swot_pillar'].choices = [('', '--- Select SWOT Type First ---')]
 
-        # Level 3: Factor
+        # Populate factor choices if swot_type and pillar are selected
         if swot_type and pillar:
-            self.fields['swot_factor'].choices = [('', '--- Select Factor ---')] + SwotChoicesService.get_factor_choices(swot_type, pillar)
-            self.fields['swot_factor'].widget.attrs.pop('disabled', None)
+            factors = service.get_factors(sector, swot_type, pillar)
+            self.fields['swot_factor'].choices = [('', '--- Select Factor ---')] + factors
         else:
             self.fields['swot_factor'].choices = [('', '--- Select Pillar First ---')]
-            self.fields['swot_factor'].widget.attrs['disabled'] = True
 
+        # Set initial values for all fields to ensure existing data is displayed
+        if self.instance and self.instance.pk:
+            self.initial['swot_type'] = swot_type
+            self.initial['swot_pillar'] = pillar
+            self.initial['swot_factor'] = factor
+            self.initial['description'] = getattr(self.instance, 'description', "")
 
+    def _get_sector(self):
+        """Get sector from request or instance"""
+        # Priority 1: From request user's organization
+        if self.request and hasattr(self.request.user, 'organization_name'):
+            org = self.request.user.organization_name
+            if org and hasattr(org, 'sector_name'):
+                return org.sector_name
 
-#
-# class StrategyHierarchyForm(forms.ModelForm):
-#     formula = forms.CharField(
-#         required=False,
-#         widget=forms.Textarea(attrs={
-#             'readonly': 'readonly',
-#             'rows': 3,
-#             'class': 'form-control',
-#             'placeholder': 'Select KPI to see formula'
-#         }),
-#         label="KPI Formula"
-#     )
-#
-#     class Meta:
-#         model = StrategyHierarchy
-#         fields = ['strategic_perspective', 'focus_area', 'objective', 'kpi', 'formula']
-#         widgets = {
-#             'strategic_perspective': forms.Select(attrs={'class': 'form-control'}),
-#             'focus_area': forms.Select(attrs={'class': 'form-control'}),
-#             'objective': forms.Select(attrs={'class': 'form-control'}),
-#             'kpi': forms.Select(attrs={'class': 'form-control'}),
-#         }
-#
-#     def __init__(self, *args, **kwargs):
-#         # Extract organization from kwargs if passed
-#         self.organization = kwargs.pop('organization', None)
-#         super().__init__(*args, **kwargs)
-#
-#         service = StrategyService()
-#
-#         # Get sector
-#         sector = self._get_sector()
-#
-#         # Get current values - prioritize instance data for initial display
-#         perspective = getattr(self.instance, 'strategic_perspective', None)
-#         pillar = getattr(self.instance, 'focus_area', None)
-#         objective = getattr(self.instance, 'objective', None)
-#         kpi = getattr(self.instance, 'kpi', None)
-#
-#         # For POST requests, use POST data; for GET requests, use instance data
-#         if self.data:  # This is a POST request (HTMX or form submission)
-#             perspective = self.data.get('strategic_perspective') or perspective
-#             pillar = self.data.get('focus_area') or pillar
-#             objective = self.data.get('objective') or objective
-#             kpi = self.data.get('kpi') or kpi
-#
-#         # Populate strategic_perspective choices based on sector
-#         perspectives = service.get_perspectives(sector)
-#         self.fields['strategic_perspective'].choices = [('', '--- Select Perspective ---')] + perspectives
-#
-#         # Populate focus_area choices if perspective is selected
-#         if perspective:
-#             pillars = service.get_pillars(sector, perspective)
-#             self.fields['focus_area'].choices = [('', '--- Select Pillar ---')] + pillars
-#         else:
-#             self.fields['focus_area'].choices = [('', '--- Select Perspective First ---')]
-#
-#         # Populate objective choices if perspective and pillar are selected
-#         if perspective and pillar:
-#             objectives = service.get_objectives(sector, perspective, pillar)
-#             self.fields['objective'].choices = [('', '--- Select Objective ---')] + objectives
-#         else:
-#             self.fields['objective'].choices = [('', '--- Select Pillar First ---')]
-#
-#         # Populate KPI choices if all previous fields are selected
-#         if perspective and pillar and objective:
-#             kpis = service.get_kpis(sector, perspective, pillar, objective)
-#             self.fields['kpi'].choices = [('', '--- Select KPI ---')] + kpis
-#         else:
-#             self.fields['kpi'].choices = [('', '--- Select Objective First ---')]
-#
-#         # Auto-fill formula if all fields are selected
-#         if perspective and pillar and objective and kpi:
-#             self.fields['formula'].initial = service.get_kpi_formula(sector, perspective, pillar, objective, kpi)
-#         else:
-#             # Use existing formula if available, otherwise show placeholder
-#             self.fields['formula'].initial = getattr(self.instance, 'formula', "Select a KPI to see the formula")
-#
-#         # FIXED: Set initial values for all fields to ensure existing data is displayed
-#         if self.instance and self.instance.pk:
-#             self.initial['strategic_perspective'] = perspective
-#             self.initial['focus_area'] = pillar
-#             self.initial['objective'] = objective
-#             self.initial['kpi'] = kpi
-#             self.initial['formula'] = getattr(self.instance, 'formula', "")
-#
-#     def _get_sector(self):
-#         """Get sector from organization"""
-#         # Priority 1: Organization passed in kwargs
-#         if self.organization:
-#             if hasattr(self.organization, 'sector_name'):
-#                 return self.organization.sector_name
-#
-#         # Priority 2: Organization from instance
-#         if self.instance and self.instance.pk:
-#             org = getattr(self.instance, 'organization_name', None)
-#             if org and hasattr(org, 'sector_name'):
-#                 return org.sector_name
-#
-#         # Priority 3: Try to get from POST data
-#         if self.data.get('organization_sector'):
-#             return self.data.get('organization_sector')
-#
-#         return "default"
-#
-#     def save(self, commit=True):
-#         instance = super().save(commit=False)
-#
-#         # Auto-populate formula based on selections
-#         if (instance.strategic_perspective and instance.focus_area and
-#                 instance.objective and instance.kpi):
-#             service = StrategyService()
-#             sector = self._get_sector()
-#             instance.formula = service.get_kpi_formula(
-#                 sector,
-#                 instance.strategic_perspective,
-#                 instance.focus_area,
-#                 instance.objective,
-#                 instance.kpi
-#             )
-#
-#         if commit:
-#             instance.save()
-#
-#         return instance
+        # Priority 2: Organization from instance
+        if self.instance and self.instance.pk:
+            org = getattr(self.instance, 'organization_name', None)
+            if org and hasattr(org, 'sector_name'):
+                return org.sector_name
+
+        # Priority 3: Try to get from POST data
+        if self.data.get('organization_sector'):
+            return self.data.get('organization_sector')
+
+        return "default"
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Set organization if it's a new instance and request is available
+        if not instance.pk and self.request and hasattr(self.request.user, 'organization_name'):
+            instance.organization_name = self.request.user.organization_name
+
+        if commit:
+            instance.save()
+
+        return instance
+
 
 
 
@@ -892,7 +820,6 @@ class StrategicReportForm(forms.ModelForm):
 
 
 
-
 class SwotReportForm(forms.ModelForm):
     strategic_report_period = forms.ModelChoiceField(
         queryset=StrategicCycle.objects.none(),
@@ -921,6 +848,11 @@ class SwotReportForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
 
+        service = SwotHierarchyChoiceService()
+
+        # Get sector
+        sector = self._get_sector()
+
         # ---------------- Filter unique by action_plan ----------------
         if self.request and self.request.user.is_authenticated and hasattr(self.request.user, 'organization_name'):
             org = self.request.user.organization_name
@@ -938,15 +870,25 @@ class SwotReportForm(forms.ModelForm):
             self.fields['strategic_report_period'].queryset = StrategicCycle.objects.none()
 
         # ---------------- Cascade dropdown logic ----------------
-        swot_type = self.data.get('swot_type') or getattr(self.instance, 'swot_type', None)
-        pillar = self.data.get('swot_pillar') or getattr(self.instance, 'swot_pillar', None)
+        # Get current values - prioritize instance data for initial display
+        swot_type = getattr(self.instance, 'swot_type', None)
+        pillar = getattr(self.instance, 'swot_pillar', None)
+        factor = getattr(self.instance, 'swot_factor', None)
 
-        # Level 1: SWOT Type
-        self.fields['swot_type'].choices = [('', '--- Select SWOT Type ---')] + SwotChoicesService.get_swot_type_choices()
+        # For POST requests, use POST data; for GET requests, use instance data
+        if self.data:  # This is a POST request (HTMX or form submission)
+            swot_type = self.data.get('swot_type') or swot_type
+            pillar = self.data.get('swot_pillar') or pillar
+            factor = self.data.get('swot_factor') or factor
+
+        # Level 1: SWOT Type - based on sector
+        swot_types = service.get_swot_types(sector)
+        self.fields['swot_type'].choices = [('', '--- Select SWOT Type ---')] + swot_types
 
         # Level 2: Pillar
         if swot_type:
-            self.fields['swot_pillar'].choices = [('', '--- Select Pillar ---')] + SwotChoicesService.get_pillar_choices(swot_type)
+            pillars = service.get_pillars(sector, swot_type)
+            self.fields['swot_pillar'].choices = [('', '--- Select Pillar ---')] + pillars
             self.fields['swot_pillar'].widget.attrs.pop('disabled', None)
         else:
             self.fields['swot_pillar'].choices = [('', '--- Select Type First ---')]
@@ -954,13 +896,50 @@ class SwotReportForm(forms.ModelForm):
 
         # Level 3: Factor
         if swot_type and pillar:
-            self.fields['swot_factor'].choices = [('', '--- Select Factor ---')] + SwotChoicesService.get_factor_choices(swot_type, pillar)
+            factors = service.get_factors(sector, swot_type, pillar)
+            self.fields['swot_factor'].choices = [('', '--- Select Factor ---')] + factors
             self.fields['swot_factor'].widget.attrs.pop('disabled', None)
         else:
             self.fields['swot_factor'].choices = [('', '--- Select Pillar First ---')]
             self.fields['swot_factor'].widget.attrs['disabled'] = True
 
+        # Set initial values for all fields to ensure existing data is displayed
+        if self.instance and self.instance.pk:
+            self.initial['swot_type'] = swot_type
+            self.initial['swot_pillar'] = pillar
+            self.initial['swot_factor'] = factor
 
+    def _get_sector(self):
+        """Get sector from request or instance"""
+        # Priority 1: From request user's organization
+        if self.request and hasattr(self.request.user, 'organization_name'):
+            org = self.request.user.organization_name
+            if org and hasattr(org, 'sector_name'):
+                return org.sector_name
+
+        # Priority 2: Organization from instance
+        if self.instance and self.instance.pk:
+            org = getattr(self.instance, 'organization_name', None)
+            if org and hasattr(org, 'sector_name'):
+                return org.sector_name
+
+        # Priority 3: Try to get from POST data
+        if self.data.get('organization_sector'):
+            return self.data.get('organization_sector')
+
+        return "default"
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Set organization if it's a new instance and request is available
+        if not instance.pk and self.request and hasattr(self.request.user, 'organization_name'):
+            instance.organization_name = self.request.user.organization_name
+
+        if commit:
+            instance.save()
+
+        return instance
 
 
 

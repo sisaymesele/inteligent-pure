@@ -1,6 +1,7 @@
-
 GENERIC_FINANCE_PERSPECTIVE = {
     "Financial Perspective": {
+
+        # ---------------- 1. REVENUE GROWTH & DIVERSIFICATION ----------------
         "Revenue Growth & Diversification": {
             "Enhance Total Revenue Performance": {
                 "Total revenue growth (%)": "(Current revenue - Previous revenue) / Previous revenue * 100",
@@ -28,6 +29,7 @@ GENERIC_FINANCE_PERSPECTIVE = {
             }
         },
 
+        # ---------------- 2. COST MANAGEMENT & EFFICIENCY ----------------
         "Cost Management & Efficiency": {
             "Enhance Operational Efficiency": {
                 "Cost per unit reduction (%)": "(Current cost/unit - Previous) / Previous * 100",
@@ -55,6 +57,7 @@ GENERIC_FINANCE_PERSPECTIVE = {
             }
         },
 
+        # ---------------- 3. PROFITABILITY OPTIMIZATION ----------------
         "Profitability Optimization": {
             "Maximize Net Profit Performance": {
                 "Net profit margin (%)": "(Net income / Revenue) * 100",
@@ -82,6 +85,7 @@ GENERIC_FINANCE_PERSPECTIVE = {
             }
         },
 
+        # ---------------- 4. LIQUIDITY & CASH FLOW MANAGEMENT ----------------
         "Liquidity & Cash Flow Management": {
             "Enhance Operating Cash Flow": {
                 "Operating cash flow growth (%)": "(Current OCF - Previous OCF) / Previous * 100",
@@ -109,6 +113,7 @@ GENERIC_FINANCE_PERSPECTIVE = {
             }
         },
 
+        # ---------------- 5. FINANCIAL STABILITY & RISK MANAGEMENT ----------------
         "Financial Stability & Risk Management": {
             "Strengthen Balance Sheet Structure": {
                 "Debt-to-equity ratio optimization": "Total liabilities / Shareholders' equity",
@@ -134,6 +139,241 @@ GENERIC_FINANCE_PERSPECTIVE = {
                 "Insurance coverage optimization": "Adequacy of risk transfer mechanisms",
                 "Stress testing frequency (#)": "Number of risk scenario analyses"
             }
-        }
-    }
+        },
+
+        # ---------------- 6. ECONOMIC DEVELOPMENT & IMPACT ----------------
+        "Economic Development & Impact": {
+            "Drive Regional Economic Growth": {
+                "GDP contribution growth (%)": "(Sector contribution / Total GDP) * 100",
+                "Regional economic multiplier effect": "Total economic impact / Direct investment",
+                "Local supplier development (#)": "Number of local businesses supported",
+                "Infrastructure development impact": "Economic benefits from infrastructure projects"
+            },
+            "Promote Trade & Commerce": {
+                "Export growth rate (%)": "(Current exports - Previous exports) / Previous * 100",
+                "Import substitution value ($)": "Value of locally produced substitutes",
+                "Trade balance improvement ($)": "Exports - Imports",
+                "Market access expansion (#)": "New markets entered for local products"
+            },
+            "Foster Innovation Ecosystem": {
+                "R&D investment growth (%)": "Increase in research and development spending",
+                "Technology transfer value ($)": "Commercial value of research成果",
+                "Startup ecosystem support (#)": "Number of new businesses incubated",
+                "Innovation cluster development": "Growth of innovation-focused zones"
+            },
+            "Enhance Economic Resilience": {
+                "Economic diversification index": "Number of viable economic sectors",
+                "Shock absorption capacity": "Ability to withstand economic disruptions",
+                "Regional economic stability": "Reduction in economic volatility",
+                "Long-term economic sustainability": "Sustainable growth indicators"
+            }
+        },
+
+        # ---------------- 7. INFRASTRUCTURE DEVELOPMENT & MANAGEMENT ----------------
+        "Infrastructure Development & Management": {
+            "Enhance Physical Infrastructure": {
+                "Infrastructure quality index": "Condition and capacity of physical assets",
+                "Maintenance efficiency ratio": "(Planned maintenance / Total maintenance) * 100",
+                "Infrastructure utilization rate (%)": "(Actual usage / Design capacity) * 100",
+                "Asset lifecycle cost reduction (%)": "Reduction in total ownership costs"
+            },
+            "Optimize Digital Infrastructure": {
+                "Digital connectivity coverage (%)": "(Population with access / Total population) * 100",
+                "Network reliability index": "Uptime and performance metrics",
+                "Data infrastructure capacity (TB)": "Storage and processing capabilities",
+                "Cybersecurity infrastructure strength": "Protection level of digital assets"
+            },
+            "Improve Transportation & Logistics": {
+                "Transport efficiency index": "Cost and time efficiency of logistics",
+                "Logistics cost reduction (%)": "Decrease in supply chain transportation costs",
+                "Accessibility improvement (%)": "(Population with transport access / Total) * 100",
+                "Supply chain resilience": "Ability to maintain operations during disruptions"
+            },
+            "Enhance Public Infrastructure": {
+                "Public facility utilization (%)": "(Users served / Design capacity) * 100",
+                "Infrastructure investment ROI": "Economic return on public infrastructure",
+                "Community infrastructure access": "Percentage with access to basic services",
+                "Sustainable infrastructure ratio": "(Green infrastructure / Total infrastructure) * 100"
+            }
+        },
+
+        # ---------------- 8. FUND & GRANT MANAGEMENT ----------------
+        "Fund and Grant Management": {
+
+            "Ensure Financial Sustainability": {
+                "Total annual funding secured ($)": "Sum of all grants, donations, and other funding",
+                "Funding diversification ratio": "Number of distinct funding sources / Total funding volume",
+                "Core funding ratio (%)": "(Unrestricted funds / Total funds) * 100",
+                "Reserve coverage ratio (months)": "Operating reserves / Average monthly expenditure"
+            },
+
+            "Strengthen Financial Stability": {
+                "Funding volatility index": "Variance in annual funding inflows",
+                "Liquidity ratio (%)": "(Current assets / Current liabilities) * 100",
+                "Cash flow sufficiency ratio (%)": "(Available cash / average operating cost) * 100",
+                "Contingency fund coverage (%)": "(Contingency reserve / operating budget) * 100"
+            },
+
+            "Promote Funding Growth": {
+                "Annual funding growth rate (%)": "((Current year funding - Previous) / Previous) * 100",
+                "New funding sources acquired (#)": "Number of new donor or funding relationships established annually",
+                "Long term funding proportion (%)": "(Multi-year agreements / Total active grants) * 100",
+                "Average grant size growth (%)": "((Current average grant size - Previous) / Previous) * 100"
+            },
+
+            "Improve Fund Utilization Efficiency": {
+                "Fund utilization rate (%)": "(Funds disbursed / Funds committed) * 100",
+                "Program delivery efficiency (%)": "(Program spending / Total spending) * 100",
+                "Administrative cost ratio (%)": "(Administrative costs / Total costs) * 100",
+                "Cost to income ratio (%)": "(Total operating costs / Total income) * 100"
+            },
+
+            "Strengthen Financial Accountability": {
+                "Audit compliance rate (%)": "(Audits passed without qualification / Total audits) * 100",
+                "Grant compliance rate (%)": "(Compliant transactions / Total transactions) * 100",
+                "Error free reporting ratio (%)": "(Reports without financial errors / Total reports) * 100",
+                "Unresolved audit issue rate (%)": "(Unresolved audit findings / Total findings) * 100"
+            },
+
+            "Increase Financial Transparency": {
+                "Timely financial reporting rate (%)": "(Reports submitted on time / Total required reports) * 100",
+                "Public disclosure rate (%)": "(Published financial reports / Total reports) * 100",
+                "Stakeholder information access score": "Ease and timeliness of stakeholder access to financial data",
+                "Financial communication effectiveness index": "Stakeholder satisfaction with financial reporting clarity"
+            },
+
+            "Enhance Funding Predictability": {
+                "Funding predictability index": "Variance between forecasted and actual inflows",
+                "Donor renewal rate (%)": "(Renewed donor commitments / Total donors) * 100",
+                "Funding deviation ratio (%)": "(Difference between planned and actual inflows / Planned inflows) * 100",
+                "Multi-year grant ratio (%)": "(Multi-year funding agreements / Total grants) * 100"
+            },
+
+            "Optimize Return on Funding": {
+                "Return on funded programs (%)": "(Measured program outcomes / Total investment) * 100",
+                "Grant leverage ratio": "(Co-financing or partner contributions / Primary grant value)",
+                "Cost per outcome ($)": "Total program expenditure / Number of outcomes achieved",
+                "Funding yield (%)": "(Outputs delivered / Total funding spent) * 100"
+            },
+
+            "Strengthen Donor Retention": {
+                "Donor retention rate (%)": "(Returning donors / Total donors) * 100",
+                "Grant renewal rate (%)": "(Renewed grants / Expired grants) * 100",
+                "Average donor contribution growth (%)": "((Current donor contribution - Previous year) / Previous year) * 100",
+                "Donor attrition rate (%)": "(Lost donors / Total donors) * 100"
+            },
+
+            "Increase Partnership Value": {
+                "Partnership satisfaction index": "Average satisfaction rating from key funding partners",
+                "Joint initiative funding ratio (%)": "(Co-funded initiatives / Total initiatives) * 100",
+                "Partner contribution ratio (%)": "(Partner financial inputs / Total project funding) * 100",
+                "Partner engagement frequency": "Average number of engagement events with partners"
+            },
+
+            "Strengthen Financial Risk Management": {
+                "Financial risk exposure index": "Composite score for liquidity, dependency, and compliance risk",
+                "Top funder dependency ratio (%)": "(Largest funder contribution / Total funding) * 100",
+                "Revenue concentration index": "Share of top 3 funders in total funding",
+                "Risk mitigation plan implementation rate (%)": "(Implemented mitigation actions / Planned actions) * 100"
+            },
+
+            "Optimize Cost Structure": {
+                "Program to administration expense ratio": "(Programmatic expenses / Administrative expenses)",
+                "Overhead recovery rate (%)": "(Indirect cost recovered / Indirect cost incurred) * 100",
+                "Operating margin (%)": "((Total income - Total expenses) / Total income) * 100",
+                "Efficiency improvement rate (%)": "Year over year reduction in operational cost per output"
+            },
+
+            "Promote Financial Innovation": {
+                "New revenue channels created (#)": "Number of new fundraising or investment streams established",
+                "Digital fundraising contribution (%)": "(Online donations / Total donations) * 100",
+                "Social enterprise income ratio (%)": "(Revenue from income generating projects / Total funding) * 100",
+                "Funding success rate (%)": "(Approved funding applications / Total applications submitted) * 100"
+            },
+        },
+
+        # ---------------- 9. INVESTMENT MANAGEMENT & GROWTH ----------------
+        "Investment Management & Growth": {
+            "Enhance Investment Performance": {
+                "Portfolio ROI (%)": "(Total return / Total investment) * 100",
+                "Risk-adjusted returns": "Return per unit of risk",
+                "Investment diversification score": "Spread across asset classes and sectors",
+                "Alpha generation (%)": "Excess return over benchmark"
+            },
+            "Optimize Capital Allocation": {
+                "Return on invested capital (%)": "(NOPAT / Invested capital) * 100",
+                "Capital allocation efficiency": "Alignment with strategic priorities",
+                "Hurdle rate achievement (%)": "(Projects meeting targets / Total projects) * 100",
+                "Investment timing effectiveness": "Market entry and exit timing"
+            },
+            "Strengthen Strategic Investments": {
+                "Strategic alignment score": "Investment alignment with organizational goals",
+                "Long-term value creation": "Net present value of future benefits",
+                "Innovation investment ratio (%)": "(Innovation spending / Total investment) * 100",
+                "ESG investment performance": "Returns from sustainable investments"
+            },
+            "Improve Investment Decision Making": {
+                "Due diligence effectiveness": "Quality of investment analysis",
+                "Investment committee efficiency": "Speed and quality of decisions",
+                "Post-investment monitoring": "Ongoing performance tracking",
+                "Exit strategy success rate (%)": "(Successful exits / Total exits) * 100"
+            }
+        },
+
+        # ---------------- 10. POVERTY REDUCTION & SOCIAL EQUITY ----------------
+        "Poverty Reduction & Social Equity": {
+            "Reduce Income Poverty": {
+                "Households above poverty line (#)": "Number lifted out of poverty",
+                "Income inequality reduction (Gini)": "Improvement in income distribution",
+                "Living wage achievement rate (%)": "(Employees earning living wage / Total) * 100",
+                "Economic mobility index": "Ability to move between income levels"
+            },
+            "Enhance Access to Basic Services": {
+                "Basic service coverage (%)": "(Population with access / Total population) * 100",
+                "Affordability index": "Cost of basic services relative to income",
+                "Service quality improvement": "Quality metrics for essential services",
+                "Digital inclusion rate (%)": "(Population with digital access / Total) * 100"
+            },
+            "Promote Social Protection": {
+                "Social safety net coverage (%)": "(Protected population / Vulnerable population) * 100",
+                "Disaster resilience index": "Community ability to withstand shocks",
+                "Vulnerability reduction rate": "Decrease in at-risk populations",
+                "Social cohesion indicators": "Community trust and cooperation levels"
+            },
+            "Strengthen Gender & Social Inclusion": {
+                "Gender parity index": "Equality across gender indicators",
+                "Minority inclusion rate (%)": "(Representation in opportunities / Population share) * 100",
+                "Disability access improvement": "Accessibility for people with disabilities",
+                "Social equity achievement": "Reduction in discrimination and barriers"
+            }
+        },
+
+        # ---------------- 11. EMPLOYMENT GENERATION & WORKFORCE DEVELOPMENT ----------------
+        "Employment Generation & Workforce Development": {
+            "Create Quality Employment Opportunities": {
+                "Net jobs created (#)": "New employment opportunities generated",
+                "Employment growth rate (%)": "(Current employment - Previous) / Previous * 100",
+                "Job quality index": "Wages, benefits, and working conditions",
+                "Youth employment rate (%)": "(Employed youth / Total youth) * 100"
+            },
+            "Enhance Workforce Skills & Capabilities": {
+                "Skills development completion rate (%)": "(Trained individuals / Enrolled) * 100",
+                "Workforce productivity growth (%)": "Output per worker improvement",
+                "Technical certification rate (%)": "(Certified workers / Total workers) * 100",
+                "Digital literacy improvement": "Increase in technology skills"
+            },
+            "Promote Labor Market Inclusion": {
+                "Female employment rate (%)": "(Employed women / Working-age women) * 100",
+                "Disadvantaged group employment (#)": "Jobs for marginalized populations",
+                "Wage gap reduction (%)": "Closing of pay disparities",
+                "Workplace diversity index": "Representation across demographic groups"
+            },
+            "Strengthen Labor Market Efficiency": {
+                "Job matching efficiency": "Speed and quality of employment matches",
+                "Labor market information system": "Quality of employment data",
+                "Vocational training relevance": "Alignment with market needs",
+                "Employment retention rate (%)": "(Retained employees / Total employees) * 100"
+            }
+        },
+    },
 }

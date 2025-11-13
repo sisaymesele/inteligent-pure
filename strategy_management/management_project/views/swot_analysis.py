@@ -61,13 +61,12 @@ def swot_analysis_list(request):
         'permissions': permissions,
     })
 
-
 # -------------------- CREATE SWOT --------------------
 @login_required
 @role_required(['editor', 'owner', 'admin'], model_name='swot_analysis', action='create')
 def create_swot_analysis(request):
     if request.method == 'POST':
-        form = SwotAnalysisForm(request.POST)
+        form = SwotAnalysisForm(request.POST, request=request)  # Pass request here
         # Only save if the Save button is clicked
         if 'save' in request.POST and form.is_valid():
             swot_entry = form.save(commit=False)
@@ -76,7 +75,7 @@ def create_swot_analysis(request):
             messages.success(request, "SWOT entry created successfully!")
             return redirect('swot_analysis_list')
     else:
-        form = SwotAnalysisForm()
+        form = SwotAnalysisForm(request=request)  # Pass request here
 
     permissions = get_user_permissions(request.user)
 
@@ -94,7 +93,7 @@ def update_swot_analysis(request, pk):
     entry = get_object_or_404(SwotAnalysis, pk=pk, organization_name=request.user.organization_name)
 
     if request.method == 'POST':
-        form = SwotAnalysisForm(request.POST, instance=entry)
+        form = SwotAnalysisForm(request.POST, instance=entry, request=request)  # Pass request here
         if 'save' in request.POST and form.is_valid():
             form.save()
             messages.success(request, "SWOT entry updated successfully!")
@@ -102,7 +101,7 @@ def update_swot_analysis(request, pk):
         else:
             messages.error(request, "Error updating SWOT entry. Please check the form.")
     else:
-        form = SwotAnalysisForm(instance=entry)
+        form = SwotAnalysisForm(instance=entry, request=request)  # Pass request here
 
     permissions = get_user_permissions(request.user)
 
@@ -110,7 +109,6 @@ def update_swot_analysis(request, pk):
         'form': form,
         'permissions': permissions,
     })
-
 
 # -------------------- DELETE SWOT --------------------
 @login_required

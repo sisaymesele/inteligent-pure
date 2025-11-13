@@ -1,5 +1,11 @@
 from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
 from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
+from management_project.services.strategy_hierarchy.internal_process_perspective import (
+    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
+)
+from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
+    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
+)
 
 ICT_PERSPECTIVE = {
     "Financial Perspective": {
@@ -557,7 +563,7 @@ ICT_PERSPECTIVE = {
             },
         },
 
-         # -------------------- Telecom-specific Customer Focus --------------------
+        # -------------------- Telecom-specific Customer Focus --------------------
         "Telecom Service & Network Access": {
             "Increase Network Coverage": {
                 "Network coverage area (%)": "Covered geographic area / Total target area * 100",
@@ -588,6 +594,8 @@ ICT_PERSPECTIVE = {
 
     "Internal Process Perspective": {
 
+        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+
         # -------------------- Software Development & Deployment --------------------
         "Software Development & Deployment": {
 
@@ -612,26 +620,69 @@ ICT_PERSPECTIVE = {
                 "Open defect backlog (#)": "Number of unresolved defects at sprint end"
             },
 
-            "Strengthen Documentation & Knowledge Management": {
-                "Documentation completeness (%)": "(Completed documents / Total required documents) * 100",
-                "Knowledge base update frequency (per month)": "Number of updates per month",
-                "Team knowledge competency score": "Average internal training or assessment score",
-                "Documentation review compliance (%)": "(Reviewed documents / Total documents) * 100"
+            "Optimize Flow Efficiency & Throughput": {
+                "Lead Time (days)": "Average time from business requirement to production delivery",
+                "Cycle Time (days)": "Average time from first commit to production deployment",
+                "Deployment Frequency (#/week)": "Number of production deployments per week",
+                "Feature Throughput (#/sprint)": "Features delivered meeting definition of done"
             },
 
-            "Optimize Backlog & Prioritization Management": {
-                "Priority adherence rate (%)": "(Tasks delivered as per priority / Total tasks) * 100",
-                "Stakeholder request turnaround time (days)": "Average time to process stakeholder change requests",
-                "Backlog reduction rate (%)": "(Reduced items / Planned reduction) * 100",
-                "Cross-functional coordination score": "Qualitative score from retrospectives or surveys"
+            "Maximize Business Value Delivery": {
+                "Feature Adoption Rate (%)": "(Active feature users / Total active users) * 100",
+                "Business Objective Achievement (%)": "(Delivered features achieving business KPIs / Total features) * 100",
+                "Time-to-Value (days)": "Average time from project start to first measurable benefit",
+                "Digital Revenue Contribution (%)": "(Revenue from digital products / Total revenue) * 100"
             },
 
-            "Ensure Secure Development Lifecycle (SDLC)": {
-                "Security audit completion rate (%)": "(Completed audits / Planned audits) * 100",
-                "Average vulnerability patch time (hours)": "Average time to patch after detection",
-                "Secure coding compliance (%)": "(Compliant modules / Total reviewed modules) * 100",
-                "Security incident detection rate (%)": "(Detected incidents / Total incidents) * 100"
+            "Strengthen Predictability & Planning": {
+                "Forecast Accuracy (%)": "(Actual velocity / Forecasted velocity) * 100",
+                "Commitment Reliability (%)": "(Delivered scope / Committed scope) * 100",
+                "Unplanned Work Ratio (%)": "(Time spent on unplanned work / Total capacity) * 100",
+                "Scope Change Impact (%)": "(Scope added or removed / Original scope) * 100"
             },
+
+            "Improve Code Health & Maintainability": {
+                "Technical Debt Ratio (%)": "(Remediation cost / System cost) * 100",
+                "Code Health Index (0-100)": "Composite of maintainability, complexity, and coverage",
+                "Static Analysis Pass Rate (%)": "(Builds passing quality gates / Total builds) * 100",
+                "Architecture Compliance (%)": "(Components following standards / Total components) * 100"
+            },
+
+            "Enhance Production Stability & Performance": {
+                "System Availability (%)": "(Actual uptime / Planned uptime) * 100",
+                "Escaped Defect Rate (%)": "(Critical bugs in production / Total critical bugs) * 100",
+                "Incident Frequency (#/month)": "Number of production incidents requiring response",
+                "Performance SLO Compliance (%)": "(Met SLOs / Total defined SLOs) * 100"
+            },
+
+            "Boost Developer Productivity & Team Efficiency": {
+                "Developer Velocity Index": "Story points completed per developer normalized per sprint",
+                "Flow Efficiency (%)": "(Active coding time / Total cycle time) * 100",
+                "Code Review Turnaround (hours)": "Average time from PR submission to merge",
+                "Merge Frequency (#/day)": "Average number of merges to main branch per day"
+            },
+
+            "Enhance Process & Toolchain Efficiency": {
+                "Build Success Rate (%)": "(Successful builds / Total builds) * 100",
+                "CI Feedback Time (minutes)": "Average time from commit to CI result feedback",
+                "Environment Availability (%)": "(Available dev/test environments / Total required) * 100",
+                "Dependency Resolution Time (hours)": "Average time to resolve cross-team dependencies"
+            },
+
+            "Strengthen Security & Compliance": {
+                "Mean Time to Patch (days)": "Average time to remediate critical vulnerabilities",
+                "Vulnerability Density (#/kLOC)": "Security issues per thousand lines of code",
+                "Dependency Risk Score": "Composite risk score from third-party libraries",
+                "Security Test Coverage (%)": "(Security tests executed / Total required security tests) * 100"
+            },
+
+            "Strengthen Team Health & Learning": {
+                "Team Health Score (1-10)": "Composite of morale, collaboration, and motivation",
+                "Cross-functional Collaboration (%)": "(Team members contributing across domains / Total) * 100",
+                "Knowledge Sharing Sessions (#/quarter)": "Number of internal learning or mentoring events",
+                "Onboarding Efficiency (days)": "Average days for a new developer to make first production commit"
+            },
+
         },
 
         # -------------------- IT Infrastructure Management --------------------
@@ -1211,5 +1262,9 @@ ICT_PERSPECTIVE = {
                 "Behavior audit compliance (%)": "(Compliant / Audited activities) * 100"
             }
         },
+    },
+
+    "Learning & Growth Perspective": {
+        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
     },
 }

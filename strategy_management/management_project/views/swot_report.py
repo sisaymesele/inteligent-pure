@@ -76,8 +76,6 @@ def swot_report_list(request):
         "permissions": permissions,
     })
 
-# -------------------- CREATE SWOT --------------------
-
 
 # -------------------- CREATE SWOT --------------------
 @login_required
@@ -88,7 +86,7 @@ def create_swot_report(request):
     latest_cycle = StrategicCycle.objects.filter(organization_name=org).order_by('-start_date').first()
 
     if request.method == 'POST':
-        form = SwotReportForm(request.POST, request=request)
+        form = SwotReportForm(request.POST, request=request)  # Pass request here
         if 'save' in request.POST and form.is_valid():
             swot_entry = form.save(commit=False)
             swot_entry.organization_name = org
@@ -100,7 +98,7 @@ def create_swot_report(request):
             return redirect('swot_report_list')
 
     else:
-        form = SwotReportForm(request=request)
+        form = SwotReportForm(request=request)  # Pass request here
         if latest_cycle:
             form.fields['strategic_report_period'].initial = latest_cycle
 
@@ -122,21 +120,20 @@ def update_swot_report(request, pk):
     )
 
     if request.method == 'POST':
-        form = SwotReportForm(request.POST, instance=entry, request=request)
+        form = SwotReportForm(request.POST, instance=entry, request=request)  # Pass request here
         if 'save' in request.POST and form.is_valid():
             form.save()
             messages.success(request, "SWOT entry updated successfully!")
             return redirect('swot_report_list')
 
     else:
-        form = SwotReportForm(instance=entry, request=request)
+        form = SwotReportForm(instance=entry, request=request)  # Pass request here
 
     permissions = get_user_permissions(request.user)
     return render(request, 'swot_report/form.html', {
         'form': form,
         'permissions': permissions,
     })
-
 
 # -------------------- DELETE SWOT --------------------
 @login_required
