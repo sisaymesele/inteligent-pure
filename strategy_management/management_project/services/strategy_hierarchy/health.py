@@ -1,17 +1,12 @@
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
-from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import (
-    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
-)
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
-    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
-)
+
+from management_project.services.strategy_hierarchy.default import DEFAULT_PERSPECTIVE
+
 
 HEALTH_PERSPECTIVE = {
     "Financial Perspective": {
         # ==================== HEALTHCARE  ====================
         # ---------------- Core Generic Financial Objectives ----------------
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
+        **DEFAULT_PERSPECTIVE["Financial Perspective"],
 
         # ==================== 1. Healthcare Revenue Growth & Funding ====================
         "Healthcare Revenue Growth & Funding": {
@@ -259,7 +254,7 @@ HEALTH_PERSPECTIVE = {
     " Customer Perspective": {
 
         # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
-        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        **DEFAULT_PERSPECTIVE["Customer Perspective"],
         # =========================================================
         # Access to Care
         # =========================================================
@@ -682,7 +677,7 @@ HEALTH_PERSPECTIVE = {
 
     "Internal Process Perspective": {
 
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+        **DEFAULT_PERSPECTIVE["Internal Process Perspective"],
 
         # -------------------- 1. Clinical Services --------------------
         "Clinical Services": {
@@ -1174,7 +1169,7 @@ HEALTH_PERSPECTIVE = {
     },
 
     "Learning & Growth Perspective": {
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+        **DEFAULT_PERSPECTIVE["Learning & Growth Perspective"],
     },
 
 }

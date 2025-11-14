@@ -1,20 +1,12 @@
 
 
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
-from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import (
-    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
-)
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
-    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
-)
-
+from management_project.services.strategy_hierarchy.default import DEFAULT_PERSPECTIVE
 
 
 ENERGY_PERSPECTIVE = {
     # ---------------- FINANCIAL PERSPECTIVE ----------------
     "Financial Perspective": {
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
+        **DEFAULT_PERSPECTIVE["Financial Perspective"],
 
         "Economic Development & GDP Contribution of Energy": {
             "Increase Local Employment": {
@@ -58,7 +50,7 @@ ENERGY_PERSPECTIVE = {
 
     # ---------------- CUSTOMER PERSPECTIVE ----------------
     "Customer Perspective": {
-        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        **DEFAULT_PERSPECTIVE["Customer Perspective"],
 
         "Energy Access & Reliability": {
             "Expand electricity access to rural areas": {
@@ -219,7 +211,7 @@ ENERGY_PERSPECTIVE = {
 
     "Internal Process Perspective": {
 
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+        **DEFAULT_PERSPECTIVE["Internal Process Perspective"],
 
         # -------------------- 1. Energy Generation & Supply Optimization --------------------
         "Energy Generation & Supply Optimization": {
@@ -430,7 +422,7 @@ ENERGY_PERSPECTIVE = {
     },
 
     "Learning & Growth Perspective": {
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+        **DEFAULT_PERSPECTIVE["Learning & Growth Perspective"],
     },
 
 }

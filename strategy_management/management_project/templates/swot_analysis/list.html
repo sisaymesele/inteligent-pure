@@ -44,9 +44,8 @@
             <form method="get"
                   hx-get="{% url 'swot_analysis_list' %}"
                   hx-target="#full-page-container"
-                  hx-include="this"
-                  hx-trigger="change, keyup delay:600ms from:input[name='search']"
-                  class="d-inline-flex gap-2">
+                  hx-trigger="change from:select[name='swot_type'], keyup delay:600ms from:input[name='search']"
+                  class="d-inline-flex gap-2 align-items-center">
 
                 <!-- SWOT Type Dropdown -->
                 <select name="swot_type" class="form-select" style="max-width: 220px;">
@@ -66,7 +65,7 @@
                        value="{{ search_query|default_if_none:'' }}"
                        style="max-width: 220px;">
 
-                <!-- Clear Filters -->
+                <!-- Clear Filters Button - Always visible when filters are active -->
                 {% if selected_type or search_query %}
                     <a href="{% url 'swot_analysis_list' %}"
                        class="btn btn-outline-secondary"
@@ -108,6 +107,13 @@
             <strong>Filtered by:</strong>
             {% if selected_type %}SWOT Type: {{ selected_type }}{% endif %}
             {% if search_query %} | Search: "{{ search_query }}"{% endif %}
+            <a href="{% url 'swot_analysis_list' %}"
+               class="btn btn-sm btn-outline-secondary ms-2"
+               hx-get="{% url 'swot_analysis_list' %}"
+               hx-target="#full-page-container"
+               hx-swap="innerHTML">
+                Clear all
+            </a>
         </div>
     {% endif %}
 
@@ -285,4 +291,18 @@
     .btn-group { white-space: nowrap; }
     thead.sticky-top th { background: #f8f9fa; z-index: 2; }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Prevent form submission when pressing enter in search input
+    const searchInput = document.querySelector('input[name="search"]');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
 {% endblock content %}

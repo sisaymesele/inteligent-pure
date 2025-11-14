@@ -1,15 +1,10 @@
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
-from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import (
-    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
-)
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
-    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
-)
+
+from management_project.services.strategy_hierarchy.default import DEFAULT_PERSPECTIVE
+
 
 EDUCATION_PERSPECTIVE = {
     "Financial Perspective": {
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
+        **DEFAULT_PERSPECTIVE["Financial Perspective"],
         # ==================== 1. EDUCATION REVENUE GROWTH & DIVERSIFICATION ====================
         "Education Revenue Growth & Diversification": {
             "Increase Tuition and Fee Income": {
@@ -221,7 +216,7 @@ EDUCATION_PERSPECTIVE = {
     },
     "Customer Perspective": {
 
-        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        **DEFAULT_PERSPECTIVE["Customer Perspective"],
 
         "Access & Enrollment": {
             "Increase overall student enrollment": {
@@ -677,7 +672,7 @@ EDUCATION_PERSPECTIVE = {
 
     "Internal Process Perspective": {
 
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+        **DEFAULT_PERSPECTIVE["Internal Process Perspective"],
 
         # -------------------- Curriculum Development & Design --------------------
         "Curriculum Development & Design": {
@@ -1252,6 +1247,6 @@ EDUCATION_PERSPECTIVE = {
     },
 
     "Learning & Growth Perspective": {
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+        **DEFAULT_PERSPECTIVE["Learning & Growth Perspective"],
     },
 }

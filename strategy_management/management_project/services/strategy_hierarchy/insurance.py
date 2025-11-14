@@ -1,14 +1,11 @@
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
-from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import \
-    GENERIC_INTERNAL_PROCESS_PERSPECTIVE
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import \
-    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE
+
+from management_project.services.strategy_hierarchy.default import DEFAULT_PERSPECTIVE
+
 
 INSURANCE_PERSPECTIVE = {
     "Financial Perspective": {
 
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
+        **DEFAULT_PERSPECTIVE["Financial Perspective"],
 
         "Insurance Revenue Growth & Diversification": {
             "Increase premium income from life insurance": {
@@ -371,7 +368,7 @@ INSURANCE_PERSPECTIVE = {
 
     "Customer Perspective": {
 
-        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        **DEFAULT_PERSPECTIVE["Customer Perspective"],
 
         # ---------------- Policyholder Acquisition & Market Reach ----------------
         "Policyholder Acquisition & Market Reach": {
@@ -522,9 +519,9 @@ INSURANCE_PERSPECTIVE = {
         }
     },
 
-    "Internal_Process_Perspective": {
+    "Internal Process Perspective": {
 
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+        **DEFAULT_PERSPECTIVE["Internal Process Perspective"],
 
         # -------------------- Actuarial (Pricing & Risk Analysis) --------------------
 
@@ -853,7 +850,7 @@ INSURANCE_PERSPECTIVE = {
 
     "Learning & Growth Perspective": {
 
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+        **DEFAULT_PERSPECTIVE["Learning & Growth Perspective"],
 
     },
 }

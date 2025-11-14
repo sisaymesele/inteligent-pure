@@ -1,16 +1,11 @@
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
-from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import (
-    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
-)
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
-    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
-)
+
+from management_project.services.strategy_hierarchy.default import DEFAULT_PERSPECTIVE
+
 
 HOSPITALITY_AND_TOURISM_PERSPECTIVE = {
     "Financial Perspective": {
         # Core generic financial objectives
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
+        **DEFAULT_PERSPECTIVE["Financial Perspective"],
 
         # ==================== 1. Hospitality Revenue Growth & Funding ====================
         "Hospitality Revenue Growth & Funding": {
@@ -127,7 +122,7 @@ HOSPITALITY_AND_TOURISM_PERSPECTIVE = {
     "Customer Perspective": {
 
         # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
-        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        **DEFAULT_PERSPECTIVE["Customer Perspective"],
         "Customer Experience & Satisfaction": {
             "Enhance overall guest satisfaction": {
                 "Guest satisfaction score (1–5)": "Average survey rating",
@@ -287,7 +282,7 @@ HOSPITALITY_AND_TOURISM_PERSPECTIVE = {
 
     "Internal Process Perspective": {
 
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+        **DEFAULT_PERSPECTIVE["Internal Process Perspective"],
 
         # -------------------- 1. Front Office & Guest Services --------------------
         "Front Office & Guest Services": {
@@ -611,7 +606,7 @@ HOSPITALITY_AND_TOURISM_PERSPECTIVE = {
     },
 
     "Learning & Growth Perspective": {
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+        **DEFAULT_PERSPECTIVE["Learning & Growth Perspective"],
     },
 
 }

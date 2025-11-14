@@ -12,9 +12,9 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 from django.db.models import Count
 import plotly.graph_objects as go
+from django.utils import timezone
 
 
-# -------------------- SWOT LIST --------------------
 @login_required
 @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_analysis', action='view')
 def swot_analysis_list(request):
@@ -27,7 +27,7 @@ def swot_analysis_list(request):
         organization_name=request.user.organization_name
     )
 
-    # Filter by SWOT type
+    # Filter by SWOT type if selected
     if selected_type:
         swots = swots.filter(swot_type=selected_type)
 
@@ -40,15 +40,30 @@ def swot_analysis_list(request):
             Q(description__icontains=query)
         )
 
-    # Ordering
-    swots = swots.order_by('swot_type', 'priority', '-created_at')
+    # Convert queryset to list for custom sorting
+    swots_list = list(swots)
+
+    # Define custom orderings
+    swot_type_order = {'Strength': 1, 'Weakness': 2, 'Opportunity': 3, 'Threat': 4}
+    priority_order = {'High': 1, 'Medium': 2, 'Low': 3}
+    impact_order = {'High': 1, 'Medium': 2, 'Low': 3}
+    likelihood_order = {'Almost Certain': 1, 'Likely': 2, 'Possible': 3, 'Unlikely': 4}
+
+    # Sort list
+    swots_list.sort(key=lambda x: (
+        swot_type_order.get(x.swot_type, 5),
+        priority_order.get(x.priority, 99),
+        impact_order.get(x.impact, 99),
+        likelihood_order.get(x.likelihood, 99),
+        -x.created_at.timestamp()  # newest first
+    ))
+
+    # Pagination
+    paginator = Paginator(swots_list, 10)
+    page_obj = paginator.get_page(page_number)
 
     # Provide SWOT types for dropdown filter
     swot_types = [choice[0] for choice in SwotAnalysis.SWOT_TYPES]
-
-    # Pagination
-    paginator = Paginator(swots, 10)
-    page_obj = paginator.get_page(page_number)
 
     permissions = get_user_permissions(request.user)
 
@@ -60,6 +75,8 @@ def swot_analysis_list(request):
         'selected_type': selected_type,
         'permissions': permissions,
     })
+
+
 
 # -------------------- CREATE SWOT --------------------
 @login_required
@@ -110,6 +127,7 @@ def update_swot_analysis(request, pk):
         'permissions': permissions,
     })
 
+
 # -------------------- DELETE SWOT --------------------
 @login_required
 @role_required(['owner', 'admin'], model_name='swot_analysis', action='delete')
@@ -133,7 +151,10 @@ def delete_swot_analysis(request, pk):
     })
 
 
+
 # -------------------- EXPORT SWOT TO EXCEL --------------------
+
+
 @login_required
 @role_required(['viewer', 'editor', 'owner', 'admin'], model_name='swot_analysis', action='view')
 def export_swot_analysis_to_excel(request):
@@ -151,55 +172,147 @@ def export_swot_analysis_to_excel(request):
         swots = swots.filter(swot_type=selected_type)
     if query:
         search_filter = (
-            Q(swot_type__icontains=query) |
-            Q(swot_pillar__icontains=query) |
-            Q(swot_factor__icontains=query) |
-            Q(description__icontains=query)
+                Q(swot_type__icontains=query) |
+                Q(swot_pillar__icontains=query) |
+                Q(swot_factor__icontains=query) |
+                Q(description__icontains=query)
         )
         swots = swots.filter(search_filter)
+
+    # Convert queryset to list for custom sorting (SAME ORDERING AS LIST VIEW)
+    swots_list = list(swots)
+
+    # Define custom orderings (SAME AS LIST VIEW)
+    swot_type_order = {'Strength': 1, 'Weakness': 2, 'Opportunity': 3, 'Threat': 4}
+    priority_order = {'Very High': 1, 'High': 2, 'Medium': 3, 'Low': 4, 'Very Low': 5}
+    impact_order = {'Very High': 1, 'High': 2, 'Medium': 3, 'Low': 4, 'Very Low': 5}
+    likelihood_order = {'Almost Certain': 1, 'Likely': 2, 'Possible': 3, 'Unlikely': 4, 'Rare': 5}
+
+    # Sort list (SAME LOGIC AS LIST VIEW)
+    swots_list.sort(key=lambda x: (
+        swot_type_order.get(x.swot_type, 5),
+        priority_order.get(x.priority, 99),
+        impact_order.get(x.impact, 99),
+        likelihood_order.get(x.likelihood, 99),
+        -x.created_at.timestamp()  # newest first
+    ))
 
     # Create workbook
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "SWOT Analysis"
 
-    # Styles
-    title_font = Font(size=14, bold=True, color="FFFFFF")
-    header_font = Font(bold=True, color="FFFFFF")
-    title_fill = PatternFill(start_color="4F81BD", end_color="4F81BD", fill_type="solid")
-    header_fill = PatternFill(start_color="4BACC6", end_color="4BACC6", fill_type="solid")
-    border = Border(
-        left=Side(style='thin'),
-        right=Side(style='thin'),
-        top=Side(style='thin'),
-        bottom=Side(style='thin')
+    # MATCHED COLOR SCHEME (Same as Web Template)
+    COLORS = {
+        # SWOT Types (Matches your badge colors)
+        'strength_bg': '28A745',  # bg-success - Green
+        'weakness_bg': 'DC3545',  # bg-danger - Red
+        'opportunity_bg': 'FFC107',  # bg-warning - Amber/Yellow
+        'threat_bg': '343A40',  # bg-dark - Dark Gray
+
+        # Priority Levels (Matches your badge colors)
+        'very_high_priority': 'DC3545',  # bg-danger - Red
+        'high_priority': 'FFC107',  # bg-warning - Amber/Yellow
+        'medium_priority': '007BFF',  # bg-primary - Blue
+        'low_priority': '28A745',  # bg-success - Green
+        'very_low_priority': '17A2B8',  # bg-info - Light Blue
+
+        # Impact Levels (Same as Priority for consistency)
+        'very_high_impact': 'DC3545',  # bg-danger - Red
+        'high_impact': 'FFC107',  # bg-warning - Amber/Yellow
+        'medium_impact': '007BFF',  # bg-primary - Blue
+        'low_impact': '28A745',  # bg-success - Green
+        'very_low_impact': '17A2B8',  # bg-info - Light Blue
+
+        # Likelihood Levels
+        'almost_certain': 'DC3545',  # bg-danger - Red
+        'likely': 'FFC107',  # bg-warning - Amber/Yellow
+        'possible': '007BFF',  # bg-primary - Blue
+        'unlikely': '28A745',  # bg-success - Green
+        'rare': '17A2B8',  # bg-info - Light Blue
+
+        # Layout Colors
+        'title_bg': '2C3E50',
+        'header_bg': '34495E',
+        'alt_row1': 'F8F9FA',
+        'alt_row2': 'E9ECEF',
+        'border': 'BDC3C7',
+    }
+
+    # Font Styles with optimized text colors
+    title_font = Font(size=16, bold=True, color="FFFFFF", name='Calibri')
+    header_font = Font(size=14, bold=True, color="FFFFFF", name='Calibri')
+    data_font = Font(size=13, color="2C3E50", name='Calibri')
+    white_font = Font(size=13, bold=True, color="FFFFFF", name='Calibri')
+    dark_font = Font(size=13, bold=True, color="000000", name='Calibri')  # For light backgrounds
+    meta_font = Font(size=10, italic=True, color="7F8C8D", name='Calibri')  # Increased size for metadata
+
+    # Fills
+    title_fill = PatternFill(start_color=COLORS['title_bg'], end_color=COLORS['title_bg'], fill_type="solid")
+    header_fill = PatternFill(start_color=COLORS['header_bg'], end_color=COLORS['header_bg'], fill_type="solid")
+    alt_fill1 = PatternFill(start_color=COLORS['alt_row1'], end_color=COLORS['alt_row1'], fill_type="solid")
+    alt_fill2 = PatternFill(start_color=COLORS['alt_row2'], end_color=COLORS['alt_row2'], fill_type="solid")
+    meta_fill = PatternFill(start_color="ECF0F1", end_color="ECF0F1", fill_type="solid")
+
+    # Border
+    elegant_border = Border(
+        left=Side(style='thin', color=COLORS['border']),
+        right=Side(style='thin', color=COLORS['border']),
+        top=Side(style='thin', color=COLORS['border']),
+        bottom=Side(style='thin', color=COLORS['border'])
     )
 
     # Title row
     total_columns = 9
     ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=total_columns)
     title_cell = ws.cell(row=1, column=1)
-    title_cell.value = "SWOT Analysis Report"
+    title_cell.value = "SWOT ANALYSIS RESULT"
     title_cell.font = title_font
-    title_cell.alignment = Alignment(horizontal="center", vertical="center")
+    title_cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
     title_cell.fill = title_fill
+    ws.row_dimensions[1].height = 35
+
+    # FIXED: Metadata row with better text handling
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=total_columns)
+    meta_cell = ws.cell(row=2, column=1)
+
+    # Create metadata text
+    record_count = len(swots_list)
+    generated_date = timezone.now().strftime('%B %d, %Y at %H:%M:%S')
+    meta_text = f"Generated on {generated_date} | Total Records: {record_count}"
+
+    meta_cell.value = meta_text
+    meta_cell.font = meta_font
+    meta_cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)  # Added wrap_text
+    meta_cell.fill = meta_fill
+    meta_cell.border = elegant_border
+
+    # FIXED: Increased metadata row height to prevent text hiding
+    ws.row_dimensions[2].height = 30  # Increased from 22 to 30
 
     # Header row
     headers = [
-        "SWOT Type", "Pillar", "Factor", "Description",
-        "Priority", "Impact", "Likelihood",
-        "Created At", "Updated At"
+        "SWOT Type", "Strategic Pillar", "Key Factor", "Detailed Description",
+        "Priority Level", "Impact Score", "Likelihood",
+        "Created Date", "Last Updated"
     ]
+
     for col_num, header in enumerate(headers, 1):
-        cell = ws.cell(row=2, column=col_num)
+        cell = ws.cell(row=3, column=col_num)
         cell.value = header
         cell.font = header_font
         cell.fill = header_fill
-        cell.alignment = Alignment(horizontal="center", vertical="center")
-        cell.border = border
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        cell.border = elegant_border
+    ws.row_dimensions[3].height = 35
 
-    # Data rows
-    for row_num, swot in enumerate(swots, start=3):
+    # Data rows with optimized color coding and text handling
+    # USING THE SORTED swots_list INSTEAD OF ORIGINAL swots QUERYSET
+    for row_num, swot in enumerate(swots_list, start=4):
+        # Format dates
+        created_date = swot.created_at.strftime("%B, %Y") if swot.created_at else ""
+        updated_date = swot.updated_at.strftime("%B, %Y") if swot.updated_at else ""
+
         row_data = [
             swot.swot_type,
             swot.swot_pillar,
@@ -208,29 +321,180 @@ def export_swot_analysis_to_excel(request):
             swot.priority,
             swot.impact,
             swot.likelihood or "",
-            swot.created_at.strftime("%Y-%m-%d %H:%M"),
-            swot.updated_at.strftime("%Y-%m-%d %H:%M"),
+            created_date,
+            updated_date,
         ]
+
+        # Alternate row colors
+        row_fill = alt_fill1 if row_num % 2 == 0 else alt_fill2
+
+        # FIXED: Improved dynamic row height calculation
+        base_height = 25
+        description = str(swot.description or "")
+        pillar = str(swot.swot_pillar or "")
+        factor = str(swot.swot_factor or "")
+
+        # Calculate lines needed for each field
+        max_lines = 1
+
+        # Description field (column 4) - more generous line calculation
+        if description:
+            # Use 55 characters per line for description (reduced from 60)
+            desc_lines = (len(description) // 55) + 1
+            max_lines = max(max_lines, min(desc_lines, 10))  # Cap at 10 lines
+
+        # Pillar field (column 2)
+        if pillar:
+            pillar_lines = (len(pillar) // 25) + 1  # Reduced from 30
+            max_lines = max(max_lines, min(pillar_lines, 5))
+
+        # Factor field (column 3)
+        if factor:
+            factor_lines = (len(factor) // 25) + 1  # Reduced from 30
+            max_lines = max(max_lines, min(factor_lines, 5))
+
+        # Calculate dynamic height with better minimum handling
+        dynamic_height = 25 + (max(1, max_lines) - 1) * 14  # Reduced line spacing from 15 to 14
+        base_height = min(max(dynamic_height, 25), 100)  # Ensure minimum 25, maximum 100
+
         for col_num, value in enumerate(row_data, 1):
             cell = ws.cell(row=row_num, column=col_num)
             cell.value = value
-            cell.alignment = Alignment(wrap_text=True, vertical="top")
-            cell.border = border
+            cell.font = data_font
+            cell.fill = row_fill
+            cell.border = elegant_border
 
-    # Auto-adjust column widths (skip merged cells)
+            # FIXED: Improved alignment with better text handling
+            cell.alignment = Alignment(
+                wrap_text=True,
+                vertical="top",
+                horizontal="left",
+                shrink_to_fit=False
+            )
+
+            # OPTIMIZED COLOR CODING (Matches Web Template)
+
+            # Column 1: SWOT Type
+            if col_num == 1:
+                swot_type_colors = {
+                    'Strength': COLORS['strength_bg'],
+                    'Weakness': COLORS['weakness_bg'],
+                    'Opportunity': COLORS['opportunity_bg'],
+                    'Threat': COLORS['threat_bg'],
+                }
+                color = swot_type_colors.get(str(value).strip(), None)
+                if color:
+                    # Use white text for dark backgrounds, black text for light backgrounds
+                    if value == 'Opportunity':  # Yellow background
+                        cell.font = dark_font
+                    else:  # Green, Red, Dark backgrounds
+                        cell.font = white_font
+                    cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+                cell.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
+
+            # Column 5: Priority
+            elif col_num == 5:
+                priority_colors = {
+                    'Very High': COLORS['very_high_priority'],
+                    'High': COLORS['high_priority'],
+                    'Medium': COLORS['medium_priority'],
+                    'Low': COLORS['low_priority'],
+                    'Very Low': COLORS['very_low_priority'],
+                }
+                color = priority_colors.get(str(value).strip(), None)
+                if color:
+                    # Use white text for dark backgrounds, black text for light backgrounds
+                    if value in ['High']:  # Yellow background
+                        cell.font = dark_font
+                    else:  # Red, Blue, Green, Light Blue backgrounds
+                        cell.font = white_font
+                    cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+                cell.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
+
+            # Column 6: Impact
+            elif col_num == 6:
+                impact_colors = {
+                    'Very High': COLORS['very_high_impact'],
+                    'High': COLORS['high_impact'],
+                    'Medium': COLORS['medium_impact'],
+                    'Low': COLORS['low_impact'],
+                    'Very Low': COLORS['very_low_impact'],
+                }
+                color = impact_colors.get(str(value).strip(), None)
+                if color:
+                    if value in ['High']:  # Yellow background
+                        cell.font = dark_font
+                    else:
+                        cell.font = white_font
+                    cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+                cell.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
+
+            # Column 7: Likelihood
+            elif col_num == 7:
+                likelihood_colors = {
+                    'Almost Certain': COLORS['almost_certain'],
+                    'Likely': COLORS['likely'],
+                    'Possible': COLORS['possible'],
+                    'Unlikely': COLORS['unlikely'],
+                    'Rare': COLORS['rare'],
+                }
+                color = likelihood_colors.get(str(value).strip(), None)
+                if color:
+                    if value in ['Likely']:  # Yellow background
+                        cell.font = dark_font
+                    else:
+                        cell.font = white_font
+                    cell.fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+                cell.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
+
+            # Columns 8 & 9: Dates - center align
+            elif col_num in [8, 9]:
+                cell.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
+
+        # Set row height
+        ws.row_dimensions[row_num].height = base_height
+
+    # FIXED: Adjusted column widths for better text visibility
+    column_widths = {
+        1: 16,  # SWOT Type (increased from 14)
+        2: 28,  # Strategic Pillar (increased from 25)
+        3: 28,  # Key Factor (increased from 25)
+        4: 55,  # Detailed Description (increased from 50)
+        5: 16,  # Priority Level (increased from 14)
+        6: 16,  # Impact Score (increased from 14)
+        7: 18,  # Likelihood (increased from 16)
+        8: 18,  # Created Date (increased from 16)
+        9: 18,  # Last Updated (increased from 16)
+    }
+
     for i, col in enumerate(ws.columns, 1):
         max_length = 0
+        column_letter = get_column_letter(i)
+
         for cell in col:
             if cell.value:
-                max_length = max(max_length, len(str(cell.value)))
-        column_letter = get_column_letter(i)
-        ws.column_dimensions[column_letter].width = max_length + 5
+                text = str(cell.value)
+                # More conservative line length calculation
+                if len(text) > 45:
+                    avg_line_length = 45
+                    max_length = max(max_length, avg_line_length)
+                else:
+                    max_length = max(max_length, len(text))
+
+        preferred_width = column_widths.get(i, min(max_length + 4, 65))  # Increased max width
+        ws.column_dimensions[column_letter].width = preferred_width
+
+    # Freeze panes and add auto-filter
+    ws.freeze_panes = "A4"
+    if swots_list:  # Use swots_list instead of swots
+        ws.auto_filter.ref = f"A3:{get_column_letter(total_columns)}{3 + len(swots_list)}"
 
     # Prepare response
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
-    response['Content-Disposition'] = 'attachment; filename=SWOT_Analysis_Report.xlsx'
+    response[
+        'Content-Disposition'] = f'attachment; filename="SWOT_Analysis_Result_{timezone.now().strftime("%B_%Y")}.xlsx"'
     wb.save(response)
     return response
 

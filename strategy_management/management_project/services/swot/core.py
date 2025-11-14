@@ -2,18 +2,23 @@
 
 from management_project.services.swot.agriculture import AGRICULTURE_SWOT
 from management_project.services.swot.banking import BANKING_SWOT
-
+from management_project.services.swot.education import EDUCATION_SWOT
+from management_project.services.swot.health import HEALTH_SWOT
 from management_project.services.swot.ict import ICT_SWOT
+from management_project.services.swot.insurance import INSURANCE_SWOT
+
 from management_project.services.swot.default import DEFAULT_SWOT
 
 class SwotHierarchyChoiceService:
     # Define sector-specific SWOT hierarchies
+
     SECTOR_MAP = {
         "agriculture": AGRICULTURE_SWOT,
         "banking": BANKING_SWOT,
-
+        "education": EDUCATION_SWOT,
+        "health": HEALTH_SWOT,
         "ict": ICT_SWOT,
-
+        "insurance": INSURANCE_SWOT,
     }
 
     def get_sector_hierarchy(self, sector):

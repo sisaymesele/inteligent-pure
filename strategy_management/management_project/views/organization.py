@@ -69,7 +69,7 @@ def create_organizational_profile(request):
         'permissions': permissions,
         'edit_mode': False,
     }
-    return render(request, 'organizational_profile/form.html', context)
+    return render(request, 'organizational_profile/create_form.html', context)
 
 
 # --------------------
@@ -101,7 +101,7 @@ def update_organizational_profile(request, pk):
         'edit_mode': True,
         'editing_profile': organizational_profile,
     }
-    return render(request, 'organizational_profile/form.html', context)
+    return render(request, 'organizational_profile/update_form.html', context)
 
 
 # --------------------

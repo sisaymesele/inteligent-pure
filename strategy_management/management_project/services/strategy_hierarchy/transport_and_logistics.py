@@ -1,18 +1,12 @@
 
 
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
-from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import (
-    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
-)
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
-    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
-)
+from management_project.services.strategy_hierarchy.default import DEFAULT_PERSPECTIVE
+
 
 TRANSPORT_AND_LOGISTICS_PERSPECTIVE = {
     "Financial Perspective": {
         # -------------------- Generic Finance --------------------
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
+        **DEFAULT_PERSPECTIVE["Financial Perspective"],
 
         # -------------------- Route Revenue & Profitability Management --------------------
         "Route Revenue & Profitability Management": {
@@ -156,7 +150,7 @@ TRANSPORT_AND_LOGISTICS_PERSPECTIVE = {
     },
 
 "Customer Perspective": {
-        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        **DEFAULT_PERSPECTIVE["Customer Perspective"],
 
         # -------------------- 1. Accessibility & Connectivity --------------------
         "Accessibility & Connectivity": {
@@ -356,10 +350,10 @@ TRANSPORT_AND_LOGISTICS_PERSPECTIVE = {
     },
 
     "Internal Process Perspective": {
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+        **DEFAULT_PERSPECTIVE["Internal Process Perspective"],
     },
     "Learning & Growth Perspective": {
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+        **DEFAULT_PERSPECTIVE["Learning & Growth Perspective"],
     },
 
 }

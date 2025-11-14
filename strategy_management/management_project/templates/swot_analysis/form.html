@@ -33,25 +33,6 @@
             {% endfor %}
         {% endif %}
 
-        <!-- Form Errors -->
-        {% if form.errors %}
-        <div class="col-12">
-            <div class="alert alert-danger">
-                <strong>Please correct the errors below:</strong>
-                <ul class="mb-0 mt-2">
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li>{{ field.label }}: {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        {% endif %}
-
         <!-- SWOT Type -->
         <div class="col-md-4">
             <label for="swot_type" class="form-label fw-semibold">
@@ -63,8 +44,7 @@
                     hx-target="#full-page-container"
                     hx-swap="innerHTML">
                 {% for value, label in form.fields.swot_type.choices %}
-                    <option value="{{ value }}"
-                        {% if value == form.data.swot_type|default_if_none:form.instance.swot_type %}selected{% endif %}>
+                    <option value="{{ value }}" {% if value == form.data.swot_type|default_if_none:form.instance.swot_type %}selected{% endif %}>
                         {{ label }}
                     </option>
                 {% endfor %}

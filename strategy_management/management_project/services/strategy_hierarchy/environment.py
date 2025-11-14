@@ -1,19 +1,11 @@
 
-
-from management_project.services.strategy_hierarchy.finance_perspective import GENERIC_FINANCE_PERSPECTIVE
-from management_project.services.strategy_hierarchy.customer_perspective import GENERIC_CUSTOMER_PERSPECTIVE
-from management_project.services.strategy_hierarchy.internal_process_perspective import (
-    GENERIC_INTERNAL_PROCESS_PERSPECTIVE,
-)
-from management_project.services.strategy_hierarchy.learning_and_growth_perspective import (
-    GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE,
-)
+from management_project.services.strategy_hierarchy.default import DEFAULT_PERSPECTIVE
 
 
 ENVIRONMENT_PERSPECTIVE = {
     "Financial Perspective": {
         # Core generic financial objectives
-        **GENERIC_FINANCE_PERSPECTIVE["Financial Perspective"],
+        **DEFAULT_PERSPECTIVE["Financial Perspective"],
 
         # ==================== 1. Environmental Revenue Growth & Funding ====================
         "Environmental Revenue Growth & Funding": {
@@ -259,7 +251,7 @@ ENVIRONMENT_PERSPECTIVE = {
     "Customer Perspective": {
 
         # ---------------- GENERIC CUSTOMER PERSPECTIVE ----------------
-        **GENERIC_CUSTOMER_PERSPECTIVE["Customer Perspective"],
+        **DEFAULT_PERSPECTIVE["Customer Perspective"],
 
         # ---------------- ENERGY SECTOR SPECIFIC ----------------
 
@@ -462,7 +454,7 @@ ENVIRONMENT_PERSPECTIVE = {
 
     "Internal Process Perspective": {
 
-        **GENERIC_INTERNAL_PROCESS_PERSPECTIVE["Internal Process Perspective"],
+        **DEFAULT_PERSPECTIVE["Internal Process Perspective"],
 
         # -------------------- 1. Environmental Compliance & Governance --------------------
         "Environmental Compliance & Governance": {
@@ -706,7 +698,7 @@ ENVIRONMENT_PERSPECTIVE = {
     },
 
     "Learning & Growth Perspective": {
-        **GENERIC_LEARNING_AND_GROWTH_PERSPECTIVE["Learning & Growth Perspective"],
+        **DEFAULT_PERSPECTIVE["Learning & Growth Perspective"],
     },
 
 }
